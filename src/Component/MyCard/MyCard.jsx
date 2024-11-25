@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../Component/MyCard/Mycard.css";
+import "../../Component/MyCard/myCard.css";
 import "../../Component/MyCard/Design.css";
 import profileimg from "../../images/profileimg.png";
 import basicimg from "../../images/basicimg.png";
