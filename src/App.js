@@ -34,7 +34,7 @@ function App() {
                             <Route path="/digital-review-card" element={<DigitalReviewCard />} />
                             <Route path="/email-signature" element={<EmailSignature />} />
                             <Route path="/virtual-background" element={<VirtualBackground />} />
-                    /        <Route path="/contacts" element={<Contacts />} />
+                            <Route path="/contacts" element={<Contacts />} />
                             <Route path="/my-leads" element={<MyLeads />} />
                             <Route path="/settings" element={<Settings />} />
                             <Route path='/standardplan' element={<StandardPlan/>}/>
