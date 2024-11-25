@@ -1,0 +1,45 @@
+.n-f-c {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}
+.left-n-f-c-card {
+  width: 53.47%;
+  height: 809px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 93px 50px;
+}
+.choose-l-n-f-c {
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 0 0 15px;
+}
+.cards-l-n-f-c {
+  display: flex;
+  align-items: center;
+  gap: 29px;
+}
+
+.right-n-f-c-card {
+  width: 45.2%;
+  height: 809px;
+  /* height: 100vh; */
+  background-color: white;
+  border-radius: 10px;
+  padding: 93px 50px;
+}
+.how-it-r-n-f-c {
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  line-height: 27px;
+  padding: 0 0 15px;
+}
+.grey-b-o-x {
+  width: 100%;
+  height: 599px;
+  border-radius: 10px;
+  background-color: rgba(239, 241, 243, 1);
+}
