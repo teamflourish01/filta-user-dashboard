@@ -11,6 +11,8 @@ import VirtualBackground from './Component/VirtualBackground/VirtualBackground';
 import Contacts from './Component/Contacts/Contacts';
 import MyLeads from './Component/MyLeads/MyLeads';
 import Settings from './Component/Settings/Settings';
+import StandardPlan from './Component/StandardPlan/StandardPlan';
+import PremiumPlan from './Component/PremiumPlan/PremiumPlan';
 // import Subscription from './Pages/Subscription';
 // import Support from './Pages/Support';
 // import RateUs from './Pages/RateUs';
@@ -35,6 +37,9 @@ function App() {
                     /        <Route path="/contacts" element={<Contacts />} />
                             <Route path="/my-leads" element={<MyLeads />} />
                             <Route path="/settings" element={<Settings />} />
+                            <Route path='/standardplan' element={<StandardPlan/>}/>
+                            <Route path='/premiumplan' element={<PremiumPlan/>}/>
+
                             {/* <Route path="/subscription" element={<Subscription />} />
                             <Route path="/support" element={<Support />} />
                             <Route path="/rate-us" element={<RateUs />} />
