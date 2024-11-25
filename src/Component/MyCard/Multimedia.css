@@ -1,0 +1,156 @@
+.mlt-margin {
+  margin: 15px 31px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.mlt-info {
+  padding: 15px;
+}
+.mlt-title {
+  font-size: 14px;
+  font-family: SemiBold;
+  font-weight: 600;
+  color: #000000;
+}
+.mlt-desc {
+  font-size: 14px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #666;
+  text-align: justify;
+}
+.mlt-vdtitle {
+  padding: 0 15px;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+}
+.mlt-uplod {
+  background-color: #eff1f3;
+  width: 116px;
+  height: 80px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.mlt-uplod input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  position: absolute;
+}
+.mlt-video {
+  display: flex;
+  gap: 15px;
+  padding: 5px 15px 26px 15px;
+}
+.mlt-uplod img {
+  width: 27px;
+  height: 27px;
+}
+.mlt-uplodvideo {
+  width: 116px;
+  height: 80px;
+  position: relative;
+  /* background-color: #eff1f3; */
+  border-radius: 2px;
+  background-image: url("../../images/video_img.png");
+}
+
+.mlt-uplodvideo video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mlt-deltbtn {
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  background-color: #eff1f3;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mlt-urlform {
+  padding: 15px;
+}
+.mlt-urlform p {
+  font-family: Poppins-Regular;
+  font-weight: 400;
+}
+.mlt-urltitle {
+  font-size: 16px;
+  color: #000000;
+  line-height: 24px;
+}
+.mlt-url {
+  font-size: 14px;
+  color: #00000080;
+  line-height: 21px;
+}
+.mlt-inputbox{
+  width: 100%;
+}
+.mlt-urlform input {
+  width: 100%;
+  height: 42px;
+  background-color: #eff1f3;
+  border: 1px solid #eff1f3;
+  margin-top: 5px;
+  border-radius: 5px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 14px;
+  color: #00000080;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+/* button style */
+.mlt-btnmain {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mlt-addmorebtn {
+  background-color: #eff1f3;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: SemiBold;
+  font-weight: 600;
+  color: #000000;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.mlt-twobtn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.mlt-cancel,
+.mlt-save {
+  font-size: 16px;
+  font-family: SemiBold;
+  font-weight: 600;
+  border-radius: 35px;
+  cursor: pointer;
+}
+.mlt-cancel {
+  border: 1px solid #eff1f3;
+  padding: 5px 14px;
+}
+.mlt-save {
+  color: #ffffff;
+  padding: 5px 35px;
+  background-color: #000000;
+}
