@@ -1,8 +1,10 @@
 import React from 'react'
-
+import "../MyCard/myCard.css"
 const MyCard = () => {
   return (
-    <div>MyCard</div>
+    <div className="content">
+  <div className="clickable-link">Clickable links</div>
+    </div>
   )
 }
 

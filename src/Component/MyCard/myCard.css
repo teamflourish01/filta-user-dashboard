@@ -1,0 +1,8 @@
+.content{
+    width: 46.35%;
+    border: 1px solid black;
+}
+.clickable-link{
+    width: 100%;
+    border: 1px solid red;
+}
