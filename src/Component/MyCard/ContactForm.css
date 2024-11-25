@@ -1,0 +1,80 @@
+.cont-reqfiled {
+  padding: 0 15px 15px 15px;
+}
+.cont-reqfiled p {
+  font-family: Poppins-Medium;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000000;
+  margin-bottom: 8px;
+}
+.cont-chkbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cont-chk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cont-chk label {
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  line-height: 24px;
+}
+.cont-chk input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  background-color: #eff1f3;
+  border-radius: 3px;
+  border: 1px solid #eff1f3;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.cont-chk input[type="checkbox"]:checked::before {
+  content: "✔";
+  color: #000000;
+  font-size: 16px;
+  position: absolute;
+  top: -5px;
+  left: 2px;
+}
+.cont-formdiv {
+  padding: 0 15px 15px 15px;
+}
+.cont-forminput{
+  margin-bottom: 15px;
+}
+.cont-btnmargin{
+  padding-top: 10px;
+}
+.cont-forminput label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  line-height: 24px;
+}
+.cont-forminput input,
+.cont-txtarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 42px;
+  color: #00000080;
+  border: 1px solid #eff1f3;
+  background-color: #eff1f3;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 5px;
+}
+.cont-txtarea {
+  height: 110px;
+  resize: none;
+}

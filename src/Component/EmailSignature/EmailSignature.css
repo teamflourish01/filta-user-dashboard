@@ -1,0 +1,318 @@
+/* Container settings */
+.e-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #eff1f3;
+  /* border: 1px solid black; */
+  gap: 45px;
+}
+
+/* Left panel settings */
+.e-leftpanel {
+  width: 60%;
+  background-color: #ffffff;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Checkbox container */
+.e-checkboxcontiner {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 51px;
+}
+
+.e-checkboxcontiner label {
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+.e-checkboxcontiner input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 17px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.e-checkboxcontiner input[type="checkbox"]:checked {
+  background-color: black;
+}
+
+.e-checkboxcontiner input[type="checkbox"]:checked::before {
+  content: "✔";
+  color: white;
+  font-size: 16px;
+  position: absolute;
+  top: -5px;
+  left: 1px;
+}
+#left-checkbox {
+  margin: 0 15px 0 0;
+}
+
+/* Form styling */
+.e-form {
+  width: 100%;
+  padding: 20px 41px;
+  box-sizing: border-box;
+}
+
+.e-allfiled {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.e-flexfiled {
+  display: flex;
+  gap: 27px;
+}
+
+.e-filedgrup {
+  flex: 1;
+}
+
+.e-fullwidth {
+  width: 100%;
+}
+
+.e-form label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+}
+
+.e-form input,
+.e-txtarea {
+  width: 100%;
+  border-radius: 8px;
+  background-color: #eff1f3;
+  height: 45px;
+  color: #00000080;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+}
+
+.e-txtarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Button styling */
+.e-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.e-cancel,
+.e-save {
+  /* padding: 10px 20px; */
+  border: none;
+  border-radius: 35px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: SemiBold;
+  font-weight: 600;
+}
+
+.e-cancel {
+  background-color: #e2e2e2;
+  padding: 5px 14px;
+}
+
+.e-save {
+  background-color: #000;
+  color: #fff;
+  padding: 5px 35px;
+}
+
+/* Right panel styling */
+.e-rightpanel {
+  width: 40%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  /* border: 1px solid black; */
+  /* padding: 20px; */
+  box-sizing: border-box;
+}
+
+.e-profile {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 15px;
+}
+
+.e-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.e-prfname {
+  font-size: 16px;
+  color: #000;
+  margin: 0;
+  font-family: Poppins-Medium;
+  font-weight: 500;
+  color: #000000;
+}
+
+.e-prfemail {
+  font-size: 14px;
+  color: #00000080;
+  margin: 0;
+  font-family: Poppins-Medium;
+  font-weight: 500;
+  padding-top: 4px;
+}
+
+.hrline {
+  margin: 0;
+  padding: 0;
+}
+.e-rightmain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.e-cardheding {
+  font-family: Poppins-Medium;
+  font-weight: 500;
+  font-size: 18px;
+  color: #000000;
+  margin: 20px 0;
+}
+.e-cardmain {
+  width: 20%;
+  display: flex;
+  gap: 90px;
+}
+
+/* Direct */
+.email-preview {
+  /* margin-top: 20px; */
+  text-align: center;
+}
+
+.signature-card {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 15px 25px;
+  border-radius: 8px;
+  /* margin-top: 20px; */
+  justify-content: space-between;
+  gap: 90px;
+  /* height: 219px; */
+}
+
+.signature-image {
+  width: 50px;
+  /* height: 50px; */
+  /* margin-right: 15px; */
+}
+.e-filtalogo {
+  width: 50px;
+  /* height: 50px; */
+  margin-bottom: 20px;
+  background-size: contain;
+}
+.signature-card p {
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 14px;
+  color: #000000a8;
+  margin: 0;
+  padding: 3px 0 0 0;
+}
+.signature-card .e-cardname {
+  font-size: 18px;
+  color: #000000;
+  padding: 10px 0 0 0;
+  font-family: Poppins-Medium;
+  font-weight: 500;
+}
+.signature-card .e-cardno {
+  padding-top: 10px;
+}
+.signature-info {
+  text-align: left;
+}
+
+.e-cardright p {
+  margin: 0;
+  padding: 6px 4px 0 4px;
+  color: #000000;
+  font-size: 12px;
+}
+.qr-code {
+  /* width: 100px;
+  height: 100px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center; */
+  border: 1px solid #ddd;
+  border-radius: 2.3px;
+  padding: 9px;
+}
+.qr-code img {
+  width: 93px;
+}
+.add-to-email {
+  padding: 5px 13px;
+  margin-top: 20px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  font-family: SemiBold;
+  font-weight: 600;
+  font-size: 16px;
+}
+.e-or {
+  margin: 15px 0 10px 0;
+  padding: 0;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 14px;
+}
+.e-download {
+  color: #5aba47;
+  text-decoration: none;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 14px;
+}
+.e-cardright:not(.img) img {
+  top: -60px;
+  position: relative;
+  margin: 0;
+}
