@@ -12,9 +12,9 @@
   }
   
   @font-face {
-    /* Light 700 */
-    /* font-family:  Montserrat-Bold; */
-    /* src: url(../Font/Montserrat-Bold.ttf); */
+    /* Light 600 */
+    font-family: Poppins-SemiBold ;
+    src: url(../../Poppins/Poppins-SemiBold.ttf);
   }
 
 

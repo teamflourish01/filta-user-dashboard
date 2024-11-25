@@ -1,0 +1,289 @@
+p{
+    padding: 0;
+    margin: 0;
+}
+.VirtualBackground-container{
+    width: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    height: 100%;
+    gap: 45px;
+
+}
+.vb-leftpannel{
+    width: 55%;
+    /* border: 1px solid blue; */
+    /* padding: 0 40px; */
+    background: white;
+    border-radius:8px;
+}
+.vb-checkbox-container{
+    display: flex;
+    justify-content: space-between;
+    margin: 26px 40px;
+    flex-wrap: wrap;
+}
+.vb-checkbox-name{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.vb-checkbox-name span{
+    font-family: Poppins-Regular;
+    font-weight: 400;
+    font-size: 16px;
+   
+}
+
+
+
+.vb-checkbox-name input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 17px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .vb-checkbox-name input[type="checkbox"]:checked {
+    background-color: black;
+  }
+  
+  .vb-checkbox-name input[type="checkbox"]:checked::before {
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: -5px;
+    left: 1px;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .vb-uploadtext{
+    margin: 20px 40px 8px 40px;
+    font-family: Poppins-Regular;
+    font-weight: 400;
+    font-size: 16px;
+
+  }
+  .vb-upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* padding: 30px; */
+    background: rgba(239, 241, 243, 1);
+    border-radius: 10px;
+    /* border: 1px dashed #ccc; */
+    /* width: 100%; */
+    height: 224px;
+    /* max-width: 400px; */
+    margin: 0px 40px 15px 40px;
+  }
+  
+  .vb-upload-icon {
+    font-size: 36px;
+    color: #000;
+  }
+  
+  .vb-upload-box p {
+    margin: 10px 0;
+    text-align: center;
+    font-family: Poppins-Regular;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  
+  .vb-upload-box .vb-select {
+    color: #34a853;
+    font-weight: bold;
+    
+  }
+  .vb-upload-box .vb-drag {
+    color: #8A8C9A;
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  
+
+.vb-choose-library{
+    margin: 15px 40px;
+}
+.vb-choose-library p{
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    font-weight: 400;
+}
+.vb-tab{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* margin-bottom: 20px; */
+    margin: 8px 0;
+    justify-content: space-between;
+}
+
+.vb-tab-buttton{
+    width: 85px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+ .vb-img-display-grid{
+    /* border: 1px solid black; */
+    background: #EFF1F3;
+    border-radius: 10px;
+
+ }
+  
+
+
+.bv-img-select{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 25px;
+    justify-items: center;
+}
+
+
+.vb-all-img{
+    width: 100%;
+    height: 110px;
+    background-size: contain;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+/* virtual background right pannel */
+
+.vb-rightpannel{
+width: 45%;
+/* border: 1px solid green; */
+background: white;
+border-radius:8px;
+}
+.vb-user-name{
+    display: flex;
+    align-items: center;
+    margin: 13px 15px;
+    gap: 13px;
+}
+.vb-profile-img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+.vb-user-n-m p{
+margin: 0;
+
+}
+.vb-name{
+    font-family: Poppins-Medium;
+    font-size: 16px;
+font-weight: 500;
+}
+.vb-gamil{
+    color: #00000080;
+padding-top: 4px;
+font-family: Poppins-Medium;
+font-size: 14px;
+font-weight: 500;
+}
+.vb-heading-prev{
+    text-align: center;
+    margin: 20px 0;
+    font-family: Poppins-Medium;
+font-size: 18px;
+font-weight: 500;
+
+}
+
+.vb-preview-card{
+    width: 320px;
+    height: 180px;
+    /* border: 1px solid #000; */
+    border-radius: 5px;
+    margin: 0 auto;
+    /* background-image: url(../VirtualBackground/VirtualBackgroundimage/img1.jpg); */
+    background-position: center;
+    background-size: contain;
+}
+.vb-preview-card-child{
+    width: 308px;
+    /* height: 118px; */
+    margin: 0 auto;
+    display: flex;
+    /* border: 1px solid #000; */
+    justify-content: space-between;
+    padding: 8px;
+    position: absolute;
+}
+.vb-flex-preview-child p{
+   background-color: white;
+   margin: 3px 0;
+   width: max-content;
+  
+}
+.vb-n-500{
+    font-family: Poppins-Medium;
+    font-size: 10px;
+    font-weight: 500;
+}
+.vb-n-400{
+    font-family: Poppins-Regular;
+    font-size: 9px;
+    font-weight: 400;
+}
+
+.vb-background-button{
+    margin: 20px 0;
+    justify-content: center;
+    display: flex;
+}
+
+.vb-download-button{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 6px 12px 5px 16px;
+    border-radius: 22px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-family: Poppins-SemiBold ;
+    font-size: 16px;
+    font-weight: 600;
+    /* text-align: center; */
+}
