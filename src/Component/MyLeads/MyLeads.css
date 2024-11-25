@@ -1,0 +1,236 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+.my-lead-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 10px;
+  border: 1px solid rgba(239, 241, 243, 1);
+  height: 826px;
+}
+.search-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  border: 1px solid rgba(239, 241, 243, 1);
+}
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 316px;
+  padding: 18px 0;
+}
+.search-icon {
+  width: 35px;
+  height: 33px;
+  background-color: rgba(239, 241, 243, 1);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.search-bar .search-icon {
+  position: absolute;
+  left: 3px;
+  font-size: 18px;
+  color: #888;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 9px 9px 9px 47px;
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 21px;
+  border: 1px solid rgba(239, 241, 243, 1);
+  border-radius: 10px;
+  outline: none;
+  /* height: 39px; */
+}
+.export-button {
+  cursor: pointer;
+  border: none;
+  width: 94px;
+  height: 43px;
+  border-radius: 5px;
+  background-color: rgba(239, 241, 243, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 16px 0;
+}
+.down-arrow {
+  font-size: 24px;
+  width: 15px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.down-arrow svg {
+  transform: scale(1.1);
+}
+.export-btn {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Lead Card CSS */
+
+.lead-card-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 21px;
+  padding: 20px 25px;
+}
+.lead-card {
+  /* width: 23.13%; */
+  width: 25%;
+  background-color: rgba(239, 241, 243, 1);
+  border-radius: 5px;
+  padding: 10px;
+}
+.child-lead-card {
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 39px 0;
+}
+.lead-card-title {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+.lead-count {
+  font-family: Poppins-SemiBold;
+  font-size: 18px;
+  line-height: 27px;
+}
+.eye-bg-leads {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(239, 241, 243, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.eye-bg-leads {
+  color: black;
+}
+/* <----- Leads Table css -----> */
+
+.leads {
+  padding: 0 25px;
+}
+.leads-title {
+  font-family: Poppins-SemiBold;
+  font-size: 20px;
+  line-height: 30px;
+  padding: 0 0 8px;
+}
+/* .scroll{
+  border:10px solid #eff1f3;
+  height: 372px;
+  border-radius: 5px;
+} */
+.scroll {
+  position: relative;
+  border: 10px solid #eff1f3; /* Outer border */
+  height: 372px;
+  border-radius: 5px;
+  background-color: white; /* Background color for content inside */
+}
+
+.scroll::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -1px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid #eff1f3;
+  border-radius: 5px;
+  pointer-events: none;
+  box-sizing: border-box;
+  /* width: 757px; */
+
+}
+
+/* .leads-box-bg {
+  background-color: #eff1f3;
+  height: 372px;
+  border-radius: 5px;
+  padding: 10px;
+}
+.leads-box-bg-white {
+  background-color: white;
+  border-radius: 5px;
+  height: 372px;
+} */
+
+/* ----- table ----- */
+table {
+  width: 100%;
+  /* overflow: hidden; */
+  border-spacing: 0;
+  border-collapse: separate;
+  background-color: #fff;
+}
+td {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #eff1f3;
+}
+tr {
+  border-bottom: 1px solid #eff1f3;
+}
+.table-head-title {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+.table-detail-info {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 1136px) {
+  .scroll {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  /* .leads-box-bg {
+    width: 756px;
+  } */
+  .scroll::before {
+    width: 757px;
+  }
+}
+
+@media(max-width:1024px){
+  .lead-card-section{
+    flex-wrap: wrap;
+  }
+  .lead-card{
+    width: 45%;
+  }
+}
