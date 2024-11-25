@@ -1,3 +1,30 @@
+@font-face {
+  font-family: Poppins-Light;
+  src: url('../src/Poppins/Poppins-Light.ttf');
+  /* 300 */
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url("../src/Poppins/Poppins-Regular.ttf");
+  /* 400 */
+}
+@font-face {
+  font-family: Poppins-Medium;
+  src: url("../src/Poppins/Poppins-Medium.ttf");
+  /* 500 */
+}
+@font-face {
+  font-family: Poppins-SemiBold;
+  src: url("../src/Poppins/Poppins-SemiBold.ttf");
+  /* 600 */
+}
+@font-face {
+  font-family: Poppins-Bold;
+  src: url("../src/Poppins/Poppins-Bold.ttf");
+  /* 700 */
+}
+
 .App {
   display: flex;
   min-height: 100vh;
@@ -12,7 +39,9 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Ensures it stays above other elements */
+  /* z-index: 1000; Ensures it stays above other elements */
+  z-index: 1;
+  
 }
 
 /* Sidebar container styles */

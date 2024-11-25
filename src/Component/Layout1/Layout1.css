@@ -1,0 +1,127 @@
+.front-side-text-lay {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+  padding-bottom: 10px;
+}
+.front-premium-card{
+  width: 58.48%;
+  margin: 0 auto;
+}
+.back-premium-card{
+  width: 58.48%;
+  margin: 0 auto;
+}
+.front-side-card-design-premium {
+  /* width: 400px; */
+  /* width: 58.48%;; */
+  height: 238px;
+  background-color: black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+  position: relative;
+  box-shadow: 0px 0px 4px 0px #00000033;
+
+}
+.bottom-premium-section {
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  flex-direction: column;
+}
+.back-side-text-lay {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 31px 0 10px;
+}
+.back-side-card-design-premium {
+  /* width: 400px; */
+  /* width: 58.48%; */
+  height: 238px;
+  background-color: black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0px 0px 4px 0px #00000033;
+}
+.nfc-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  right: 0px;
+}
+.nfc-lay-1-icon-size {
+  margin: 10px;
+}
+.layout-1-front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.hr-line-l1 {
+  width: 1px;
+  height: 50%;
+  background: white;
+  margin: 40px;
+}
+.hr-line-l1-horizontal {
+  width: 50%;
+  height: 1px;
+  background: white;
+}
+.layout-1-logo-size {
+  padding: 40px 0;
+}
+.layout1-user-n-d {
+}
+.l1-user-name {
+  font-family: Poppins-Bold;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 27px;
+  color: white;
+  text-align: center;
+  max-width: 400px !important;
+  min-width: 100px;
+  width: 100%;
+  word-wrap: break-word;
+
+}
+.l1-user-designation {
+  font-family: Poppins-SemiBold;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  color: white;
+  text-align: center;
+  /* width: 400px; */
+  max-width: 400px !important;
+  min-width: 100px;
+  width: 100%;
+  word-wrap: break-word;
+
+}
+.scanner-container-premium {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+}
+.scanner-lay1-size {
+  width: 68px;
+  height: 68px;
+}
+.lay1-mobile-user {
+  padding: 5px 0 0;
+}
