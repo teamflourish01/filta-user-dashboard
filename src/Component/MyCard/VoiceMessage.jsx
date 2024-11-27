@@ -18,12 +18,14 @@ const VoiceMessage = () => {
           readable content of a page when looking at its layout.
         </span>
         <div className="vm-detailbox">
-          <p>Upload Or add voice</p>
+          <p className="vm-upload-title">Upload Or add voice</p>
           <div className="vm-twoimg">
             <div className="vm-vimg">
+              <input type="file" className="vm-infile" />
               <img src={voiceImg} alt="vs-img" />
             </div>
             <div className="vm-upimg">
+              <input type="file" className="vm-infile" />
               <img src={uplodImg} alt="up-img" />
             </div>
           </div>
@@ -32,7 +34,7 @@ const VoiceMessage = () => {
               <img src={playImg} alt="ply-img" />
             </div>
             <img src={waveImg} alt="wave-img" />
-            <p>0:05</p>
+            <p className="vm-time">0:05</p>
             <div className="vm-spkbox">
               <img src={spikrImg} alt="spk-img" />
             </div>

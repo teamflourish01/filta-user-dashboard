@@ -1,9 +1,18 @@
 import React, { useRef, useState } from "react";
+<<<<<<< HEAD:src/pages/EmailSignature.jsx
 import "../styles/EmailSignature.css";
 import profileimg from "../images/profileimg.png";
 import logoimg from "../images/filta.png";
 import qrcode from "../images/qrcode.png";
 import html2canvas from "html2canvas";
+=======
+import "../../Component/EmailSignature/EmailSignature.css";
+import profileimg from "../../images/profileimg.png";
+import logoimg from "../../images/filta.png";
+import qrcode from "../../images/qrcode.png";
+import html2canvas from 'html2canvas';
+
+>>>>>>> e6386da9e793e0e1b1074c610508b75703065060:src/Component/EmailSignature/EmailSignature.jsx
 const EmailSignature = () => {
   const [Photo, setPhoto] = useState(true);
   const [qrimg, setQrimg] = useState(true);
