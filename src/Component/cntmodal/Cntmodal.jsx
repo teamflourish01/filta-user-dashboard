@@ -40,7 +40,7 @@ const Cntmodal = ({ isOpen, onClose, onsave, contact }) => {
   };
   return (
     <div className="modal-overlay">
-      <div className="modal">
+      <div className="modal-cnt">
         <form className="modal-form" onSubmit={handleSubmit}>
           <label>Name</label>
           <input
