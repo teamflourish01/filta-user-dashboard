@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "../Contacts/contacts.css";
+import "../styles/contacts.css";
 import { CiSearch } from "react-icons/ci";
 import { FaEye, FaPen, FaTrashAlt } from "react-icons/fa";
-import actionbtn3 from "../../images/ctndelet.svg";
-import ctneye from "../../images/ctneye.svg";
-import suffle from "../../images/shuffle.svg";
-import ctnpen from "../../images/ctnpen.svg";
-import profile from "../../images/profile.svg";
-import search from "../../images/cntsearch.svg";
-import Cntmodal from "../cntmodal/Cntmodal";
+import actionbtn3 from "../images/ctndelet.svg";
+import ctneye from "../images/ctneye.svg";
+import suffle from "../images/shuffle.svg";
+import ctnpen from "../images/ctnpen.svg";
+import profile from "../images/profile.svg";
+import search from "../images/cntsearch.svg";
+import Cntmodal from "../Component/cntmodal/Cntmodal";
 
 // const data = [
 //     {
