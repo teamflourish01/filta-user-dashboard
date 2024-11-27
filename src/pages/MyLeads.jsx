@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { PiArrowLineDownBold } from "react-icons/pi";
 import { IoEyeOutline } from "react-icons/io5";
-import "../MyLeads/MyLeads.css";
-import LeadDetails from "../LeadDetails/LeadDetails";
+import "../styles/MyLeads.css";
+import LeadDetails from "../Component/LeadDetails/LeadDetails";
 
 const MyLeads = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

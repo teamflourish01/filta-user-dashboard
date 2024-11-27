@@ -1,7 +1,7 @@
 import React from "react";
-import "../NFCCard/NFCCard.css";
-import ChooseStandardNFC from "../ChooseStandardNFC/ChooseStandardNFC";
-import ChoosePremiumNFC from "../ChoosePremiumNFC/ChoosePremiumNFC";
+import "../styles/NFCCard.css";
+import ChooseStandardNFC from "../Component/ChooseStandardNFC/ChooseStandardNFC";
+import ChoosePremiumNFC from "../Component/ChoosePremiumNFC/ChoosePremiumNFC";
 
 const NFCCard = () => {
   return (
