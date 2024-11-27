@@ -3,7 +3,8 @@ import "../../Component/EmailSignature/EmailSignature.css";
 import profileimg from "../../images/profileimg.png";
 import logoimg from "../../images/filta.png";
 import qrcode from "../../images/qrcode.png";
-import html2canvas from "html2canvas";
+import html2canvas from 'html2canvas';
+
 const EmailSignature = () => {
   const [Photo, setPhoto] = useState(true);
   const [qrimg, setQrimg] = useState(true);

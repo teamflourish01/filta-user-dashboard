@@ -22,7 +22,7 @@ const MyLeads = () => {
           {/* -----Search-Section----- */}
           <div className="search-section">
             <div class="search-bar">
-              <span class="search-icon">
+              <span class="search-icon-lead">
                 <FiSearch />
               </span>
               <input
