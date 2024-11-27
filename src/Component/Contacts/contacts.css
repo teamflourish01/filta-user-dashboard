@@ -43,7 +43,7 @@ line-height: 24px;
   padding: 16px 25px;
 }
 .search-flex{
-    display: flex;
+    /* display: flex; */
    
 }
 .serach{
@@ -53,7 +53,7 @@ line-height: 24px;
    border-radius: 7px;
 
 }
-.search-icon{
+.search-icon-cnt{
   padding: 3px 0 3px 3px;
   display: flex;
   align-items: center;
@@ -64,6 +64,7 @@ line-height: 24px;
     width: 100%;
     border: none;
     font-size: 14px;
+    outline: none;
     font-family: Poppins-Regular;
 
 }
