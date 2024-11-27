@@ -13,11 +13,11 @@
   z-index: 1000;
 }
 
-.modal {
+.modal-cnt {
   background: #fff;
   padding: 25px 25px 21px 25px;
   border-radius: 8px;
-  width: 47%;
+  width: 37%;
 
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
