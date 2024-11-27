@@ -19,7 +19,7 @@ const Layout1 = ({
   formData,
   selectedFile,
 }) => {
-  const hasLogoOrUserDetails = selectedFile && (formData.name || formData.info);
+  const hasLogoOrUserDetails = (selectedFile || logol1) && ((formData.name || 'your name') || (formData.info || 'information'));
   const hideBackLine = formData.email || formData.mobileNumber;
   return (
     <div>
@@ -36,7 +36,7 @@ const Layout1 = ({
           )}
           <div className="layout-1-logo-c">
             <img
-              src={selectedFile}
+              src={selectedFile || logol1}
               alt=""
               className="layout-1-logo-size"
               style={{
@@ -51,7 +51,7 @@ const Layout1 = ({
               style={{ background: accentColorPremium }}
             ></div>
           )}
-         
+
           {/* <div className="layout1-user-n-d">
             <p className="l1-user-name" style={{ color: primaryTextColor }}>
               {formData.name}
@@ -63,23 +63,23 @@ const Layout1 = ({
               {formData.info}
             </p>
           </div> */}
-          {formData.name || formData.info ? (
-  <div className="layout1-user-n-d">
-    {formData.name && (
-      <p className="l1-user-name" style={{ color: primaryTextColor }}>
-        {formData.name}
-      </p>
-    )}
-    {formData.info && (
-      <p
-        className="l1-user-designation lay1-mobile-user"
-        style={{ color: secondaryTextColor }}
-      >
-        {formData.info}
-      </p>
-    )}
-  </div>
-) : null}
+          {(formData.name|| 'Your Name') || (formData.info || 'information')? (
+            <div className="layout1-user-n-d">
+              {(formData.name|| 'Your Name') && (
+                <p className="l1-user-name" style={{ color: primaryTextColor }}>
+                  {formData?.name|| 'Name'}
+                </p>
+              )}
+              {(formData.info || 'information') && (
+                <p
+                  className="l1-user-designation lay1-mobile-user"
+                  style={{ color: secondaryTextColor }}
+                >
+                  {formData.info || 'information'}
+                </p>
+              )}
+            </div>
+          ) : null}
 
           <div className="layout-1-front"></div>
         </div>
@@ -110,13 +110,13 @@ const Layout1 = ({
               className="lay1-email-user l1-user-designation"
               style={{ color: secondaryTextColor }}
             >
-              {showEmailId && <p> {formData.email}</p>}
+              {showEmailId && <p> {formData.email || "Email"}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
                   style={{ color: secondaryTextColor }}
                 >
-                  {formData.mobileNumber}
+                  {formData.mobileNumber || 'Mobile Number'}
                 </p>
               )}
             </div>

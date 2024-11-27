@@ -165,7 +165,7 @@ const PremiumPlanDetails = ({
               <div className="top-premium-container">
                 <div className="logo-select-content">
                   <p className="Premium-customize-your-title">Add Logo</p>
-                  <div className="add-logo-c">
+                  <div className="add-logo-c" >
                     {/* Display selected file preview if available */}
                     {selectedFile ? (
                       <>
@@ -295,6 +295,7 @@ const PremiumPlanDetails = ({
                         type="checkbox"
                         className="Premium-cutomize-field-input"
                         onChange={hideEmailId}
+                        defaultChecked
                       />
                       <span className="slider-hide-standard round"></span>
                     </label>
@@ -319,6 +320,7 @@ const PremiumPlanDetails = ({
                         type="checkbox"
                         className="Premium-cutomize-field-input"
                         onChange={hideMobileNo}
+                        defaultChecked
                       />
                       <span className="slider-hide-standard round"></span>
                     </label>

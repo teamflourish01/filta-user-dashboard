@@ -10,12 +10,12 @@ const LeadDetails = ({ isOpen, onClose }) => {
   };
   return (
     <>
-      <div className="modal-overlay" onClick={handleOverlayClick}></div>
-      <div className="modal">
-        <button className="close-button" onClick={onClose}>
+      <div className="modal-overlay-lead" onClick={handleOverlayClick}></div>
+      <div className="modal-lead">
+        <button className="close-button-lead" onClick={onClose}>
           &times;
         </button>
-        <div className="modal-content">
+        <div className="modal-content-lead">
           <p className="lead-detail-title">Lead Details</p>
           <div className="lead-details-container">
             <div className="input-field">
