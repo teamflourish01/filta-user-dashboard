@@ -79,7 +79,7 @@ const ChooseStandardNFC = () => {
             <p className="box-text">Fully Customisable</p>
           </div>
           <div className="create-now-s-nfc">
-            <Link to='/standardplan'>
+            <Link to='/nfc-card/standardplan'>
             <button type="button" className="create-now-btn">
               Create Now
             </button>

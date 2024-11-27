@@ -78,7 +78,7 @@ const ChoosePremiumNFC = () => {
             <p className="box-text">Fully Customisable</p>
           </div>
           <div className="create-now-s-nfc">
-          <Link to='/premiumplan'>
+          <Link to='/nfc-card/premium-plan'>
 
             <button type="button" className="create-now-btn">
               Create Now

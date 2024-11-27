@@ -77,7 +77,7 @@ const StandardCustomizeDetail = ({
                 />
                 <div className="toggle-btn-standard">
                   <label className="switch-hide-standard">
-                    <input type="checkbox" onChange={hideEmailId} />
+                    <input type="checkbox" onChange={hideEmailId}  defaultChecked/>
                     <span className="slider-hide-standard round"></span>
                   </label>
                 </div>
@@ -95,7 +95,7 @@ const StandardCustomizeDetail = ({
                 />
                 <div className="toggle-btn-standard">
                   <label className="switch-hide-standard">
-                    <input type="checkbox" onChange={hideMobileNo} />
+                    <input type="checkbox" onChange={hideMobileNo} defaultChecked />
                     <span className="slider-hide-standard round"></span>
                   </label>
                 </div>

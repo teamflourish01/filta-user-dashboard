@@ -37,8 +37,8 @@ function App() {
                             <Route path="/contacts" element={<Contacts />} />
                             <Route path="/my-leads" element={<MyLeads />} />
                             <Route path="/settings" element={<Settings />} />
-                            <Route path='/standardplan' element={<StandardPlan/>}/>
-                            <Route path='/premiumplan' element={<PremiumPlan/>}/>
+                            <Route path='/nfc-card/standardplan' element={<StandardPlan/>}/>
+                            <Route path='/nfc-card/premium-plan' element={<PremiumPlan/>}/>
 
                             {/* <Route path="/subscription" element={<Subscription />} />
                             <Route path="/support" element={<Support />} />
