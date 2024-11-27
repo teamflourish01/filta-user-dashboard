@@ -95,7 +95,7 @@ const Contacts = () => {
         <div className="cnt-search-flex">
           <div className="cnt-serch">
             <div className="search-flex">
-              <div className="search-icon">
+              <div className="search-icon-cnt">
                 {/* <CiSearch className="serach"/> */}
                 <img src={search} alt="" srcset="" className="serach" />
                 <input type="text" placeholder="Search" className="cnt-input" />
