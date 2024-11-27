@@ -30,7 +30,7 @@ const Layout2 = ({
           <div className="layout-2-logo-flex">
             <div className="layout-1-logo-c">
               <img
-                src={selectedFile}
+                src={selectedFile || logol1}
                 alt=""
                 className="layout-2-logo-size"
                 style={{
@@ -47,13 +47,13 @@ const Layout2 = ({
           </div>
           <div className="lay-2-user-detail m-135">
             <p className="l2-user-name" style={{ color: primaryTextColor }}>
-              {formData.name}
+              {formData.name || 'Name'}
             </p>
             <p
               className="l2-user-designation lay1-mobile-user"
               style={{ color: secondaryTextColor }}
             >
-              {formData.info}
+              {formData.info || 'Information'}
             </p>
           </div>
         </div>
@@ -80,13 +80,13 @@ const Layout2 = ({
               className="lay1-email-user l2-user-designation"
               style={{ color: secondaryTextColor }}
             >
-              {showEmailId && <p> {formData.email}</p>}
+              {showEmailId && <p> {formData.email || 'Email'}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l2-user-designation"
                   style={{ color: secondaryTextColor }}
                 >
-                  {formData.mobileNumber}
+                  {formData.mobileNumber || "Mobile Number"}
                 </p>
               )}
             </div>
