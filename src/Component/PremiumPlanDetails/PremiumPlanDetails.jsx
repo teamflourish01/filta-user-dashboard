@@ -35,6 +35,7 @@ const PremiumPlanDetails = ({
   const [selectedFont, setSelectedFont] = useState("Default");
   const [themeColor, setThemeColor] = useState("#000000");
   const [qrCodeColor, setQrCodeColor] = useState("#000000");
+  const [selectedCard, setSelectedCard] = useState(0);
 
   const cardColorRef = useRef(null);
   const primaryTextColorRef = useRef(null);
@@ -121,6 +122,10 @@ const PremiumPlanDetails = ({
   const handleHeightChange = (e) => {
     setLogoHeight(e.target.value);
   };
+  const handleCardClick = (index) => {
+    setSelectedCard(index);
+  };
+
   return (
     <>
       <>
@@ -165,7 +170,7 @@ const PremiumPlanDetails = ({
               <div className="top-premium-container">
                 <div className="logo-select-content">
                   <p className="Premium-customize-your-title">Add Logo</p>
-                  <div className="add-logo-c" >
+                  <div className="add-logo-c">
                     {/* Display selected file preview if available */}
                     {selectedFile ? (
                       <>
@@ -336,7 +341,7 @@ const PremiumPlanDetails = ({
             {/* ----- Choose Card Color ----- */}
             <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">Choose Card Color</p>
-              <div className="Premium-Customize-Details-bg-grey center-content">
+              <div className="Premium-Customize-Details-bg-grey">
                 <div className="flex-color-cotent">
                   <div className="text-secondary">
                     <p className="Premium-customize-your-title-p-5">
@@ -512,11 +517,20 @@ const PremiumPlanDetails = ({
             <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">Choose Card Theme</p>
               <div className="cards-of-choose-card-theme">
+                {/* <div className="grey-cards-premium-theme"></div>
                 <div className="grey-cards-premium-theme"></div>
                 <div className="grey-cards-premium-theme"></div>
                 <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
+                <div className="grey-cards-premium-theme"></div> */}
+                {[...Array(5)].map((_, index) => (
+                  <div
+                    key={index}
+                    className={`grey-cards-premium-theme ${
+                      selectedCard === index ? "selected-card" : ""
+                    }`}
+                    onClick={() => handleCardClick(index)}
+                  ></div>
+                ))}
               </div>
             </div>
             {/* ----- QR Code Color ----- */}

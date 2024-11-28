@@ -43,6 +43,9 @@ const PremiumPlan = () => {
   const logoHide = () => {
     setShowFiltaLogo(!showFiltaLogo);
   };
+
+
+  
   return (
     <>
       <div className="bg">
@@ -104,6 +107,8 @@ const PremiumPlan = () => {
                     showFiltaLogo={showFiltaLogo}
                     formData={formData}
                     selectedFile={selectedFile}
+                    hideMobileNo={hideMobileNo}
+
                   />
                 )}
                 {selectedLayout === "layout2" && (
