@@ -17,14 +17,16 @@
   padding: 15px;
 }
 .customize-your-title {
-  font-family: Poppins-Medium;
+  /* font-family: Poppins-Medium; */
+  font-family: Poppins-Regular;
   font-size: 14px;
   line-height: 21px;
   color: #4f4f4f;
   padding-bottom: 8px;
 }
 .title-accent{
-  font-family: Poppins-Medium;
+  /* font-family: Poppins-Medium; */
+  font-family: Poppins-Regular;
   font-size: 14px;
   line-height: 21px;
   color: #4f4f4f;
@@ -56,7 +58,7 @@
 }
 .choose-color-options {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   /* margin: 10px 0; */
   border-bottom: 1px solid #eff1f3;
 }
@@ -87,7 +89,7 @@
   align-items: center;
   font-size: 14px;
   cursor: pointer;
-  gap: 5px;
+  gap: 2px;
   padding: 0 0 15px;
   position: relative;
 }

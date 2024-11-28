@@ -16,17 +16,22 @@
   border-radius: 10px;
 }
 .Premium-customize-your-title {
-  font-family: Poppins-Medium;
+  font-family: Poppins-Regular;
   font-size: 14px;
   line-height: 21px;
   color: #4f4f4f;
   padding-bottom: 8px;
+}
+.text-secondary {
+  /* max-width: 305px; */
+  width: 100%;
 }
 .Premium-customize-your-title-p-5 {
   font-family: Poppins-Medium;
   font-size: 14px;
   line-height: 21px;
   color: #4f4f4f;
+
   /* padding-bottom: 5px; */
 }
 .Premium-customize-detail-field {
@@ -103,7 +108,7 @@
   align-items: center;
   justify-content: center;
   gap: 25px;
-  padding: 25px 0;
+  padding: 25px 10px;
 }
 .center-choose-color {
   display: flex;
@@ -147,12 +152,27 @@
 .hr-line-grey {
   border-bottom: 1px solid #0000000d;
 }
+/* .grey-cards-premium-theme {
+  width: 119px;
+  height: 117px;
+  background-color: #eff1f3;
+  border-radius: 5px;
+} */
 .grey-cards-premium-theme {
   width: 119px;
   height: 117px;
   background-color: #eff1f3;
   border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
 }
+
+.grey-cards-premium-theme.selected-card {
+  box-shadow: 0 0 0 1px #0000001a;
+  border: 2px solid white;
+}
+
 /* Container styles */
 .font-dropdown-container {
   position: relative;
@@ -326,7 +346,7 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 42px;
+  gap: 52.5px;
 }
 .choose-card-layout-container {
   padding: 0 0 0 15px;

@@ -35,7 +35,7 @@ const Layout3 = ({
           <div className="layout-1-front">
             <div className="layout-1-logo-c">
               <img
-                src={selectedFile || logol1}
+                src={selectedFile}
                 alt=""
                 className="layout-1-logo-size"
                 style={{
@@ -67,21 +67,21 @@ const Layout3 = ({
               style={{ color: secondaryTextColor }}
             >
               <p className="l1-user-name" style={{ color: primaryTextColor }}>
-                {formData.name || 'Name'}
+                {formData.name}
               </p>
               <p
                 className="l1-user-designation lay1-mobile-user"
                 style={{ color: secondaryTextColor }}
               >
-                {formData.info || 'Information'}
+                {formData.info}
               </p>
-              {showEmailId && <p> {formData.email || 'Email'}</p>}
+              {showEmailId && <p> {formData.email }</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
                   style={{ color: secondaryTextColor }}
                 >
-                  {formData.mobileNumber || 'Mobile Number'}
+                  {formData.mobileNumber}
                 </p>
               )}
             </div>
