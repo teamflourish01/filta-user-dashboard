@@ -1,0 +1,151 @@
+.ph-dropdown {
+  padding: 15px;
+}
+.ph-dropdown p {
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+}
+.ph-vdtitle {
+  padding: 15px 0 5px 15px;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+}
+.ph-uplod {
+  background-color: #eff1f3;
+  width: 116px;
+  height: 80px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.ph-uplod input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  position: absolute;
+}
+.ph-imagesUpload {
+  display: flex;
+  gap: 15px;
+  padding: 5px 15px 26px 15px;
+}
+.ph-uplod img {
+  width: 27px;
+  height: 27px;
+}
+.ph-uplodimg {
+  width: 116px;
+  height: 80px;
+  position: relative;
+  border-radius: 2px;
+}
+
+/* .ph-uplodimg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+} */
+.ph-deltbtn {
+  width: 22px;
+  height: 22px;
+  text-align: center;
+  background-color: #eff1f3;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ph-btnpadding {
+  padding: 0 15px 15px 0;
+}
+/* DropDown design */
+.ph-dropdown-main {
+  position: relative;
+  padding: 0 0 15px;
+}
+
+/* Input and dropdown arrow */
+.ph-dropdownbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  height: 42px;
+  background-color: #eff1f3;
+  padding: 0 11px 0 15px;
+  border-radius: 5px;
+}
+.h-42 {
+  height: 42px !important;
+}
+
+.Premium-cutomize-field-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 0 0 10px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Dropdown arrow */
+.ph-dropdown-arrow {
+  margin-left: 8px;
+  font-size: 12px;
+  transition: transform 0.5s ease;
+}
+
+.ph-dropdown-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+/* Dropdown styles */
+.ph-optionbox {
+  position: absolute;
+  top: 80%;
+  left: 0;
+  width: 100%;
+  background: #eff1f3;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  z-index: 10;
+}
+
+/* Open and close animation */
+.ph-optionbox.open {
+  max-height: 300px;
+  opacity: 1;
+  font-family: Poppins-Regular;
+  line-height: 27px;
+}
+
+.ph-optionbox.closed {
+  max-height: 0;
+  font-family: Poppins-Regular;
+  line-height: 27px;
+}
+
+/* Dropdown options */
+.ph-option {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.ph-option:hover {
+  background: #f0f0f0;
+}

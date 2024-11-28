@@ -1,0 +1,58 @@
+.auto-suggst-container p {
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+  margin-bottom: 5px;
+}
+.auto-suggst-container {
+  padding: 15px 79px 15px 15px;
+}
+.auto-divBoxies {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.auto-box1,
+.auto-box1,
+.auto-box2,
+.auto-box3,
+.auto-box4 {
+  background-color: #eff1f3;
+  border: 1px solid #eff1f3;
+  border-radius: 5px;
+}
+.auto-box1,
+.auto-box4 {
+  width: 212px;
+  height: 27px;
+}
+.auto-box2,
+.auto-box3 {
+  width: 328px;
+  height: 27px;
+}
+.padding {
+  padding: 15px;
+}
+.auto-btnpadding {
+  padding: 0 15px 15px 15px;
+}
+.auto-customize {
+  margin-bottom: 15px;
+}
+.auto-txtarea {
+  width: 100%;
+  box-sizing: border-box;
+  height: 110px;
+  color: #00000080;
+  border: 1px solid #eff1f3;
+  background-color: #eff1f3;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 5px;
+  resize: none;
+  margin-top: 5px;
+}

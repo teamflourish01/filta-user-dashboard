@@ -48,12 +48,14 @@
 .sidebar-container {
   display: flex;
   margin-top: 71px; /* Adjust for the navbar height */
-  padding-left: 290px; /* Sidebar width offset */
+  /* padding-left: 290px;  */
+  /* padding-left: 360px;  */
+  padding: 0 20px;
 }
 
 .main-content {
   flex-grow: 1;
-  padding: 20px;
+  padding: 20px 0 20px 45px;
   overflow-y: auto; /* Allows scrolling within main content */
   /* margin-top: 60px; Adjust for fixed navbar */
 }

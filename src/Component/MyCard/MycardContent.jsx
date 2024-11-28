@@ -24,6 +24,14 @@ import DropdownComponent from "./DropdownComponent";
 import MultimediaComponent from "./MultimediaComponent";
 import ContactForm from "./ContactFrom";
 import VoiceMessage from "./VoiceMessage";
+import About from "./About";
+import TeamMember from "./TeamMember";
+import SocialProof from "./SocialProof";
+import Documents from "./Documents";
+import Photos from "./Photos";
+import ProductGallery from "./ProductGallery";
+import Automated from "./Automated";
+import TimeSensitive from "./TimeSensitive";
 const ContentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
@@ -208,6 +216,32 @@ const ContentComponent = () => {
       </DropdownComponent>
       <DropdownComponent title="Voice Message">
         <VoiceMessage />
+      </DropdownComponent>
+      <DropdownComponent title="About (introduction of company)">
+        <About />
+      </DropdownComponent>
+      <DropdownComponent title="Documents">
+        <Documents />
+      </DropdownComponent>
+
+      <DropdownComponent title="Team member details">
+        <TeamMember />
+      </DropdownComponent>
+
+      <DropdownComponent title="Time sensitive offer/ slider form">
+        <TimeSensitive />
+      </DropdownComponent>
+      <DropdownComponent title="Automated">
+        <Automated />
+      </DropdownComponent>
+      <DropdownComponent title="Social Proof">
+        <SocialProof />
+      </DropdownComponent>
+      <DropdownComponent title="Photos">
+        <Photos />
+      </DropdownComponent>
+      <DropdownComponent title="Product Gallery">
+        <ProductGallery />
       </DropdownComponent>
     </>
   );

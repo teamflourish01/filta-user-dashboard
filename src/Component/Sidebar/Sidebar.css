@@ -22,16 +22,17 @@
 
 /* Sidebar styles remain the same */
 .sidebar {
-  width: 220px;
+  /* width: 257px; */
+  width: 13.7%;
   background-color: white;
-  padding: 20px;
+  padding: 1.045%;
   margin-top: 20px;
   margin-bottom: 20px;
-  height: calc(100% - 40px);
-  position: fixed;
-  left: 20px;
+  /* height: calc(100% - 40px); */
+  /* position: fixed; */
+  /* left: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
   border-radius: 8px;
 }
 
