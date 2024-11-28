@@ -24,7 +24,7 @@ const StandardPlan = () => {
     mobileNumber: "",
   });
 
-  const hideBackLine = formData.email || formData.mobileNumber;
+  const hideBackLine = formData.email && (formData.email && showEmailId) || formData.mobileNumber && (formData.mobileNumber && showMobileNo);
 
   const hideNfc = () => {
     setShowNfcIcon(!showNfcIcon);

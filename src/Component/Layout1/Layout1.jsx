@@ -18,9 +18,11 @@ const Layout1 = ({
   showNfcIcon,
   formData,
   selectedFile,
+  hideMobileNo
 }) => {
-  const hasLogoOrUserDetails = (selectedFile || logol1) && ((formData.name || 'your name') || (formData.info || 'information'));
-  const hideBackLine = formData.email || formData.mobileNumber;
+  const hasLogoOrUserDetails = selectedFile && (formData.name || formData.info);
+  const hideBackLine = formData.email && (formData.email && showEmailId ) || formData.mobileNumber && (formData.mobileNumber && showMobileNo) ;
+
   return (
     <div>
       <div className="front-premium-card">
@@ -36,7 +38,7 @@ const Layout1 = ({
           )}
           <div className="layout-1-logo-c">
             <img
-              src={selectedFile || logol1}
+              src={selectedFile}
               alt=""
               className="layout-1-logo-size"
               style={{
@@ -63,14 +65,14 @@ const Layout1 = ({
               {formData.info}
             </p>
           </div> */}
-          {(formData.name|| 'Your Name') || (formData.info || 'information')? (
+          {formData.name || formData.info? (
             <div className="layout1-user-n-d">
-              {(formData.name|| 'Your Name') && (
+              {formData.name && (
                 <p className="l1-user-name" style={{ color: primaryTextColor }}>
-                  {formData?.name|| 'Name'}
+                  {formData?.name}
                 </p>
               )}
-              {(formData.info || 'information') && (
+              {formData.info && (
                 <p
                   className="l1-user-designation lay1-mobile-user"
                   style={{ color: secondaryTextColor }}
@@ -110,13 +112,13 @@ const Layout1 = ({
               className="lay1-email-user l1-user-designation"
               style={{ color: secondaryTextColor }}
             >
-              {showEmailId && <p> {formData.email || "Email"}</p>}
+              {showEmailId && <p> {formData.email}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
                   style={{ color: secondaryTextColor }}
                 >
-                  {formData.mobileNumber || 'Mobile Number'}
+                  {formData.mobileNumber}
                 </p>
               )}
             </div>
