@@ -33,10 +33,11 @@
   gap: 12px;
   background-color: #eff1f3;
   width: 264px;
-  height: 42px;
+  /* height: 42px; */
   border-radius: 5px;
   margin-top: 15px;
   margin-bottom: 25px;
+  padding: 5px 14px 5px 8px;
 }
 .vm-plyimgbox {
   width: 32px;
