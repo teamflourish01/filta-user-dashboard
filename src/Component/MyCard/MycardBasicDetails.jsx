@@ -106,7 +106,7 @@ const BasicDetails = () => {
                   />
                 </div>
                 <div className="my-fullwidth">
-                  <label>Disclaimer</label>
+                  <label>Bio</label>
                   <textarea
                     className="my-txtarea"
                     placeholder="Enter your Bio"

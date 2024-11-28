@@ -1,0 +1,182 @@
+.prd-padding {
+  padding: 0 15px 15px 15px;
+}
+.prd-vdtitle {
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+}
+.prd-uplod {
+  background-color: #eff1f3;
+  width: 175px;
+  height: 111px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.prd-uplod input {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: center;
+  position: absolute;
+}
+.prd-uplodcontainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.prd-info {
+  flex: 1;
+}
+.prd-view p,
+.prd-p {
+  font-size: 14px;
+  font-family: Poppins-Medium;
+  font-weight: 500;
+  color: #00000080;
+  line-height: 21px;
+  margin-bottom: 5px;
+}
+.prd-tapbtnmain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.prd-view label {
+  font-size: 14px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+  line-height: 21px;
+  display: block;
+  display: flex;
+  align-items: center;
+}
+
+.prd-view input {
+  margin-left: 8px;
+}
+.prd-slider-margin {
+  margin-top: 10px;
+}
+.prd-sliderbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #eff1f3;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.prd-slider-p {
+  font-size: 14px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+  line-height: 21px;
+}
+
+/* Toggle Switch */
+.prd-checkbox-container {
+  padding: 6px 0;
+}
+.prd-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 15px;
+}
+
+.prd-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.prd-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #d9d9d9;
+  transition: 0.4s;
+  border-radius: 15px;
+}
+
+.prd-slider:before {
+  position: absolute;
+  content: "";
+  height: 11px;
+  width: 11px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .prd-slider {
+  background-color: black;
+}
+
+input:checked + .prd-slider:before {
+  transform: translateX(15px);
+}
+
+/* photos section */
+.prd-photos-container {
+  padding: 15px 15px 25px 15px;
+  display: flex;
+  position: relative;
+  gap: 47px;
+  /* flex-wrap: wrap; */
+}
+.prd-photos p {
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #000000;
+  line-height: 24px;
+}
+.prd-photo {
+  position: relative;
+  width: 175px;
+  height: 137px;
+  border-radius: 5px;
+}
+.prd-prodimg {
+  width: 100%;
+  height: 100%;
+}
+/* edit-delete box button */
+.prd-editdelt-btnmain {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: absolute;
+  transform: translateX(-50%);
+  bottom: -15px;
+  left: 50%;
+}
+.prd-edit,
+.prd-delet {
+  background-color: #eff1f3;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prd-btnmargin {
+  padding: 0 15px 15px 15px;
+}

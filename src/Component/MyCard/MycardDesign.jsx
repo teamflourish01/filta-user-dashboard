@@ -25,6 +25,7 @@ const DesignComponent = () => {
     secTxtColor: useRef(null),
     themeColor: useRef(null),
   };
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleColorChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +39,9 @@ const DesignComponent = () => {
       refs[name].current.click();
     }
   };
-
+  const toggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
   return (
     <>
       <div className="di-margin">
@@ -323,7 +326,8 @@ const DesignComponent = () => {
                   <img
                     src={arrowIcon}
                     alt="down arrow"
-                    className="di-arrow-icon"
+                    className={`di-arrow-icon ${isOpen ? "rotate" : ""}`}
+                    onClick={toggleDropdown}
                   />
                 </div>
               </div>
