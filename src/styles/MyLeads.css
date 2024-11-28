@@ -191,7 +191,17 @@ table {
   border-collapse: separate;
   background-color: #fff;
 }
-td {
+/* td {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #eff1f3;
+} */
+.table-detail-info{
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #eff1f3;
+}
+.table-head-title{
   text-align: center;
   padding: 15px;
   border-bottom: 1px solid #eff1f3;
