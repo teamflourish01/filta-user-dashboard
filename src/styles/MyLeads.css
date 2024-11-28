@@ -150,10 +150,13 @@
 } */
 .scroll {
   position: relative;
-  border: 10px solid #eff1f3; /* Outer border */
+  border: 10px solid #eff1f3; 
   height: 372px;
   border-radius: 5px;
-  background-color: white; /* Background color for content inside */
+  background-color: white; 
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 .scroll::before {
@@ -184,7 +187,7 @@
 } */
 
 /* ----- table ----- */
-table {
+.table-lead {
   width: 100%;
   /* overflow: hidden; */
   border-spacing: 0;
