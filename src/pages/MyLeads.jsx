@@ -72,7 +72,7 @@ const MyLeads = () => {
             <div className="scroll">
             <div className="leads-box-bg">
               <div className="leads-box-bg-white">
-                <table>
+                <table className="table-lead">
                   <tr>
                     <td className="table-head-title">Name</td>
                     <td className="table-head-title">Email</td>
