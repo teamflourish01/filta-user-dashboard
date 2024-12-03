@@ -11,11 +11,11 @@ const DropdownComponent = ({ title, children }) => {
   return (
     <>
       <div className="drp-main">
-        <div className="drp-dotscircle">
-          <img src={dotsIcon} alt="dots" className="drp-dots-icon" />
-        </div>
         <div className="drp-container">
           <div className="drp-dropdownmain">
+            <div className="drp-dotscircle">
+              <img src={dotsIcon} alt="dots" className="drp-dots-icon" />
+            </div>
             <div className="drp-text">{title}</div>
             <img
               src={arrowIcon}

@@ -4,6 +4,9 @@
 }
 .di-margin {
   margin: 20px 41px;
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .di-maindiv {
   height: 277px;
@@ -84,7 +87,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
+.btnmargin-20 {
+  margin-top: 20px;
+}
+.btnmargin-10 {
+  padding-top: 10px;
+}
 .di-buttons {
   display: flex;
   justify-content: flex-end;
@@ -144,19 +152,31 @@
   background-color: #eff1f3;
   border-radius: 5px;
   margin-bottom: 15px;
+  padding: 20px 96px;
 }
-.di-grdbox img {
+.di-arrowimg {
+  height: 30px;
+  width: 30px;
+  /* border: 1px solid red; */
+  margin: 8px auto;
   display: flex;
-  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
 }
+.di-arrowimg img {
+  width: 15px;
+  height: 17.5px;
+}
+
 /* color btn */
 .color-picker-container {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 25px;
-  padding: 20px 96px;
+  /* padding: 20px 96px; */
 }
+
 .di-twoinput {
   /* position: relative; */
   width: 372px;
@@ -209,6 +229,7 @@
   background-color: #eff1f3;
   border-radius: 5px;
   margin-bottom: 25px;
+  padding: 20px 96px;
 }
 
 /* thired Box */
@@ -324,54 +345,95 @@
   height: 42px;
 }
 /* drop down */
-.di-dropdown {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
 .di-text {
   font-size: 16px;
   font-weight: bold;
 }
 
-.di-custom-select {
+/* DropDown design */
+.drp-dropdown {
+  padding: 15px 15px 0 15px;
+}
+.drp-dropdown-main {
   position: relative;
+  padding: 0 0 15px;
 }
 
-.di-select {
+/* Input and dropdown arrow */
+.drp-dropdownbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  height: 42px;
+  background-color: #eff1f3;
+  padding: 0 11px 0 15px;
+  border-radius: 5px;
+}
+.h-42 {
+  height: 42px !important;
+}
+
+.Premium-cutomize-field-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 0 0 10px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Dropdown arrow */
+.drp-dropdown-arrow {
+  margin-left: 8px;
+  font-size: 12px;
+  transition: transform 0.5s ease;
+}
+
+.drp-dropdown-arrow.rotate {
+  transform: rotate(180deg);
+}
+
+/* Dropdown styles */
+.drp-optionbox {
+  position: absolute;
+  top: 80%;
+  left: 0;
   width: 100%;
-  padding: 11px 0 11px 15px;
-  font-size: 14px;
-  font-family: Poppins-Regular;
-  font-weight: 400;
-  border: 1px solid #ccc;
+  background: #eff1f3;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  appearance: none; /* Remove the default arrow */
-  -webkit-appearance: none; /* For Safari */
-  -moz-appearance: none; /* For Firefox */
-  background: transparent;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  z-index: 10;
+}
+
+/* Open and close animation */
+.drp-optionbox.open {
+  max-height: 300px;
+  opacity: 1;
+  font-family: Poppins-Regular;
+  line-height: 27px;
+}
+
+.drp-optionbox.closed {
+  max-height: 0;
+  font-family: Poppins-Regular;
+  line-height: 27px;
+}
+
+/* Dropdown options */
+.drp-option {
+  padding: 8px 12px;
   cursor: pointer;
 }
 
-.di-arrow-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  width: 15px;
-  height: 7.5px;
-  transition: transform 0.5s ease;
-}
-.di-arrow-icon.rotate {
-  transform: rotate(180deg);
-}
-.di-select option {
-  width: 100%;
-}
-.di-select:focus {
-  outline: none;
+.drp-option:hover {
+  background: #ffffffb2;
 }
 
 /* Theme Box*/
