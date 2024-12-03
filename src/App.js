@@ -13,6 +13,8 @@ import MyLeads from './pages/MyLeads';
 import Settings from './pages/Settings';
 import StandardPlan from './Component/StandardPlan/StandardPlan';
 import PremiumPlan from './Component/PremiumPlan/PremiumPlan';
+import MyCardmain from './Component/MyCard/MyCardmain';
+
 // import Subscription from './Pages/Subscription';
 // import Support from './Pages/Support';
 // import RateUs from './Pages/RateUs';
@@ -29,7 +31,8 @@ function App() {
                     <Sidebar />
                     <div className="main-content">
                         <Routes>
-                            <Route path="/" element={<MyCard />} />
+                            <Route path="/" element={<MyCardmain/>} />
+                            <Route path="/edit/mycard" element={<MyCard/>} />                            
                             <Route path="/nfc-card" element={<NFCCard />} />
                             <Route path="/digital-review-card" element={<DigitalReviewCard />} />
                             <Route path="/email-signature" element={<EmailSignature />} />

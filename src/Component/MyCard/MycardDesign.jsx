@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import clrpiker from "../../images/desigin_clrpiker.png";
 import uparrow from "../../images/design_uparrow.png";
 import arrowIcon from "../../images/ct_downarrow.png";
+import { SlArrowDown } from "react-icons/sl";
+import TwoButton from "./TwoButton";
 const DesignComponent = () => {
   const [colors, setColors] = useState({
     flatColor: "#000000",
@@ -26,6 +28,15 @@ const DesignComponent = () => {
     themeColor: useRef(null),
   };
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedFont, setSelectedFont] = useState("Default");
+  const fonts = [
+    "poppins",
+    "poppins",
+    "poppins",
+    "poppins",
+    "poppins",
+    "poppins",
+  ];
 
   const handleColorChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +52,10 @@ const DesignComponent = () => {
   };
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
+  };
+  const handleFontSelect = (font) => {
+    setSelectedFont(font);
+    setIsOpen(false);
   };
   return (
     <>
@@ -130,7 +145,6 @@ const DesignComponent = () => {
                       value={colors.grdColor}
                       onChange={handleColorChange}
                     />
-
                     <input
                       type="color"
                       id="color-picker"
@@ -149,7 +163,10 @@ const DesignComponent = () => {
                     />
                   </div>
                 </div>
-                <img src={uparrow} alt="up_Arrow" />
+                <div className="di-arrowimg">
+                  <img src={uparrow} alt="up_Arrow" />
+                </div>
+
                 <div class="color-picker-container">
                   <div className="di-twoinput">
                     <input
@@ -310,25 +327,33 @@ const DesignComponent = () => {
           </div>
           <hr />
           <div className="di-thrdinfo delpadding">
-            <div className="di-forbox">
+            <div className="drp-dropdown">
               <p>Choose Font Style</p>
-              <div className="di-dropdown">
-                <div className="di-custom-select">
-                  <select id="ct-select" className="di-select" defaultValue="">
-                    <option value="" disabled>
-                      Default
-                    </option>
-                    <option value="option1">Poppins</option>
-                    <option value="option2">Poppins</option>
-                    <option value="option3">Poppins</option>
-                    <option value="option4">Poppins</option>
-                  </select>
-                  <img
-                    src={arrowIcon}
-                    alt="down arrow"
-                    className={`di-arrow-icon ${isOpen ? "rotate" : ""}`}
+              <div className="drp-dropdown-main">
+                <div className="drp-dropdownbox">
+                  <input
+                    className="Premium-cutomize-field-input h-42"
+                    readOnly
+                    value={selectedFont}
                     onClick={toggleDropdown}
                   />
+                  <span
+                    className={`drp-dropdown-arrow ${isOpen ? "rotate" : ""}`}
+                    onClick={toggleDropdown}
+                  >
+                    <SlArrowDown />
+                  </span>
+                </div>
+
+                <div className={`drp-optionbox ${isOpen ? "open" : "closed"}`}>
+                  {fonts.map((font) => (
+                    <div
+                      className="drp-option"
+                      onClick={() => handleFontSelect(font)}
+                    >
+                      {font}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -464,9 +489,8 @@ const DesignComponent = () => {
                   </div>
                 </div>
               </div>
-              <div className="di-buttons delpadding">
-                <button className="di-cancel">Cancel</button>
-                <button className="di-save">Save</button>
+              <div className="btnmargin-10">
+                <TwoButton />
               </div>
             </div>
           </div>
