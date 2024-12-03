@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin: 20px 41px;
-  position: relative;
+  /* margin: 15px 41px 0; */
+  /* position: relative; */
   /* height: 73px; */
   height: auto;
+  margin-bottom: 15px;
 }
 .drp-container {
   background-color: #eff1f3;
@@ -19,6 +20,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 25px 17.5px 24px 31px;
+  position: relative;
 }
 .drp-dotscircle {
   width: 32px;
@@ -34,6 +36,7 @@
   background-color: #eff1f3;
   cursor: pointer;
   z-index: 10;
+  left: 0;
 }
 .drp-dots-icon {
   width: 9px;
