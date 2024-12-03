@@ -1,0 +1,77 @@
+.card-bg {
+  background-color: #ffffff;
+  width: 404px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+.card-img {
+  position: relative;
+  padding: 15px 0;
+  height: 100px;
+}
+.card-line {
+  border: 1px solid #eff1f3;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  top: 50%;
+  /* transform: translateY(-50%); */
+}
+.card-pfimg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  z-index: 1;
+  height: 100px;
+  width: 100px;
+}
+.card-pfimg img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.card-name {
+  font-size: 20px;
+  font-family: Poppins-Bold;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.card-info {
+  padding: 0px 10px 14px;
+}
+.card-design,
+.card-compny {
+  font-size: 16px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  color: #00000080;
+}
+.card-design{
+  margin-bottom: 8px;
+}
+.card-btn {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid #eff1f3;
+}
+.card-editbtn,
+.card-sharbtn {
+  font-family: Poppins-Medium;
+  font-weight: 500;
+  font-size: 18px;
+  background-color: #eff1f3;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  color: #000000;
+}
+.card-editbtn {
+  padding: 10px 19px 9px;
+}
+.card-sharbtn {
+  padding: 10px 10px 9px 9px;
+}

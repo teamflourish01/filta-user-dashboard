@@ -201,3 +201,14 @@
   width: 14px;
   height: 14px;
 }
+
+/* Drop-Down style */
+.drpBox-container{
+  padding-top: 5px;
+  height: 826px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.drpbox-set{
+  margin: 15px 41px 0;
+}
