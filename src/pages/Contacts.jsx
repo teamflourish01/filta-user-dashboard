@@ -115,7 +115,7 @@ const Contacts = () => {
             <table className="custom-table">
               <thead>
                 <tr className="table-header-row">
-                  <th className="table-header ">Name</th>
+                  <th className="table-h ">Name</th>
                   <th className="table-header">Job Title</th>
                   <th className="table-header">Company</th>
                   <th className="table-header">Added</th>
@@ -129,14 +129,30 @@ const Contacts = () => {
                     onDragStart={() => handledragstart(index)}
                     onDragOver={handledragover}
                     onDrop={() => handledrop(index)}>
-                    <td className="table-cell profile-cell">
+                    
+                    <td className=" table-cell">
+                    <div className="img-profile-cell">
                       <img src={profile} alt="" srcset="" />
                       {row.name}
+                      </div>
                     </td>
-                    <td className="table-cell">{row.jobTitle}</td>
-                    <td className="table-cell">{row.company}</td>
-                    <td className="table-cell">{row.added}</td>
-                    <td className="table-cell action-cell">
+                    <td className="table-cell ">
+                    <div className="table-cell-title">
+                    {row.jobTitle}
+                    </div>
+                    </td>
+                    <td className="table-cell">
+                    <div className="table-cell-title">
+                    {row.company}
+                    </div>
+                    </td>
+                    <td className="table-cell">
+                    <div className="table-cell-title">
+                    {row.added}
+                    </div>
+                    </td>
+                    <td className="table-cell ">
+                    <div className="table-action-flex">
                       <img src={ctneye} alt="" srcset="" />
                       <img
                         src={ctnpen}
@@ -150,10 +166,13 @@ const Contacts = () => {
                         srcset=""
                         onClick={() => deleteContact(index)}
                       />
+                      </div>
                     </td>
                     <td className="table-cell shuffle-cell">
+                    <div className="table-cell-title">
                       {/* Replace with appropriate icon if needed */}
                       <img src={suffle} alt="" srcset="" />
+                      </div>
                     </td>
                   </tr>
                 ))}
