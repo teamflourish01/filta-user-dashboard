@@ -101,7 +101,7 @@ line-height: 24px;
   color: black;
 }
 .table-cell-title{
-  width: 211px;
+  /* width: 150px; */
 }
 .table-container {
     padding: 20px;
@@ -202,7 +202,31 @@ line-height: 24px;
   .table-action-flex{
     display: flex;
     gap:7px ;
-    width: 150px;
+    /* width: 150px;
+     */
     justify-content: center;
   }
 
+@media screen and (max-width:1200px){
+  .cnt-table{
+    min-width: 400px;
+    overflow-x: scroll;
+  }
+  .table-cell-title {
+    width: 200px;
+}
+
+}
+
+@media screen and (max-width:767px) {
+  .cnt-box{
+    border: none;
+    background-color: unset;
+    margin: 0;
+
+  }
+  .cnt-table{
+    min-width: 300px;
+    overflow-x: scroll;
+  }
+}
