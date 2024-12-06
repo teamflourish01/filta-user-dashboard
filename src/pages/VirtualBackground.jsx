@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import html2canvas from "html2canvas";
+
 import "../styles/VirtualBackground.css";
 import vbfiltaqr from "../Component/VirtualBackground/VirtualBackgroundimage/vbfiltaqr.svg";
 import indoor1 from "../Component/VirtualBackground/VirtualBackgroundimage/indoor/img1.jpg";
@@ -147,6 +149,21 @@ const VirtualBackground = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handleDownload = async () => {
+    const element = document.querySelector(".vb-preview-card"); // Select the preview card
+    if (element) {
+      try {
+        const canvas = await html2canvas(element, { useCORS: true , scale: 4 }); // Capture the element
+        const dataURL = canvas.toDataURL("image/png"); // Convert canvas to image
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "virtual_background.png";
+        link.click();
+      } catch (error) {
+        console.error("Error generating the image:", error);
+      }
+    }
+  };
   return (
     <>
       <div className="VirtualBackground-container">
@@ -201,7 +218,7 @@ const VirtualBackground = () => {
               <span>User Photo</span>
             </div>
           </div>
-          <hr />
+          <hr className="vr-hr"/>
           {/* Upload Image Section */}
           <div className="vb-upload-section">
         <p className="vb-uploadtext">Upload Image</p>
@@ -222,23 +239,23 @@ const VirtualBackground = () => {
           />
         </div>
       </div>
-          <hr />
+          <hr className="vr-hr"/>
 
           <div className="vb-choose-library">
             <p>Choose from library</p>
             <div className="vb-tab">
               {categories.map((category) => (
+                <div style={{border: selectedCategory === category ? "1px solid #EFF1F3" : "",padding:"3px",borderRadius:"10px"}}>
                 <button
                   className="vb-tab-buttton"
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  style={{
-                    backgroundColor:
-                      selectedCategory === category ? "#ddd" : "#f5f5f5",
-                  }}
+                 style={{backgroundColor:"#EFF1F3"}}
+
                 >
                   {category}
                 </button>
+                </div>
               ))}
             </div>
             {/* <div className="vb-img-display-grid">
@@ -263,10 +280,11 @@ const VirtualBackground = () => {
                   <div
                     key={image.id}
                     style={{
-                      borderRadius: "10px",
+                      borderRadius: "5px",
                       overflow: "hidden",
                       cursor: "pointer",
-                      border: selectedImage && selectedImage.id === image.id ? '3px solid #007bff' : 'none',
+                      width: "100%",
+                      border: selectedImage && selectedImage.id === image.id ? '3px solid #000' : 'none',
                     }}
 
                     onClick={() => handleImageSelect(image)} // Select the image on click
@@ -285,68 +303,75 @@ const VirtualBackground = () => {
 
         {/* right pannel */}
         <div className="vb-rightpannel">
-          <div className="vb-user-name">
-            <img
-              src="https://via.placeholder.com/50"
-              alt="Profile"
-              className="vb-profile-img"
-            />
-            <div className="vb-user-n-m">
-              <p className="vb-name">Ajay Gadhavi</p>
-              <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
-            </div>
-          </div>
-          <hr />
-
-          <div className="vb-preview">
-            <p className="vb-heading-prev">Virtual Background Preview</p>
-
-            <div className="vb-preview-card">
-              {selectedImage && (
-                <div className="" style={{position:"relative"}}>
-                  {/* Display selected image */}
-                  <img
-                    src={selectedImage.src}
-                    alt={`Selected Imag ${selectedImage.id}`}
-                    className="vb-preview-card"
-                    style={{position:"absolute", objectFit:"cover"}}
-                    
-                  />
-                  <div className="vb-preview-card-child">
-                    <div className="vb-flex-preview-child">
-                      {fields.userPhoto && (
-                        <img
-                          src="https://via.placeholder.com/50"
-                          alt="Profile"
-                          className="vb-profile-img"
-                        />
-                      )}
-                      {fields.name && <p className="vb-n-500">Ajay Gadhavi</p>}
-                      {fields.jobTitle && <p className="vb-n-400">UI / UX Designer</p>}
-                      {fields.company && <p className="vb-n-400">Flourish Creation PVT.LTD.</p>}
-                      {fields.location && <p className="vb-n-400">Ahmedabad, Gujarat, India</p>}
-                    </div>
-                    {fields.qrCode && (
-                      <div>
-                        <img src={vbfiltaqr} alt="QR Code" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="vb-background-button">
-              <button className="vb-download-button">
-                {" "}
-                <AiOutlineDownload
-                  style={{ width: "24px", height: "24px" }}
-                />{" "}
-                Download background
-              </button>
-            </div>
-          </div>
+      <div className="vb-user-name">
+        <img
+          src="https://via.placeholder.com/50"
+          alt="Profile"
+          className="vb-profile-img"
+        />
+        <div className="vb-user-n-m">
+          <p className="vb-name">Ajay Gadhavi</p>
+          <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
         </div>
+      </div>
+      <hr className="vr-hr" />
+
+      <div className="vb-preview">
+        <p className="vb-heading-prev">Virtual Background Preview</p>
+
+        <div className="vb-preview-card">
+          {selectedImage && (
+            <div style={{ position: "relative" }}>
+              {/* Display selected image */}
+              <img
+                src={selectedImage.src}
+                alt={`Selected Imag ${selectedImage.id}`}
+                className="vb-preview-card"
+                style={{ position: "absolute", objectFit: "cover" }}
+              />
+              <div className="vb-preview-card-child">
+                <div className="vb-flex-preview-child">
+                  {fields.userPhoto && (
+                    <img
+                      src="https://via.placeholder.com/50"
+                      alt="Profile"
+                      className="vb-profile-img"
+                    />
+                  )}
+                  {fields.name && <p className="vb-n-500">Ajay Gadhavi</p>}
+                  {fields.jobTitle && (
+                    <p className="vb-n-400">UI / UX Designer</p>
+                  )}
+                  {fields.company && (
+                    <p className="vb-n-400">Flourish Creation PVT.LTD.</p>
+                  )}
+                  {fields.location && (
+                    <p className="vb-n-400">Ahmedabad, Gujarat, India</p>
+                  )}
+                </div>
+                {fields.qrCode && (
+                  <div>
+                    <img src={vbfiltaqr} alt="QR Code" />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="vb-background-button">
+          <button
+            className="vb-download-button"
+            onClick={handleDownload}
+          >
+            <AiOutlineDownload
+              style={{ width: "24px", height: "24px" }}
+            />
+            Download background
+          </button>
+        </div>
+      </div>
+    </div>
       </div>
     </>
   );

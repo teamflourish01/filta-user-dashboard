@@ -22,8 +22,8 @@
 
 /* Sidebar styles remain the same */
 .sidebar {
-  /* width: 257px; */
-  width: 13.7%;
+  width: 257px;
+  /* width: 13.7%; */
   background-color: white;
   padding: 1.045%;
   margin-top: 20px;
