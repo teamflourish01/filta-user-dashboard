@@ -33,6 +33,7 @@
   border: 1px solid #f1f4f6;
   border-radius: 35px;
   cursor: pointer;
+  padding: 5px 10px;
 }
 .my-menuitem img {
   width: 18px;
@@ -42,6 +43,7 @@
   font-size: 16px;
   font-family: SemiBold;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 /* upload section */
@@ -53,14 +55,11 @@
 .upload-section-container {
   display: flex;
   justify-content: space-between;
-  /* gap: 140px; */
   padding: 20px 68px;
-  /* flex-wrap: wrap; */
 }
 
 .upload-box {
   text-align: center;
-  /* width: 30%; */
 }
 
 .upload-area {
@@ -270,4 +269,89 @@
   background-color: #000;
   /* font-weight: bold; */
   color: white;
+}
+.my-prvw-container {
+  display: none;
+}
+/* 1024 responsive */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+  .my-leftside {
+    width: 100%;
+  }
+  .my-rightside {
+    display: none;
+  }
+  .e-sidediv {
+    text-align: left;
+  }
+  .my-menu {
+    margin: 20px 15px 21px;
+    gap: 24px;
+  }
+  .upload-section-container {
+    padding: 20px 22px 21px 23px;
+  }
+  .my-allfiled {
+    padding: 20px 22px 22px 23px;
+  }
+  .my-prvw-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .my-prvw-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .my-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .my-back-btnflex {
+    display: flex;
+    justify-content: center;
+  }
+  .my-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 5px 8px 5px 10px;
+    font-family: Poppins-SemiBold;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 35px;
+  }
+  .my-back-btn svg {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .upload-section-container {
+    padding: 19px 7px 20px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 39px 90px;
+    /* border: 1px solid red; */
+  }
+  .my-allfiled {
+    padding: 20px 7px 15px;
+  }
+  .my-back-btn {
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    justify-content: center;
+  }
+  .my-back-btn span {
+    display: none;
+  }
 }
