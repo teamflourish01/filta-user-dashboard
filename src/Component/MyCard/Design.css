@@ -9,9 +9,10 @@
   scrollbar-width: none;
 }
 .di-maindiv {
-  height: 277px;
+  /* height: 277px; */
   border-radius: 10px;
   background-color: #eff1f3;
+  overflow: hidden;
 }
 .di-title p {
   padding: 25px 30px;
@@ -23,7 +24,7 @@
 .di-info {
   margin: 15px 30px;
   background-color: #ffffff;
-  height: 173px;
+  /* height: 173px; */
   border-radius: 10px;
 }
 .di-info p {
@@ -97,7 +98,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  padding: 0 15px;
+  padding: 0 15px 15px;
 }
 .di-cancel,
 .di-save {
@@ -126,6 +127,9 @@
   background-color: #eff1f3;
   margin-top: 35px;
   overflow: hidden;
+}
+.rmvmargin35 {
+  margin-top: 0;
 }
 .di-sectitle p {
   padding: 25px 30px;
@@ -523,3 +527,24 @@
   width: 60px;
   height: 27px;
 }
+
+/* Responsive Upto-1024 */
+@media (max-width: 1024px) {
+  .di-margin {
+    margin: 20px 15px;
+  }
+  .di-secinfo,
+  .di-info,
+  .di-thrdinfo {
+    margin: 15px 11px 15px 10px;
+  }
+  .di-title p,
+  .di-sectitle p,
+  .di-thrdtitle p {
+    padding: 25px 10px;
+  }
+  .delmargin {
+    margin: 0;
+  }
+}
+
