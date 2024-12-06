@@ -30,12 +30,14 @@ const MyLeads = () => {
                 placeholder="Search with name , email, phone, etc"
               />
             </div>
+            <div className="right-export-btn-r">
             <button type="submit" className="export-button">
               <div className="down-arrow">
                 <PiArrowLineDownBold />
               </div>
               <div className="export-btn">Export</div>
             </button>
+            </div>
           </div>
           {/* ----- Lead Card ----- */}
           <div className="lead-card-section">
@@ -74,12 +76,12 @@ const MyLeads = () => {
               <div className="leads-box-bg-white">
                 <table className="table-lead">
                   <tr>
-                    <td className="table-head-title">Name</td>
-                    <td className="table-head-title">Email</td>
-                    <td className="table-head-title">Phone Number</td>
-                    <td className="table-head-title">Created</td>
-                    <td className="table-head-title">View</td>
-                    <td className="table-head-title">Status</td>
+                    <td className="table-head-title n-t-w-l">Name</td>
+                    <td className="table-head-title e-t-w-l">Email</td>
+                    <td className="table-head-title p-t-w-l">Phone Number</td>
+                    <td className="table-head-title c-t-w-l">Created</td>
+                    <td className="table-head-title v-t-w-l">View</td>
+                    <td className="table-head-title s-t-w-l">Status</td>
                   </tr>
                   <tr>
                     <td className="table-head-title">Ajay Gadhavi</td>

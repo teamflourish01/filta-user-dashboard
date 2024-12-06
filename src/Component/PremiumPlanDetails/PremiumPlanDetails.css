@@ -10,6 +10,11 @@
   padding: 15px;
   border-radius: 10px;
 }
+.Premium-Customize-Details-bg-grey-inner {
+  background-color: #eff1f3;
+  padding: 15px;
+  border-radius: 10px;
+}
 .p-c-d-inner-bg {
   background-color: white;
   padding: 15px;
@@ -27,8 +32,8 @@
   width: 100%;
 }
 .Premium-customize-your-title-p-5 {
-  font-family: Poppins-Medium;
-  font-size: 14px;
+  font-family: Poppins-Regular;
+  font-size: 12px;
   line-height: 21px;
   color: #4f4f4f;
 
@@ -160,6 +165,7 @@
 } */
 .grey-cards-premium-theme {
   width: 119px;
+  /* width: 100%; */
   height: 117px;
   background-color: #eff1f3;
   border-radius: 5px;
@@ -203,7 +209,16 @@
   padding: 0 0 0 10px;
   color: rgba(0, 0, 0, 0.5);
 }
-
+.Premium-cutomize-field-input-dropdown {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  cursor: pointer;
+  /* padding: 0 0 0 10px; */
+  color: rgba(0, 0, 0, 0.5);
+  background-color: #eff1f3;
+}
 /* Dropdown arrow */
 .dropdown-arrow {
   margin-left: 8px;
@@ -517,4 +532,80 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   flex-direction: column;
   width: 124px;
   height: 135px;
+}
+
+@media (max-width: 1024px) {
+  .Premium-Customize-Details-bg-white {
+    padding: 20px 11px;
+  }
+  .cards-of-choose-card-theme{
+    justify-content: left;
+    overflow-x: scroll;
+    padding: 2px 1px 17px 1px;
+  }
+  .grey-cards-premium-theme {
+    max-width: unset;
+    min-width: 119px;
+    width: 100%;
+  }
+}
+@media (max-width: 768px) {
+  .Premium-Customize-Details-bg-white {
+    padding: unset;
+  }
+  .Premium-Customize-Details-bg-grey {
+    padding: 2px;
+    /* background-color: unset; */
+  }
+  .top-premium-container {
+    flex-direction: column;
+  }
+  .flex-color-cotent {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .radio-container-premium {
+    width: 100px;
+  }
+  .align-flex {
+    gap: 15px;
+    flex-wrap: unset;
+  }
+  .choose-card-layout-container {
+    padding: unset;
+  }
+  .Premium-cutomize-field-input {
+    width: 96.4%;
+  }
+  .toggle-btn-standard {
+    padding: 7px 10px;
+  }
+  .Premium-Customize-Details-bg-grey-inner {
+    background-color: unset;
+    padding: unset;
+    justify-content: left;
+  }
+  .Premium-customize-your-title {
+    padding-bottom: 15px;
+  }
+  .center-content-txt-color {
+    padding: 5px 0 0;
+    justify-content: left;
+    gap: 5px;
+  }
+  .logo-select-content {
+    border-right: unset;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #0000000d;
+  }
+  .logo-mob-p-8-p {
+    padding: 15px 0 8px !important;
+  }
+  .Premium-color-selector {
+    background-color: transparent;
+  }
+  .center-choose-color {
+    width: 74.52%;
+  }
+  
 }
