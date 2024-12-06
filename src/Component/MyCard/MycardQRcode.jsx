@@ -16,7 +16,7 @@ const QrcodeComponent = () => {
   return (
     <>
       <div className="di-margin ">
-        <div className="di-seconedbox">
+        <div className="di-seconedbox rmvmargin35">
           <div className="di-sectitle">
             <p>Edit QR Code</p>
           </div>
