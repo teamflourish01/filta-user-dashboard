@@ -4,12 +4,15 @@
   align-items: center;
   gap: 45px;
 }
+.parent-div-of-cards-choose{
+  padding: 0 50px;
+}
 .left-n-f-c-card {
   width: 52.6%;
-  height: 809px;
+  height: 826px;
   background-color: white;
   border-radius: 10px;
-  padding: 93px 50px;
+  padding: 93px 0;
 }
 .choose-l-n-f-c {
   font-family: Poppins-Medium;
@@ -20,16 +23,17 @@
 .cards-l-n-f-c {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 29px;
 }
 
 .right-n-f-c-card {
-  width: 48.6%;
-  height: 809px;
+  width: 44.47%;
+  height: 826px;
   /* height: 100vh; */
   background-color: white;
   border-radius: 10px;
-  padding: 93px 50px;
+  padding: 93px 0;
 }
 .how-it-r-n-f-c {
   font-family: Poppins-Medium;
@@ -42,4 +46,40 @@
   height: 599px;
   border-radius: 10px;
   background-color: rgba(239, 241, 243, 1);
+}
+.padding-grey-box{
+  padding: 0 6.18%;
+}
+
+@media(max-width:1024px){
+  .n-f-c {
+    flex-direction: column;
+    gap: 50px;
+  }
+  .left-n-f-c-card{
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+
+  }
+  .right-n-f-c-card{
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+  }
+  .cards-l-n-f-c {
+    gap: 8px;
+  }
+  .parent-div-of-cards-choose{
+    padding: 0 15px;
+  }
+  .padding-grey-box {
+    padding: 0 15px;
+  }
+}
+@media(max-width:768px){
+  .cards-l-n-f-c {
+    flex-direction: column;
+    gap: 15px;
+  }
 }

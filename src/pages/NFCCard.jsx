@@ -7,8 +7,10 @@ const NFCCard = () => {
   return (
     <>
       <div className="n-f-c">
+      
         <div className="left-n-f-c-card">
-          <div className="choose-l-n-f-c">Choose Option</div>
+          <div className="parent-div-of-cards-choose">
+            <div className="choose-l-n-f-c">Choose Option</div>
           <div className="cards-l-n-f-c">
           <div className="c-s-card">
           <ChooseStandardNFC/>
@@ -17,11 +19,18 @@ const NFCCard = () => {
             <ChoosePremiumNFC/>
           </div>
         </div>
+        
+        </div>
+          
         </div>
         
         <div className="right-n-f-c-card">
+        <div className="padding-grey-box">
+
           <p className="how-it-r-n-f-c">How it Works ?</p>
+
           <div className="grey-b-o-x"></div>
+          </div>
         </div>
       </div>
     </>

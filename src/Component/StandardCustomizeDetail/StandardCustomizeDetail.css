@@ -319,3 +319,21 @@ padding-bottom: 5px;
 
 
 }
+
+@media(max-width:1024px){
+  .Standard-Customize-Details-bg-white {
+    padding: 20px 15px;
+  }
+}
+@media(max-width:768px){
+  .Standard-Customize-Details-bg-grey {
+    padding: 2px;
+  }
+  .cutomize-field-input{
+    width: 96.4%;
+  }
+  .customize-detail-field-hide{
+    background-color: unset;
+    padding: unset;
+  }
+}
