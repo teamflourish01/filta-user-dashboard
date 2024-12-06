@@ -214,7 +214,7 @@ const PremiumPlanDetails = ({
                 </div>
 
                 <div className="choose-card-layout-container">
-                  <p className="Premium-customize-your-title">Logo Size</p>
+                  <p className="Premium-customize-your-title logo-mob-p-8-p">Logo Size</p>
                   <div>
                     <label>
                       <p className="maximum-txt">
@@ -341,7 +341,7 @@ const PremiumPlanDetails = ({
             {/* ----- Choose Card Color ----- */}
             <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">Choose Card Color</p>
-              <div className="Premium-Customize-Details-bg-grey">
+              <div className="Premium-Customize-Details-bg-grey-inner">
                 <div className="flex-color-cotent">
                   <div className="text-secondary">
                     <p className="Premium-customize-your-title-p-5">
@@ -410,13 +410,33 @@ const PremiumPlanDetails = ({
                 </div>
               </div>
             </div>
+             {/* ----- Choose Card Theme ----- */}
+             <div className="p-c-d-inner-bg p-20">
+              <p className="Premium-customize-your-title">Choose Card Theme</p>
+              <div className="cards-of-choose-card-theme">
+                {/* <div className="grey-cards-premium-theme"></div>
+                <div className="grey-cards-premium-theme"></div>
+                <div className="grey-cards-premium-theme"></div>
+                <div className="grey-cards-premium-theme"></div>
+                <div className="grey-cards-premium-theme"></div> */}
+                {[...Array(5)].map((_, index) => (
+                  <div
+                    key={index}
+                    className={`grey-cards-premium-theme ${
+                      selectedCard === index ? "selected-card" : ""
+                    }`}
+                    onClick={() => handleCardClick(index)}
+                  ></div>
+                ))}
+              </div>
+            </div>
             {/* ----- Choose Font style & Color ----- */}
             <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">Choose Font Style</p>
               <div className="font-dropdown-container">
                 <div className="Premium-customize-dropdown">
                   <input
-                    className="Premium-cutomize-field-input h-42"
+                    className="Premium-cutomize-field-input-dropdown h-42"
                     readOnly
                     value={selectedFont}
                     onClick={toggleDropdown}
@@ -442,12 +462,12 @@ const PremiumPlanDetails = ({
                 </div>
               </div>
               <div className="hr-line-grey"></div>
-              <p className="Premium-customize-your-title">Choose Text Color</p>
+              <p className="Premium-customize-your-title logo-mob-p-8-p">Choose Text Color</p>
 
-              <div className="Premium-Customize-Details-bg-grey ">
+              <div className="Premium-Customize-Details-bg-grey-inner ">
                 <div className="flex-color-cotent">
                   <div className="text-secondary">
-                    <p className="Premium-customize-your-title-p-5">
+                    <p className="Premium-customize-your-title-p-5 ">
                       Primary Text Color
                     </p>
 
@@ -513,30 +533,11 @@ const PremiumPlanDetails = ({
                 </div>
               </div>
             </div>
-            {/* ----- Choose Card Theme ----- */}
-            <div className="p-c-d-inner-bg p-20">
-              <p className="Premium-customize-your-title">Choose Card Theme</p>
-              <div className="cards-of-choose-card-theme">
-                {/* <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div> */}
-                {[...Array(5)].map((_, index) => (
-                  <div
-                    key={index}
-                    className={`grey-cards-premium-theme ${
-                      selectedCard === index ? "selected-card" : ""
-                    }`}
-                    onClick={() => handleCardClick(index)}
-                  ></div>
-                ))}
-              </div>
-            </div>
+           
             {/* ----- QR Code Color ----- */}
             <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">QR Code Color</p>
-              <div className="Premium-Customize-Details-bg-grey center-content">
+              <div className="Premium-Customize-Details-bg-grey-inner center-content">
                 <div className="center-choose-color">
                   <input
                     type="text"
