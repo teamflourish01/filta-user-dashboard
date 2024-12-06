@@ -1,0 +1,68 @@
+.btn-display-preview {
+    display: none;
+  }
+  
+  @media (max-width: 1024px) {
+    .btn-display-preview {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      /* height: 20px; */
+      
+    }
+    .btn-font-preview {
+      font-family: Poppins-SemiBold;
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+      display: block;
+      margin: auto;
+      color: white;
+      border: none;
+      overflow-y: scroll;
+      z-index: 5; 
+      background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+      transition: background-color 1s ease, opacity 1s ease; /* Add smooth transitions */
+    }
+    .close-btn-icon-cross {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      color: black;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      padding: 19px 0 18px;
+      z-index: 6; /* Ensure it stays above both button and content */
+    }
+    .center-preview-in-btn {
+      /* display: flex; */
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      color: black;
+      /* background-color: white; */
+      border-radius: 10px;
+      padding: 60px 0 0;
+      z-index: 3; /* Lower than the button */
+      position: relative;
+    }
+    .black-overlay-btn-preview {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      opacity: 0;
+      transition: opacity 2s ease;
+      z-index: 0; /* Below both button and content */
+    }
+  }
+  
