@@ -11,7 +11,7 @@ p{
 
 }
 .vb-leftpannel{
-    width: 55%;
+    width: 52.6%;
     /* border: 1px solid blue; */
     /* padding: 0 40px; */
     background: white;
@@ -21,19 +21,24 @@ p{
     display: flex;
     justify-content: space-between;
     margin: 26px 40px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    gap: 30px;
 }
 .vb-checkbox-name{
     display: flex;
     gap: 10px;
     align-items: center;
+    /* width: 115px; */
 }
 
 .vb-checkbox-name span{
     font-family: Poppins-Regular;
     font-weight: 400;
     font-size: 16px;
-   
+    line-height: 24px;
+    width: auto;
+    white-space: nowrap;
 }
 
 
@@ -54,18 +59,22 @@ p{
   
   .vb-checkbox-name input[type="checkbox"]:checked {
     background-color: black;
+    border-radius: 5px;
   }
   
   .vb-checkbox-name input[type="checkbox"]:checked::before {
-    content: "✔";
+   content: "✔";
     color: white;
-    font-size: 16px;
+    /* font-size: 16px; */
     position: absolute;
-    top: -5px;
+    top: -2px;
     left: 1px;
+    
   }
 
-
+.vr-hr{
+    border: 1px solid rgba(239, 241, 243, 1)
+}
 
 
 
@@ -135,11 +144,12 @@ p{
 }
 .vb-tab{
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    /* margin-bottom: 20px; */
-    margin: 8px 0;
-    justify-content: space-between;
+        gap: 10px;
+        flex-wrap: nowrap;
+        /* margin-bottom: 20px; */
+        margin: 8px 0;
+        justify-content: space-between;
+        overflow-x: scroll;
 }
 
 .vb-tab-buttton{
@@ -174,6 +184,7 @@ p{
 
 .vb-all-img{
     width: 100%;
+    /* width: 200px; */
     height: 110px;
     background-size: contain;
     border-radius: 5px;
@@ -189,7 +200,7 @@ p{
 /* virtual background right pannel */
 
 .vb-rightpannel{
-width: 45%;
+width: 44.47%;
 /* border: 1px solid green; */
 background: white;
 border-radius:8px;
