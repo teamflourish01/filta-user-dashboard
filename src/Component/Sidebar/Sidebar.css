@@ -39,17 +39,8 @@
   display: flex;
   flex-direction: column; */
   border-radius: 8px;
-  height: 100vh;
+  /* height: 100vh; */
 }
-
-/* Responsive adjustment */
-@media (max-width: 1024px) {
-  .sidebar {
-    position: relative;
-    height: auto;
-  }
-}
-
 .profile-section {
   display: flex;
   align-items: center;
@@ -58,6 +49,10 @@
   border-radius: 35px;
   padding: 10px;
   justify-content: space-between;
+}
+.profile-section-mobile-pic {
+ 
+  display: none;
 }
 
 /* Profile styles remain the same */
@@ -73,6 +68,10 @@
   font-weight: 500;
   font-size: 16px;
   margin: 0;
+  text-overflow: ellipsis;
+  width: 108px;
+  overflow:hidden ;
+  white-space: nowrap;
 }
 .profile-info span {
   font-family: Poppins-Regular;
@@ -158,6 +157,7 @@
   cursor: pointer;
   position: relative;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 /* Split effect only on the active item */
@@ -200,4 +200,54 @@
   font-weight: 400;
   font-size: 16px;
   color: black;
+}
+
+/* Responsive Sidebar Hover from 1600*/
+@media (max-width: 1600px) and (min-width: 1024px) {
+  .sidebar {
+    width: 45px;
+    overflow: hidden;
+  }
+  .sidebar:hover {
+    width: 257px;
+    transition: 0.1s;
+  }
+  
+  .profile-info{
+    overflow: hidden;
+    padding: 0 31px 0 17px;
+
+  }
+  .profile-menu-btn{
+    overflow: hidden;
+    border: unset;
+  }
+  .profile-section-mobile-pic{
+    display: block;
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    justify-content: center;
+    padding: 10px;
+  }
+  .profile-section{
+    display: none;
+  }
+  .sidebar:hover .profile-section-mobile-pic{
+    display: none;
+  }
+  .sidebar:hover .profile-section{
+    display: flex;
+  }
+}
+
+
+/* Responsive adjustment */
+@media (max-width: 1024px) {
+  .sidebar {
+    position: relative;
+    height: auto;
+    display: none;
+  }
+  
 }

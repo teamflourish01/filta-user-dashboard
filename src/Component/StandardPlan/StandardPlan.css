@@ -294,6 +294,10 @@
   .standard-l-n-f-c {
     padding: 22px 0 24px 15px;
   }
+  .profile-details-s {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 }
 @media (max-width: 768px) {
   .standard-l-n-f-c {
