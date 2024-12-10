@@ -1,6 +1,6 @@
 @font-face {
   font-family: Poppins-Light;
-  src: url('../src/Poppins/Poppins-Light.ttf');
+  src: url("../src/Poppins/Poppins-Light.ttf");
   /* 300 */
 }
 
@@ -42,7 +42,6 @@
   right: 0;
   /* z-index: 1000; Ensures it stays above other elements */
   z-index: 1;
-  
 }
 
 /* Sidebar container styles */
@@ -57,13 +56,17 @@
 .main-content {
   flex-grow: 1;
   padding: 20px 0 20px 45px;
-  /* overflow-y: auto; Allows scrolling within main content */
+  overflow: hidden;
   /* margin-top: 60px; Adjust for fixed navbar */
 }
 
-
-@media(max-width:1024px){
+@media (max-width: 1024px) {
   .main-content {
     padding: 20px 0 20px 0;
+  }
+}
+@media (max-width: 768px) {
+  .sidebar-container {
+    padding: 0 10px; /*Don't Toch this padding */
   }
 }
