@@ -60,7 +60,7 @@
   /* overflow-y: auto; Allows scrolling within main content */
   /* margin-top: 60px; Adjust for fixed navbar */
 }
-
+      
 
 @media(max-width:1024px){
   .main-content {
