@@ -60,7 +60,9 @@
   /* margin-top: 60px; Adjust for fixed navbar */
 }
 
+
 @media (max-width: 1024px) {
+
   .main-content {
     padding: 20px 0 20px 0;
   }
