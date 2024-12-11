@@ -1,0 +1,224 @@
+.signup-container {
+    max-width: 1920px;
+    min-width: 200px;
+    width: 50%;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    
+    background-color: #fff;
+    border-top-right-radius: 39px;
+    border-bottom-right-radius: 39px;
+    /* padding: 150px 100px; */
+  }
+  .sign-scontainer{
+    background-color: #FAFBFC;
+  }
+  .signup-with-prev{
+    width: 100%;
+    display: flex;
+    
+  }
+  .signup-card-pre{
+    width: 50%;
+    background-color: #FAFBFC;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .signup-form-container {
+    width: 422px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+    padding: 30px;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 10px 0px #0000001a; */
+  }
+  
+  .input-field-signup {
+    margin: 0 0 15px 0;
+    font-family: Poppins-Regular;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: #718096;
+  }
+  
+  .input-group-signup {
+    position: relative;
+    border: 1px solid #cbd5e0;
+    border-radius: 20px;
+    padding: 0 5px;
+    background-color: rgba(231, 235, 238, 0.5);
+    display: flex;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+  }
+  
+  .input-signup {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: none;
+    background-color: rgba(231, 235, 238, -0.5);
+    padding: 0 5px;
+    font-size: 18px;
+  }
+  
+  .eye-icon-signup {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    cursor: pointer;
+    color: rgba(113, 128, 150, 0.5);
+    position: relative;
+  }
+  
+  .eye-icon-signup::before {
+    content: "";
+    display: block;
+    height: 40px;
+    width: 1px;
+    background-color: #cfd9e0;
+    /* margin-right: 10px; */
+  }
+  
+  .pt {
+    padding: 30px 0 0;
+  }
+  
+  .logo-container-signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 30px;
+  }
+  
+  .signup-title {
+    font-family: Poppins-Medium;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+  }
+  
+  .signup-tabs {
+    /* padding: 30.13px 0 0; */
+  }
+  .sign-up-top-text {
+    font-family: Poppins-Regular;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: justify;
+    color: #718096;
+    padding: 15px 0 30px;
+  }
+ 
+  .eyes-signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px 0 14px;
+  }
+  .btn-signup {
+    background-color: #5aba47;
+    color: #fff;
+    width: 100%;
+    font-family: Poppins-SemiBold;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: left;
+    border-radius: 20px;
+    padding: 11px 0;
+    text-align: center;
+    border: none;
+    margin: 30px 0 0;
+    cursor: pointer;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+  }
+  
+  .line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #a0aec0;
+  }
+  
+  .or-text {
+    font-family: Poppins-Regular;
+    font-weight: 400;
+    font-size: 14px;
+    color: #718096;
+    padding: 0 5px;
+  }
+ 
+  .text-center{
+    padding:30px 0 0;
+    text-align: center;
+  }
+  .back-arrow{
+    /* padding: 55px 0 0 55px; */
+    color: black;
+    padding: 10px 0 0 60px;
+  }
+
+.continue-with{
+  display: flex;
+  align-items: center;
+  /* text-align: center; */
+  padding: 11px 15px;
+  gap: 53.5px;
+  border-radius: 30px;
+  border: 1px solid rgba(203, 213, 224, 1)
+}
+.login-google{
+  font-family: Poppins-Regular;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: justify;
+    color: #718096;
+}
+.continue-padding{
+  margin: 15px 0;
+}
+
+
+
+@media screen and (max-width:1024px) {
+  .signup-form-container{
+    width: unset;
+  }
+}
+@media screen and (max-width:767px) {
+  .login-google{
+    font-size: 14px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .signup-card-pre{
+    display: none;
+  }
+  .signup-container{
+    width: 100%;
+  }
+  .signup-form-container {
+    /* width: 100%; */
+    width: unset;
+  }
+  .input-group-signup{
+    width: unset;
+  }
+  .continue-with {
+gap: 20px;
+  }
+}
