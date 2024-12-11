@@ -56,7 +56,7 @@
     display: flex;
     align-items: center;
     height: 50px;
-    width: 50%;
+    width: 100%;
   }
   
   .input-signup {
@@ -192,6 +192,13 @@
   margin: 15px 0;
 }
 
+
+
+@media screen and (max-width:1024px) {
+  .signup-form-container{
+    width: unset;
+  }
+}
 @media screen and (max-width:767px) {
   .login-google{
     font-size: 14px;
@@ -206,11 +213,12 @@
   }
   .signup-form-container {
     /* width: 100%; */
+    width: unset;
   }
   .input-group-signup{
-    width: 100%;
+    width: unset;
   }
   .continue-with {
-gap: 4px;
+gap: 20px;
   }
 }
