@@ -3,7 +3,7 @@
   padding: 0;
   /* box-sizing: border-box; */
 }
-.div{
+.div {
   padding-right: 25px;
 }
 .my-lead-container {
@@ -153,10 +153,10 @@
 } */
 .scroll {
   position: relative;
-  border: 10px solid #eff1f3; 
+  border: 10px solid #eff1f3;
   height: 372px;
   border-radius: 5px;
-  background-color: white; 
+  background-color: white;
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -174,7 +174,6 @@
   pointer-events: none;
   box-sizing: border-box;
   /* width: 757px; */
-
 }
 
 /* .leads-box-bg {
@@ -204,12 +203,12 @@
   padding: 15px;
   border-bottom: 1px solid #eff1f3;
 } */
-.table-detail-info{
+.table-detail-info {
   text-align: center;
   padding: 15px 0;
   border-bottom: 1px solid #eff1f3;
 }
-.table-head-title{
+.table-head-title {
   text-align: center;
   padding: 15px 0;
   /* margin: 0 15px; */
@@ -226,23 +225,23 @@ tr {
   text-align: left;
 }
 
-.n-t-w-l{
+.n-t-w-l {
   width: 246px;
 }
-.e-t-w-l{
+.e-t-w-l {
   width: 381px;
 }
-.p-t-w-l{
+.p-t-w-l {
   width: 257px;
 }
 
-.c-t-w-l{
+.c-t-w-l {
   width: 239px;
 }
-.v-t-w-l{
+.v-t-w-l {
   width: 189px;
 }
-.s-t-w-l{
+.s-t-w-l {
   width: 51px;
 }
 
@@ -263,52 +262,70 @@ tr {
     width: auto;
   }
 
-  .n-t-w-l{
+  .n-t-w-l {
     max-width: 246px;
     min-width: 206px;
   }
-  .e-t-w-l{
+  .e-t-w-l {
     max-width: 381px;
     min-width: 331px;
   }
-  .p-t-w-l{
+  .p-t-w-l {
     max-width: 257px;
     min-width: 200px;
   }
-  
-  .c-t-w-l{
+
+  .c-t-w-l {
     max-width: 239px;
     min-width: 200px;
   }
-  .v-t-w-l{
+  .v-t-w-l {
     max-width: 189px;
     min-width: 170px;
   }
-  .s-t-w-l{
+  .s-t-w-l {
     width: 51px;
   }
-  
 }
 
-@media(max-width:768px){
-  .lead-card{
+@media (max-width: 1024px) {
+  .div {
+    padding-right: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .n-t-w-l {
+    max-width: 246px;
+    min-width: 155px;
+  }
+  .lead-card {
     padding: 2px;
   }
-  .lead-card-section{
+  .lead-card-section {
     flex-wrap: wrap;
     padding: 20px 15px;
   }
-  .lead-card{
+  .lead-card {
     width: 45.8%;
   }
-  .search-section{
+  .search-section {
     flex-direction: column;
     align-items: unset;
   }
-  .right-export-btn-r{
+  .right-export-btn-r {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end !important;
+  }
+  .leads {
+    padding: 0 9px 4px;
+  }
+  .scroll {
+    border: 2px solid #eff1f3;
+  }
+  .table-lead {
+    padding: 0 16px;
   }
 }
 

@@ -51,6 +51,19 @@
   padding: 0 6.18%;
 }
 
+@media(max-width:1600px){
+  .n-f-c {
+    flex-direction: column;
+    gap: 50px;
+  }
+  .left-n-f-c-card{
+    width: 100%;
+  }
+  .right-n-f-c-card{
+    width: 100%;
+  }
+}
+
 @media(max-width:1024px){
   .n-f-c {
     flex-direction: column;
@@ -60,8 +73,9 @@
     width: 100%;
     height: auto;
     padding: 50px 0;
-
   }
+
+
   .right-n-f-c-card{
     width: 100%;
     height: auto;
