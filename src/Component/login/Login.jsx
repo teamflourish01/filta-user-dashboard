@@ -57,7 +57,7 @@ function Login() {
                   </Link>
                 </div>
               </div>
-              <Link to="/admin">
+              <Link to="/my-card">
                 <button type="submit" className="btn-login">
                   Sign in
                 </button>

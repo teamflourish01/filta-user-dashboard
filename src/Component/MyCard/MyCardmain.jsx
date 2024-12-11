@@ -18,7 +18,7 @@ const MyCardmain = () => {
           <p className="card-compny">Flourish Creations Privat Limited</p>
         </div>
         <div className="card-btn">
-          <Link to="edit/mycard" className="card-editbtn">Edit</Link>
+          <Link to="/my-card/edit" className="card-editbtn">Edit</Link>
           <button className="card-sharbtn">Share</button>
         </div>
       </div>
