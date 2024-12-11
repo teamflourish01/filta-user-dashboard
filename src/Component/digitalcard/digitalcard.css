@@ -1,0 +1,137 @@
+
+*{
+  /* overflow-x:hidden ; */
+}
+
+
+.digital-card-main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  background-color: #fafbfc;
+  flex-direction: row;
+  border: 1px solid black;
+}
+.digital-card-form {
+  width: 50%;
+  background-color: #fff;
+  border-top-right-radius: 39px;
+  border-bottom-right-radius: 39px;
+  padding: 150px 100px;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.digital-filta-logo {
+  padding: 0 0 50px;
+}
+.logo-filta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.create-text {
+  font-family: Poppins-SemiBold;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  padding: 25px 0 0;
+}
+.row-one {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  /* width: 50%; */
+}
+.input-field-card {
+  margin: 0 0 15px 0;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 16px;
+  /* line-height: 27px; */
+  color: #718096;
+  width: 50%;
+}
+.input-group-card {
+  position: relative;
+  border: 1px solid #cbd5e0;
+  border-radius: 20px;
+  padding: 0 5px;
+  background-color: rgba(231, 235, 238, 0.5);
+  display: flex;
+  align-items: center;
+  height: 50px;
+  /* max-width: 360px; */
+  margin: 0 0 5px;
+}
+.input-card {
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  outline: none;
+  background-color: rgba(231, 235, 238, -0.5);
+  font-size: 18px;
+  padding: 0 5px;
+}
+.btn-card {
+  background-color: #5aba47;
+  color: #fff;
+  width: 100%;
+  font-family: Poppins-SemiBold;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: left;
+  border-radius: 20px;
+  padding: 11px 0;
+  text-align: center;
+  border: none;
+  margin: 10px 0 0;
+  cursor: pointer;
+}
+.already-text {
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  line-height: 28px;
+  color: #67728a;
+}
+.create-account-login {
+  font-family: Poppins-SemiBold;
+  font-size: 18px;
+  line-height: 28px;
+  color: #5aba47;
+  cursor: pointer;
+  text-decoration: none;
+}
+.text-center {
+  padding: 30px 0 0;
+  text-align: center;
+}
+.card-preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  gap: 25px;
+  
+}
+.card-for-preview {
+  /* padding: 171px 0 0; */
+  width: 254px;
+  height: 550px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding: 20px;
+  margin: 0 0 10px 0;
+
+}
+.card-preview-title {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+.text-preview{
+  padding: 0 0 5px;
+}
