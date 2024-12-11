@@ -85,7 +85,7 @@ const Sidebar = () => {
       <div className="menu">
         <Link
           to="/"
-          className={`menu-item ${location.pathname === "/" ? "active" : ""}`}
+          className={`menu-item ${location.pathname === "/" || location.pathname === "" ? "active" : ""}`}
           // onClick={() => handleMenuClick("My Card")}
         >
           {/* <FaUser className="menu-icon" /> */}
