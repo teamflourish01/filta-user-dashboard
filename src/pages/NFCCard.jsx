@@ -10,6 +10,7 @@ const NFCCard = () => {
       
         <div className="left-n-f-c-card">
           <div className="parent-div-of-cards-choose">
+            
             <div className="choose-l-n-f-c">Choose Option</div>
           <div className="cards-l-n-f-c">
           <div className="c-s-card">
