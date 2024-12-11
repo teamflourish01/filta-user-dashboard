@@ -50,7 +50,9 @@
   font-size: 16px;
   /* line-height: 27px; */
   color: #718096;
-  width: 50%;
+  /* max-width: 360px; */
+  /* min-width: 200px; */
+  width: 100%;
 }
 .input-group-card {
   position: relative;
@@ -134,4 +136,54 @@
 }
 .text-preview{
   padding: 0 0 5px;
+}
+
+
+@media screen and (max-width:1024px) {
+  .digital-card-main{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .digital-card-form{
+    width: 100%;
+    padding: 68px 25px 60px 25px;
+  }
+  .row-one{
+    justify-content: center;
+  }
+  .digital-card-main{
+    background-color: white;
+  }
+  .input-field-card{
+    max-width: unset;
+    min-width: unset;
+    width: 100%;
+  }
+  .digital-card-form{
+    box-shadow: none;
+  }
+  .card-preview{
+    padding-bottom: 78px;
+  }
+}
+
+
+@media screen and (max-width:767px){
+  .card-preview{
+    display: none;
+    
+  }
+  .row-one{
+    flex-direction: column;
+    gap: 0px;
+  }
+  .input-field-card{
+    margin: 0 0 15px 0;
+  }
+  .input-group-card{
+    margin: 0 0 5px;
+  }
+  .digital-card-form{
+    padding: 25px 15px;
+  }
 }
