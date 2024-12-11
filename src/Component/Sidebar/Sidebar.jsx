@@ -84,8 +84,11 @@ const Sidebar = () => {
       </div>
       <div className="menu">
         <Link
-          to="/"
-          className={`menu-item ${location.pathname === "/" ? "active" : ""}`}
+          to="/my-card"
+          // className={`menu-item ${location.pathname === "/my-card" ? "active" : ""}`}
+          className={`menu-item ${
+            location.pathname.startsWith("/my-card") ? "active" : ""
+          }`}
           // onClick={() => handleMenuClick("My Card")}
         >
           {/* <FaUser className="menu-icon" /> */}
@@ -94,7 +97,8 @@ const Sidebar = () => {
         </Link>
         <Link
           to="/nfc-card"
-          className={`menu-item ${location.pathname === "/nfc-card" ? "active" : ""}`}
+          className={`menu-item ${
+            location.pathname.startsWith("/nfc-card") ? "active" : ""}`}
           // onClick={() => handleMenuClick("NFC Card")}
         >
           {/* <FaSignal className="menu-icon" /> */}
