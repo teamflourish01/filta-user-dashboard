@@ -2,8 +2,28 @@
     margin: 0;
     padding: 0;
 }
+.custom-table{
+  display: none;
+}
 
-
+.try-contact-tbl, .try-c-tbl-td, .try-c-tbl-th {
+  border-bottom: 1px solid #eff1f3;
+  text-align: center;
+}
+.try-c-tbl-td{
+  padding: 24px 10px 24px 10px;
+  white-space: nowrap;
+}
+.try-c-tbl-th{
+  padding: 15px 14px 15px 15px;
+}
+.try-contact-tbl {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cnts-padding{
+  padding: 0 25px 0 0;
+}
 
 
 .cnt-container {
@@ -74,7 +94,7 @@ line-height: 24px;
 }
 .cnt-box{
     background-color: #EFF1F3;
-    border: 1px solid #EFF1F3;
+    padding: 10px;
    border-radius: 5px;
 
     margin: 25px 25px 0 25px;
@@ -82,17 +102,18 @@ line-height: 24px;
 .cnt-table{
     background-color: white;
     border-radius: 5px;
-    margin: 10px;
+    /* margin: 10px; */
     /* overflow-y: auto;
     max-height: 400px; */
     /* min-width: 500px; */
-    border: 1px solid #ddd;
+    
 }
+
 .img-profile-cell{
   display: flex;
   align-items: center;
-  width: 200px;
-  justify-content: left;
+ 
+  justify-content: center;
   gap: 10px;
   padding: 0 0 0 15px;
   font-family: Poppins-Regular;
@@ -138,9 +159,7 @@ line-height: 24px;
   }
   
   
-  .table-row {
-    border-bottom: 1px solid #ddd;
-  }
+  
   
   .table-cell {
     padding: 24px 0 24px 0px;
@@ -202,23 +221,47 @@ line-height: 24px;
   .table-action-flex{
     display: flex;
     gap:7px ;
+    padding: 0 10px;
     /* width: 150px;
      */
     justify-content: center;
   }
-
+.table-header-row th{
+  font-weight: unset;
+}
 @media screen and (max-width:1200px){
   .cnt-table{
     min-width: 400px;
     overflow-x: scroll;
   }
   .table-cell-title {
-    width: 200px;
+    /* width: 200px; */
+}
+.img-profile-cell{
+  width: 200px;
 }
 
+}
+
+
+@media screen and (max-width:1024px) {
+  .cnts-padding {
+    padding: 0px;
+}
+}
+
+@media screen and (max-width:1200px) {
+  .try-contact-tbl{
+    max-width: 1100px;
+    overflow-y: scroll;
+  }
 }
 
 @media screen and (max-width:767px) {
+
+  .cnt-padding {
+    padding: 16px 7px;
+}
   .cnt-box{
     border: none;
     background-color: unset;
@@ -226,7 +269,25 @@ line-height: 24px;
 
   }
   .cnt-table{
+    margin: unset;
+  }
+  .cnt-box{
+    padding: unset;
+  }
+  .cnt-search-flex{
+    flex-direction: column;
+   
+  }
+  .cnt-button{
+    display: flex;
+    align-self: flex-end;
+    padding-top: 15px;
+  }
+  .cnt-table{
     min-width: 300px;
     overflow-x: scroll;
+  }
+  .cnt-serch{
+    width: 100%;
   }
 }
