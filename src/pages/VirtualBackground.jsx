@@ -301,6 +301,7 @@ const VirtualBackground = () => {
 
         {/* left pannel */}
         <div className="vb-leftpannel">
+        <div className="vb-leftpanel-margin">
           <div className="vb-checkbox-container">
             <div className="vb-checkbox-name">
               <input
@@ -353,7 +354,10 @@ const VirtualBackground = () => {
           </div>
           <hr className="vr-hr" />
           {/* Upload Image Section */}
+          <div className="vb-height-overflow">
+          
           <div className="vb-upload-section">
+          
             <p className="vb-uploadtext">Upload Image</p>
             <div className="vb-upload-box">
               <label
@@ -376,6 +380,7 @@ const VirtualBackground = () => {
               />
             </div>
           </div>
+          
           <hr className="vr-hr" />
 
           <div className="vb-choose-library">
@@ -417,6 +422,7 @@ const VirtualBackground = () => {
                 ))}
               </div>
             </div> */}
+            <div className="vb-width">
             <div className="vb-img-display-grid">
               <div className="bv-img-select">
                 {filteredImages.map((image) => (
@@ -437,9 +443,11 @@ const VirtualBackground = () => {
                 ))}
               </div>
             </div>
+            </div>
           </div>
         </div>
-
+</div>
+</div>
         {/* right pannel */}
         <div className="vb-rightpannel">
           <div className="vb-user-name">
