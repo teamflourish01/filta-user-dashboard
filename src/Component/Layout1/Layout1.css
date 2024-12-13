@@ -5,12 +5,22 @@
   padding-bottom: 10px;
 }
 .front-premium-card{
-  width: 58.48%;
+  /* width: 58.48%;
+  margin: 0 auto; */
+  padding: 0 0 15px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  min-width: 250px;
 }
 .back-premium-card{
-  width: 58.48%;
+  /* width: 58.48%;
+  margin: 0 auto; */
+  padding: 0 0 15px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  min-width: 250px;
 }
 .front-side-card-design-premium {
   /* width: 400px; */
@@ -124,4 +134,13 @@
 }
 .lay1-mobile-user {
   padding: 5px 0 0;
+}
+
+@media(max-width:1024px){
+  .front-side-text-lay {
+    text-align: left;
+  }
+  .back-side-text-lay{
+    text-align: left;
+  }
 }

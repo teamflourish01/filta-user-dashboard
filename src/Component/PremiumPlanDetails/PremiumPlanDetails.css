@@ -152,7 +152,7 @@
   align-items: center;
   justify-content: center;
   gap: 17px;
-  padding: 2px 0 17px 0;
+  padding: 2px 0 0 0;
 }
 .hr-line-grey {
   border-bottom: 1px solid #0000000d;
@@ -248,7 +248,7 @@
 
 /* Open and close animation */
 .time-dropdown.open {
-  max-height: 300px;
+  max-height: 315px;
   opacity: 1;
   font-family: Poppins-Regular;
   line-height: 27px;
@@ -265,7 +265,15 @@
   padding: 8px 12px;
   cursor: pointer;
 }
+.selected-font{
+  height: 32px;
+  background-color: white;
+  margin: 5px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
 
+}
 .time-option:hover {
   background: #f0f0f0;
 }
@@ -314,7 +322,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 10px;
   width: 136px;
   height: 37px;
   background-color: #eff1f3;
@@ -361,7 +369,8 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 52.5px;
+  /* gap: 52.5px; */
+  gap: 20px 52.5px;
 }
 .choose-card-layout-container {
   padding: 0 0 0 15px;
@@ -376,10 +385,6 @@
 
 .edit-color {
   cursor: pointer;
-}
-
-.color-picker-container {
-  margin-top: 10px;
 }
 
 .color-hide {
@@ -586,7 +591,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     justify-content: left;
   }
   .Premium-customize-your-title {
-    padding-bottom: 15px;
+    padding-bottom: 8px;
   }
   .center-content-txt-color {
     padding: 5px 0 0;
@@ -607,5 +612,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   .center-choose-color {
     width: 74.52%;
   }
-  
+  .buttons-save-cancel {
+    padding: 25px 7px 20px 0;
+}
 }
