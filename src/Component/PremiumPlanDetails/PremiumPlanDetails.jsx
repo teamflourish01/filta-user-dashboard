@@ -32,7 +32,7 @@ const PremiumPlanDetails = ({
   setSelectedFile,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFont, setSelectedFont] = useState("Default");
+  const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
   const [qrCodeColor, setQrCodeColor] = useState("#000000");
   const [selectedCard, setSelectedCard] = useState(0);
@@ -85,12 +85,14 @@ const PremiumPlanDetails = ({
   };
 
   const font = [
-    "poppins",
-    "poppins",
-    "poppins",
-    "poppins",
-    "poppins",
-    "poppins",
+    "Default (Poppins)",
+    "Raleway",
+    "Lato",
+    "Montserrat",
+    "Jost",
+    "Playfair",
+    "Josefin Sans",
+    "PT Sarif"
   ];
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -453,7 +455,10 @@ const PremiumPlanDetails = ({
                   {font.map((font) => (
                     <div
                       key={font}
-                      className="time-option"
+                      // className="time-option"
+                      className={`time-option ${
+                        font === selectedFont ? "selected-font" : ""
+                      }`}
                       onClick={() => handleFontSelect(font)}
                     >
                       {font}
@@ -576,10 +581,10 @@ const PremiumPlanDetails = ({
                   </div>
                 </div>
               </div>
-              <p className="customize-your-title p-15">Hide Filta Logo</p>
+              <p className="customize-your-title p-15">Filta Logo</p>
               <div className="customize-detail-field-hide">
                 <div className="hide-customize-detail">
-                  <div className="hide-title">Filta Logo</div>
+                  <div className="hide-title">Hide Filta Logo</div>
                   <div className="toggle-btn">
                     <label className="switch-hide">
                       <input type="checkbox" onChange={logoHide} />

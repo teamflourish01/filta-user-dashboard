@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   gap: 45px;
+  position: sticky;
 }
 .left-premium-n-f-c-card {
   width: 52.08%;
@@ -146,6 +147,9 @@
 
 
 @media(max-width:1024px){
+  .premium-plan {
+    justify-content: center;
+  }
   .right-premium-n-f-c-card{
     display: none;
   }

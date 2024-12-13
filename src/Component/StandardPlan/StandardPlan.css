@@ -13,7 +13,7 @@
   border-radius: 10px;
   overflow-y: scroll;
   scrollbar-width: none;
-  height: 826px;
+  height: 100%;
 }
 .standard-card-content {
   overflow-y: scroll;
@@ -102,7 +102,7 @@
 }
 .back-standard-card {
   /* border-bottom: 1px solid #eff1f3; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
   /* width: 58.48%;
   max-width: 400px; */
   width: 100%;
@@ -116,7 +116,7 @@
   line-height: 24px;
   padding-bottom: 10px;
   /* margin: 0 0 0 20px; */
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 .front-side-card-design {
   /* width: 400px; */
@@ -281,6 +281,7 @@
   height: 30px;
 }
 
+
 @media (max-width: 1024px) {
   .bg {
     padding-top: 49px;
@@ -297,6 +298,12 @@
   .profile-details-s {
     align-items: flex-start;
     justify-content: flex-start;
+  }
+  .front-side-text{
+    text-align: left;
+  }
+  .back-side-text{
+    text-align: left;
   }
 }
 @media (max-width: 768px) {
