@@ -6,6 +6,9 @@
 }
 .parent-div-of-cards-choose{
   padding: 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .left-n-f-c-card {
   width: 52.6%;
@@ -22,11 +25,19 @@
 }
 .cards-l-n-f-c {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
-  gap: 29px;
+  flex-direction: column;
 }
+.standard-premium-creat-flex{
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 29px;
 
+
+}
 .right-n-f-c-card {
   width: 44.47%;
   height: 826px;
@@ -41,7 +52,7 @@
   line-height: 27px;
   padding: 0 0 15px;
 }
-.grey-b-o-x {
+.grey-b-o-x-nfc-how {
   width: 100%;
   height: 599px;
   border-radius: 10px;
@@ -51,23 +62,45 @@
   padding: 0 6.18%;
 }
 
-@media(max-width:1600px){
+@media(max-width:1920px){
   .n-f-c {
     flex-direction: column;
-    gap: 50px;
+    gap: unset;
   }
   .left-n-f-c-card{
     width: 100%;
+    height: unset;
+    padding: 50px 0;
+    border-radius: unset;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
   .right-n-f-c-card{
     width: 100%;
+    height: unset;
+    border-radius: unset;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: unset;
+    padding-bottom: 50px;
   }
+  .grey-b-o-x-nfc-how {
+    width: 709px;
+  }
+  .right-n-f-c-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
 }
+
 
 @media(max-width:1024px){
   .n-f-c {
     flex-direction: column;
-    gap: 50px;
+    /* gap: 50px; */
   }
   .left-n-f-c-card{
     width: 100%;
@@ -79,9 +112,12 @@
   .right-n-f-c-card{
     width: 100%;
     height: auto;
-    padding: 50px 0;
+    padding: 0 0 50px 0;
   }
-  .cards-l-n-f-c {
+  /* .cards-l-n-f-c {
+    gap: 8px;
+  } */
+  .standard-premium-creat-flex{
     gap: 8px;
   }
   .parent-div-of-cards-choose{
@@ -94,6 +130,19 @@
 @media(max-width:768px){
   .cards-l-n-f-c {
     flex-direction: column;
+    /* gap: 15px; */
+  }
+  .standard-premium-creat-flex{
+    flex-direction: column;
     gap: 15px;
+  }
+  .grey-b-o-x-nfc-how {
+    max-width: 709px;
+    min-width: 200px;
+    width: 100%;
+  }
+  .right-n-f-c-card {
+    align-items: unset;
+    justify-content: unset;
   }
 }

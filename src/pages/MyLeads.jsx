@@ -31,17 +31,16 @@ const MyLeads = () => {
               />
             </div>
             <div className="right-export-btn-r">
-            <button type="submit" className="export-button">
-              <div className="down-arrow">
-                <PiArrowLineDownBold />
-              </div>
-              <div className="export-btn">Export</div>
-            </button>
+              <button type="submit" className="export-button">
+                <div className="down-arrow">
+                  <PiArrowLineDownBold />
+                </div>
+                <div className="export-btn">Export</div>
+              </button>
             </div>
           </div>
           {/* ----- Lead Card ----- */}
           <div className="lead-card-section">
-            
             <div className="lead-card">
               <div className="child-lead-card">
                 <p className="lead-card-title">Total Leads</p>
@@ -67,43 +66,39 @@ const MyLeads = () => {
               </div>
             </div>
           </div>
-
+          <p className="leads-title">Leads</p>
           {/* ----- Leads ----- */}
-          <div className="leads">
-            <p className="leads-title">Leads</p>
-            <div className="scroll">
-            <div className="leads-box-bg">
-              <div className="leads-box-bg-white">
-                <table className="table-lead">
-                  <tr>
-                    <td className="table-head-title n-t-w-l">Name</td>
-                    <td className="table-head-title e-t-w-l">Email</td>
-                    <td className="table-head-title p-t-w-l">Phone Number</td>
-                    <td className="table-head-title c-t-w-l">Created</td>
-                    <td className="table-head-title v-t-w-l">View</td>
-                    <td className="table-head-title s-t-w-l">Status</td>
-                  </tr>
-                  <tr>
-                    <td className="table-head-title">Ajay Gadhavi</td>
-                    <td className="table-detail-info">
-                      ajaygadhavi9847@gmail.com
-                    </td>
-                    <td className="table-detail-info">6353123096</td>
-                    <td className="table-detail-info">24 Oct 2024</td>
-                    <td className="table-detail-info">
-                      <div className="eye-bg-leads" onClick={handleOpenModal}>
-                        <IoEyeOutline />
-                      </div>
-                    </td>
-                    <td className="table-detail-info"></td>
-                  </tr>
-                </table>
-              </div>
-            </div>
+
+          <div className="lead-table">
+            <div className="bg-w-try">
+              <table className="try-lead">
+                <tr className="tr-try">
+                  <th className="try-th p-40">Name</th>
+                  <th className="try-th p-top-15">Email</th>
+                  <th className="try-th p-top-15">Phone Number</th>
+                  <th className="try-th p-top-15">Created</th>
+                  <th className="try-th p-top-15">View</th>
+                  <th className="try-th">Status</th>
+                </tr>
+                <tr className="tr-try">
+                  <td className="td-try   p-40">Ajay Gadhavi</td>
+                  <td className="td-try p-top-21">ajaygadhavi9847@gmail.com</td>
+                  <td className="td-try p-top-21">6353123096</td>
+                  <td className="td-try p-top-21">24 Oct 2024</td>
+                  <td className="td-try p-top-21">
+                    {" "}
+                    <div className="eye-bg-leads" onClick={handleOpenModal}>
+                      <IoEyeOutline />
+                    </div>
+                  </td>
+                  <td className="td-try p-top-21"></td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
       </div>
+      {/* </div> */}
       <LeadDetails isOpen={isModalOpen} onClose={handleCloseModal} />
     </>
   );
