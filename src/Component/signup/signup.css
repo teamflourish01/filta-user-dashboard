@@ -23,7 +23,7 @@
   .signup-card-pre{
     width: 50%;
     background-color: #FAFBFC;
-    
+    border: 1px solid transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -197,7 +197,22 @@
 @media screen and (max-width:1024px) {
   .signup-form-container{
     width: unset;
+    
   }
+  .back-arrow{
+    padding: 10px 0 0 30px;
+  }
+  .signup-card-pre{
+    background-color: white;
+  }
+  .signup-with-prev {
+    
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.sign-scontainer{
+  background-color: white;
+}
 }
 @media screen and (max-width:767px) {
   .login-google{
@@ -210,15 +225,21 @@
   }
   .signup-container{
     width: 100%;
+    padding: 25px 0;
   }
   .signup-form-container {
     /* width: 100%; */
     width: unset;
+    padding: 0 15px;
   }
   .input-group-signup{
     width: unset;
   }
   .continue-with {
-gap: 20px;
+    gap: 57px;
+  }
+  .back-arrow{
+    padding: 0px 0 0 15px;
   }
 }
+
