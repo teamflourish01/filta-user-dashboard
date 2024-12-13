@@ -2,6 +2,26 @@ p{
     padding: 0;
     margin: 0;
 }
+.vb-upload-section{
+
+}
+.vb-overflow{
+  /* border: 5px solid yellow; */
+  /* height: 754px; */
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+.vb-height-overflow {
+  border-bottom: 5px solid white;
+  overflow-y: scroll;
+  height: 754px;
+  scrollbar-width: thin; /* Firefox: Thin scrollbar */
+  scrollbar-color: #AEAEAE  white;
+  border-radius: 0 0 20px 20px;
+}
+
+
+
 .VirtualBackground-container{
     width: 100%;
     /* border: 1px solid red; */
@@ -17,14 +37,37 @@ p{
     background: white;
     border-radius:8px;
 }
-.vb-checkbox-container{
+.vb-checkbox-container {
     display: flex;
     justify-content: space-between;
-    margin: 26px 40px;
+    margin: 26px 41px 25px 41px;
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto; 
+    scrollbar-width: thin;
+    scrollbar-color: #EFF1F3  white;
     gap: 30px;
-}
+     
+    
+  }
+
+  
+  
+  .bv-img-width{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px 38px;
+    padding: 25px;
+    justify-items: center;
+  }
+  
+  
+  
+
+  
+  
+
+  
+
 .vb-checkbox-name{
     display: flex;
     gap: 10px;
@@ -87,7 +130,7 @@ p{
 
 
   .vb-uploadtext{
-    margin: 20px 40px 8px 40px;
+    margin: 20px 41px 8px 41px;
     font-family: Poppins-Regular;
     font-weight: 400;
     font-size: 16px;
@@ -105,7 +148,7 @@ p{
     /* width: 100%; */
     height: 224px;
     /* max-width: 400px; */
-    margin: 0px 40px 15px 40px;
+    margin: 0px 41px 15px 41px;
   }
   
   .vb-upload-icon {
@@ -135,7 +178,7 @@ p{
   
 
 .vb-choose-library{
-    margin: 15px 40px;
+    margin: 15px 41px;
 }
 .vb-choose-library p{
     font-family: Poppins-Regular;
@@ -149,12 +192,13 @@ p{
         /* margin-bottom: 20px; */
         margin: 8px 0;
         justify-content: space-between;
-        overflow-x: scroll;
+       overflow-x: auto; 
+    scrollbar-width: thin;
 }
 
 .vb-tab-buttton{
     width: 85px;
-    padding: 10px;
+    padding: 6px 5px 5px 4px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
@@ -168,9 +212,12 @@ p{
     /* border: 1px solid black; */
     background: #EFF1F3;
     border-radius: 10px;
-
+    /* width: 727px; */
  }
-  
+  .vb-width{
+    max-width: 727px;
+    min-width: 100%;
+  }
 
 
 .bv-img-select{
@@ -179,6 +226,11 @@ p{
     gap: 25px 38px;
     padding: 25px;
     justify-items: center;
+    /* height: 300px; */
+    
+    /* overflow-y: scroll; */
+    /* scrollbar-width: thin; */
+    
 }
 
 
@@ -306,6 +358,7 @@ font-weight: 500;
         width: 100%;
         /* border: 1px solid blue; */
         /* padding: 0 40px; */
+        margin: 20px 0 0 0;
         background: white;
         border-radius: 8px;
     }
@@ -316,4 +369,40 @@ font-weight: 500;
         border-radius:8px;
         display: none;
         }
+        
+        .bv-img-select{
+
+          gap: 25px 19px;
+        }
+        .VirtualBackground-container{
+          display: unset;
+        }
+        .vb-checkbox-container{
+          padding: 26px 15px 25px 15px;
+          margin: 0px;
+          gap: 22px;
+        }
+        .vb-upload-box{
+          margin: 0px 15px 15px 15px;
+        }
+        .vb-choose-library {
+          margin: 15px 15px;
+      }
+      .vb-uploadtext{
+        margin: 20px 15px 8px 15px;
+      }
+}
+
+
+@media screen and (max-width:767px){
+  .bv-img-select{
+    gap: 14.32px 10.46px;
+    padding: 5px;
+  }
+  .vb-upload-box {
+    margin: 0px 9px 13px 9px;
+}
+.vb-choose-library {
+  margin: 16.76px 9px;
+}
 }
