@@ -1,7 +1,7 @@
 /* Container settings */
 .e-container {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   background-color: #eff1f3;
   /* border: 1px solid black; */
@@ -142,8 +142,9 @@
 }
 
 .e-cancel {
-  background-color: #e2e2e2;
+  border: 1px solid #e2e2e2;
   padding: 5px 14px;
+  background-color: #ffffff;
 }
 
 .e-save {
@@ -317,4 +318,42 @@
   top: -60px;
   position: relative;
   margin: 0;
+}
+/* 1024 responsive */
+@media (max-width: 1024px) {
+  .e-leftpanel {
+    width: 100%;
+  }
+  .e-rightpanel {
+    display: none;
+  }
+  .e-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .e-checkboxcontiner,
+  .e-form {
+    padding: 20px 15px;
+  }
+  .e-buttons {
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .e-checkboxcontiner
+   {
+    padding: 21px 15px 19px;
+  }
+  .e-form{
+    padding: 19px 7px;
+  }
+  .e-flexfiled{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .signature-card{
+    padding: 15px;
+    gap: 39px;
+  }
 }

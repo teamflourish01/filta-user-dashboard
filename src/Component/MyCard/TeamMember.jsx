@@ -26,7 +26,7 @@ const TeamMember = () => {
             <input type="text" />
           </div>
           <div className="mlt-btnmain">
-            <div className="mlt-addmorebtn">Add More</div>
+            <div className="mlt-addmorebtn"></div>
             <div className="cont-btnmargin" style={{ paddingTop: 0 }}>
               <TwoButton />
             </div>
