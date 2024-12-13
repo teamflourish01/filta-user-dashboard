@@ -97,7 +97,7 @@
   color: #00000080;
   line-height: 21px;
 }
-.mlt-inputbox{
+.mlt-inputbox {
   width: 100%;
 }
 .mlt-urlform input {
@@ -132,6 +132,9 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.mlt-addmorebtn::after {
+  content: "Add More YouTube Video";
+}
 .mlt-twobtn {
   display: flex;
   align-items: center;
@@ -146,11 +149,28 @@
   cursor: pointer;
 }
 .mlt-cancel {
-  border: 1px solid #eff1f3;
+  border: 1px solid #E2E2E2;
   padding: 5px 14px;
+  background-color: #ffffff;
 }
 .mlt-save {
   color: #ffffff;
   padding: 5px 35px;
   background-color: #000000;
+}
+@media (max-width: 1350px) and (min-width: 1025px) {
+  .mlt-addmorebtn::after {
+    content: "Add More";    
+  }
+}
+@media (max-width: 768px) {
+  .mlt-addmorebtn::after {
+    content: "Add More";    
+  }
+  .mlt-margin {
+    margin: 15px 2px 2px;
+  }
+  .mlt-addmorebtn{
+    padding: 12px 10px 12px 11px;
+  }
 }

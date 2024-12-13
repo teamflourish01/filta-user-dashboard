@@ -457,7 +457,7 @@ const DesignComponent = () => {
               </div>
             </div>
             <hr />
-            <div className="di-secinfo delmargin">
+            <div className="di-secinfo delmargin delpadd">
               <p>Choose Theme Color</p>
               <div className="di-fltbox">
                 <div class="color-picker-container">

@@ -37,7 +37,7 @@ const MultimediaComponent = () => {
             </div>
 
             <div className="mlt-btnmain">
-              <div className="mlt-addmorebtn">Add More YouTube Video</div>
+              <div className="mlt-addmorebtn"></div>              
               <div className="mlt-twobtn">
                 <button className="mlt-cancel">Cancel</button>
                 <button className="mlt-save">Save</button>

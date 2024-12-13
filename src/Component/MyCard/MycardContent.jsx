@@ -18,8 +18,11 @@ import contactImg from "../../images/contactcard.svg";
 import wappImg from "../../images/whatsapp 1.svg";
 import mapImg from "../../images/address.svg";
 import gogleImg from "../../images/Google.svg";
-import payplImg from "../../images/paypal 1.svg";
 import thrdsImg from "../../images/threads 1.svg";
+import GooPlyImg from "../../images/GooglePlay.svg";
+import PhonpyImg from "../../images/phonePay.svg";
+import PaytmImg from "../../images/Paytm.svg";
+import GoolDriImg from "../../images/GoogleDrive.svg";
 import DropdownComponent from "./DropdownComponent";
 import MultimediaComponent from "./MultimediaComponent";
 import ContactForm from "./ContactFrom";
@@ -115,7 +118,7 @@ const ContentComponent = () => {
                       </div>
                       <div className="my-buttons">
                         <button className="my-cancel">Cancel</button>
-                        <button className="my-save">Save</button>
+                        <button className="my-save link-padd">Add Link</button>
                       </div>
                     </form>
                   </div>
@@ -184,12 +187,36 @@ const ContentComponent = () => {
                     ))}
                   </div>
                   <div className="md-title">
+                    <p>Payment</p>
+                  </div>
+                  <div className="s-alllink">
+                    {[
+                      { name: "Google Pay", icon: GooPlyImg },
+                      { name: "Phone pay", icon: PhonpyImg },
+                      { name: "Paytm", icon: PaytmImg },
+                    ].map((platform) => (
+                      <div
+                        className="s-link"
+                        key={platform.name}
+                        onClick={() => handlePlatformSelect(platform)}
+                      >
+                        <div className="s-imgtitle">
+                          <img src={platform.icon} alt={platform.name} />
+                          <p>{platform.name}</p>
+                        </div>
+                        <div className="s-plusbtn">
+                          <img src={plus} alt="plus" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="md-title">
                     <p>Other</p>
                   </div>
                   <div className="s-alllink">
                     {[
                       { name: "Review", icon: gogleImg },
-                      { name: "PayPal", icon: payplImg },
+                      { name: "Google Drive", icon: GoolDriImg },
                     ].map((platform) => (
                       <div
                         className="s-link"

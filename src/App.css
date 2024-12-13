@@ -66,6 +66,9 @@
   .main-content {
     padding: 20px 0 20px 0;
   }
+  .sidebar-container {
+    padding: 0 25px; /*Don't Toch this padding */
+  }
 }
 @media (max-width: 768px) {
   .sidebar-container {

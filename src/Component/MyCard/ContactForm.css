@@ -12,6 +12,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 36px;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 .cont-chk {
   display: flex;
@@ -46,10 +49,10 @@
 .cont-formdiv {
   padding: 0 15px 15px 15px;
 }
-.cont-forminput{
+.cont-forminput {
   margin-bottom: 15px;
 }
-.cont-btnmargin{
+.cont-btnmargin {
   padding-top: 10px;
 }
 .cont-forminput label {

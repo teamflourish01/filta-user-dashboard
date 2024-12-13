@@ -273,6 +273,23 @@
 .my-prvw-container {
   display: none;
 }
+
+@media (max-width: 1350px) and (min-width: 1025px) {
+  .my-menu {
+    margin: 21px 7px 20px;
+    gap: 20px;
+  }
+  .my-allfiled {
+    padding: 20px 22px 22px 23px;
+  }
+  .upload-section-container {
+    padding: 20px 22px 21px 23px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 39px 90px;
+  }
+}
+
 /* 1024 responsive */
 @media (max-width: 1024px) {
   .sidebar {
@@ -334,12 +351,15 @@
 }
 
 @media (max-width: 768px) {
+  .my-menu {
+    margin: 21px 7px 20px;
+    gap: 20px;
+  }
   .upload-section-container {
     padding: 19px 7px 20px;
     flex-wrap: wrap;
     justify-content: space-evenly;
     gap: 39px 90px;
-    /* border: 1px solid red; */
   }
   .my-allfiled {
     padding: 20px 7px 15px;

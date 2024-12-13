@@ -156,7 +156,7 @@
   background-color: #eff1f3;
   border-radius: 5px;
   margin-bottom: 15px;
-  padding: 20px 96px;
+  padding: 20px 15px;
 }
 .di-arrowimg {
   height: 30px;
@@ -180,51 +180,62 @@
   gap: 25px;
   /* padding: 20px 96px; */
 }
-
 .di-twoinput {
-  /* position: relative; */
-  width: 372px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  background: transparent;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+  max-width: 372px;
+  position: relative;
 }
+
 #color-code {
-  padding: 12px 0 11px 12px;
-  border: none;
-  background: transparent;
+  background-color: transparent;
+  max-width: 372px;
+  min-width: 100px;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0 0 0 12px;
+  border: 1px solid #0000001a;
 }
-#color-picker {
+
+input[type="color"] {
+  border: none;
+  outline: none;
+  appearance: none;
+  padding: 0;
+  background: none;
   width: 33px;
   height: 34px;
-  border: none;
-  background: transparent;
   cursor: pointer;
-  border-radius: 3px;
+  margin: 3px;
 }
-
+#color-picker {
+  position: absolute;
+  right: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 18px;
+}
 /* Button Styling */
 #search-button {
   /* padding: 8px; */
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #0000001a;
+  border-radius: 5px;
   /* background-color: white; */
   cursor: pointer;
-  font-size: 16px;
+
   width: 47px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-#search-button img {
-  height: 17px;
-  width: 17px;
-}
+
 #search-button:hover {
   background-color: #f0f0f0;
   border-color: #bbb;
@@ -233,7 +244,7 @@
   background-color: #eff1f3;
   border-radius: 5px;
   margin-bottom: 25px;
-  padding: 20px 96px;
+  padding: 20px 15px;
 }
 
 /* thired Box */
@@ -281,7 +292,8 @@
 .trd-twoinput-container {
   display: flex;
   flex-direction: column;
-  width: 444px;
+  max-width: 444px;
+  width: 100%;
   gap: 5px;
 }
 .trd-twoinput-container label {
@@ -292,30 +304,33 @@
 }
 .thr-inputandbtn {
   display: flex;
-  gap: 28px;
+  gap: 25px;
 }
 .trd-twoinput {
-  width: 372px;
+  max-width: 372px;
+  width: 100%;
   height: 40px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
   background: transparent;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 }
 #thr-color-code {
-  padding: 12px 0 11px 12px;
+  padding: 0 0 0 12px;
   border: none;
   background: transparent;
+  max-width: 372px;
+  min-width: 100px;
+  width: 100%;
+  height: 40px;
 }
 #thr-color-picker {
-  width: 33px;
-  height: 34px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
+  position: absolute;
+  right: 1px;
   border-radius: 3px;
 }
 .margin-botm {
@@ -445,15 +460,23 @@
   display: flex;
   align-items: center;
   gap: 15.8px;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 .thm-layout {
   width: 87px;
   background-color: #eff1f3;
   height: 152px;
   border-radius: 5px;
+  flex-shrink: 0;
 }
 
 /* QR Code Css */
+.delthight{
+  height: auto;
+}
 .qr-logobox {
   background-color: #eff1f3;
   border-radius: 5px;
@@ -529,6 +552,22 @@
 }
 
 /* Responsive Upto-1024 */
+@media (max-width: 1282px) and (min-width: 1025px) {
+  .di-margin {
+    margin: 20px 15px;
+  }
+  .di-title p,
+  .di-sectitle p,
+  .di-thrdtitle p {
+    padding: 25px 10px;
+  }
+  .di-secinfo,
+  .di-info,
+  .di-thrdinfo {
+    margin: 15px 11px 15px 10px;
+  }
+}
+
 @media (max-width: 1024px) {
   .di-margin {
     margin: 20px 15px;
@@ -548,3 +587,61 @@
   }
 }
 
+@media (max-width: 768px) {
+  .di-margin {
+    margin: 19px 7px;
+  }
+  .di-secinfo,
+  .di-thrdinfo {
+    margin: 15px 2px 2px;
+    padding: 15px 7px;
+  }
+  .delpadd {
+    padding: 15px 0;
+  }
+  .di-info {
+    margin: 15px 2px 2px;
+  }
+  .di-info p {
+    padding: 15px 7px 8px;
+  }
+  .di-threebtn {
+    padding: 0 7px 25px;
+  }
+  .di-buttons {
+    padding: 0 7px 15px;
+  }
+  .di-title p,
+  .di-sectitle p,
+  .di-thrdtitle p {
+    padding: 25px 8px;
+  }
+  .di-fltbox,
+  .di-grdbox {
+    background-color: white;
+    padding: 0;
+  }
+  /* .color-picker-container {
+    justify-content: left;
+  } */
+  .di-choosebox {
+    background-color: unset;
+  }
+  .drp-dropdown {
+    padding: 15px 0;
+  }
+  .di-txtclrbox,
+  .di-forbox {
+    padding: 15px 0;
+  }
+  .thr-padding {
+    padding: 15px 0;
+  }
+  .qr-logobox {
+    background-color: white;
+    justify-content: left;
+  }
+  .qr-addlogo {
+    margin: 0;
+  }
+}
