@@ -58,3 +58,18 @@
   resize: none;
   margin-top: 5px;
 }
+
+@media (max-width: 768px) {
+  .auto-box1 {
+    width: 206px;
+  }
+  .auto-box2 {
+    width: 111px;
+  }
+  .auto-box3 {
+    width: 105px;
+  }
+  .auto-box4 {
+    width: 212px;
+  }
+}

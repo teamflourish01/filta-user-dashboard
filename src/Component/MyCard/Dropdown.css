@@ -12,7 +12,7 @@
   background-color: #eff1f3;
   border-radius: 10px;
   /* height: 24px; */
-  box-sizing: border-box;   
+  box-sizing: border-box;
   transition: all 0.3s ease;
 }
 .drp-dropdownmain {
@@ -54,4 +54,14 @@
   width: 15px;
   height: 8px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .drp-dotscircle {
+    transform: translateY(-50%);
+    left: 10px;
+  }
+  .drp-text{
+    margin-left: 25px;
+  }
 }

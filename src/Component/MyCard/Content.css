@@ -167,9 +167,12 @@
 }
 .s-alllink {
   margin: 15px 25px;
-  display: flex;
+  /* display: flex;
   gap: 15px;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
 }
 .s-link {
   background-color: #eff1f3;
@@ -203,12 +206,102 @@
 }
 
 /* Drop-Down style */
-.drpBox-container{
-  padding-top: 5px;
+.drpBox-container {
+  /* padding-top: 5px; */
   height: 826px;
   overflow-y: scroll;
   scrollbar-width: none;
 }
-.drpbox-set{
+.drpbox-set {
   margin: 15px 41px 0;
+}
+
+.link-padd {
+  padding: 5px 21px;
+}
+@media (max-width: 1150px) and (min-width: 1025px) {
+  .drpbox-set {
+    margin: 20px 15px 0 31px;
+  }
+}
+@media (max-width: 1024px) {
+  .drpbox-set {
+    margin: 20px 15px 0 31px;
+  }
+
+  .modal-content p {
+    font-size: 16px;
+    font-family: SemiBold;
+    font-weight: 600;
+  }
+  .s-link {
+    width: 100%;
+    max-width: 212px;
+    min-width: 50px;
+    height: 40px;
+  }
+  .s-link p {
+    font-size: 16px;
+    font-family: Poppins-Regular;
+    font-weight: 400;
+  }
+  .s-alllink {
+    margin: 12px 20px 13px;
+    gap: 13px 12px;
+  }
+  .md-title {
+    margin-top: 20px;
+  }
+  .s-imgtitle img {
+    width: 30px;
+    height: 30px;
+  }
+  .s-plusbtn img {
+    width: 11.4px;
+    height: 11.4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .drpbox-set {
+    margin: 20px 7px 0;
+  }
+  .ct-addmore {
+    padding: 15px 2px;
+  }
+  .ct-margin {
+    margin: 15px 2px 2px;
+  }
+  .modal-content {
+    height: 620px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+  .s-alllink {
+    margin: 15px 10px;
+    /* gap: 15px 10px; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: 15px 10px;
+  }
+  .s-imgtitle img {
+    width: 28px;
+    height: 28px;
+  }
+  .s-link p {
+    font-size: 14px;
+  }
+  .s-link {
+    width: 100%;
+    max-width: 170px;
+    min-width: 50px;
+    height: 40px;
+  }
+}
+@media (max-width: 392px) {
+  .s-alllink {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }
