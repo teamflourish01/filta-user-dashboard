@@ -4,7 +4,7 @@
   line-height: 24px;
   padding-bottom: 10px;
 }
-.front-premium-card{
+.front-premium-card {
   /* width: 58.48%;
   margin: 0 auto; */
   padding: 0 0 15px;
@@ -13,7 +13,7 @@
   max-width: 400px;
   min-width: 250px;
 }
-.back-premium-card{
+.back-premium-card {
   /* width: 58.48%;
   margin: 0 auto; */
   padding: 0 0 15px;
@@ -34,7 +34,6 @@
   /* flex-direction: column; */
   position: relative;
   box-shadow: 0px 0px 4px 0px #00000033;
-
 }
 .bottom-premium-section {
   display: flex;
@@ -105,7 +104,6 @@
   min-width: 100px;
   width: 100%;
   word-wrap: break-word;
-
 }
 .l1-user-designation {
   font-family: Poppins-SemiBold;
@@ -119,7 +117,6 @@
   min-width: 100px;
   width: 100%;
   word-wrap: break-word;
-
 }
 .scanner-container-premium {
   display: flex;
@@ -136,11 +133,11 @@
   padding: 5px 0 0;
 }
 
-@media(max-width:1024px){
+@media (max-width: 1024px) {
   .front-side-text-lay {
     text-align: left;
   }
-  .back-side-text-lay{
+  .back-side-text-lay {
     text-align: left;
   }
 }

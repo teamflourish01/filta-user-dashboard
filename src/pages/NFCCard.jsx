@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/NFCCard.css";
 import ChooseStandardNFC from "../Component/ChooseStandardNFC/ChooseStandardNFC";
 import ChoosePremiumNFC from "../Component/ChoosePremiumNFC/ChoosePremiumNFC";
+import Flip from "../Component/Flip/Flip";
 
 const NFCCard = () => {
   return (
@@ -32,7 +33,9 @@ const NFCCard = () => {
 
           <p className="how-it-r-n-f-c">How it Works ?</p>
 
-          <div className="grey-b-o-x-nfc-how "></div>
+          <div className="grey-b-o-x-nfc-how ">
+            <Flip/>
+          </div>
           </div>
         </div>
       </div>
