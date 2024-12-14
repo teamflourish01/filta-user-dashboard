@@ -82,7 +82,7 @@ const MyCard = () => {
         {/* Left Side */}
         <div className="my-prvw-container">
           <div className="my-back-btnflex">
-            <button className="my-back-btn" onClick={() => navigate("/")}>
+            <button className="my-back-btn" onClick={() => navigate("/my-card")}>
               <AiOutlineArrowLeft style={{ width: "16px", height: "14px" }} />
               <span>Back to My Card</span>
             </button>
