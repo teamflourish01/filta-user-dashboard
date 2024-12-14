@@ -1,11 +1,15 @@
-p{
-    padding: 0;
-    margin: 0;
+p {
+  padding: 0;
+  margin: 0;
 }
-.vb-upload-section{
 
+.vb-profile-photo {
+  position: relative;
+  right: 33%;
 }
-.vb-overflow{
+.vb-upload-section {
+}
+.vb-overflow {
   /* border: 5px solid yellow; */
   /* height: 754px; */
   overflow-y: scroll;
@@ -16,393 +20,385 @@ p{
   overflow-y: scroll;
   height: 754px;
   scrollbar-width: thin; /* Firefox: Thin scrollbar */
-  scrollbar-color: #AEAEAE  white;
+  scrollbar-color: #aeaeae white;
   border-radius: 0 0 20px 20px;
 }
 
-
-
-.VirtualBackground-container{
-    width: 100%;
-    /* border: 1px solid red; */
-    display: flex;
-    height: 100%;
-    gap: 45px;
-
+.VirtualBackground-container {
+  width: 100%;
+  /* border: 1px solid red; */
+  display: flex;
+  height: 100%;
+  gap: 45px;
 }
-.vb-leftpannel{
-    width: 52.6%;
-    /* border: 1px solid blue; */
-    /* padding: 0 40px; */
-    background: white;
-    border-radius:8px;
+.vb-leftpannel {
+  width: 52.6%;
+  /* border: 1px solid blue; */
+  /* padding: 0 40px; */
+  background: white;
+  border-radius: 8px;
 }
 .vb-checkbox-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 26px 41px 25px 41px;
-    flex-wrap: nowrap;
-    overflow-x: auto; 
-    scrollbar-width: thin;
-    scrollbar-color: #EFF1F3  white;
-    gap: 30px;
-     
-    
-  }
+  display: flex;
+  justify-content: space-between;
+  margin: 26px 41px 25px 41px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 
-  
-  
-  .bv-img-width{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px 38px;
-    padding: 25px;
-    justify-items: center;
-  }
-  
-  
-  
-
-  
-  
-
-  
-
-.vb-checkbox-name{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    /* width: 115px; */
+  scrollbar-width: none;
+  scrollbar-color: #eff1f3 white;
+  gap: 30px;
 }
 
-.vb-checkbox-name span{
-    font-family: Poppins-Regular;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    width: auto;
-    white-space: nowrap;
+.bv-img-width {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 38px;
+  padding: 25px;
+  justify-items: center;
 }
 
+.vb-checkbox-name {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  /* width: 115px; */
+}
 
+.vb-checkbox-name span {
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  width: auto;
+  white-space: nowrap;
+}
 
 .vb-checkbox-name input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 17px;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 3px;
-    position: relative;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .vb-checkbox-name input[type="checkbox"]:checked {
-    background-color: black;
-    border-radius: 5px;
-  }
-  
-  .vb-checkbox-name input[type="checkbox"]:checked::before {
-   content: "✔";
-    color: white;
-    /* font-size: 16px; */
-    position: absolute;
-    top: -2px;
-    left: 1px;
-    
-  }
-
-.vr-hr{
-    border: 1px solid rgba(239, 241, 243, 1)
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 17px;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-
-
-
-
-
-
-
-
-
-
-  .vb-uploadtext{
-    margin: 20px 41px 8px 41px;
-    font-family: Poppins-Regular;
-    font-weight: 400;
-    font-size: 16px;
-
-  }
-  .vb-upload-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    /* padding: 30px; */
-    background: rgba(239, 241, 243, 1);
-    border-radius: 10px;
-    /* border: 1px dashed #ccc; */
-    /* width: 100%; */
-    height: 224px;
-    /* max-width: 400px; */
-    margin: 0px 41px 15px 41px;
-  }
-  
-  .vb-upload-icon {
-    font-size: 36px;
-    color: #000;
-  }
-  
-  .vb-upload-box p {
-    margin: 10px 0;
-    text-align: center;
-    font-family: Poppins-Regular;
-    font-size: 18px;
-    font-weight: 400;
-  }
-  
-  .vb-upload-box .vb-select {
-    color: #34a853;
-    font-weight: bold;
-    
-  }
-  .vb-upload-box .vb-drag {
-    color: #8A8C9A;
-    font-family: Poppins-Regular;
-    font-size: 16px;
-    font-weight: 400;
-  }
-  
-
-.vb-choose-library{
-    margin: 15px 41px;
-}
-.vb-choose-library p{
-    font-family: Poppins-Regular;
-    font-size: 16px;
-    font-weight: 400;
-}
-.vb-tab{
-    display: flex;
-        gap: 10px;
-        flex-wrap: nowrap;
-        /* margin-bottom: 20px; */
-        margin: 8px 0;
-        justify-content: space-between;
-       overflow-x: auto; 
-    scrollbar-width: thin;
+.vb-checkbox-name input[type="checkbox"]:checked {
+  background-color: black;
+  border-radius: 5px;
 }
 
-.vb-tab-buttton{
-    width: 85px;
-    padding: 6px 5px 5px 4px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-family: Poppins-Regular;
-    font-size: 16px;
-    font-weight: 400;
+.vb-checkbox-name input[type="checkbox"]:checked::before {
+  content: "✔";
+  color: white;
+  /* font-size: 16px; */
+  position: absolute;
+  top: -2px;
+  left: 1px;
 }
 
-
- .vb-img-display-grid{
-    /* border: 1px solid black; */
-    background: #EFF1F3;
-    border-radius: 10px;
-    /* width: 727px; */
- }
-  .vb-width{
-    max-width: 727px;
-    min-width: 100%;
-  }
-
-
-.bv-img-select{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px 38px;
-    padding: 25px;
-    justify-items: center;
-    /* height: 300px; */
-    
-    /* overflow-y: scroll; */
-    /* scrollbar-width: thin; */
-    
+.vr-hr {
+  border: 1px solid rgba(239, 241, 243, 1);
 }
 
-
-.vb-all-img{
-    width: 100%;
-    /* width: 200px; */
-    /* height: 110px; */
-    background-size: contain;
-    border-radius: 5px;
+.vb-uploadtext {
+  margin: 20px 41px 8px 41px;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 16px;
+}
+.vb-upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* padding: 30px; */
+  background: rgba(239, 241, 243, 1);
+  border-radius: 10px;
+  /* border: 1px dashed #ccc; */
+  /* width: 100%; */
+  height: 224px;
+  /* max-width: 400px; */
+  margin: 0px 41px 15px 41px;
 }
 
+.vb-upload-icon {
+  font-size: 36px;
+  color: #000;
+}
 
+.vb-upload-box p {
+  margin: 10px 0;
+  text-align: center;
+  font-family: Poppins-Regular;
+  font-size: 18px;
+  font-weight: 400;
+}
 
+.vb-upload-box .vb-select {
+  color: #34a853;
+  font-weight: bold;
+}
+.vb-upload-box .vb-drag {
+  color: #8a8c9a;
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  font-weight: 400;
+}
 
+.vb-choose-library {
+  margin: 15px 41px;
+  /* border: 1px solid red; */
+}
 
+.vb-choose-library p {
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  font-weight: 400;
+}
+.vb-tab {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  /* margin-bottom: 20px; */
+  margin: 8px 0;
+  justify-content: space-between;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
 
+.vb-tab-buttton {
+  width: 85px;
+  padding: 6px 5px 5px 4px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  font-weight: 400;
+}
 
+.vb-img-display-grid {
+  /* border: 1px solid black; */
+  background: #eff1f3;
+  border-radius: 10px;
+  /* width: 727px; */
+}
+.vb-width {
+  max-width: 727px;
+  min-width: 100%;
+}
+
+.bv-img-select {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px 38px;
+  padding: 25px;
+  justify-items: center;
+  /* height: 300px; */
+  overflow-y: auto;
+  max-height: 500px;
+
+  /* overflow-y: scroll; */
+  scrollbar-width: thin;
+}
+
+.vb-all-img {
+  width: 100%;
+  /* width: 200px; */
+  /* height: 110px; */
+  background-size: contain;
+  border-radius: 5px;
+}
 
 /* virtual background right pannel */
 
-.vb-rightpannel{
-width: 44.47%;
-/* border: 1px solid green; */
-background: white;
-border-radius:8px;
+.vb-rightpannel {
+  width: 44.47%;
+  /* border: 1px solid green; */
+  background: white;
+  border-radius: 8px;
 }
-.vb-user-name{
-    display: flex;
-    align-items: center;
-    margin: 13px 15px;
-    gap: 13px;
+.vb-user-name {
+  display: flex;
+  align-items: center;
+  margin: 13px 15px;
+  gap: 13px;
 }
-.vb-profile-img{
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+.vb-profile-img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
-.vb-user-n-m p{
-margin: 0;
-
+.vb-user-n-m p {
+  margin: 0;
 }
-.vb-name{
-    font-family: Poppins-Medium;
-    font-size: 16px;
-font-weight: 500;
+.vb-name {
+  font-family: Poppins-Medium;
+  font-size: 16px;
+  font-weight: 500;
 }
-.vb-gamil{
-    color: #00000080;
-padding-top: 4px;
-font-family: Poppins-Medium;
-font-size: 14px;
-font-weight: 500;
+.vb-gamil {
+  color: #00000080;
+  padding-top: 4px;
+  font-family: Poppins-Medium;
+  font-size: 14px;
+  font-weight: 500;
 }
-.vb-heading-prev{
-    text-align: center;
-    margin: 20px 0;
-    font-family: Poppins-Medium;
-font-size: 18px;
-font-weight: 500;
-
+.vb-heading-prev {
+  text-align: center;
+  margin: 20px 0;
+  font-family: Poppins-Medium;
+  font-size: 18px;
+  font-weight: 500;
 }
 
-.vb-preview-card{
-    width: 320px;
-    height: 180px;
-    /* border: 1px solid #000; */
-    border-radius: 5px;
-    margin: 0 auto;
-    /* background-image: url(../VirtualBackground/VirtualBackgroundimage/img1.jpg); */
-    background-position: center;
-    background-size: contain;
+.vb-preview-card-img {
+  width: 320px;
+  height: 180px;
 }
-.vb-preview-card-child{
-    width: 308px;
-    /* height: 118px; */
-    margin: 0 auto;
-    display: flex;
-    /* border: 1px solid #000; */
-    justify-content: space-between;
-    padding: 8px;
-    position: absolute;
+.vb-preview-card {
+  width: 320px;
+  height: 180px;
+  /* border: 1px solid #000; */
+  border-radius: 5px;
+  margin: 0 auto;
+  /* background-image: url(../VirtualBackground/VirtualBackgroundimage/img1.jpg); */
+  background-position: center;
+  background-size: contain;
 }
-.vb-flex-preview-child p{
-   background-color: white;
-   margin: 3px 0;
-   width: max-content;
-  
-}
-.vb-n-500{
-    font-family: Poppins-Medium;
-    font-size: 10px;
-    font-weight: 500;
-}
-.vb-n-400{
-    font-family: Poppins-Regular;
-    font-size: 9px;
-    font-weight: 400;
-}
+.vb-preview-card-child {
+  width: 308px;
+  /* height: 118px; */
+  margin: 0 auto;
+  display: flex;
+  /* border: 1px solid #000; */
+  justify-content: space-between;
+  padding: 8px;
 
-.vb-background-button{
-    margin: 20px 0;
-    justify-content: center;
-    display: flex;
+  position: absolute;
 }
-
-.vb-download-button{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 6px 12px 5px 16px;
-    border-radius: 22px;
-    background-color: black;
-    color: white;
-    border: none;
-    font-family: Poppins-SemiBold ;
-    font-size: 16px;
-    font-weight: 600;
-    /* text-align: center; */
+.vb-flex-preview-child p {
+  background-color: white;
+  margin: 3px 0;
+  width: max-content;
+}
+.vb-n-500 {
+  font-family: Poppins-Medium;
+  font-size: 10px;
+  font-weight: 500;
+  padding: 0px 5px;
+  border-radius: 2px;
+}
+.vb-n-400 {
+  font-family: Poppins-Regular;
+  font-size: 9px;
+  font-weight: 400;
+  padding: 0 5px;
+  border-radius: 2px;
 }
 
-
-
-@media screen and (max-width: 1024px){
-    .vb-leftpannel {
-        width: 100%;
-        /* border: 1px solid blue; */
-        /* padding: 0 40px; */
-        margin: 20px 0 0 0;
-        background: white;
-        border-radius: 8px;
-    }
-    .vb-rightpannel{
-        width: 100%;
-        /* border: 1px solid green; */
-        background: white;
-        border-radius:8px;
-        display: none;
-        }
-        
-        .bv-img-select{
-
-          gap: 25px 19px;
-        }
-        .VirtualBackground-container{
-          display: unset;
-        }
-        .vb-checkbox-container{
-          padding: 26px 15px 25px 15px;
-          margin: 0px;
-          gap: 22px;
-        }
-        .vb-upload-box{
-          margin: 0px 15px 15px 15px;
-        }
-        .vb-choose-library {
-          margin: 15px 15px;
-      }
-      .vb-uploadtext{
-        margin: 20px 15px 8px 15px;
-      }
+.vb-background-button {
+  margin: 20px 0;
+  justify-content: center;
+  display: flex;
 }
 
+.vb-download-button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 6px 12px 5px 16px;
+  border-radius: 22px;
+  background-color: black;
+  color: white;
+  border: none;
+  font-family: Poppins-SemiBold;
+  font-size: 16px;
+  font-weight: 600;
+  /* text-align: center; */
+}
 
-@media screen and (max-width:767px){
-  .bv-img-select{
+@media screen and (max-width: 1024px) {
+  .vb-leftpannel {
+    width: 100%;
+    /* border: 1px solid blue; */
+    /* padding: 0 40px; */
+    margin: 20px 0 0 0;
+    background: white;
+    border-radius: 8px;
+  }
+  .vb-name {
+    text-align: left;
+    white-space: nowrap;
+  }
+  .vb-rightpannel {
+    width: 100%;
+    /* border: 1px solid green; */
+    background: white;
+    border-radius: 8px;
+    display: none;
+  }
+
+  .bv-img-select {
+    gap: 25px 19px;
+  }
+  .VirtualBackground-container {
+    display: unset;
+  }
+  .vb-checkbox-container {
+    padding: 26px 15px 25px 15px;
+    margin: 0px;
+    gap: 22px;
+  }
+  .vb-upload-box {
+    margin: 0px 15px 15px 15px;
+  }
+  .vb-choose-library {
+    margin: 15px 15px;
+  }
+  .vb-uploadtext {
+    margin: 20px 15px 8px 15px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .bv-img-select {
     gap: 14.32px 10.46px;
     padding: 5px;
   }
   .vb-upload-box {
     margin: 0px 9px 13px 9px;
+  }
+  .vb-choose-library {
+    margin: 16.76px 9px;
+  }
+  .vb-preview-card-child {
+    padding: 6px;
+  }
 }
-.vb-choose-library {
-  margin: 16.76px 9px;
-}
+
+@media screen and (max-width: 325px) {
+  .vb-preview-card-img {
+    max-width: 280px;
+    min-width: 200px;
+    width: 100%;
+    height: 180px;
+  }
+  .vb-preview-card-child {
+    padding: 5px;
+    max-width: 260px;
+    min-width: 200px;
+    width: 100%;
+  }
+  .vb-preview-card {
+    max-width: 270px;
+    min-width: 200px;
+    width: 100%;
+  }
 }
