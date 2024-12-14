@@ -33,6 +33,7 @@
   font-weight: 400;
   color: #000;
   display: flex;
+  gap: 15px;
   align-items: center;
 }
 .e-checkboxcontiner input[type="checkbox"] {
@@ -59,11 +60,11 @@
   font-size: 16px;
   position: absolute;
   top: -5px;
-  left: 1px;
+  
 }
-#left-checkbox {
+/* #left-checkbox {
   margin: 0 15px 0 0;
-}
+} */
 
 /* Form styling */
 .e-form {
@@ -165,7 +166,7 @@
 
 .e-profile {
   display: flex;
-  gap: 10px;
+  gap: 13px;
   align-items: center;
   padding: 13px 15px;
 }
@@ -356,4 +357,40 @@
     padding: 15px;
     gap: 39px;
   }
+}
+
+
+
+@media screen and (max-width:380px) {
+  .signature-card {
+    padding: 10px;
+    gap: 18px;
+}
+}
+
+
+@media screen and (max-width:350px) {
+  .signature-card {
+    padding: 5px;
+    gap: 5px;
+}
+}
+
+
+@media screen and (max-width:325px) {
+  .signature-card .e-cardname{
+    font-size: 16px;
+  }
+  .signature-card p{
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width:300px) {
+  .signature-card p {
+    font-size: 11px;
+}
+.signature-card .e-cardno{
+  padding: unset;
+}
 }
