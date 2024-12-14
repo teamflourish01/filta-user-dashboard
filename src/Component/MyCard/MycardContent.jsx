@@ -127,9 +127,19 @@ const ContentComponent = () => {
             </div>
             {/* Modal Component */}
             {isModalVisible && (
-              <div className="modal-AllLink">
-                <div className="modal-content">
-                  <div className="md-title">
+              <div
+                className="modal-AllLink"
+                onClick={(e) => {
+                  if (e.target.className === "modal-AllLink") {
+                    setIsModalVisible(false);
+                  }
+                }}
+              >
+                <div
+                  className="modal-content"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="md-title md-topmargin">
                     <p>Social Media </p>
                   </div>
                   <div className="s-alllink">
@@ -213,7 +223,7 @@ const ContentComponent = () => {
                   <div className="md-title">
                     <p>Other</p>
                   </div>
-                  <div className="s-alllink">
+                  <div className="s-alllink s-othermargin">
                     {[
                       { name: "Review", icon: gogleImg },
                       { name: "Google Drive", icon: GoolDriImg },
