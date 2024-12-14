@@ -165,10 +165,10 @@ const VirtualBackground = () => {
       }
     }
   };
-   //Preview button Animation Function Start
-   const [isFullScreen, setIsFullScreen] = useState(false); 
-   const [isClosing, setIsClosing] = useState(false); 
-   const handleFullscreen = () => {
+  //Preview button Animation Function Start
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const handleFullscreen = () => {
     if (!isFullScreen) {
       setIsFullScreen(true);
       setIsClosing(false);
@@ -188,8 +188,8 @@ const VirtualBackground = () => {
   return (
     <>
       <div className="VirtualBackground-container">
-{/* Preview Button Responsive Start */}
-<div
+        {/* Preview Button Responsive Start */}
+        <div
           style={{ width: "100%", margin: "auto", position: "relative" }}
           className="btn-display-preview"
         >
@@ -200,87 +200,106 @@ const VirtualBackground = () => {
               style={{
                 transition:
                   "width 1s ease, height 1s ease, background-color 1s ease, top 1s ease, border-radius 1s ease",
-                width: isFullScreen && !isClosing ? "100%" : "117px", 
-                height: isFullScreen && !isClosing ? "100vh" : "34px", 
+                width: isFullScreen && !isClosing ? "100%" : "117px",
+                height: isFullScreen && !isClosing ? "100vh" : "34px",
                 backgroundColor: isFullScreen && !isClosing ? "white" : "black",
                 top: isFullScreen && !isClosing ? "0px" : "70px",
-                right: isFullScreen && !isClosing ? "0" : "20px", 
-                position: isFullScreen ? "fixed" : "fixed", 
+                right: isFullScreen && !isClosing ? "0" : "20px",
+                position: isFullScreen ? "fixed" : "fixed",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                 marginTop: isFullScreen && !isClosing ? "0" : "15px",
                 marginBottom: isFullScreen && !isClosing ? "0" : "20px",
-
               }}
             >
               {isFullScreen && !isClosing ? (
                 <div className="center-preview-in-btn">
+                <hr className="vr-hr" />
+                
                   <div className="vb-user-name">
-            <img
-              src="https://via.placeholder.com/50"
-              alt="Profile"
-              className="vb-profile-img"
-            />
-            <div className="vb-user-n-m">
-              <p className="vb-name">Ajay Gadhavi</p>
-              <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
-            </div>
-          </div>
-          <hr className="vr-hr" />
+                    <img
+                      src="https://via.placeholder.com/50"
+                      alt="Profile"
+                      className="vb-profile-img "
+                    />
+                    
+                    <div className="vb-user-n-m">
+                    
+                      <p className="vb-name">Ajay Gadhavi</p>
+                      <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
+                    </div>
+                  </div>
+                  <hr className="vr-hr" />
 
-          <div className="vb-preview">
-            <p className="vb-heading-prev">Virtual Background Preview</p>
+                  <div className="vb-preview">
+                    <p className="vb-heading-prev">
+                      Virtual Background Preview
+                    </p>
 
-            <div className="vb-preview-card">
-              {selectedImage && (
-                <div style={{ position: "relative" }}>
-                  {/* Display selected image */}
-                  <img
-                    src={selectedImage.src}
-                    alt={`Selected Imag ${selectedImage.id}`}
-                    className="vb-preview-card"
-                    style={{ position: "absolute", objectFit: "cover" }}
-                  />
-                  <div className="vb-preview-card-child">
-                    <div className="vb-flex-preview-child">
-                      {fields.userPhoto && (
-                        <img
-                          src="https://via.placeholder.com/50"
-                          alt="Profile"
-                          className="vb-profile-img"
-                        />
-                      )}
-                      {fields.name && <p className="vb-n-500">Ajay Gadhavi</p>}
-                      {fields.jobTitle && (
-                        <p className="vb-n-400">UI / UX Designer</p>
-                      )}
-                      {fields.company && (
-                        <p className="vb-n-400">Flourish Creation PVT.LTD.</p>
-                      )}
-                      {fields.location && (
-                        <p className="vb-n-400">Ahmedabad, Gujarat, India</p>
+                    <div className="vb-preview-card">
+                      {selectedImage && (
+                        <div style={{ position: "relative" }}>
+                          {/* Display selected image */}
+                          <img
+                            src={selectedImage.src}
+                            alt={`Selected Imag ${selectedImage.id}`}
+                            className="vb-preview-card-img"
+                            style={{ position: "absolute", objectFit: "cover" ,left:"0%",  borderRadius: "5px"}}
+                          />
+                          <div className="vb-flex-padding">
+                          <div className="vb-preview-card-child">
+
+                            <div className="vb-flex-preview-child">
+                              {fields.userPhoto && (
+                                <img
+                                  src="https://via.placeholder.com/50"
+                                  alt="Profile"
+                                  className="vb-profile-img vb-profile-photo"
+                                />
+                              )}
+                              {fields.name && (
+                                <p className="vb-n-500">Ajay Gadhavi</p>
+                              )}
+                              {fields.jobTitle && (
+                                <p className="vb-n-400">UI / UX Designer</p>
+                              )}
+                              {fields.company && (
+                                <p className="vb-n-400">
+                                  Flourish Creation PVT.LTD.
+                                </p>
+                              )}
+                              {fields.location && (
+                                <p className="vb-n-400">
+                                  Ahmedabad, Gujarat, India
+                                </p>
+                              )}
+                            </div>
+                            {fields.qrCode && (
+                              <div>
+                                <img src={vbfiltaqr} alt="QR Code" />
+                              </div>
+                            )}
+                          </div>
+                          </div>
+                        </div>
                       )}
                     </div>
-                    {fields.qrCode && (
-                      <div>
-                        <img src={vbfiltaqr} alt="QR Code" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
 
-            <div className="vb-background-button">
-              <button className="vb-download-button" onClick={handleDownload}>
-                <AiOutlineDownload style={{ width: "24px", height: "24px" }} />
-                Download background
-              </button>
-            </div>
-          </div>
+                    <div className="vb-background-button">
+                      <button
+                        className="vb-download-button"
+                        onClick={handleDownload}
+                      >
+                        <AiOutlineDownload
+                          style={{ width: "24px", height: "24px" }}
+                        />
+                        Download background
+                      </button>
+                    </div>
+                  </div>
                   {/* Close Icon */}
                   <AiOutlineClose
                     onClick={(e) => {
-                      e.stopPropagation(); 
+                      e.stopPropagation();
                       handleClose();
                     }}
                     className="close-btn-icon-cross"
@@ -301,112 +320,112 @@ const VirtualBackground = () => {
 
         {/* left pannel */}
         <div className="vb-leftpannel">
-        <div className="vb-leftpanel-margin">
-          <div className="vb-checkbox-container">
-            <div className="vb-checkbox-name">
-              <input
-                type="checkbox"
-                checked={fields.name}
-                onChange={() => handleCheckboxChange("name")}
-              />
-              <span>Name</span>
+          <div className="vb-leftpanel-margin">
+            <div className="vb-checkbox-container">
+              <div className="vb-checkbox-name">
+                <input
+                  type="checkbox"
+                  checked={fields.name}
+                  onChange={() => handleCheckboxChange("name")}
+                />
+                <span>Name</span>
+              </div>
+              <div className="vb-checkbox-name">
+                <input
+                  type="checkbox"
+                  checked={fields.jobTitle}
+                  onChange={() => handleCheckboxChange("jobTitle")}
+                />
+                <span>Job Title</span>
+              </div>
+              <div className="vb-checkbox-name">
+                <input
+                  type="checkbox"
+                  checked={fields.company}
+                  onChange={() => handleCheckboxChange("company")}
+                />
+                <span>Company</span>
+              </div>
+              <div className="vb-checkbox-name">
+                <input
+                  type="checkbox"
+                  checked={fields.location}
+                  onChange={() => handleCheckboxChange("location")}
+                />
+                <span>Location</span>
+              </div>
+              <div className="vb-checkbox-name">
+                <input
+                  type="checkbox"
+                  checked={fields.qrCode}
+                  onChange={() => handleCheckboxChange("qrCode")}
+                />
+                <span>QR Code</span>
+              </div>
+              <div className="vb-checkbox-name">
+                <input
+                  type="checkbox"
+                  checked={fields.userPhoto}
+                  onChange={() => handleCheckboxChange("userPhoto")}
+                />
+                <span>User Photo</span>
+              </div>
             </div>
-            <div className="vb-checkbox-name">
-              <input
-                type="checkbox"
-                checked={fields.jobTitle}
-                onChange={() => handleCheckboxChange("jobTitle")}
-              />
-              <span>Job Title</span>
-            </div>
-            <div className="vb-checkbox-name">
-              <input
-                type="checkbox"
-                checked={fields.company}
-                onChange={() => handleCheckboxChange("company")}
-              />
-              <span>Company</span>
-            </div>
-            <div className="vb-checkbox-name">
-              <input
-                type="checkbox"
-                checked={fields.location}
-                onChange={() => handleCheckboxChange("location")}
-              />
-              <span>Location</span>
-            </div>
-            <div className="vb-checkbox-name">
-              <input
-                type="checkbox"
-                checked={fields.qrCode}
-                onChange={() => handleCheckboxChange("qrCode")}
-              />
-              <span>QR Code</span>
-            </div>
-            <div className="vb-checkbox-name">
-              <input
-                type="checkbox"
-                checked={fields.userPhoto}
-                onChange={() => handleCheckboxChange("userPhoto")}
-              />
-              <span>User Photo</span>
-            </div>
-          </div>
-          <hr className="vr-hr" />
-          {/* Upload Image Section */}
-          <div className="vb-height-overflow">
-          
-          <div className="vb-upload-section">
-          
-            <p className="vb-uploadtext">Upload Image</p>
-            <div className="vb-upload-box">
-              <label
-                htmlFor="vb-upload-input"
-                style={{ cursor: "pointer", textAlign: "center" }}
-              >
-                <MdOutlineCloudUpload className="vb-upload-icon" />
-                <p>
-                  <span className="vb-select">Select</span> image to upload{" "}
-                  <br />
-                  <span className="vb-drag">or drag and drop it here</span>
-                </p>
-              </label>
-              <input
-                id="vb-upload-input"
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                style={{ display: "none" }}
-              />
-            </div>
-          </div>
-          
-          <hr className="vr-hr" />
-
-          <div className="vb-choose-library">
-            <p>Choose from library</p>
-            <div className="vb-tab">
-              {categories.map((category) => (
-                <div
-                  style={{
-                    border:
-                      selectedCategory === category ? "1px solid #EFF1F3" : "",
-                    padding: "3px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <button
-                    className="vb-tab-buttton"
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    style={{ backgroundColor: "#EFF1F3" }}
+            <hr className="vr-hr" />
+            {/* Upload Image Section */}
+            <div className="vb-height-overflow">
+              <div className="vb-upload-section">
+                <p className="vb-uploadtext">Upload Image</p>
+                <div className="vb-upload-box">
+                  <label
+                    htmlFor="vb-upload-input"
+                    style={{ cursor: "pointer", textAlign: "center" }}
                   >
-                    {category}
-                  </button>
+                    <MdOutlineCloudUpload className="vb-upload-icon" />
+                    <p>
+                      <span className="vb-select">Select</span> image to upload{" "}
+                      <br />
+                      <span className="vb-drag">or drag and drop it here</span>
+                    </p>
+                  </label>
+                  <input
+                    id="vb-upload-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    style={{ display: "none" }}
+                  />
                 </div>
-              ))}
-            </div>
-            {/* <div className="vb-img-display-grid">
+              </div>
+
+              <hr className="vr-hr" />
+
+              <div className="vb-choose-library">
+                <p>Choose from library</p>
+                <div className="vb-tab">
+                  {categories.map((category) => (
+                    <div
+                      style={{
+                        border:
+                          selectedCategory === category
+                            ? "1px solid #EFF1F3"
+                            : "",
+                        padding: "3px",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <button
+                        className="vb-tab-buttton"
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        style={{ backgroundColor: "#EFF1F3" }}
+                      >
+                        {category}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {/* <div className="vb-img-display-grid">
               <div className="bv-img-select">
                 {filteredImages.map((image) => (
                   <div
@@ -422,32 +441,32 @@ const VirtualBackground = () => {
                 ))}
               </div>
             </div> */}
-            <div className="vb-width">
-            <div className="vb-img-display-grid">
-              <div className="bv-img-select">
-                {filteredImages.map((image) => (
-                  <img
-                    key={image.id}
-                    onClick={() => handleImageSelect(image)}
-                    style={{
-                      border:
-                        selectedImage && selectedImage.id === image.id
-                          ? "3px solid #000"
-                          : "none",
-                      cursor: "pointer",
-                    }}
-                    src={image.src}
-                    alt={`Imag ${image.id}`}
-                    className="vb-all-img"
-                  />
-                ))}
+                <div className="vb-width">
+                  <div className="vb-img-display-grid">
+                    <div className="bv-img-select">
+                      {filteredImages.map((image) => (
+                        <img
+                          key={image.id}
+                          onClick={() => handleImageSelect(image)}
+                          style={{
+                            border:
+                              selectedImage && selectedImage.id === image.id
+                                ? "3px solid #000"
+                                : "none",
+                            cursor: "pointer",
+                          }}
+                          src={image.src}
+                          alt={`Imag ${image.id}`}
+                          className="vb-all-img"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
-</div>
-</div>
         {/* right pannel */}
         <div className="vb-rightpannel">
           <div className="vb-user-name">
