@@ -202,7 +202,7 @@ p {
   justify-items: center;
   /* height: 300px; */
   overflow-y: auto;
-  max-height: 500px;
+  /* max-height: 500px; */
 
   /* overflow-y: scroll; */
   scrollbar-width: thin;
