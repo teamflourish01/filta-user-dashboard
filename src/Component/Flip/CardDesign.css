@@ -68,7 +68,7 @@
   left: 14px;
   content: "";
   position: fixed;
-  bottom: 164px;
+  bottom: 186px;
   transform: translateX(0);
   width: calc(100% - 322px);
   /* width: calc(100% - 294px); */

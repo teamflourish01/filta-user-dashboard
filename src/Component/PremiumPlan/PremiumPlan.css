@@ -145,8 +145,13 @@
   margin: 0 auto;
 }
 
+/* @media (max-width: 1150px) {
+  .right-premium-n-f-c-card {
+      display: none;
+  }
+} */
 
-@media(max-width:1024px){
+@media(max-width:1150px){
   .premium-plan {
     justify-content: center;
   }

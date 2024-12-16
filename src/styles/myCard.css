@@ -291,10 +291,10 @@
 }
 
 /* 1024 responsive */
-@media (max-width: 1024px) {
-  .sidebar {
+@media (max-width: 1150px) {
+  /* .sidebar {
     display: none;
-  }
+  } */
   .my-leftside {
     width: 100%;
   }
