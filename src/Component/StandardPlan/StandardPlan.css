@@ -281,10 +281,16 @@
   height: 30px;
 }
 
+@media (max-width: 1200px) and (min-width:1150px){
+  .flex-color-cotent{
+    gap: 20px !important;
+  }
+}
 
-@media (max-width: 1024px) {
+
+@media (max-width: 1150px) {
   .bg {
-    padding-top: 49px;
+    padding-top: 20px;
   }
   .right-standard-n-f-c-card {
     display: none;

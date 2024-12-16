@@ -103,6 +103,8 @@ const images = [
 
 const categories = ["All", "Indoor", "Mountain", "Abstract", "Nature", "Solid"];
 const VirtualBackground = () => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   // Filter images based on selected category
@@ -119,6 +121,14 @@ const VirtualBackground = () => {
     qrCode: true,
     userPhoto: true,
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleCheckboxChange = (field) => {
     setFields((prevFields) => ({
@@ -190,40 +200,44 @@ const VirtualBackground = () => {
       <div className="VirtualBackground-container">
         {/* Preview Button Responsive Start */}
         <div
-          style={{ width: "100%", margin: "auto", position: "relative" }}
+          style={{ width: "100%", margin: "auto", position: "" }}
           className="btn-display-preview"
         >
-          <div className="btn-content-preview-mobile" style={{ width: "100%" }}>
+          <div className="btn-content-preview-mobile">
             <button
               onClick={handleFullscreen}
               className="btn-font-preview"
               style={{
                 transition:
-                  "width 1s ease, height 1s ease, background-color 1s ease, top 1s ease, border-radius 1s ease",
+                  "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
                 width: isFullScreen && !isClosing ? "100%" : "117px",
                 height: isFullScreen && !isClosing ? "100vh" : "34px",
                 backgroundColor: isFullScreen && !isClosing ? "white" : "black",
-                top: isFullScreen && !isClosing ? "0px" : "70px",
-                right: isFullScreen && !isClosing ? "0" : "20px",
-                position: isFullScreen ? "fixed" : "fixed",
+                top: isFullScreen && !isClosing ? "0" : "90px",
+                right:
+                  isFullScreen && !isClosing
+                    ? "0"
+                    : screenWidth <= 768
+                    ? "10px"
+                    : "20px",
+                position: isFullScreen ? "fixed" : "absolute ",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
-                marginTop: isFullScreen && !isClosing ? "0" : "15px",
+                zIndex: isFullScreen && !isClosing ? "5" : "0",
                 marginBottom: isFullScreen && !isClosing ? "0" : "20px",
               }}
             >
               {isFullScreen && !isClosing ? (
                 <div className="center-preview-in-btn">
-                <hr className="vr-hr" />
-                
+                  <hr className="vr-hr" />
+
                   <div className="vb-user-name">
                     <img
                       src="https://via.placeholder.com/50"
                       alt="Profile"
                       className="vb-profile-img "
                     />
-                    
+
                     <div className="vb-user-n-m">
-                    
                       <p className="vb-name">Ajay Gadhavi</p>
                       <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
                     </div>
@@ -243,42 +257,46 @@ const VirtualBackground = () => {
                             src={selectedImage.src}
                             alt={`Selected Imag ${selectedImage.id}`}
                             className="vb-preview-card-img"
-                            style={{ position: "absolute", objectFit: "cover" ,left:"0%",  borderRadius: "5px"}}
+                            style={{
+                              position: "absolute",
+                              objectFit: "cover",
+                              left: "0%",
+                              borderRadius: "5px",
+                            }}
                           />
                           <div className="vb-flex-padding">
-                          <div className="vb-preview-card-child">
-
-                            <div className="vb-flex-preview-child">
-                              {fields.userPhoto && (
-                                <img
-                                  src="https://via.placeholder.com/50"
-                                  alt="Profile"
-                                  className="vb-profile-img vb-profile-photo"
-                                />
-                              )}
-                              {fields.name && (
-                                <p className="vb-n-500">Ajay Gadhavi</p>
-                              )}
-                              {fields.jobTitle && (
-                                <p className="vb-n-400">UI / UX Designer</p>
-                              )}
-                              {fields.company && (
-                                <p className="vb-n-400">
-                                  Flourish Creation PVT.LTD.
-                                </p>
-                              )}
-                              {fields.location && (
-                                <p className="vb-n-400">
-                                  Ahmedabad, Gujarat, India
-                                </p>
+                            <div className="vb-preview-card-child">
+                              <div className="vb-flex-preview-child">
+                                {fields.userPhoto && (
+                                  <img
+                                    src="https://via.placeholder.com/50"
+                                    alt="Profile"
+                                    className="vb-profile-img vb-profile-photo"
+                                  />
+                                )}
+                                {fields.name && (
+                                  <p className="vb-n-500">Ajay Gadhavi</p>
+                                )}
+                                {fields.jobTitle && (
+                                  <p className="vb-n-400">UI / UX Designer</p>
+                                )}
+                                {fields.company && (
+                                  <p className="vb-n-400">
+                                    Flourish Creation PVT.LTD.
+                                  </p>
+                                )}
+                                {fields.location && (
+                                  <p className="vb-n-400">
+                                    Ahmedabad, Gujarat, India
+                                  </p>
+                                )}
+                              </div>
+                              {fields.qrCode && (
+                                <div>
+                                  <img src={vbfiltaqr} alt="QR Code" />
+                                </div>
                               )}
                             </div>
-                            {fields.qrCode && (
-                              <div>
-                                <img src={vbfiltaqr} alt="QR Code" />
-                              </div>
-                            )}
-                          </div>
                           </div>
                         </div>
                       )}

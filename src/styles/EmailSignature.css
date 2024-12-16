@@ -321,9 +321,10 @@
   margin: 0;
 }
 /* 1024 responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .e-leftpanel {
     width: 100%;
+    margin-top: 55px;
   }
   .e-rightpanel {
     display: none;
@@ -341,7 +342,7 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .e-checkboxcontiner
    {
     padding: 21px 15px 19px;
