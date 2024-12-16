@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PremiumPlanDetails from "../PremiumPlanDetails/PremiumPlanDetails";
 import Sprofile from "../../images/profile.svg";
 // import scanner from "../../images/scanner.svg";
@@ -10,12 +10,17 @@ import Layout2 from "../Layout2/Layout2";
 import Layout3 from "../Layout3/Layout3";
 import "../../styles/Preview.css";
 import { AiOutlineClose } from "react-icons/ai";
-
+import { useNavigate } from "react-router-dom";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { HiOutlineArrowLeft } from "react-icons/hi";
 
 
 const PremiumPlan = () => {
-  const [isFullScreen, setIsFullScreen] = useState(false); 
-  const [isClosing, setIsClosing] = useState(false); 
+  const navigate = useNavigate();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [cardColor, setCardColor] = useState("#000000");
   const [primaryTextColor, setPrimaryTextColor] = useState("#ffffff");
   const [secondaryTextColor, setSecondaryTextColor] = useState("#ffffff");
@@ -35,6 +40,14 @@ const PremiumPlan = () => {
     email: "",
     mobileNumber: "",
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const hideMobileNo = () => {
     setShowMobileNo(!showMobileNo);
@@ -71,27 +84,40 @@ const PremiumPlan = () => {
 
   return (
     <>
-      <div className="bg">
+      <div className="my-back-btnflex-nfc">
+        <div className="btn-nfc-blc">
+          <button
+            className="my-back-btn-nfc"
+            onClick={() => navigate("/nfc-card")}
+          >
+            <HiOutlineArrowLeft style={{ fontSize:'22px' }} />
+            <span>Back to My Card</span>
+          </button>
+        </div>
         <div
-          style={{ width: "100%", margin: "auto", position: "relative" }}
+          style={{ width: "100%", margin: "auto", position: "" }}
           className="btn-display-preview"
         >
-          <div className="btn-content-preview-mobile" style={{ width: "100%" }}>
+          <div className="btn-content-preview-mobile">
             <button
               onClick={handleFullscreen}
               className="btn-font-preview"
               style={{
                 transition:
-                  "width 1s ease, height 1s ease, background-color 1s ease, top 1s ease, border-radius 1s ease",
+                  "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
                 width: isFullScreen && !isClosing ? "100%" : "117px",
                 height: isFullScreen && !isClosing ? "100vh" : "34px",
                 backgroundColor: isFullScreen && !isClosing ? "white" : "black",
-                top: isFullScreen && !isClosing ? "0px" : "70px",
-                right: isFullScreen && !isClosing ? "0" : "20px",
-                position: isFullScreen ? "fixed" : "fixed",
+                top: isFullScreen && !isClosing ? "0" : "90px",
+                right:
+                  isFullScreen && !isClosing
+                    ? "0"
+                    : screenWidth <= 768
+                    ? "10px"
+                    : "28px",
+                position: isFullScreen ? "fixed" : "absolute ",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
-                marginTop: isFullScreen && !isClosing ? "0" : "15px",
-                marginBottom: isFullScreen && !isClosing ? "0" : "20px",
+                zIndex: isFullScreen && !isClosing ? "5" : "0",
               }}
             >
               {isFullScreen && !isClosing ? (
@@ -192,14 +218,15 @@ const PremiumPlan = () => {
                 "Preview"
               )}
 
-              {/* {/ Black overlay /} */}
+              {/* Black overlay */}
               {isFullScreen && !isClosing && (
                 <div className="black-overlay-btn-preview"></div>
               )}
             </button>
           </div>
         </div>
-
+      </div>
+      <div className="bg">
         <div className="premium-plan">
           <div className="left-premium-n-f-c-card">
             <div className="premium-l-n-f-c">Premium Plan</div>

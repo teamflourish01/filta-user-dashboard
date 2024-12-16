@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "../LeadDetails/LeadDetails.css";
 
 const LeadDetails = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      modalRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isOpen]);
+
   const handleOverlayClick = (e) => {
-    if (e.target.classList.contains("modal-overlay")) {
+    if (e.target.classList.contains("modal-overlay-lead")) {
       onClose();
     }
   };
+
+  if (!isOpen) return null;
+
   return (
     <>
       <div className="modal-overlay-lead" onClick={handleOverlayClick}></div>
-      <div className="modal-lead">
+      <div className="modal-lead" ref={modalRef}>
+        <div className="btn-close-model-ld">
         <button className="close-button-lead" onClick={onClose}>
           &times;
         </button>
+        </div>
         <div className="modal-content-lead">
           <p className="lead-detail-title">Lead Details</p>
           <div className="lead-details-container">

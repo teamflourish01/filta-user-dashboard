@@ -324,12 +324,12 @@ p {
   /* text-align: center; */
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1150px) {
   .vb-leftpannel {
     width: 100%;
     /* border: 1px solid blue; */
     /* padding: 0 40px; */
-    margin: 20px 0 0 0;
+    margin: 54px 0 0 0;
     background: white;
     border-radius: 8px;
   }

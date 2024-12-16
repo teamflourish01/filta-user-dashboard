@@ -90,7 +90,7 @@
   .right-n-f-c-card {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
   }
 }
@@ -142,5 +142,8 @@
   .right-n-f-c-card {
     align-items: unset;
     justify-content: unset;
+  }
+  .left-n-f-c-card {
+    padding: 20px 0 50px;
   }
 }
