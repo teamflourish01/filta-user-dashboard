@@ -7,7 +7,7 @@
 }
 
 .try-contact-tbl, .try-c-tbl-td, .try-c-tbl-th {
-  border-bottom: 1px solid #eff1f3;
+  /* border-bottom: 1px solid #eff1f3; */
   text-align: center;
 }
 .try-c-tbl-td{
@@ -242,7 +242,9 @@ line-height: 24px;
 }
 
 }
-
+.shuffle-drag{
+  cursor: pointer;
+}
 
 @media screen and (max-width:1024px) {
   .cnts-padding {

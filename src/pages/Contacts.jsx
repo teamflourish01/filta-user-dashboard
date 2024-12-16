@@ -56,7 +56,7 @@ const Contacts = () => {
       );
     } else {
       // Add new contact
-      setContacts([...contacts, newContact]);
+      setContacts((prevContacts) => [...prevContacts, newContact]);
     }
     closeModal();
   };
@@ -115,57 +115,58 @@ const Contacts = () => {
           <div className="cnt-table">
             <div className="cnt-table-radius">
               <table className="try-contact-tbl">
-                <tr>
-                  <th className="try-c-tbl-th">Name</th>
-                  <th className="try-c-tbl-th">Job Title</th>
-                  <th className="try-c-tbl-th">Comapny</th>
-                  <th className="try-c-tbl-th">Added</th>
-                  <th className="try-c-tbl-th">Action</th>
-                  <th className="try-c-tbl-th">Suffle</th>
-                </tr>
-                {contacts.map((row, index) => (
-                  <tr
-                    key={index}
-                    className="table-row"
-                    draggable
-                    onDragStart={() => handledragstart(index)}
-                    onDragOver={handledragover}
-                    onDrop={() => handledrop(index)}
-                  >
-                    <td>
-                      {" "}
-                      <div className="img-profile-cell">
-                        <img src={profile} alt="" srcset="" />
-                        {row.name}
-                      </div>
-                    </td>
-                    <td className="try-c-tbl-td">{row.jobTitle}</td>
-                    <td className="try-c-tbl-td">{row.company}</td>
-                    <td className="try-c-tbl-td">{row.added}</td>
-                    <td>
-                      <div className="table-action-flex">
-                        <img src={ctneye} alt="" srcset="" />
-                        <img
-                          src={ctnpen}
-                          alt=""
-                          srcset=""
-                          onClick={() => openModal(row)}
-                        />
-                        <img
-                          src={actionbtn3}
-                          alt=""
-                          srcset=""
-                          onClick={() => deleteContact(index)}
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <div className="table-cell-title">
-                        <img src={suffle} alt="" srcset="" />
-                      </div>
-                    </td>
+                <thead>
+                  <tr>
+                    <th className="try-c-tbl-th">Name</th>
+                    <th className="try-c-tbl-th">Job Title</th>
+                    <th className="try-c-tbl-th">Comapny</th>
+                    <th className="try-c-tbl-th">Added</th>
+                    <th className="try-c-tbl-th">Action</th>
+                    <th className="try-c-tbl-th">Shuffle</th>
                   </tr>
-                ))}
+                </thead>
+                <tbody>
+                  {contacts.map((row, index) => (
+                    <tr
+                      key={index}
+                      className="table-header-row"
+                      draggable
+                      onDragStart={() => handledragstart(index)}
+                      onDragOver={handledragover}
+                      onDrop={() => handledrop(index)}
+                    >
+                      <td>
+                        <div className="img-profile-cell">
+                          <img src={profile} alt="" />
+                          {row.name}
+                        </div>
+                      </td>
+                      <td className="try-c-tbl-td">{row.jobTitle}</td>
+                      <td className="try-c-tbl-td">{row.company}</td>
+                      <td className="try-c-tbl-td">{row.added}</td>
+                      <td>
+                        <div className="table-action-flex">
+                          <img src={ctneye} alt="" />
+                          <img
+                            src={ctnpen}
+                            alt=""
+                            onClick={() => openModal(row)}
+                          />
+                          <img
+                            src={actionbtn3}
+                            alt=""
+                            onClick={() => deleteContact(index)}
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div className="table-cell-title">
+                          <img src={suffle} alt="" className="shuffle-drag" />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
           </div>
