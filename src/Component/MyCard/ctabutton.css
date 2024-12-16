@@ -1,0 +1,62 @@
+.cta-container{
+    background-color: white;
+    margin: 15px 31px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.cta-option{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px 0;
+}
+.cta-url{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    
+    
+}
+.cta-button{
+    text-align: end;
+    
+}
+#cta-select{
+    height: 42px;
+    background: rgba(239, 241, 243, 1);
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    line-height: 21px;
+    color: rgba(0, 0, 0, 0.5);
+
+}
+.cta-mobileno{
+    height: 42px;
+    background: rgba(239, 241, 243, 1);
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 15px;
+    padding: 0 10px;
+
+}
+.cta-info span{
+  font-family: Poppins-SemiBold;
+    font-size: 14px;
+    color: black;
+}
+.cta-info{
+    color: rgba(79, 79, 79, 1);
+    font-size: 14px;
+    line-height: 21px;
+    text-align: justify;
+
+}
+
+.cta-button-label{
+    font-size: 16px;
+    font-family: Poppins-Regular;
+text-align: left;
+line-height: 24px;
+}

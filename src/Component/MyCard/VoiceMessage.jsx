@@ -8,7 +8,7 @@ import spikrImg from "../../images/spiker.png";
 import dltImg from "../../images/voice_dlt.png";
 import TwoButton from "./TwoButton";
 
-const VoiceMessage = () => {
+const   VoiceMessage = () => {
   return (
     <>
       <div className="vm-margin">
