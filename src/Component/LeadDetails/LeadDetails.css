@@ -9,25 +9,36 @@
   }
   
   .modal-lead {
-    position: fixed;
+    /* position: fixed; */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 20px;
+    /* padding: 20px; */
+    padding: 10px 20px 20px;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 20;
-    width: 400px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
+    overflow-y: auto; /* Add vertical scrolling if content overflows */
+    scrollbar-width: thin;
   }
   
   .modal-content-lead {
-    margin-top: 15px;
+    /* margin-top: 15px; */
+  }
+
+  .btn-close-model-ld{
+    display: flex;
+    align-items: center;
+    justify-content: end;
   }
   
   .close-button-lead {
-    position: absolute;
+    /* position: absolute; */
     top: 10px;
     right: 10px;
     background: transparent;
@@ -94,3 +105,15 @@
       height: 140px;
     }
     
+    @media(max-width:500px){
+      /* .modal-lead{
+        width: 80%;
+        top: unset;
+        transform: translate(-50%, -100%);
+      } */
+      .modal-lead {
+        top: 10%; /* Position slightly lower */
+        transform: translate(-50%, 0); /* Remove vertical centering */
+        width: 80%;
+      }
+    }

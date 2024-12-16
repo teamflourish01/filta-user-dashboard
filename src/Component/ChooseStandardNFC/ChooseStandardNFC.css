@@ -90,3 +90,6 @@
   border: none;
   cursor: pointer;
 }
+.p-10-tp{
+  padding: 10px 15px 0 15px !important;
+}

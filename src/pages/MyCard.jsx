@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/myCard.css";
 import "../Component/MyCard/Design.css";
 import profileimg from "../images/profileimg.png";
@@ -21,10 +21,20 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 const MyCard = () => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
   const [activeTab, setActiveTab] = useState("Basic Details");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   //Preview button Animation Function Start
   const handleFullscreen = () => {
@@ -82,7 +92,10 @@ const MyCard = () => {
         {/* Left Side */}
         <div className="my-prvw-container">
           <div className="my-back-btnflex">
-            <button className="my-back-btn" onClick={() => navigate("/my-card")}>
+            <button
+              className="my-back-btn"
+              onClick={() => navigate("/my-card")}
+            >
               <AiOutlineArrowLeft style={{ width: "16px", height: "14px" }} />
               <span>Back to My Card</span>
             </button>
@@ -90,29 +103,30 @@ const MyCard = () => {
           <div className="my-prvwbtn">
             {/* Preview Button Responsive Start */}
             <div
-              style={{ width: "100%", margin: "auto", position: "relative" }}
+              style={{ width: "100%", margin: "auto", position: "" }}
               className="btn-display-preview"
             >
-              <div
-                className="btn-content-preview-mobile"
-                style={{ width: "100%" }}
-              >
+              <div className="btn-content-preview-mobile">
                 <button
                   onClick={handleFullscreen}
                   className="btn-font-preview"
                   style={{
                     transition:
-                      "width 1s ease, height 1s ease, background-color 1s ease, top 1s ease, border-radius 1s ease",
+                      "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
                     width: isFullScreen && !isClosing ? "100%" : "117px",
                     height: isFullScreen && !isClosing ? "100vh" : "34px",
                     backgroundColor:
                       isFullScreen && !isClosing ? "white" : "black",
-                    top: isFullScreen && !isClosing ? "0px" : "70px",
-                    right: isFullScreen && !isClosing ? "0" : "20px",
-                    position: isFullScreen ? "fixed" : "fixed",
+                    top: isFullScreen && !isClosing ? "0" : "90px",
+                    right:
+                      isFullScreen && !isClosing
+                        ? "0"
+                        : screenWidth <= 768
+                        ? "10px"
+                        : "28px",
+                    position: isFullScreen ? "fixed" : "absolute ",
                     borderRadius: isFullScreen && !isClosing ? "0" : "35px",
-                    marginTop: isFullScreen && !isClosing ? "0" : "15px",
-                    marginBottom: isFullScreen && !isClosing ? "0" : "20px",
+                    zIndex: isFullScreen && !isClosing ? "5" : "0",
                   }}
                 >
                   {isFullScreen && !isClosing ? (

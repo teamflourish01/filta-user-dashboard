@@ -574,7 +574,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   }
   .align-flex {
     gap: 15px;
-    flex-wrap: unset;
+    /* flex-wrap: unset; */
   }
   .choose-card-layout-container {
     padding: unset;
