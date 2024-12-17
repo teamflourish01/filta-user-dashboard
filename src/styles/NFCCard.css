@@ -4,7 +4,19 @@
   align-items: center;
   gap: 45px;
   overflow-x: hidden;
+  border-radius: 10px;
+  background-color: white;
+  border: 3px solid white;
+
 }
+.n-f-c-scroll{
+  width: 100%;
+  overflow-y: scroll;
+  height: calc(98vh - 90px);
+  scrollbar-color: #ccc white;
+  scrollbar-width: thin;
+}
+
 .parent-div-of-cards-choose {
   padding: 0 50px;
   display: flex;
@@ -13,9 +25,10 @@
 }
 .left-n-f-c-card {
   width: 52.6%;
-  height: 826px;
-  background-color: white;
-  border-radius: 10px;
+  /* height: 826px; */
+  /* border-radius: 10px; */
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   padding: 93px 0;
 }
 .choose-l-n-f-c {
@@ -39,7 +52,7 @@
 }
 .right-n-f-c-card {
   width: 44.47%;
-  height: 826px;
+  /* height: 826px; */
   /* height: 100vh; */
   background-color: white;
   border-radius: 10px;
@@ -73,11 +86,11 @@
     padding: 50px 0;
     border-radius: unset;
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    /* border-top-right-radius: 10px; */
   }
   .right-n-f-c-card {
     width: 100%;
-    height: 1052px;
+    /* height: 1052px; */
     border-radius: unset;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;

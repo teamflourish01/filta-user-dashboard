@@ -89,10 +89,12 @@ const StandardPlan = () => {
             className="my-back-btn-nfc"
             onClick={() => navigate("/nfc-card")}
           >
-            <HiOutlineArrowLeft style={{ fontSize:'22px' }} />
+            <HiOutlineArrowLeft style={{ fontSize: "22px" }} />
             <span>Back to My Card</span>
           </button>
         </div>
+        {/* Preview Button Responsive Start */}
+
         <div
           style={{ width: "100%", margin: "auto", position: "" }}
           className="btn-display-preview"
@@ -243,13 +245,10 @@ const StandardPlan = () => {
             </button>
           </div>
         </div>
+        {/* Preview Button Responsive End */}
       </div>
 
       <div className="bg">
-        {/* Preview Button Responsive Start */}
-
-        {/* Preview Button Responsive End */}
-
         <div className="standard-plan">
           <div className="left-standard-n-f-c-card">
             <div className="standard-l-n-f-c">Standard Plan</div>
@@ -278,6 +277,7 @@ const StandardPlan = () => {
                 <p className="user-email-standard">ajaygadhavi045@gmail.com</p>
               </div>
             </div>
+            <div className="bottom-content-scroll-standard">
             <div className="bottom-standard-section">
               <div className="standard-nfc-card-preview-title">
                 NFC card live preview
@@ -362,6 +362,7 @@ const StandardPlan = () => {
                   </div>
                 </button>
               </div>
+            </div>
             </div>
           </div>
         </div>
