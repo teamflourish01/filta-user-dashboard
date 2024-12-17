@@ -266,6 +266,8 @@ const PremiumPlan = () => {
                 <p className="user-email-premium">ajaygadhavi045@gmail.com</p>
               </div>
             </div>
+            <div className="bottom-content-scroll-standard">
+
             <div className="bottom-premium-section">
               <div className="standard-nfc-card-preview-title">
                 NFC card live preview
@@ -333,6 +335,7 @@ const PremiumPlan = () => {
                   </div>
                 </button>
               </div>
+            </div>
             </div>
           </div>
         </div>

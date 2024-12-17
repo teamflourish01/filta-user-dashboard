@@ -71,6 +71,10 @@
   width: 100%;
   padding: 20px 41px;
   box-sizing: border-box;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc white;
+  height: calc(90vh - 130px); /*Add for set height accroding to screen by R*/
 }
 
 .e-allfiled {
@@ -202,8 +206,12 @@
 .e-rightmain {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc white;
+  height: calc(90vh - 95px); /*Add for set height accroding to screen by R*/
 }
 .e-cardheding {
   font-family: Poppins-Medium;

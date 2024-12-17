@@ -24,7 +24,9 @@
   src: url("../src/Poppins/Poppins-Bold.ttf");
   /* 700 */
 }
-
+body{
+  overflow-y: hidden; /* Don't remove this It's used for Fix height screen vise*/
+}
 .App {
   display: flex;
   min-height: 100vh;
@@ -59,8 +61,15 @@
   overflow: hidden;
   /* margin-top: 60px; Adjust for fixed navbar */
 }
-
-
+.auth-layout{
+  overflow-y: scroll;
+  height: 100vh;
+}
+@media(max-width:1150px){
+  body{
+    overflow-y: unset; /* Don't remove this It's used for Fix height screen vise*/
+  }
+}
 @media (max-width: 1024px) {
 
   .main-content {
