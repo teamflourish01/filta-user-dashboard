@@ -6,6 +6,7 @@ const BasicDetails = () => {
   const [borderStyle, setBorderStyle] = useState("circle");
   return (
     <>
+    <div className="basic-detail-scroll">
       {/* Upload section */}
       <div className="upload-section-container">
         <div className="upload-box">
@@ -90,6 +91,7 @@ const BasicDetails = () => {
             <TwoButton />
           </div>
         </form>
+      </div>
       </div>
     </>
   );

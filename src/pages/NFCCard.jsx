@@ -8,7 +8,7 @@ const NFCCard = () => {
   return (
     <>
       <div className="n-f-c">
-      
+      <div className="n-f-c-scroll">
         <div className="left-n-f-c-card">
           <div className="parent-div-of-cards-choose">
             
@@ -37,6 +37,7 @@ const NFCCard = () => {
             <Flip/>
           </div>
           </div>
+        </div>
         </div>
       </div>
     </>
