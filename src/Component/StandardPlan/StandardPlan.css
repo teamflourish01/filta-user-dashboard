@@ -10,15 +10,19 @@
 .left-standard-n-f-c-card {
   width: 52.6%;
   background-color: white;
+  border-bottom: 4px solid white;
   border-radius: 10px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   scrollbar-width: none;
-  height: 100%;
+  /* height: 100%; */
+
 }
 .standard-card-content {
   overflow-y: scroll;
   scrollbar-width: none;
-  height: 748px;
+  /* height: 748px; */
+  height: calc(90vh - 95px); /* Adjust '100px' as per header/footer height */
+
 }
 .standard-l-n-f-c {
   font-family: Poppins-SemiBold;
@@ -31,8 +35,10 @@
 .right-standard-n-f-c-card {
   width: 44.47%;
   background-color: white;
+  border-bottom: 4px solid white;
   border-radius: 10px;
-  height: 826px;
+  /* height: 826px; */
+
 }
 .how-it-r-n-f-c {
   font-family: Poppins-Medium;
@@ -136,6 +142,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.bottom-content-scroll-standard{
+  height: calc(90vh - 95px);
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .white-name-black-card {
   font-family: Poppins-Bold;
@@ -311,6 +322,7 @@
   .back-side-text{
     text-align: left;
   }
+  
 }
 @media (max-width: 768px) {
   .standard-l-n-f-c {

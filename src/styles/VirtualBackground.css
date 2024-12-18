@@ -2,7 +2,12 @@ p {
   padding: 0;
   margin: 0;
 }
-
+.vb-preview{
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: calc(90vh - 95px);
+  scrollbar-color: #ccc white;
+}
 .vb-profile-photo {
   position: relative;
   right: 33%;
@@ -18,7 +23,8 @@ p {
 .vb-height-overflow {
   border-bottom: 5px solid white;
   overflow-y: scroll;
-  height: 754px;
+  /* height: 754px; */
+  height: calc(90vh - 95px);
   scrollbar-width: thin; /* Firefox: Thin scrollbar */
   scrollbar-color: #aeaeae white;
   border-radius: 0 0 20px 20px;

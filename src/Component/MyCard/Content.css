@@ -222,9 +222,12 @@
 /* Drop-Down style */
 .drpBox-container {
   /* padding-top: 5px; */
-  height: 826px;
+  /* height: 826px; */
+  height: calc(90vh - 110px); /*Add for set height accroding to screen by R*/
   overflow-y: scroll;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc white;
+
 }
 .drpbox-set {
   margin: 15px 41px 0;

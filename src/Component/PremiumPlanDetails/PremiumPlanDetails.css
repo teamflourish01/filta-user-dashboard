@@ -1,9 +1,10 @@
 .Premium-Customize-Details-bg-white {
   background-color: white;
   padding: 20px 41px;
-  height: 703px;
+  height: calc(90vh - 139px);
   overflow-y: scroll;
   scrollbar-width: none;
+  
 }
 .Premium-Customize-Details-bg-grey {
   background-color: #eff1f3;

@@ -274,6 +274,29 @@
   display: none;
 }
 
+/* Add For Scroll by R Start*/
+
+.basic-detail-scroll{
+  overflow-y: scroll;
+    scrollbar-width: thin;
+    height: calc(90vh - 110px);
+    scrollbar-color: #ccc white;
+}
+.my-priviewMain{
+  overflow-y: scroll;
+    scrollbar-width: thin;
+    height: calc(92vh - 110px);
+    scrollbar-color: #ccc white;
+}
+.my-leftside{
+  border-bottom: 3px solid white;
+}
+.my-rightside{
+  border-bottom: 1px solid white;
+}
+/* Add For Scroll by R End*/
+
+
 @media (max-width: 1350px) and (min-width: 1025px) {
   .my-menu {
     margin: 21px 7px 20px;
