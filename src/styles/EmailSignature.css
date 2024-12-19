@@ -122,6 +122,11 @@
   font-weight: 400;
 }
 
+.e-form input,
+.e-txtarea:focus{
+  outline: 1px solid #ccc;
+}
+
 .e-txtarea {
   height: 80px;
   resize: none;
