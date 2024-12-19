@@ -22,10 +22,20 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 const MyCard = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
+  const [profileImages, setProfileImage] = useState(null);
+  const [coverPhoto, setCoverPhoto] = useState(null);
+  const [logo, setLogo] = useState(null);
   const [activeTab, setActiveTab] = useState("Basic Details");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [borderStyle, setBorderStyle] = useState("circle");
+  const [formData, setFormData] = useState({
+    name: "",
+    jobTitle: "",
+    company: "",
+    location: "",
+    bio: "",
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +54,13 @@ const MyCard = () => {
     }
   };
 
+  const handleFormDataChange = (updatedData) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      ...updatedData,
+    }));
+  };
+
   const handleClose = () => {
     if (isFullScreen) {
       setIsClosing(true);
@@ -60,19 +77,25 @@ const MyCard = () => {
       case "Basic Details":
         return (
           <>
-            <BasicDetails />
+            <BasicDetails
+            
+              onFormDataChange={handleFormDataChange}
+              onProfileImageChange={setProfileImage}
+              onCoverPhotoChange={setCoverPhoto}
+              onLogoChange={setLogo}
+            />
           </>
         );
       case "Content":
         return (
           <>
-            <ContentComponent />
+            <ContentComponent onFormDataChange={handleFormDataChange} />
           </>
         );
       case "Design":
         return (
           <>
-            <DesignComponent />
+            <DesignComponent onFormDataChange={handleFormDataChange} />
           </>
         );
       case "QR Code":
@@ -251,7 +274,38 @@ const MyCard = () => {
           ) : (
             <div className="my-priviewMain">
               <p>Card live preview</p>
-              <div className="my-priviewcard"></div>
+              <div className="my-priviewcard">
+                {/* Show live card preview */}
+
+                <div className="cardshow-text">
+                  <div>
+                    {profileImages && (
+                      <img
+                        src={profileImages}
+                        alt="Profile Preview"
+                        className={`profile-photo ${borderStyle}`}
+                      />
+                    )}
+
+                    {coverPhoto && (
+                      <img
+                        src={coverPhoto}
+                        alt="Cover Photo Preview"
+                        className="cover-photo"
+                      />
+                    )}
+
+                    {logo && (
+                      <img src={logo} alt="Logo Preview" className="logo-img" />
+                    )}
+                  </div>
+                  <p>{formData.name}</p>
+                  <p>{formData.jobTitle}</p>
+                  <p>{formData.company}</p>
+                  <p>{formData.location}</p>
+                  <p>{formData.bio}</p>
+                </div>
+              </div>
               <div className="my-prwbtn">
                 <span>Share your card</span>
                 <img src={sharebtn} alt="sharebtn" />
