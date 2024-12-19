@@ -51,6 +51,8 @@
     font-size: 14px;
     line-height: 21px;
     text-align: justify;
+    font-family: Poppins-Regular;
+
 
 }
 
@@ -59,4 +61,14 @@
     font-family: Poppins-Regular;
 text-align: left;
 line-height: 24px;
+}
+
+
+@media screen and (max-width:767px) {
+    .cta-container {
+        background-color: white;
+        margin: 15px 2px;
+        padding: 15px;
+        border-radius: 10px;
+    }
 }
