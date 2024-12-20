@@ -18,6 +18,7 @@ import Digitalcard from "./Component/digitalcard/Digitalcard";
 import Signup from "./Component/signup/Signup";
 import Login from "./Component/login/Login";
 import Forgpassword from "./Component/Forgatepassword/Forgpassword";
+import SignupFlow from "./Component/Auth/SignupFlow";
 
 // Layout for Authentication Pages
 const AuthLayout = ({ children }) => {
@@ -33,7 +34,7 @@ function App() {
           path="/"
           element={
             <AuthLayout>
-              <Digitalcard />
+              <SignupFlow />
             </AuthLayout>
           }
         />
