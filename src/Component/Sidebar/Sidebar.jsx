@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import mycard from "../../images/mycard.svg";
 import nfccard from "../../images/nfccard.svg";
 import digitalreviewcard from "../../images/digitalreviewcard.svg";
@@ -10,10 +10,13 @@ import myleads from "../../images/myleads.svg";
 import setting from "../../images/setting.svg";
 import "./Sidebar.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import userContext from "../../context/userDetails";
 
 const Sidebar = () => {
   // const [activeItem, setActiveItem] = useState(" ");
   const location = useLocation();
+  const navigate = useNavigate();
+  const { userData } = useContext(userContext);
 
   // const handleMenuClick = (item) => {
   //   setActiveItem(item);
@@ -27,6 +30,11 @@ const Sidebar = () => {
 
   const closeProfileMenu = () => {
     setIsProfileMenuOpen(false);
+  };
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -56,7 +64,7 @@ const Sidebar = () => {
           className="profile-img"
         />
         <div className="profile-info">
-          <p>Ajay Gadhavi</p>
+          <p>{userData?.card?.name || "Ajay Gadhavi"}</p>
           <span>User</span>
         </div>
         <button className="profile-menu-btn" onClick={toggleProfileMenu}>
@@ -76,7 +84,7 @@ const Sidebar = () => {
                 <Link to="/request-feature" >Request a feature</Link>
               </li>
               <li>
-                <Link to="/logout">Logout</Link>
+                <Link onClick={handleLogOut}>Logout</Link>
               </li>
             </ul>
           </div>
@@ -84,7 +92,6 @@ const Sidebar = () => {
       </div>
       <div className="menu">
         <Link
-
           to="/my-card"
           // className={`menu-item ${location.pathname === "/my-card" ? "active" : ""}`}
           className={`menu-item ${
@@ -100,7 +107,8 @@ const Sidebar = () => {
         <Link
           to="/nfc-card"
           className={`menu-item ${
-            location.pathname.startsWith("/nfc-card") ? "active" : ""}`}
+            location.pathname.startsWith("/nfc-card") ? "active" : ""
+          }`}
           // onClick={() => handleMenuClick("NFC Card")}
         >
           {/* <FaSignal className="menu-icon" /> */}
@@ -142,7 +150,9 @@ const Sidebar = () => {
         </Link>
         <Link
           to="/contacts"
-          className={`menu-item ${location.pathname === "/contacts" ? "active" : ""}`}
+          className={`menu-item ${
+            location.pathname === "/contacts" ? "active" : ""
+          }`}
           // onClick={() => handleMenuClick("Contacts")}
         >
           {/* <FaUserFriends className="menu-icon" /> */}
@@ -151,7 +161,9 @@ const Sidebar = () => {
         </Link>
         <Link
           to="/my-leads"
-          className={`menu-item ${location.pathname === "/my-leads" ? "active" : ""}`}
+          className={`menu-item ${
+            location.pathname === "/my-leads" ? "active" : ""
+          }`}
           // onClick={() => handleMenuClick("My Leads")}
         >
           {/* <FaClipboardList className="menu-icon" /> */}
@@ -160,7 +172,9 @@ const Sidebar = () => {
         </Link>
         <Link
           to="/settings"
-          className={`menu-item ${location.pathname === "/settings" ? "active" : ""}`}
+          className={`menu-item ${
+            location.pathname === "/settings" ? "active" : ""
+          }`}
           // onClick={() => handleMenuClick("Settings")}
         >
           {/* <FaCog className="menu-icon" /> */}
