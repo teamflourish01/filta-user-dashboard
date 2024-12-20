@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import uploadimg from "../../images/uploadimg.png";
 import TwoButton from "./TwoButton";
+import userContext from "../../context/userDetails";
 
 const BasicDetails = () => {
   const [borderStyle, setBorderStyle] = useState("circle");
+  const { userData } = useContext(userContext);
   return (
     <>
       {/* Upload section */}
@@ -68,19 +70,19 @@ const BasicDetails = () => {
         <form>
           <div className="my-fullwidth">
             <label>Name</label>
-            <input type="text" placeholder="Enter your name" required />
+            <input type="text" value={userData?.card?.name} placeholder="Enter your name" required />
           </div>
           <div className="my-fullwidth">
             <label>Job Title</label>
-            <input type="text" placeholder="Enter your job title" required />
+            <input type="text" value={userData?.card?.jobtitle} placeholder="Enter your job title" required />
           </div>
           <div className="my-fullwidth">
             <label>Company</label>
-            <input type="text" placeholder="Enter your company" required />
+            <input type="text" placeholder="Enter your company" value={userData?.card?.company} required />
           </div>
           <div className="my-fullwidth">
             <label>Location</label>
-            <input type="text" placeholder="Enter your location" required />
+            <input type="text" placeholder="Enter your location" value={userData?.card?.location} required />
           </div>
           <div className="my-fullwidth">
             <label>Bio</label>
