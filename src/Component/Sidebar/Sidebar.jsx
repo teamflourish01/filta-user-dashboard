@@ -81,7 +81,7 @@ const Sidebar = () => {
           <div className="profile-dropdown-menu">
             <ul>
               <li>
-                <Link to="/request-feature">Request a feature</Link>
+                <Link to="/request-feature" >Request a feature</Link>
               </li>
               <li>
                 <Link onClick={handleLogOut}>Logout</Link>

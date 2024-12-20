@@ -395,6 +395,7 @@
   .my-menu {
     margin: 21px 7px 20px;
     gap: 20px;
+    padding: unset;
   }
   .upload-section-container {
     padding: 19px 7px 20px;

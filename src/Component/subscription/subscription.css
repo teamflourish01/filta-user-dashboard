@@ -1,0 +1,103 @@
+body {
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .pricing-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .toggle-button {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    margin: 0 10px;
+  }
+  
+  .toggle-button.active {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .pricing-plans {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .plan-card {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .plan-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .plan-price {
+    font-size: 18px;
+    color: #28a745;
+    margin: 10px 0;
+  }
+  
+  .plan-price span {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .plan-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 15px 0;
+  }
+  
+  .plan-button.contact-button {
+    background-color: #007bff;
+  }
+  
+  .plan-button:hover {
+    opacity: 0.9;
+  }
+  
+  .plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .plan-features li {
+    margin-bottom: 8px;
+    color: #555;
+  }
+  
+  .plan-features li:first-child {
+    font-weight: bold;
+  }
+  

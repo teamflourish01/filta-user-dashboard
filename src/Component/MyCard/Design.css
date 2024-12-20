@@ -3,7 +3,7 @@
   padding: 0;
 }
 .di-margin {
-  padding: 20px 41px;
+  margin: 20px 41px;
   /* height: 100vh; */
   overflow-y: scroll;
   scrollbar-width: thin;
