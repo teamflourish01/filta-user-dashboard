@@ -41,7 +41,7 @@ const Contacts = () => {
     setContactToEdit(contacts);
     setIsModalOpen(true);
   };
-  console.log("openmodal",openModal)
+  console.log("openmodal", openModal);
   const closeModal = () => {
     setIsModalOpen(false);
     setContactToEdit(null);
@@ -56,7 +56,7 @@ const Contacts = () => {
       );
     } else {
       // Add new contact
-      setContacts([...contacts, newContact]);
+      setContacts((prevContacts) => [...prevContacts, newContact]);
     }
     closeModal();
   };
@@ -67,126 +67,117 @@ const Contacts = () => {
     setContacts(updatedContacts);
   };
 
-
-
-  const handledragstart =(index)=>{
+  const handledragstart = (index) => {
     setDraggedIndex(index);
-  }
+  };
 
-
-  const  handledragover =(e)=>{
+  const handledragover = (e) => {
     e.preventDefault();
-  }
+  };
 
-
-  const handledrop =(index)=>{
-    if(draggedIndex===null) return;
-    const updatedContacts=[...contacts]
-    const [draggedItem]=updatedContacts.splice(draggedIndex,1);
-    updatedContacts.splice(index,0,draggedItem);
+  const handledrop = (index) => {
+    if (draggedIndex === null) return;
+    const updatedContacts = [...contacts];
+    const [draggedItem] = updatedContacts.splice(draggedIndex, 1);
+    updatedContacts.splice(index, 0, draggedItem);
 
     setContacts(updatedContacts);
     setDraggedIndex(null);
-  }
+  };
 
   return (
-    <div className="cnt-container">
-      <div className="cnt-padding">
-        <div className="cnt-search-flex">
-          <div className="cnt-serch">
-            <div className="search-flex">
-              <div className="search-icon-cnt">
-                {/* <CiSearch className="serach"/> */}
-                <img src={search} alt="" srcset="" className="serach" />
-                <input type="text" placeholder="Search" className="cnt-input" />
+    <div className="cnts-padding">
+      <div className="cnt-container">
+        <div className="cnt-padding">
+          <div className="cnt-search-flex">
+            <div className="cnt-serch">
+              <div className="search-flex">
+                <div className="search-icon-cnt">
+                  {/* <CiSearch className="serach"/> */}
+                  <img src={search} alt="" srcset="" className="serach" />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="cnt-input"
+                  />
+                </div>
               </div>
             </div>
+            <div className="cnt-button">
+              <button className="cnt-btn" onClick={() => openModal()}>
+                Add Contact
+              </button>
+            </div>
           </div>
-
-          <button className="cnt-btn" onClick={() => openModal()}>
-            Add Contact
-          </button>
         </div>
-      </div>
-      <hr className="cnt-hr" />
-      <div className="cnt-box">
-        <div className="cnt-table">
-          <div className="cnt-table-radius">
-            <table className="custom-table">
-              <thead>
-                <tr className="table-header-row">
-                  <th className="table-h ">Name</th>
-                  <th className="table-header">Job Title</th>
-                  <th className="table-header">Company</th>
-                  <th className="table-header">Added</th>
-                  <th className="table-header table-header-center">Action</th>
-                  <th className="table-header table-header-center">Shuffle</th>
-                </tr>
-              </thead>
-              <tbody>
-                {contacts.map((row, index) => (
-                  <tr key={index} className="table-row" draggable
-                    onDragStart={() => handledragstart(index)}
-                    onDragOver={handledragover}
-                    onDrop={() => handledrop(index)}>
-                    
-                    <td className=" table-cell">
-                    <div className="img-profile-cell">
-                      <img src={profile} alt="" srcset="" />
-                      {row.name}
-                      </div>
-                    </td>
-                    <td className="table-cell ">
-                    <div className="table-cell-title">
-                    {row.jobTitle}
-                    </div>
-                    </td>
-                    <td className="table-cell">
-                    <div className="table-cell-title">
-                    {row.company}
-                    </div>
-                    </td>
-                    <td className="table-cell">
-                    <div className="table-cell-title">
-                    {row.added}
-                    </div>
-                    </td>
-                    <td className="table-cell ">
-                    <div className="table-action-flex">
-                      <img src={ctneye} alt="" srcset="" />
-                      <img
-                        src={ctnpen}
-                        alt=""
-                        srcset=""
-                        onClick={() => openModal(row)}
-                      />
-                      <img
-                        src={actionbtn3}
-                        alt=""
-                        srcset=""
-                        onClick={() => deleteContact(index)}
-                      />
-                      </div>
-                    </td>
-                    <td className="table-cell shuffle-cell">
-                    <div className="table-cell-title">
-                      {/* Replace with appropriate icon if needed */}
-                      <img src={suffle} alt="" srcset="" />
-                      </div>
-                    </td>
+        <hr className="cnt-hr" />
+        <div className="cnt-box">
+          <div className="cnt-table">
+            <div className="cnt-table-radius">
+              <table className="try-contact-tbl">
+                <thead>
+                  <tr>
+                    <th className="try-c-tbl-th">Name</th>
+                    <th className="try-c-tbl-th">Job Title</th>
+                    <th className="try-c-tbl-th">Comapny</th>
+                    <th className="try-c-tbl-th">Added</th>
+                    <th className="try-c-tbl-th">Action</th>
+                    <th className="try-c-tbl-th">Shuffle</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {contacts.map((row, index) => (
+                    <tr
+                      key={index}
+                      className="table-header-row"
+                      draggable
+                      onDragStart={() => handledragstart(index)}
+                      onDragOver={handledragover}
+                      onDrop={() => handledrop(index)}
+                    >
+                      <td>
+                        <div className="img-profile-cell">
+                          <img src={profile} alt="" />
+                          {row.name}
+                        </div>
+                      </td>
+                      <td className="try-c-tbl-td">{row.jobTitle}</td>
+                      <td className="try-c-tbl-td">{row.company}</td>
+                      <td className="try-c-tbl-td">{row.added}</td>
+                      <td>
+                        <div className="table-action-flex">
+                          <img src={ctneye} alt="" />
+                          <img
+                            src={ctnpen}
+                            alt=""
+                            onClick={() => openModal(row)}
+                          />
+                          <img
+                            src={actionbtn3}
+                            alt=""
+                            onClick={() => deleteContact(index)}
+                          />
+                        </div>
+                      </td>
+                      <td>
+                        <div className="table-cell-title">
+                          <img src={suffle} alt="" className="shuffle-drag" />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+        <Cntmodal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onsave={saveContact}
+          contact={contactToEdit}
+        />
       </div>
-      <Cntmodal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onsave={saveContact}
-        contact={contactToEdit}
-      />
     </div>
   );
 };

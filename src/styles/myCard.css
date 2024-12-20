@@ -18,7 +18,7 @@
 /* leftside */
 .my-menu {
   display: flex;
-  margin: 20px 41px;
+  padding: 20px 41px 21px;
   gap: 37px;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -33,7 +33,7 @@
   border: 1px solid #f1f4f6;
   border-radius: 35px;
   cursor: pointer;
-  padding: 5px 10px;
+  padding: 0px 10px;
 }
 .my-menuitem img {
   width: 18px;
@@ -45,6 +45,18 @@
   font-weight: 600;
   white-space: nowrap;
 }
+
+.profile-photo{
+  width: 250px;
+  /* for setup only */
+}
+.profile-photo {
+  width: 100px; /* Set the width of the image */
+  height: 100px; /* Set the height of the image */
+  object-fit: cover; /* Ensures the image fits well inside the square/circle */
+}
+
+
 
 /* upload section */
 .my-container hr {
@@ -178,7 +190,7 @@
   border-radius: 8px;
   background-color: #eff1f3;
   height: 45px;
-  color: #0000004d;
+  
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -186,13 +198,19 @@
   font-family: Poppins-Regular;
   font-weight: 400;
   border: none;
+  color: #7B7B7B;
   /* outline: none; */
 }
 .my-txtarea {
   height: 80px;
   resize: none;
 }
-
+.my-allfiled input:focus{
+  outline: 1px solid #ccc;
+}
+.my-txtarea:focus{
+  outline: 1px solid #ccc;
+}
 /* Button styling */
 .my-buttons {
   display: flex;
@@ -274,6 +292,29 @@
   display: none;
 }
 
+/* Add For Scroll by R Start*/
+
+.basic-detail-scroll{
+  overflow-y: scroll;
+    scrollbar-width: thin;
+    height: calc(90vh - 110px);
+    scrollbar-color: #ccc white;
+}
+.my-priviewMain{
+  overflow-y: scroll;
+    scrollbar-width: thin;
+    height: calc(92vh - 110px);
+    scrollbar-color: #ccc white;
+}
+.my-leftside{
+  border-bottom: 3px solid white;
+}
+.my-rightside{
+  border-bottom: 1px solid white;
+}
+/* Add For Scroll by R End*/
+
+
 @media (max-width: 1350px) and (min-width: 1025px) {
   .my-menu {
     margin: 21px 7px 20px;
@@ -291,10 +332,10 @@
 }
 
 /* 1024 responsive */
-@media (max-width: 1024px) {
-  .sidebar {
+@media (max-width: 1150px) {
+  /* .sidebar {
     display: none;
-  }
+  } */
   .my-leftside {
     width: 100%;
   }

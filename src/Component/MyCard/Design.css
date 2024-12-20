@@ -3,10 +3,13 @@
   padding: 0;
 }
 .di-margin {
-  margin: 20px 41px;
-  height: 100vh;
+  padding: 20px 41px;
+  /* height: 100vh; */
   overflow-y: scroll;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc white;
+  height: calc(88vh - 130px); /*Add for set height accroding to screen by R*/
+
 }
 .di-maindiv {
   /* height: 277px; */
@@ -475,7 +478,9 @@ input[type="color"] {
 
 /* QR Code Css */
 .delthight{
-  height: auto;
+  /* height: auto; */
+  height: calc(88vh - 130px); /*Add for set height accroding to screen by R*/
+
 }
 .qr-logobox {
   background-color: #eff1f3;
@@ -519,6 +524,10 @@ input[type="color"] {
   align-items: center;
   /* height: 100vh; */
   text-align: center;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc white;
+  height: calc(60vh - 130px); /*Add for set height accroding to screen by R*/
 }
 .qr-code-panel p {
   margin: 20px 0;

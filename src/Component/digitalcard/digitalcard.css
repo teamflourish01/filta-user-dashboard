@@ -11,7 +11,7 @@
   /* justify-content: center; */
   background-color: #fafbfc;
   flex-direction: row;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 .digital-card-form {
   width: 50%;

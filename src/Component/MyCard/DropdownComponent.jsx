@@ -12,7 +12,7 @@ const DropdownComponent = ({ title, children }) => {
     <>
       <div className="drp-main">
         <div className="drp-container">
-          <div className="drp-dropdownmain">
+          <div className="drp-dropdownmain ">
             <div className="drp-dotscircle">
               <img src={dotsIcon} alt="dots" className="drp-dots-icon" />
             </div>

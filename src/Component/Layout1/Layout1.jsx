@@ -18,10 +18,12 @@ const Layout1 = ({
   showNfcIcon,
   formData,
   selectedFile,
-  hideMobileNo
+  hideMobileNo,
 }) => {
   const hasLogoOrUserDetails = selectedFile && (formData.name || formData.info);
-  const hideBackLine = formData.email && (formData.email && showEmailId ) || formData.mobileNumber && (formData.mobileNumber && showMobileNo) ;
+  const hideBackLine =
+    (formData.email && formData.email && showEmailId) ||
+    (formData.mobileNumber && formData.mobileNumber && showMobileNo);
 
   return (
     <div>
@@ -65,7 +67,7 @@ const Layout1 = ({
               {formData.info}
             </p>
           </div> */}
-          {formData.name || formData.info? (
+          {formData.name || formData.info ? (
             <div className="layout1-user-n-d">
               {formData.name && (
                 <p className="l1-user-name" style={{ color: primaryTextColor }}>
@@ -77,7 +79,7 @@ const Layout1 = ({
                   className="l1-user-designation lay1-mobile-user"
                   style={{ color: secondaryTextColor }}
                 >
-                  {formData.info || 'information'}
+                  {formData.info || "information"}
                 </p>
               )}
             </div>

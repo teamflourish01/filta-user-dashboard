@@ -27,7 +27,12 @@
 
 /* Sidebar styles remain the same */
 .sidebar {
-  width: 257px;
+  width: 257px !important;
+    overflow: hidden;
+    flex: 0 0 auto;
+        
+        min-width: 257px;
+        max-width: 257px;
   /* width: 13.7%; */
   background-color: white;
   padding: 1.045%;
@@ -205,12 +210,20 @@
 /* Responsive Sidebar Hover from 1600*/
 @media (max-width: 1600px) and (min-width: 1024px) {
   .sidebar {
-    width: 45px;
+    width: 45px !important;
     overflow: hidden;
+    flex: 0 0 auto;
+        
+        min-width: 45px;
+        max-width: 45px;
   }
   .sidebar:hover {
-    width: 257px;
+    width: 257px !important;
     transition: 0.1s;
+    flex: 0 0 auto;
+        overflow: hidden;
+        min-width: 275px;
+        max-width: 275px;
   }
   
   .profile-info{

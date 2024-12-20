@@ -1,5 +1,4 @@
-import React, { useRef, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/EmailSignature.css";
 import profileimg from "../images/profileimg.png";
 import logoimg from "../images/filta.png";
@@ -8,6 +7,8 @@ import html2canvas from "html2canvas";
 import { AiOutlineClose } from "react-icons/ai";
 
 const EmailSignature = () => {
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
   const [Photo, setPhoto] = useState(true);
   const [qrimg, setQrimg] = useState(true);
   const [formData, setFormData] = useState({
@@ -21,6 +22,14 @@ const EmailSignature = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const signatureRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handlePhotoCheckbox = () => {
     setPhoto(!Photo);
@@ -83,28 +92,32 @@ const EmailSignature = () => {
   };
   return (
     <>
-      <div className="e-container">
-        {/* Preview Button Responsive Start */}
-        <div
-          style={{ width: "100%", margin: "auto", position: "relative" }}
+      {/* Preview Button Responsive Start */}
+      <div
+          style={{ width: "100%", margin: "auto", position: "" }}
           className="btn-display-preview"
         >
-          <div className="btn-content-preview-mobile" style={{ width: "100%" }}>
+          <div className="btn-content-preview-mobile">
             <button
               onClick={handleFullscreen}
               className="btn-font-preview"
               style={{
                 transition:
-                  "width 1s ease, height 1s ease, background-color 1s ease, top 1s ease, border-radius 1s ease",
+                  "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
                 width: isFullScreen && !isClosing ? "100%" : "117px",
                 height: isFullScreen && !isClosing ? "100vh" : "34px",
                 backgroundColor: isFullScreen && !isClosing ? "white" : "black",
-                top: isFullScreen && !isClosing ? "0px" : "70px",
-                right: isFullScreen && !isClosing ? "0" : "20px",
-                position: isFullScreen ? "fixed" : "fixed",
+                top: isFullScreen && !isClosing ? "0" : "90px",
+                right:
+                  isFullScreen && !isClosing
+                    ? "0"
+                    : screenWidth <= 768
+                    ? "10px"
+                    : "20px",
+                position: isFullScreen ? "fixed" : "absolute ",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
-                marginTop: isFullScreen && !isClosing ? "0" : "15px",
-                marginBottom: isFullScreen && !isClosing ? "0" : "20px",
+                zIndex: isFullScreen && !isClosing ? "5" : "0",
+                marginBottom: isFullScreen && !isClosing ? "0" : "20px"
               }}
             >
               {isFullScreen && !isClosing ? (
@@ -204,6 +217,8 @@ const EmailSignature = () => {
           </div>
         </div>
         {/* Preview Button Responsive End */}
+      <div className="e-container">
+      
         <div className="e-leftpanel">
           <div className="e-checkboxcontiner">
             <label>
