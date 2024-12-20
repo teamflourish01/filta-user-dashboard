@@ -1,0 +1,79 @@
+.feedback-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rate-us,
+  .feedback-form {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rate-us h2,
+  .feedback-form h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  .google-logo img {
+    width: 100px;
+    margin: 10px 0;
+  }
+  
+  .rating {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+  
+  .view-reviews {
+    display: inline-block;
+    margin-top: 15px;
+    color: green;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .feedback-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .feedback-input,
+  .feedback-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  .feedback-textarea {
+    height: 80px;
+    resize: none;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: darkgreen;
+  }
+  

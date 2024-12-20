@@ -39,10 +39,12 @@ const Navbar = () => {
           <div>
           <img src={filta} alt="" style={{ width: "74px", height: "32px" }} />
         </div>
+        
         </div>
         <div className="filta-logo-web">
           <img src={filta} alt="" style={{ width: "74px", height: "32px" }} />
         </div>
+        
         <div>
           <img
             src={dot}
@@ -67,11 +69,9 @@ const Navbar = () => {
               <Link to="/support">Support</Link>
             </li>
             <li onClick={closeMenu}>
-              <Link to="/rate-us">Rate Us</Link>
+              <Link to="/rate-us">Rate Us & Feedback</Link>
             </li>
-            <li onClick={closeMenu}>
-              <Link to="/feedback">Feedback</Link>
-            </li>
+            
           </ul>
         </div>
       )}

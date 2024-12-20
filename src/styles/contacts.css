@@ -109,6 +109,9 @@ line-height: 24px;
     
 }
 
+.contacttable-row{
+  border-bottom: 1px solid #ddd;
+}
 .img-profile-cell{
   display: flex;
   align-items: center;
