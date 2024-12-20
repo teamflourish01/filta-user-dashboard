@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../Component/MyCard/MyEditCard.css";
 import pfImg from "../../images/card_profile.svg";
 import { Link } from "react-router-dom";
+import userContext from "../../context/userDetails";
 const MyCardmain = () => {
+  const { userData } = useContext(userContext);
+
   return (
     <>
       <div className="card-bg">
@@ -13,12 +16,18 @@ const MyCardmain = () => {
           <div className="card-line"></div>
         </div>
         <div className="card-info">
-          <p className="card-name">Ajay Gadhavi</p>
-          <p className="card-design">UI/Ux Designer </p>
-          <p className="card-compny">Flourish Creations Privat Limited</p>
+          <p className="card-name">{userData?.card?.name || "Ajay Gadhvi"}</p>
+          <p className="card-design">
+            {userData?.card?.jobtitle || "UI/Ux Designer"}{" "}
+          </p>
+          <p className="card-compny">
+            {userData?.card?.company || "Flourish Creations Privat Limited"}
+          </p>
         </div>
         <div className="card-btn">
-          <Link to="/my-card/edit" className="card-editbtn">Edit</Link>
+          <Link to="/my-card/edit" className="card-editbtn">
+            Edit
+          </Link>
           <button className="card-sharbtn">Share</button>
         </div>
       </div>
