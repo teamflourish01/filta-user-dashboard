@@ -35,7 +35,11 @@ import Photos from "./Photos";
 import ProductGallery from "./ProductGallery";
 import Automated from "./Automated";
 import TimeSensitive from "./TimeSensitive";
+
 import userContext from "../../context/userDetails";
+
+import Ctabutton from "./Ctabutton";
+
 const ContentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
@@ -431,7 +435,9 @@ const ContentComponent = () => {
           <DropdownComponent title="Voice Message">
             <VoiceMessage />
           </DropdownComponent>
-          <DropdownComponent title="CTA Button"></DropdownComponent>
+          <DropdownComponent title="CTA Button">
+            <Ctabutton />
+          </DropdownComponent>
           <DropdownComponent title="About (introduction of company)">
             <About />
           </DropdownComponent>

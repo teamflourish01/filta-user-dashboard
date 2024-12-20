@@ -12,6 +12,7 @@
   background-color: #eff1f3;
   border-radius: 10px;
   /* height: 24px; */
+  
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -21,6 +22,7 @@
   justify-content: space-between;
   padding: 25px 17.5px 24px 31px;
   position: relative;
+ 
 }
 .drp-dotscircle {
   width: 32px;
@@ -32,10 +34,11 @@
   justify-content: center;
   position: absolute;
   top: 50%;
+  
   transform: translate(-50%, -50%);
   background-color: #eff1f3;
   cursor: pointer;
-  z-index: 2;
+  z-index: 0;
   left: 0;
 }
 .drp-dots-icon {

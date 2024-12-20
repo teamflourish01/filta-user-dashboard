@@ -24,7 +24,7 @@ const ChooseStandardNFC = () => {
           <div className="box">
             <p className="order-summery-standard">Order Summery</p>
           </div>
-          <div className="box">
+          <div className="box p-10-tp">
             <div className="right-cross-icon-green">
               <GoIssueClosed />
             </div>

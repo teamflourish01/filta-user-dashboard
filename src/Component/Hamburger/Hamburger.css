@@ -1,6 +1,8 @@
 
 .hamburger-container {
-  width: 350px;
+  max-width: 350px;
+  
+  width: 100%;
   background-color: white;
   height: 100vh;
   position: absolute;
@@ -9,7 +11,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  /* z-index: 999; */
+  z-index: 999;
   transition: left 0.5s ease;
 }
 
@@ -70,3 +72,10 @@
   align-items: center;
   justify-content: center;
 }
+
+/* @media(max-width:400px){
+  .hamburger-container {
+    width: 100%;
+    max-width: 400px;
+  }
+} */

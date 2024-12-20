@@ -37,11 +37,8 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
 
   return (
     <>
-      <div className='hamburger'>
-     
-
-<div className={`hamburger-container ${isMenuOpen ? "open" : ""}`}>
-
+      {/* <div className="hamburger"> */}
+        <div className={`hamburger-container ${isMenuOpen ? "open" : ""}`}>
           <div className="close-ham-menu" onClick={closeHamburgerMenu}>
             <CgClose />
           </div>
@@ -81,9 +78,9 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
           </div>
           <div className="menu-ham">
             <Link
-              to="/"
+              to="/my-card"
               className={`menu-item-ham ${
-                location.pathname === "/" ? "active" : ""
+                location.pathname.startsWith("/my-card") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -94,7 +91,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/nfc-card"
               className={`menu-item-ham ${
-                location.pathname === "/nfc-card" ? "active" : ""
+                location.pathname.startsWith("/nfc-card") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -105,7 +102,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/digital-review-card"
               className={`menu-item-ham ${
-                location.pathname === "/digital-review-card" ? "active" : ""
+                location.pathname.startsWith( "/digital-review-card") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -116,7 +113,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/email-signature"
               className={`menu-item-ham ${
-                location.pathname === "/email-signature" ? "active" : ""
+                location.pathname.startsWith( "/email-signature") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -127,7 +124,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/virtual-background"
               className={`menu-item-ham ${
-                location.pathname === "/virtual-background" ? "active" : ""
+                location.pathname.startsWith( "/virtual-background") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -138,7 +135,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/contacts"
               className={`menu-item-ham ${
-                location.pathname === "/contacts" ? "active" : ""
+                location.pathname.startsWith( "/contacts") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -149,7 +146,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/my-leads"
               className={`menu-item-ham ${
-                location.pathname === "/my-leads" ? "active" : ""
+                location.pathname.startsWith( "/my-leads") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -160,7 +157,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             <Link
               to="/settings"
               className={`menu-item-ham ${
-                location.pathname === "/settings" ? "active" : ""
+                location.pathname.startsWith( "/settings") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
@@ -170,7 +167,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
             </Link>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };

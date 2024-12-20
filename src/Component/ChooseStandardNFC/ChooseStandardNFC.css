@@ -1,7 +1,7 @@
 .choose-standard-table-card {
   background-color: #eff1f3;
   border-radius: 10px;
-  max-width: 340px !important;
+  max-width: 350px !important;
   width: 100%;
 }
 .free {
@@ -89,4 +89,7 @@
   line-height: 24px;
   border: none;
   cursor: pointer;
+}
+.p-10-tp{
+  padding: 10px 15px 0 15px !important;
 }

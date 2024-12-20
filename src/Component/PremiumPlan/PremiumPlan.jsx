@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PremiumPlanDetails from "../PremiumPlanDetails/PremiumPlanDetails";
 import Sprofile from "../../images/profile.svg";
 // import scanner from "../../images/scanner.svg";
@@ -8,8 +8,19 @@ import { FaIndianRupeeSign } from "react-icons/fa6";
 import Layout1 from "../Layout1/Layout1";
 import Layout2 from "../Layout2/Layout2";
 import Layout3 from "../Layout3/Layout3";
+import "../../styles/Preview.css";
+import { AiOutlineClose } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { HiOutlineArrowLeft } from "react-icons/hi";
+
 
 const PremiumPlan = () => {
+  const navigate = useNavigate();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [cardColor, setCardColor] = useState("#000000");
   const [primaryTextColor, setPrimaryTextColor] = useState("#ffffff");
   const [secondaryTextColor, setSecondaryTextColor] = useState("#ffffff");
@@ -30,6 +41,14 @@ const PremiumPlan = () => {
     mobileNumber: "",
   });
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const hideMobileNo = () => {
     setShowMobileNo(!showMobileNo);
   };
@@ -44,10 +63,169 @@ const PremiumPlan = () => {
     setShowFiltaLogo(!showFiltaLogo);
   };
 
+  //Preview button Animation Function Start
+  const handleFullscreen = () => {
+    if (!isFullScreen) {
+      setIsFullScreen(true);
+      setIsClosing(false);
+    }
+  };
 
-  
+  const handleClose = () => {
+    if (isFullScreen) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsFullScreen(false);
+        setIsClosing(false);
+      }, 1000);
+    }
+  };
+  //Preview button Animation Function End
+
   return (
     <>
+      <div className="my-back-btnflex-nfc">
+        <div className="btn-nfc-blc">
+          <button
+            className="my-back-btn-nfc"
+            onClick={() => navigate("/nfc-card")}
+          >
+            <HiOutlineArrowLeft style={{ fontSize:'22px' }} />
+            <span>Back to My Card</span>
+          </button>
+        </div>
+        <div
+          style={{ width: "100%", margin: "auto", position: "" }}
+          className="btn-display-preview"
+        >
+          <div className="btn-content-preview-mobile">
+            <button
+              onClick={handleFullscreen}
+              className="btn-font-preview"
+              style={{
+                transition:
+                  "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
+                width: isFullScreen && !isClosing ? "100%" : "117px",
+                height: isFullScreen && !isClosing ? "100vh" : "34px",
+                backgroundColor: isFullScreen && !isClosing ? "white" : "black",
+                top: isFullScreen && !isClosing ? "0" : "90px",
+                right:
+                  isFullScreen && !isClosing
+                    ? "0"
+                    : screenWidth <= 768
+                    ? "10px"
+                    : "28px",
+                position: isFullScreen ? "fixed" : "absolute ",
+                borderRadius: isFullScreen && !isClosing ? "0" : "35px",
+                zIndex: isFullScreen && !isClosing ? "5" : "0",
+              }}
+            >
+              {isFullScreen && !isClosing ? (
+                <div className="center-preview-in-btn">
+                  <div className="top-profile-premium">
+                    <div className="profile-pic-s">
+                      <img
+                        src={Sprofile}
+                        alt=""
+                        className="img-standard-profile"
+                      />
+                    </div>
+                    <div className="profile-details-s">
+                      <p className="user-name-premium">Ajay Gadhavi</p>
+                      <p className="user-email-premium">
+                        ajaygadhavi045@gmail.com
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bottom-premium-section">
+                    <div className="standard-nfc-card-preview-title">
+                      NFC card live preview
+                    </div>
+                    <div className="layout-preview">
+                      {selectedLayout === "layout1" && (
+                        <Layout1
+                          cardColor={cardColor}
+                          logoWidth={logoWidth}
+                          logoHeight={logoHeight}
+                          primaryTextColor={primaryTextColor}
+                          secondaryTextColor={secondaryTextColor}
+                          accentColorPremium={accentColorPremium}
+                          showEmailId={showEmailId}
+                          showMobileNo={showMobileNo}
+                          showNfcIcon={showNfcIcon}
+                          showFiltaLogo={showFiltaLogo}
+                          formData={formData}
+                          selectedFile={selectedFile}
+                          hideMobileNo={hideMobileNo}
+                        />
+                      )}
+                      {selectedLayout === "layout2" && (
+                        <Layout2
+                          cardColor={cardColor}
+                          logoWidth={logoWidth}
+                          logoHeight={logoHeight}
+                          primaryTextColor={primaryTextColor}
+                          secondaryTextColor={secondaryTextColor}
+                          accentColorPremium={accentColorPremium}
+                          showEmailId={showEmailId}
+                          showMobileNo={showMobileNo}
+                          showNfcIcon={showNfcIcon}
+                          showFiltaLogo={showFiltaLogo}
+                          formData={formData}
+                          selectedFile={selectedFile}
+                        />
+                      )}
+                      {selectedLayout === "layout3" && (
+                        <Layout3
+                          cardColor={cardColor}
+                          logoWidth={logoWidth}
+                          logoHeight={logoHeight}
+                          primaryTextColor={primaryTextColor}
+                          secondaryTextColor={secondaryTextColor}
+                          accentColorPremium={accentColorPremium}
+                          showEmailId={showEmailId}
+                          showMobileNo={showMobileNo}
+                          showNfcIcon={showNfcIcon}
+                          showFiltaLogo={showFiltaLogo}
+                          formData={formData}
+                          selectedFile={selectedFile}
+                        />
+                      )}
+                    </div>
+
+                    <div className="but-now-btn-nfc">
+                      <button type="button" className="btn-buy-now-nfc">
+                        <div className="buy-now-flex">
+                          <span>Buy Now at </span>
+                          <span className="rupee-f">
+                            <FaIndianRupeeSign />
+                            899
+                          </span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                  {/* {/ Close Icon /} */}
+                  <AiOutlineClose
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleClose();
+                    }}
+                    className="close-btn-icon-cross"
+                  />
+                </div>
+              ) : (
+                "Preview"
+              )}
+
+              {/* Black overlay */}
+              {isFullScreen && !isClosing && (
+                <div className="black-overlay-btn-preview"></div>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
       <div className="bg">
         <div className="premium-plan">
           <div className="left-premium-n-f-c-card">
@@ -88,6 +266,8 @@ const PremiumPlan = () => {
                 <p className="user-email-premium">ajaygadhavi045@gmail.com</p>
               </div>
             </div>
+            <div className="bottom-content-scroll-standard">
+
             <div className="bottom-premium-section">
               <div className="standard-nfc-card-preview-title">
                 NFC card live preview
@@ -108,7 +288,6 @@ const PremiumPlan = () => {
                     formData={formData}
                     selectedFile={selectedFile}
                     hideMobileNo={hideMobileNo}
-
                   />
                 )}
                 {selectedLayout === "layout2" && (
@@ -156,6 +335,7 @@ const PremiumPlan = () => {
                   </div>
                 </button>
               </div>
+            </div>
             </div>
           </div>
         </div>
