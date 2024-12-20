@@ -10,7 +10,6 @@ import TwoButton from "./TwoButton";
 import userContext from "../../context/userDetails";
 import axios from "axios";
 
-
 const VoiceMessage = () => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [voiceFiles, setVoiceFiles] = useState([]);
@@ -74,9 +73,6 @@ const VoiceMessage = () => {
       console.error("Error deleting voice:", error);
     }
   };
-
-const   VoiceMessage = () => {
-
   return (
     <>
       <div className="vm-margin">
