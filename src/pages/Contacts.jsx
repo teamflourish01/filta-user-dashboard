@@ -116,7 +116,7 @@ const Contacts = () => {
             <div className="cnt-table-radius">
               <table className="try-contact-tbl">
                 <thead>
-                  <tr>
+                  <tr className="contacttable-row">
                     <th className="try-c-tbl-th">Name</th>
                     <th className="try-c-tbl-th">Job Title</th>
                     <th className="try-c-tbl-th">Comapny</th>

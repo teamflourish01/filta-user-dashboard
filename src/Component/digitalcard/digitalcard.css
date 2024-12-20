@@ -18,7 +18,7 @@
   background-color: #fff;
   border-top-right-radius: 39px;
   border-bottom-right-radius: 39px;
-  padding: 150px 100px;
+  padding: 171px 100px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
 }
 
@@ -45,8 +45,9 @@
 }
 .input-field-card {
   margin: 0 0 15px 0;
-  font-family: Poppins-Regular;
-  font-weight: 400;
+  font-family: Poppins-Medium;
+
+  
   font-size: 16px;
   /* line-height: 27px; */
   color: #718096;
