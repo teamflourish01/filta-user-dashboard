@@ -18,6 +18,10 @@ import Digitalcard from "./Component/digitalcard/Digitalcard";
 import Signup from "./Component/signup/Signup";
 import Login from "./Component/login/Login";
 import Forgpassword from "./Component/Forgatepassword/Forgpassword";
+import Requestfeature from "./Component/Requestfeature/Requestfeature";
+import Subscription from "./Component/subscription/Subscription";
+import Support from "./Component/support/Support";
+import { Rateus } from "./Component/rateusandfeedback/Rateus";
 
 // Layout for Authentication Pages
 const AuthLayout = ({ children }) => {
@@ -77,6 +81,9 @@ function App() {
                     <Route path="/my-card" element={<MyCardmain />} />
                     <Route path="my-card/edit" element={<MyCard />} />
                     <Route path="/nfc-card" element={<NFCCard />} />
+                    <Route path="/subscription" element={<Subscription/>} />
+                    <Route path="/support" element={<Support/>}/>
+                    <Route path="/rate-us" element={<Rateus/>} />
                     <Route
                       path="/digital-review-card"
                       element={<DigitalReviewCard />}
@@ -96,11 +103,14 @@ function App() {
                       path="/nfc-card/standardplan"
                       element={<StandardPlan />}
                     />
+                    <Route path="/request-feature" element={<Requestfeature/>}/>
                     <Route
                       path="/nfc-card/premium-plan"
                       element={<PremiumPlan />}
                     />
                   </Routes>
+
+                  
                 </div>
               </div>
             </div>
