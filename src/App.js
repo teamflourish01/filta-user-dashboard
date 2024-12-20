@@ -18,10 +18,14 @@ import Digitalcard from "./Component/digitalcard/Digitalcard";
 import Signup from "./Component/signup/Signup";
 import Login from "./Component/login/Login";
 import Forgpassword from "./Component/Forgatepassword/Forgpassword";
+
 import Requestfeature from "./Component/Requestfeature/Requestfeature";
 import Subscription from "./Component/subscription/Subscription";
 import Support from "./Component/support/Support";
 import { Rateus } from "./Component/rateusandfeedback/Rateus";
+
+import SignupFlow from "./Component/Auth/SignupFlow";
+
 
 // Layout for Authentication Pages
 const AuthLayout = ({ children }) => {
@@ -37,7 +41,7 @@ function App() {
           path="/"
           element={
             <AuthLayout>
-              <Digitalcard />
+              <SignupFlow />
             </AuthLayout>
           }
         />

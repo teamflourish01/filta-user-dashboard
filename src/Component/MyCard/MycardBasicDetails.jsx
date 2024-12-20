@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import uploadimg from "../../images/uploadimg.png";
 import TwoButton from "./TwoButton";
+import userContext from "../../context/userDetails";
 
 const BasicDetails = ({
   onFormDataChange,
@@ -9,6 +10,9 @@ const BasicDetails = ({
   onLogoChange,
 }) => {
   const [borderStyle, setBorderStyle] = useState("circle");
+
+  const { userData } = useContext(userContext);
+
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -59,6 +63,7 @@ const BasicDetails = ({
       reader.readAsDataURL(file);
     }
   };
+
 
   return (
     <>
@@ -146,47 +151,23 @@ const BasicDetails = ({
         <form>
           <div className="my-fullwidth">
             <label>Name</label>
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={formData.name}
-              onChange={handleInputChange}
-              name="name"
-              required
-            />
+
+            <input type="text" value={userData?.card?.name} placeholder="Enter your name" required />
           </div>
           <div className="my-fullwidth">
             <label>Job Title</label>
-            <input
-              type="text"
-              placeholder="Enter your job title"
-              name="jobTitle"
-              value={formData.jobTitle}
-              onChange={handleInputChange}
-              required
-            />
+            <input type="text" value={userData?.card?.jobtitle} placeholder="Enter your job title" required />
           </div>
           <div className="my-fullwidth">
             <label>Company</label>
-            <input
-              type="text"
-              placeholder="Enter your company"
-              name="company"
-              value={formData.company}
-              onChange={handleInputChange}
-              required
-            />
+            <input type="text" placeholder="Enter your company" value={userData?.card?.company} required />
           </div>
           <div className="my-fullwidth">
             <label>Location</label>
-            <input
-              type="text"
-              placeholder="Enter your location"
-              name="location"
-              value={formData.location}
-              onChange={handleInputChange}
-              required
-            />
+            <input type="text" placeholder="Enter your location" value={userData?.card?.location} required />
+
+            
+
           </div>
           <div className="my-fullwidth">
             <label>Bio</label>

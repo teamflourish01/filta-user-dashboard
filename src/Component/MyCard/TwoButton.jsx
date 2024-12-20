@@ -1,12 +1,16 @@
 import React from "react";
 import "./TwoButton.css";
 
-const TwoButton = () => {
+const TwoButton = ({ onSave, onCancel }) => {
   return (
     <>
       <div className="btn-twobtn">
-        <button className="btn-cancel">Cancel</button>
-        <button className="btn-save">Save</button>
+        <button className="btn-cancel" onClick={onCancel}>
+          Cancel
+        </button>
+        <button className="btn-save" onClick={onSave}>
+          Save
+        </button>
       </div>
     </>
   );

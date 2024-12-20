@@ -4,10 +4,10 @@ import filta from "../../images/filta.png";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 
-function Digitalcard() {
+function Digitalcard({ onContinue }) {
   const [formData, setFormData] = useState({
     name: "",
-    jobTitle: "",
+    jobtitle: "",
     company: "",
     email: "",
     phoneNumber: "",
@@ -21,7 +21,9 @@ function Digitalcard() {
       [name]: value,
     }));
   };
-
+  const handleSubmit = () => {
+    onContinue(formData); 
+  };
   return (
     <>
       <div className="digital-card-main">
@@ -53,8 +55,8 @@ function Digitalcard() {
                 <input
                   type="text"
                   className="input-card"
-                  name="jobTitle"
-                  value={formData.jobTitle}
+                  name="jobtitle"
+                  value={formData.jobtitle}
                   onChange={handleInputChange}
                 />
               </div>
@@ -112,11 +114,11 @@ function Digitalcard() {
               </div>
             </div>
           </div>
-          <Link to="/signup">
-            <button type="submit" className="btn-card">
+          
+            <button type="button" onClick={handleSubmit} className="btn-card">
               Continue
             </button>
-          </Link>
+          
 
           <div className="already-use-filta">
             <p className="text-center">
@@ -131,7 +133,7 @@ function Digitalcard() {
           <p className="card-preview-title">Card live preview</p>
           <div className="card-for-preview">
             <p className="text-preview"> {formData.name}</p>
-            <p className="text-preview"> {formData.jobTitle}</p>
+            <p className="text-preview"> {formData.jobtitle}</p>
             <p className="text-preview"> {formData.company}</p>
             <p className="text-preview"> {formData.email}</p>
             <p className="text-preview">{formData.phoneNumber}</p>
