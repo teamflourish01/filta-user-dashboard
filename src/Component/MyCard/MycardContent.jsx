@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import plus from "../../images/qr_plus.png";
 import insta from "../../images/instagram 1.svg";
 import "../MyCard/Content.css";
@@ -35,22 +35,173 @@ import Photos from "./Photos";
 import ProductGallery from "./ProductGallery";
 import Automated from "./Automated";
 import TimeSensitive from "./TimeSensitive";
+
+import userContext from "../../context/userDetails";
+
 import Ctabutton from "./Ctabutton";
+
 const ContentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
+  const [platformLinks, setPlatformLinks] = useState({});
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   const toggleModal = () => {
     setIsModalVisible((prev) => !prev);
   };
   const handlePlatformSelect = (platform) => {
-    if (!selectedPlatforms.includes(platform)) {
-      setSelectedPlatforms((prev) => [...prev, platform]);
-    }
+    const uniquePlatform = { ...platform, id: Date.now() };
+    setSelectedPlatforms((prev) => [...prev, uniquePlatform]);
     toggleModal();
   };
-  const handleDeletePlatform = (platform) => {
-    setSelectedPlatforms((prev) => prev.filter((item) => item !== platform));
+
+  const handleLinkChange = (platformId, field, value) => {
+    setPlatformLinks((prev) => ({
+      ...prev,
+      [platformId]: {
+        ...prev[platformId],
+        [field]: value,
+      },
+    }));
+  };
+  const handleDeleteLink = async (linkId) => {
+    console.log("platfrom id", linkId);
+
+    try {
+      const response = await fetch(`${uri}/link/deletelink/${linkId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        // Remove the deleted link from the state
+        setSelectedPlatforms((prev) =>
+          prev.filter((platform) => platform.id !== linkId)
+        );
+        setPlatformLinks((prev) => {
+          const newLinks = { ...prev };
+          delete newLinks[linkId];
+          return newLinks;
+        });
+        alert(`${data?.message}`);
+        getUserData();
+      } else {
+        alert(data.message || "Failed to delete link.");
+      }
+    } catch (error) {
+      console.error("Error deleting link:", error);
+    }
+  };
+  useEffect(() => {
+    if (userData && userData.socialLinks) {
+      const initialLinks = {};
+      userData.socialLinks.forEach((link) => {
+        initialLinks[link._id] = {
+          title: link.text,
+          url: link.url,
+        };
+      });
+      setPlatformLinks(initialLinks);
+
+      const selected = userData.socialLinks.map((link) => ({
+        name: link.platform,
+        icon: getPlatformIcon(link.platform),
+        id: link._id,
+      }));
+      setSelectedPlatforms(selected);
+    }
+  }, [userData]);
+  const getPlatformIcon = (platformName) => {
+    switch (platformName) {
+      case "Instagram":
+        return insta;
+      case "Facebook":
+        return fbImg;
+      case "LinkedIn":
+        return lnkImg;
+      case "X (Twitter)":
+        return twtrImg;
+      case "Snapchat":
+        return snapImg;
+      case "Threads":
+        return thrdsImg;
+      case "Pinterest":
+        return pintImg;
+      case "Telegram":
+        return teligImg;
+      case "Youtube":
+        return ytImg;
+      case "Text":
+        return msgImg;
+      case "Call":
+        return callImg;
+      case "Email":
+        return emailImg;
+      case "Contact":
+        return contactImg;
+      case "WhatsApp":
+        return wappImg;
+      case "Address":
+        return mapImg;
+      case "Google Pay":
+        return GooPlyImg;
+      case "Phone Pay":
+        return PhonpyImg;
+      case "Paytm":
+        return PaytmImg;
+      case "Review":
+        return gogleImg;
+      case "Google Drive":
+        return GoolDriImg;
+      default:
+        return emailImg;
+    }
+  };
+  const handleAddLink = async (platformName, title, url) => {
+    if (!title || !url) {
+      alert("Please fill in both title and URL.");
+      return;
+    }
+    try {
+      const response = await fetch(`${uri}/link/addlink`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+        body: JSON.stringify({
+          userId: userData._id,
+          platform: platformName,
+          text: title,
+          url: url,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setPlatformLinks((prev) => ({
+          ...prev,
+          [platformName]: { title, url },
+        }));
+        if (!selectedPlatforms.some((item) => item.name === platformName)) {
+          setSelectedPlatforms((prev) => [
+            ...prev,
+            { name: platformName, icon: getPlatformIcon(platformName) },
+          ]);
+        }
+        alert("Data Add Successfuly");
+        getUserData();
+      } else {
+        alert(data.message || "Failed to add link.");
+      }
+    } catch (error) {
+      console.error("Error adding link:", error);
+    }
   };
   return (
     <>
@@ -63,8 +214,8 @@ const ContentComponent = () => {
                 <p>Add More</p>
               </div>
               {selectedPlatforms &&
-                selectedPlatforms.map((platform, index) => (
-                  <div className="ct-addlinkmain" key={index}>
+                selectedPlatforms.map((platform) => (
+                  <div className="ct-addlinkmain" key={platform.id}>
                     <div className="ct-addlink">
                       <img src={platform.icon} alt={platform.name} />
                       <p>{platform.name}</p>
@@ -88,8 +239,8 @@ const ContentComponent = () => {
                   </label>
                 </div>
               </div>
-              {selectedPlatforms.map((platform, index) => (
-                <div className="ct-linkbox" key={index}>
+              {selectedPlatforms.map((platform) => (
+                <div className="ct-linkbox" key={platform.id}>
                   <div className="ct-titlemain">
                     <div className="ct-logotitle">
                       <img src={platform.icon} alt={platform.name} />
@@ -98,7 +249,7 @@ const ContentComponent = () => {
                     <div className="ct-twobtnmain">
                       <div
                         className="ct-deltbtn"
-                        onClick={() => handleDeletePlatform(platform)}
+                        onClick={() => handleDeleteLink(platform.id)}
                       >
                         <img src={deltImg} alt="delt-img" />
                       </div>
@@ -108,18 +259,45 @@ const ContentComponent = () => {
                     </div>
                   </div>
                   <div className="ct-linkform">
-                    <form>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const title = platformLinks[platform.id]?.title || "";
+                        const url = platformLinks[platform.id]?.url || "";
+                        handleAddLink(platform.name, title, url);
+                      }}
+                    >
                       <div className="ct-fwidth">
                         <label>Title</label>
-                        <input type="text" required />
+                        <input
+                          type="text"
+                          value={platformLinks[platform.id]?.title || ""}
+                          onChange={(e) =>
+                            handleLinkChange(
+                              platform.id,
+                              "title",
+                              e.target.value
+                            )
+                          }
+                          required
+                        />
                       </div>
                       <div className="ct-fwidth">
                         <label>URL</label>
-                        <input type="text" required />
+                        <input
+                          type="text"
+                          value={platformLinks[platform.id]?.url || ""}
+                          onChange={(e) =>
+                            handleLinkChange(platform.id, "url", e.target.value)
+                          }
+                          required
+                        />
                       </div>
                       <div className="my-buttons">
                         <button className="my-cancel">Cancel</button>
-                        <button className="my-save link-padd">Add Link</button>
+                        <button type="submit" className="my-save link-padd">
+                          Add Link
+                        </button>
                       </div>
                     </form>
                   </div>
@@ -153,7 +331,7 @@ const ContentComponent = () => {
                       { name: "Threads", icon: thrdsImg },
                       { name: "Pinterest", icon: pintImg },
                       { name: "Telegram", icon: teligImg },
-                      { name: "You tube", icon: ytImg },
+                      { name: "Youtube", icon: ytImg },
                     ].map((platform) => (
                       <div
                         className="s-link"
@@ -203,7 +381,7 @@ const ContentComponent = () => {
                   <div className="s-alllink">
                     {[
                       { name: "Google Pay", icon: GooPlyImg },
-                      { name: "Phone pay", icon: PhonpyImg },
+                      { name: "Phone Pay", icon: PhonpyImg },
                       { name: "Paytm", icon: PaytmImg },
                     ].map((platform) => (
                       <div
