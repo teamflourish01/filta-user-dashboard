@@ -1,12 +1,14 @@
-body {
-    font-family: "Poppins", sans-serif;
-  }
-  
+.overflow-subscription{
+  overflow-y: scroll;
+  height: 80vh;
+  scrollbar-width: thin;
+  scrollbar-color: #aeaeae white;
+}
   .pricing-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
+    width: 100%;
+    margin: 0 auto;
+    padding: 37px 0 36px 0;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
@@ -15,17 +17,29 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+   border-radius: 40px;
+   max-width: 240px;
+   min-width: 50px;
+   width: 100%;
+   padding: 5px;
+   margin: 0 auto;
+    border: 1px solid rgba(0, 0, 0, 0.1)
   }
   
   .toggle-button {
     padding: 10px 20px;
-    border: 1px solid #ddd;
+    border: none;
+    width: 120px;
     background-color: #fff;
     color: #333;
     cursor: pointer;
     border-radius: 20px;
-    font-size: 16px;
-    margin: 0 10px;
+    font-size: 18px;
+  font-family: Poppins-SemiBold;
+
+    line-height: 27px;
+    
+    border-radius: 40px;
   }
   
   .toggle-button.active {
@@ -35,34 +49,45 @@ body {
   
   .pricing-plans {
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content: center;
+    gap: 38px;
+    padding-top: 30px;
   }
   
   .plan-card {
-    flex: 1;
+    max-width: 415px;
+    min-width: 100px;
+    width: 100%;
     background-color: #fff;
-    padding: 20px;
+    border: 2px solid rgba(239, 241, 243, 1);
     border-radius: 10px;
+    
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: left;
   }
   
   .plan-title {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
+    font-size: 30px;
+  font-family: Poppins-Bold;
+
+   
+    /* margin-bottom: 10px; */
   }
   
   .plan-price {
-    font-size: 18px;
+    font-size: 30px;
     color: #28a745;
-    margin: 10px 0;
+  font-family: Poppins-Bold;
+
+    margin: 8px 0 33px 0;
   }
   
   .plan-price span {
-    font-size: 14px;
-    color: #555;
+    font-size: 25px;
+  font-family: Poppins-Bold;
+
+    color: #909090;
+
   }
   
   .plan-button {
@@ -70,14 +95,17 @@ body {
     color: white;
     border: none;
     padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 32px;
     cursor: pointer;
-    font-size: 14px;
-    margin: 15px 0;
+    width: 185px;
+  font-family: Poppins-SemiBold;
+
+    font-size: 18px;
+   
   }
   
   .plan-button.contact-button {
-    background-color: #007bff;
+    background-color: #28a745;
   }
   
   .plan-button:hover {
@@ -87,17 +115,39 @@ body {
   .plan-features {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0;
+    
     text-align: left;
     font-size: 14px;
   }
   
   .plan-features li {
-    margin-bottom: 8px;
-    color: #555;
+    padding: 10px 0 10px 25px;
+    font-size: 18px;
+    line-height: 27px;
+  font-family: Poppins-Regular;
+
+color: black;
   }
   
   .plan-features li:first-child {
-    font-weight: bold;
+   
+    padding: 10px 0 10px 25px;
+    font-size: 18px;
+  font-family: Poppins-SemiBold;
+  color: black;
+
+
   }
-  
+  .subscription-border-bottom{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    
+  }
+  .subscription-padding-top{
+    padding: 25px 0 25px 25px;
+  }
+  .team-plan{
+    padding-bottom: 72px;
+    font-size: 30px;
+    font-family: Poppins-Bold;
+  }
+ 
