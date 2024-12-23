@@ -1,79 +1,136 @@
-.feedback-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+.rate-us-feedback-main {
+  display: flex;
+  justify-items: center;
+  padding: 172px 0;
+  align-items: center;
+  gap: 20px;
+
+  /* background-color: #f8f8f8; */
+  border-radius: 8px;
+}
+.rateus-overflow{
   
-  .rate-us,
-  .feedback-form {
-    flex: 1;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: white;
+  /* height: 100vh; */
+}
+.rate-us-label {
+  padding-bottom: 5px;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+}
+.rate-us-para {
+  font-size: 18px;
+  white-space: nowrap;
+  font-family: Poppins-SemiBold;
+  padding-top: 20px;
+}
+.feed-back-form {
+  display: flex;
+  padding: 15px 0;
+  flex-direction: column;
+  text-align: left;
+  max-width: 425px;
+  min-width: 100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.rateus-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  /* padding: 37px 0 36px 0; */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.rate-innercontainer {
+  max-width: 299px;
+  min-width: 100px;
+  width: 100%;
+  padding: 52.5px 0 53.5px 0;
+  margin: 0 auto;
+}
+.rate-us,
+.feedback-form {
+  width: 455px;
   
-  .rate-us h2,
-  .feedback-form h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+  background: rgba(239, 241, 243, 1);
+
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rate-us h2,
+.feedback-form h2 {
+  font-size: 30px;
+  margin: 20px 0;
+}
+
+.google-logo img {
+  width: 121px;
+  height: 40px;
+  padding-bottom: 20px;
+}
+
+.rating {
+  font-size: 1.2em;
+}
+
+.view-reviews {
+  display: inline-block;
+  margin: 19px 0;
+  font-family: Poppins-SemiBold;
+  font-size: 18px;
+  color: rgba(90, 186, 71, 1);
+  font-size: 18px;
+  text-decoration: none;
+ 
+}
+
+.feedback-form form {
+  box-sizing: border-box;
+}
+
+.feedback-input,
+.feedback-textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background: rgba(239, 241, 243, 1);
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.feedback-textarea {
+  height: 80px;
+  resize: none;
+}
+
+.submit-button-rateus {
+  border: none;
+  cursor: pointer;
+  color: rgba(90, 186, 71, 1);
+  font-family: Poppins-SemiBold;
+
+  font-size: 18px;
+  padding: 19px 0 18px 0;
+}
+
+.submit-button:hover {
+  background-color: darkgreen;
+}
+
+@media screen and (max-width: 1024px) {
+  .rate-us-feedback-main {
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
   }
-  
-  .google-logo img {
-    width: 100px;
-    margin: 10px 0;
-  }
-  
-  .rating {
-    margin: 10px 0;
-    font-size: 1.2em;
-  }
-  
-  .view-reviews {
-    display: inline-block;
-    margin-top: 15px;
-    color: green;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .feedback-form form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .feedback-input,
-  .feedback-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-  }
-  
-  .feedback-textarea {
-    height: 80px;
-    resize: none;
-  }
-  
-  .submit-button {
-    padding: 10px 20px;
-    background-color: green;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: darkgreen;
-  }
-  
+}
