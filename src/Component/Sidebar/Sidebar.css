@@ -28,23 +28,18 @@
 /* Sidebar styles remain the same */
 .sidebar {
   width: 257px !important;
-    overflow: hidden;
-    flex: 0 0 auto;
-        
-        min-width: 257px;
-        max-width: 257px;
-  /* width: 13.7%; */
+  overflow: hidden;
+  flex: 0 0 auto;
+
+  min-width: 257px;
+  max-width: 257px;
+
   background-color: white;
   padding: 1.045%;
   margin-top: 20px;
   margin-bottom: 20px;
-  /* height: calc(100% - 40px); */
-  /* position: fixed; */
-  /* left: 20px;
-  display: flex;
-  flex-direction: column; */
+
   border-radius: 8px;
-  /* height: 100vh; */
 }
 .profile-section {
   display: flex;
@@ -56,7 +51,6 @@
   justify-content: space-between;
 }
 .profile-section-mobile-pic {
- 
   display: none;
 }
 
@@ -75,7 +69,7 @@
   margin: 0;
   text-overflow: ellipsis;
   width: 108px;
-  overflow:hidden ;
+  overflow: hidden;
   white-space: nowrap;
 }
 .profile-info span {
@@ -109,14 +103,14 @@
 /* Profile Dropdown Menu */
 .profile-dropdown-menu {
   position: absolute;
-    top: 186px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    width: 214px;
-    height: 88px;
-    z-index: 10;
-    left: 65px;
+  top: 186px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 214px;
+  height: 88px;
+  z-index: 10;
+  left: 65px;
 }
 
 .profile-dropdown-menu ul {
@@ -213,29 +207,28 @@
     width: 45px !important;
     overflow: hidden;
     flex: 0 0 auto;
-        
-        min-width: 45px;
-        max-width: 45px;
+
+    min-width: 45px;
+    max-width: 45px;
   }
   .sidebar:hover {
     width: 257px !important;
     transition: 0.1s;
     flex: 0 0 auto;
-        overflow: hidden;
-        min-width: 275px;
-        max-width: 275px;
+    overflow: hidden;
+    min-width: 275px;
+    max-width: 275px;
   }
-  
-  .profile-info{
+
+  .profile-info {
     overflow: hidden;
     padding: 0 31px 0 17px;
-
   }
-  .profile-menu-btn{
+  .profile-menu-btn {
     overflow: hidden;
     border: unset;
   }
-  .profile-section-mobile-pic{
+  .profile-section-mobile-pic {
     display: block;
     display: flex;
     align-items: center;
@@ -243,17 +236,16 @@
     justify-content: center;
     padding: 10px;
   }
-  .profile-section{
+  .profile-section {
     display: none;
   }
-  .sidebar:hover .profile-section-mobile-pic{
+  .sidebar:hover .profile-section-mobile-pic {
     display: none;
   }
-  .sidebar:hover .profile-section{
+  .sidebar:hover .profile-section {
     display: flex;
   }
 }
-
 
 /* Responsive adjustment */
 @media (max-width: 1024px) {
@@ -262,5 +254,4 @@
     height: auto;
     display: none;
   }
-  
 }
