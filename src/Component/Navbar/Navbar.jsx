@@ -45,7 +45,7 @@ const Navbar = () => {
           <img src={filta} alt="" style={{ width: "74px", height: "32px" }} />
         </div>
         
-        <div>
+        <div className="nav-dot">
           <img
             src={dot}
             alt=""
