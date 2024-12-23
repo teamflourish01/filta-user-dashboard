@@ -114,7 +114,9 @@ background-image: url("../../images/facebook.svg");
 
 .contact-title {
   font-size: 20px;
-  font-weight: 600;
+ 
+  font-family: Poppins-Bold;
+
   margin-bottom: 20px;
 }
 
@@ -141,6 +143,7 @@ background-image: url("../../images/facebook.svg");
 .contact-item span {
   font-size: 18px;
   font-family: Poppins-SemiBold;
+  color: black;
 }
 .contact-item i {
   margin-right: 10px;
@@ -155,8 +158,9 @@ background-image: url("../../images/facebook.svg");
 }
 
 .follow-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 30px;
+  font-family: Poppins-Bold;
+  
   margin-bottom: 10px;
 }
 

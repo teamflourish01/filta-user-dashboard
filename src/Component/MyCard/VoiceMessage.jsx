@@ -116,6 +116,7 @@ const VoiceMessage = () => {
       </div>
     </>
   );
+
 };
 };
 export default VoiceMessage;

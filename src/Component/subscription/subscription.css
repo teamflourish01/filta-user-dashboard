@@ -57,6 +57,7 @@
   .plan-card {
     max-width: 415px;
     min-width: 100px;
+    
     width: 100%;
     background-color: #fff;
     border: 2px solid rgba(239, 241, 243, 1);
@@ -150,4 +151,14 @@ color: black;
     font-size: 30px;
     font-family: Poppins-Bold;
   }
- 
+ @media screen and (max-width:1024px)  {
+  .pricing-plans{
+    flex-direction: column;
+  }
+  .plan-card{
+    margin: 0 auto;
+  }
+  .pricing-container{
+    background-color: unset;
+  }
+ }
