@@ -7,12 +7,13 @@
   border-radius: 10px;
   background-color: white;
   border: 3px solid white;
+  height: 100%;
 
 }
 .n-f-c-scroll{
   width: 100%;
   overflow-y: scroll;
-  height: calc(98vh - 90px);
+  /* height: calc(98vh - 90px); */
   scrollbar-color: #ccc white;
   scrollbar-width: thin;
 }
