@@ -285,7 +285,7 @@ const MyCard = () => {
                 {/* Show live card preview */}
 
                 <div className="cardshow-text">
-                  <div>
+                  {/* <div>
                     {profileImages && (
                       <img
                         src={profileImages}
@@ -297,7 +297,7 @@ const MyCard = () => {
                     {coverPhoto && (
                       <img
                         src={coverPhoto}
-                        alt="Cover Photo Preview"
+                        alt="Cover Phot Preview"
                         className="cover-photo"
                       />
                     )}
@@ -305,6 +305,11 @@ const MyCard = () => {
                     {logo && (
                       <img src={logo} alt="Logo Preview" className="logo-img" />
                     )}
+                  </div> */}
+                  <div>
+                    <img className="co-img" width={"200px"} src={`${uri}/card/${userData?.card?.coverimg}`} alt="cover-img" />
+                    <img className="pro-img" width={"100px"}  src={`${uri}/card/${userData?.card?.profileimg}`} alt="profile-img" />
+                    <img className="logo-img" width={"50px"} src={`${uri}/card/${userData?.card?.logoimg}`} alt="logo-img" />
                   </div>
                   <p>{userData?.card?.name}</p>
                   <p>{userData?.card?.jobtitle}</p>

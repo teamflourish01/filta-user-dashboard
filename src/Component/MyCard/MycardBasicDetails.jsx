@@ -141,7 +141,7 @@ const BasicDetails = ({
                       className="bsd-profile-img"
                       // className={`upload-area ${borderStyle}`}
                       src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="Profile Imag"
+                      alt="Profile-img"
                     />
                   ) : (
                     <img

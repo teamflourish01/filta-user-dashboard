@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import mycard from "../../images/mycard.svg";
 import nfccard from "../../images/nfccard.svg";
 import digitalreviewcard from "../../images/digitalreviewcard.svg";
@@ -11,10 +11,15 @@ import { Link, useLocation } from "react-router-dom";
 import "../Hamburger/Hamburger.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
+import userContext from "../../context/userDetails";
+
+
 
 const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
   const location = useLocation();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
@@ -45,12 +50,12 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
 
           <div className="profile-section-ham">
             <img
-              src="https://via.placeholder.com/50"
-              alt="Profile"
+              src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="Profile-img"
               className="profile-img-ham"
             />
             <div className="profile-info">
-              <p>Ajay Gadhavi</p>
+              <p>{userData?.card?.name}</p>
               <span>User</span>
             </div>
             <button className="profile-menu-btn" onClick={toggleProfileMenu}>
