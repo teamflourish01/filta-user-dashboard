@@ -5,6 +5,7 @@
   font-size: 16px;
   font-family: Poppins-Regular;
   font-weight: 400;
+  padding-bottom: 5px;
   color: #000000;
 }
 .prd-uplod {
@@ -46,12 +47,13 @@
 .prd-tapbtnmain {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 .prd-view label {
   font-size: 14px;
   font-family: Poppins-Regular;
   font-weight: 400;
+  gap: 8px;
   color: #000000;
   line-height: 21px;
   display: block;
@@ -60,7 +62,7 @@
 }
 
 .prd-view input {
-  margin-left: 8px;
+  /* margin-left: 8px; */
 }
 .prd-slider-margin {
   margin-top: 10px;
