@@ -17,6 +17,7 @@ const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   // const handleMenuClick = (item) => {
   //   setActiveItem(item);
@@ -52,15 +53,15 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="profile-section-mobile-pic">
         <img
-          src="https://via.placeholder.com/50"
-          alt="Profile"
+          src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="Profile Imag"
           className="profile-img"
         />
       </div>
       <div className="profile-section">
         <img
-          src="https://via.placeholder.com/50"
-          alt="Profile"
+          src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="Profile Imag"
           className="profile-img"
         />
         <div className="profile-info">
