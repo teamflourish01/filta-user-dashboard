@@ -1,17 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import "../../Component/MyCard/MyEditCard.css";
-import pfImg from "../../images/card_profile.svg";
+// import pfImg from "../../images/card_profile.svg";
 import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 import userContext from "../../context/userDetails";
 const MyCardmain = () => {
   const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   return (
     <>
       <div className="card-bg">
         <div className="card-img">
           <div className="card-pfimg">
-            <img src={pfImg} alt="pf-img" />
+          <img 
+  src={userData?.card?.profileimg ? `${uri}/card/${userData.card.profileimg}` : <FaUserCircle/>} 
+  alt="pf-img" 
+ 
+/>
           </div>
           <div className="card-line"></div>
         </div>

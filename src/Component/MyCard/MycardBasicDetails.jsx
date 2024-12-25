@@ -125,7 +125,9 @@ const BasicDetails = ({
           <div className="upload-section-container">
             <div className="upload-box">
               <p className="my-topheading">Profile Picture</p>
-              <div className={`upload-area ${borderStyle}`}>
+              <div 
+              className={`upload-area ${borderStyle}`}
+              >
                 <input
                   type="file"
                   id="profile-upload"
@@ -133,13 +135,22 @@ const BasicDetails = ({
                   {...register("profileimg")}
                   onChange={handleImageUpload}
                 />
-                <label htmlFor="profile-upload">
-                  <img
-                    className="upload-icon"
-                    src={uploadimg}
-                    alt="upload img"
-                  />
-                </label>
+                {/* <label htmlFor="profile-upload"> */}
+                  {userData?.card?.profileimg ? (
+                    <img
+                      className="bsd-profile-img"
+                      // className={`upload-area ${borderStyle}`}
+                      src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="Profile Imag"
+                    />
+                  ) : (
+                    <img
+                      className="upload-icon "
+                      src={uploadimg}
+                      alt="Upload Imag"
+                    />
+                  )}
+                {/* </label> */}
               </div>
               <p className="my-small">(Use: 450x450 pixel)</p>
               <div className="style-options">
@@ -175,13 +186,27 @@ const BasicDetails = ({
                   {...register("coverimg")}
                   onChange={handleCoverPhotoUpload}
                 />
-                <label htmlFor="cover-upload">
-                  <img
+                {/* <label htmlFor="cover-upload"> */}
+                  {/* <img
                     className="upload-icon"
                     src={uploadimg}
+                    src={`${uri}/card/${userData?.card?.coverimg}` || uploadimg}
                     alt="upload img"
-                  />
-                </label>
+                  /> */}
+                  {userData?.card?.coverimg ? (
+                    <img
+                      className="bsd-cover-img"
+                      src={`${uri}/card/${userData?.card?.coverimg}`}
+                      alt="Profile Imag"
+                    />
+                  ) : (
+                    <img
+                      className="upload-icon "
+                      src={uploadimg}
+                      alt="Upload Imag"
+                    />
+                  )}
+                {/* </label> */}
               </div>
 
               <p className="my-small">(Use: 780x300 pixel)</p>
@@ -192,19 +217,35 @@ const BasicDetails = ({
                 <input
                   type="file"
                   id="logo-upload"
-                  onChange={onLogoChange}
+                  // onChange={onLogoChange}
                   accept="image/*"
                   {...register("logoimg")}
+                  onChange={handleLogoUpload}
                 />
-                <label htmlFor="logo-upload">
-                  <img
+                {/* <label htmlFor="logo-upload"> */}
+                  {/* <img
                     className="upload-icon"
                     src={uploadimg}
+                    src={`${uri}/card/${userData?.card?.logoimg}` || uploadimg}
                     alt="upload img"
                     accept="image/*"
                     onChange={handleLogoUpload}
-                  />
-                </label>
+                  /> */}
+                  {userData?.card?.logoimg ? (
+                    <img
+                      className="bsd-logo-img"
+                      src={`${uri}/card/${userData?.card?.logoimg}`}
+                      alt="Profile Imag"
+                    />
+                  ) : (
+                    <img
+                      className="upload-icon "
+                      src={uploadimg}
+                      alt="Upload Imag"
+                      
+                    />
+                  )}
+                {/* </label> */}
               </div>
 
               <p className="my-small">(Use: 440x440 pixel)</p>
