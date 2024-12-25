@@ -24,30 +24,8 @@ const Photos = () => {
             the readable content of a page when looking at its layout.
           </span>
         </div>
-        <div className="ph-dropdown">
-          <p>Photo Ratio</p>
-          <div className="ph-dropdown-main">
-            <div className="ph-dropdownbox">
-              <input
-                className="Premium-cutomize-field-input h-42"
-                readOnly
-                value={selectedFont}
-                onClick={toggleDropdown}
-              />
-              <span
-                className={`ph-dropdown-arrow ${isOpen ? "rotate" : ""}`}
-                onClick={toggleDropdown}
-              >
-                <SlArrowDown />
-              </span>
-            </div>
-
-            <div className={`ph-optionbox ${isOpen ? "open" : "closed"}`}>
-              <div className="ph-option">ratio-1</div>
-            </div>
-          </div>
-        </div>
-        <hr />
+        
+      
         <p className="ph-vdtitle">Upload Photos</p>
         <div className="ph-imagesUpload">
           <div className="ph-uplod">

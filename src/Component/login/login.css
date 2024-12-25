@@ -9,12 +9,14 @@
   padding: 50px 0;
   background-color: white;
 }
-
-.login-form-container {
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+.login-page{
   max-width: 422px;
   width: 100%;
   min-width: 200px;
+}
+.login-form-container {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+ 
   box-sizing: border-box;
   /* border: 1px solid black; */
   padding: 30px;

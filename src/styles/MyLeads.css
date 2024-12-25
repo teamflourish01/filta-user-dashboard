@@ -10,8 +10,12 @@
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
-  border: 1px solid rgba(239, 241, 243, 1);
+  border: 5px solid rgba(239, 241, 243, 1);
   /* height: 826px; */
+  overflow-y: scroll;
+  height: calc(98.5vh - 90px);
+  scrollbar-color: #ccc white;
+  scrollbar-width: thin;
 }
 .search-section {
   display: flex;

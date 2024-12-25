@@ -1,34 +1,44 @@
-import React from 'react'
-import "../Requestfeature/requestfeature.css"
+import React from "react";
+import "../Requestfeature/requestfeature.css";
 const Requestfeature = () => {
   return (
     <>
-    <div className="feature-container">
-        <div className="feature-request-container">
-      <h2 className="form-title">Request a Feature</h2>
-      <form className="feature-form">
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input type="text" id="title" className="form-input" placeholder="Enter title" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="module">Select Modul</label>
-          <select id="module" className="form-input">
+    <div className="req-outer-white-color">
+      <div className="req-outer-box">
+      
+      <div className="req-inner-width-box">
+        <h2 className="req-heading">Request a Feature</h2>
+        <div className="req-bottom-border"></div>
+        <div className="req-padding">
+        <form className=" req-form">
+          <label className="req-label">Title</label>
+          <input
+            type="text"
+            placeholder="Title"
+            className="req-input"
+          />
+          <label className="req-label">Select Modul</label>
+          <select className="req-select">
             <option value="my-card">My Card</option>
-            <option value="dashboard">Dashboard</option>
-            <option value="settings">Settings</option>
           </select>
+          <label className="req-label">Describe Your Request</label>
+          <textarea
+            placeholder="Describe Your Request"
+            className="req-textarea"
+          />
+        </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="description">Describe Your Request</label>
-          <textarea id="description" className="form-input" rows="4" placeholder="Enter your request"></textarea>
+          <div className="req-bottom-border"></div>
+          <button type="submit" className="req-button">
+            Submit
+          </button>
+       
         </div>
-        <button type="submit" className="submit-button">Submit</button>
-      </form>
+    
     </div>
     </div>
     </>
-  )
-}
+  );
+};
 
-export default Requestfeature
+export default Requestfeature;

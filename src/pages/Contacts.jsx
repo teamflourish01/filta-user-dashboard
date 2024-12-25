@@ -1,51 +1,38 @@
 import React, { useState } from "react";
 import "../styles/contacts.css";
-import { CiSearch } from "react-icons/ci";
-import { FaEye, FaPen, FaTrashAlt } from "react-icons/fa";
+import search from "../images/cntsearch.svg";
 import actionbtn3 from "../images/ctndelet.svg";
 import ctneye from "../images/ctneye.svg";
 import suffle from "../images/shuffle.svg";
 import ctnpen from "../images/ctnpen.svg";
 import profile from "../images/profile.svg";
-import search from "../images/cntsearch.svg";
 import Cntmodal from "../Component/cntmodal/Cntmodal";
 
-// const data = [
-//     {
-//       name: 'Ajay Gadhavi',
-//       jobTitle: 'UI/UX Designer',
-//       company: 'Flourish Creations PVT. LTD',
-//       added: '24 Oct 2024',
-//     },
-//     {
-//       name: 'Ajay Gadhavi',
-//       jobTitle: 'UI/UX Designer',
-//       company: 'Flourish Creations PVT. LTD',
-//       added: '24 Oct 2024',
-//     },
-//   ];
 const Contacts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [contacts, setContacts] = useState([
     {
-      name: "ajay gadhavi",
-      jobTitle: "ui/ux Designer",
+      name: "Ajay Gadhavi",
+      jobTitle: "UI/UX Designer",
       company: "Flourish Creations PVT. LTD",
       added: "24 Oct 2024",
     },
+   
+    
   ]);
   const [contactToEdit, setContactToEdit] = useState(null);
 
-  const openModal = (contacts = null) => {
-    setContactToEdit(contacts);
+  const openModal = (contact = null) => {
+    setContactToEdit(contact);
     setIsModalOpen(true);
   };
-  console.log("openmodal", openModal);
+
   const closeModal = () => {
     setIsModalOpen(false);
     setContactToEdit(null);
   };
+
   const saveContact = (newContact) => {
     if (contactToEdit) {
       // Update existing contact
@@ -60,28 +47,28 @@ const Contacts = () => {
     }
     closeModal();
   };
+
   const deleteContact = (indexToDelete) => {
-    const updatedContacts = contacts.filter(
-      (_, index) => index !== indexToDelete
-    );
-    setContacts(updatedContacts);
+    setContacts(contacts.filter((_, index) => index !== indexToDelete));
   };
 
-  const handledragstart = (index) => {
+  const handleDragStart = (index) => {
     setDraggedIndex(index);
   };
 
-  const handledragover = (e) => {
+  const handleDragOver = (e, index) => {
     e.preventDefault();
+    if (draggedIndex === index) return;
+
+    const reorderedContacts = [...contacts];
+    const [movedContact] = reorderedContacts.splice(draggedIndex, 1);
+    reorderedContacts.splice(index, 0, movedContact);
+
+    setContacts(reorderedContacts);
+    setDraggedIndex(index);
   };
 
-  const handledrop = (index) => {
-    if (draggedIndex === null) return;
-    const updatedContacts = [...contacts];
-    const [draggedItem] = updatedContacts.splice(draggedIndex, 1);
-    updatedContacts.splice(index, 0, draggedItem);
-
-    setContacts(updatedContacts);
+  const handleDragEnd = () => {
     setDraggedIndex(null);
   };
 
@@ -93,8 +80,7 @@ const Contacts = () => {
             <div className="cnt-serch">
               <div className="search-flex">
                 <div className="search-icon-cnt">
-                  {/* <CiSearch className="serach"/> */}
-                  <img src={search} alt="" srcset="" className="serach" />
+                  <img src={search} alt="Search" className="serach" />
                   <input
                     type="text"
                     placeholder="Search"
@@ -119,49 +105,54 @@ const Contacts = () => {
                   <tr className="contacttable-row">
                     <th className="try-c-tbl-th">Name</th>
                     <th className="try-c-tbl-th">Job Title</th>
-                    <th className="try-c-tbl-th">Comapny</th>
+                    <th className="try-c-tbl-th">Company</th>
                     <th className="try-c-tbl-th">Added</th>
                     <th className="try-c-tbl-th">Action</th>
                     <th className="try-c-tbl-th">Shuffle</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {contacts.map((row, index) => (
+                  {contacts.map((contact, index) => (
                     <tr
                       key={index}
                       className="table-header-row"
                       draggable
-                      onDragStart={() => handledragstart(index)}
-                      onDragOver={handledragover}
-                      onDrop={() => handledrop(index)}
+                      onDragStart={() => handleDragStart(index)}
+                      onDragOver={(e) => handleDragOver(e, index)}
+                      onDragEnd={handleDragEnd}
+                      style={{
+                        cursor: "pointer",
+                        opacity: draggedIndex === index ? 0.5 : 1,
+                        transition: "opacity 0.3s ease",
+                      }}
                     >
                       <td>
                         <div className="img-profile-cell">
-                          <img src={profile} alt="" />
-                          {row.name}
+                          <img src={profile} alt="Profile" />
+                          {contact.name}
                         </div>
                       </td>
-                      <td className="try-c-tbl-td">{row.jobTitle}</td>
-                      <td className="try-c-tbl-td">{row.company}</td>
-                      <td className="try-c-tbl-td">{row.added}</td>
+                      <td className="try-c-tbl-td">{contact.jobTitle}</td>
+                      <td className="try-c-tbl-td">{contact.company}</td>
+                      <td className="try-c-tbl-td">{contact.added}</td>
                       <td>
                         <div className="table-action-flex">
-                          <img src={ctneye} alt="" />
+                          <img src={ctneye} alt="View" />
                           <img
                             src={ctnpen}
-                            alt=""
-                            onClick={() => openModal(row)}
+                            alt="Edit"
+                            onClick={() => openModal(contact)}
                           />
                           <img
                             src={actionbtn3}
-                            alt=""
+                            alt="Delete"
                             onClick={() => deleteContact(index)}
                           />
                         </div>
                       </td>
                       <td>
                         <div className="table-cell-title">
-                          <img src={suffle} alt="" className="shuffle-drag" />
+                          <img src={suffle} alt="Shuffle" className="shuffle-drag" />
                         </div>
                       </td>
                     </tr>

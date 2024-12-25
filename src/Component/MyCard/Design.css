@@ -40,7 +40,7 @@
 .di-threebtn {
   display: flex;
   /* height: 118px; */
-  gap: 25px;
+  gap: 23px;
   justify-content: space-between;
   padding: 0 15px 25px 15px;
 }
@@ -598,7 +598,7 @@ input[type="color"] {
 
 @media (max-width: 768px) {
   .di-margin {
-    margin: 19px 7px;
+    margin: 20px 7px;
   }
   .di-secinfo,
   .di-thrdinfo {

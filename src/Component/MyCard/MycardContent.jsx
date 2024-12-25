@@ -34,6 +34,7 @@ import Documents from "./Documents";
 import Photos from "./Photos";
 import ProductGallery from "./ProductGallery";
 import Automated from "./Automated";
+import { DragDropContext ,Draggable ,Droppable } from "react-beautiful-dnd";
 import TimeSensitive from "./TimeSensitive";
 
 import userContext from "../../context/userDetails";
@@ -43,8 +44,11 @@ import Ctabutton from "./Ctabutton";
 
 const ContentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [draggedItem, setDraggedItem] = useState(null);
+  
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [platformLinks, setPlatformLinks] = useState({});
+  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
 
@@ -66,6 +70,10 @@ const ContentComponent = () => {
       },
     }));
   };
+
+
+
+  
   const handleDeleteLink = async (linkId) => {
     console.log("platfrom id", linkId);
 
@@ -204,10 +212,23 @@ const ContentComponent = () => {
       console.error("Error adding link:", error);
     }
   };
+
+  const handleDragStart = (index) => {
+    setDraggedItemIndex(index);
+  };
+
+
+  const handleDragOver = (event) => {
+    event.preventDefault(); // Prevent default to allow drop
+  };
+  
+
+  
   return (
     <>
       <div className="drpBox-container">
         <div className="drpbox-set">
+        
           <DropdownComponent title="Clickable links">
             <div className="ct-addmore">
               <div className="ct-addmoreflex" onClick={toggleModal}>
