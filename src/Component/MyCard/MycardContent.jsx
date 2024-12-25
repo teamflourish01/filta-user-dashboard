@@ -40,6 +40,7 @@ import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
 
+
 const ContentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
@@ -463,7 +464,7 @@ const ContentComponent = () => {
           </DropdownComponent>
           <DropdownComponent title="Product Gallery">
             <ProductGallery />
-          </DropdownComponent>
+          </DropdownComponent>          
         </div>
       </div>
     </>
