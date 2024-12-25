@@ -310,6 +310,7 @@ const MyCard = () => {
                     <img className="co-img" width={"200px"} src={`${uri}/card/${userData?.card?.coverimg}`} alt="cover-img" />
                     <img className="pro-img" width={"100px"}  src={`${uri}/card/${userData?.card?.profileimg}`} alt="profile-img" />
                     <img className="logo-img" width={"50px"} src={`${uri}/card/${userData?.card?.logoimg}`} alt="logo-img" />
+                    <img src="" alt="" />
                   </div>
                   <p>{userData?.card?.name}</p>
                   <p>{userData?.card?.jobtitle}</p>
