@@ -25,7 +25,9 @@ import Support from "./Component/support/Support";
 import { Rateus } from "./Component/rateusandfeedback/Rateus";
 
 import SignupFlow from "./Component/Auth/SignupFlow";
-
+import LeftAlign from "./ViewCard/LeftAlign/LeftAlign";
+import CenterAlign from "./ViewCard/CenterAlign/CenterAlign";
+import Portrait from "./ViewCard/Portrait/Portrait";
 
 // Layout for Authentication Pages
 const AuthLayout = ({ children }) => {
@@ -69,6 +71,11 @@ function App() {
             </AuthLayout>
           }
         />
+
+        {/* View Card Routes*/}
+        <Route path="/left-align" element={<LeftAlign />} />
+        <Route path="/center-align" element={<CenterAlign />} />
+        <Route path="/portrait" element={<Portrait />} />
 
         {/* Main Application Layout */}
         <Route
