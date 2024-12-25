@@ -8,7 +8,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import video1 from "../../images/video.mp4";
-import video2 from "../../images/video2.mp4";
+import videoTwo from "../../images/video2.mp4";
 import { CiPlay1 } from "react-icons/ci";
 import sound from "../../images/sound.mp3";
 import imgofpdf from "../../images/fcplss.svg";
@@ -37,7 +37,7 @@ const LeftAlign = () => {
     arrows: true,
   };
 
-  const videos = [video1, video2];
+  const videos = [video1, videoTwo];
 
   const youtubeVideos = [
     "https://www.youtube.com/embed/tgbNymZ7vqY",
