@@ -1,0 +1,266 @@
+[33mcommit 81d82d87fd972d02a8215d3344cb8819d3402a41[m[33m ([m[1;36mHEAD -> [m[1;32mrina[m[33m)[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 11:58:43 2024 +0530
+
+    commit left
+
+[33mcommit 1c2847966fcc6b2aed9e0b67f4ed2d00c7f52cd5[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 11:50:00 2024 +0530
+
+    changee push
+
+[33mcommit 76a621cfcac2db70cb393d587b5ae2e489ac5913[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 11:13:00 2024 +0530
+
+    Track large files with Git LFS
+
+[33mcommit 603283fc0a31221655e1531a877244932c572ddb[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 10:52:05 2024 +0530
+
+    updates
+
+[33mcommit 8c5269358e7ce0b8884eda1c2d930ea3d25c6f20[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 10:36:09 2024 +0530
+
+    Removed large video file from commit
+
+[33mcommit 406888bffa6ae8cc1d223ef9a382f85389201b2f[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 10:24:10 2024 +0530
+
+    git file name change
+
+[33mcommit 8296dc2fd529438aa62805f975f76fb343e01aad[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 10:20:04 2024 +0530
+
+    git file name change
+
+[33mcommit 085bf2aa45223d36065963e697cb5a4eefdde9c1[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 10:16:55 2024 +0530
+
+    git video remove
+
+[33mcommit ece0da06b8384b5558eae2ff580c8347d0dfb233[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Wed Dec 25 10:09:04 2024 +0530
+
+    left-center-portrait card
+
+[33mcommit 4823730030f6db3efa6ac854f7069c046055b5d7[m
+Merge: c868d43 2fb24fe
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Mon Dec 23 11:14:38 2024 +0530
+
+    Merge pull request #53 from teamflourish01/dhruvi
+    
+    commit change
+
+[33mcommit 2fb24fe34ad25abb1a997646022cf48535d1ca0b[m
+Author: dhruvisonani123 <“dhruvisonaniid@gmail.com”>
+Date:   Mon Dec 23 11:12:49 2024 +0530
+
+    commit change
+
+[33mcommit c868d4337a7baa78396c24315665fb33aa6a9dc9[m
+Merge: 8f13473 a3170a6
+Author: dhruvpaliwal26 <117508809+dhruvpaliwal26@users.noreply.github.com>
+Date:   Mon Dec 23 11:11:49 2024 +0530
+
+    Merge pull request #52 from teamflourish01/prince
+    
+    voicemessage bracket removed
+
+[33mcommit a3170a6255c7025136d829c73e5860a9fc0da891[m
+Author: Prince Mendpara <prince.m.7405@gmail.com>
+Date:   Mon Dec 23 11:10:48 2024 +0530
+
+    voicemessage bracket removed
+
+[33mcommit 8f1347347836da6a64a769f9fc7aac70ea499e34[m
+Merge: 3d30c24 24d0503
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Mon Dec 23 11:00:06 2024 +0530
+
+    Merge pull request #51 from teamflourish01/rina
+    
+    add scroller
+
+[33mcommit 24d05038815c7fdbdf2625c0e84d2cb537c4a17e[m[33m ([m[1;31morigin/rina[m[33m)[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Mon Dec 23 10:58:12 2024 +0530
+
+    add scroller
+
+[33mcommit 3d30c2454c117a51a2ae196492cf5a94e0902305[m
+Merge: 987212b 4101783
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Mon Dec 23 10:51:30 2024 +0530
+
+    Merge pull request #50 from teamflourish01/dhruv
+    
+    height adjust
+
+[33mcommit 4101783463d9eef58de6e28516931334b6729aac[m
+Author: dhruv <dhruvpaliwal9690@gmail.com>
+Date:   Mon Dec 23 10:49:59 2024 +0530
+
+    height adjust
+
+[33mcommit 987212ba0d76c8277add39bc4871e50d453600e2[m
+Merge: 4a6caba 3087262
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Mon Dec 23 10:14:39 2024 +0530
+
+    Merge pull request #49 from teamflourish01/dhruvi
+    
+    commit rate-us subscribe
+
+[33mcommit 3087262c062c1837d5b766d1bf2d47077d72d1d7[m
+Author: dhruvisonani123 <“dhruvisonaniid@gmail.com”>
+Date:   Mon Dec 23 10:13:06 2024 +0530
+
+    commit rate-us subscribe
+
+[33mcommit 4a6caba3b9f20d2a8f4081f11134f786fb467d82[m
+Merge: 08e87b6 d77b1f2
+Author: Satyen Mori <142748026+Satyenmori@users.noreply.github.com>
+Date:   Fri Dec 20 12:04:15 2024 +0530
+
+    Merge pull request #48 from teamflourish01/prince
+    
+    voice message updated
+
+[33mcommit d77b1f2e877ced9cec1e29532030a4e4e708c35c[m
+Author: Prince Mendpara <prince.m.7405@gmail.com>
+Date:   Fri Dec 20 12:02:53 2024 +0530
+
+    voice message updated
+
+[33mcommit 08e87b68d255a266ab87b0c435e574315e699460[m
+Merge: b0bbe83 dc19228
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Fri Dec 20 11:23:24 2024 +0530
+
+    Merge pull request #47 from teamflourish01/dhruv
+    
+    toplogout
+
+[33mcommit b0bbe8373d193644e6c4fe89d4f6ee14fbdcca06[m
+Merge: 302b52d 32fe562
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Fri Dec 20 11:22:58 2024 +0530
+
+    Merge pull request #46 from teamflourish01/dhruvi
+    
+    commmit 20-12
+
+[33mcommit 32fe5625edb4c2f5bd00abc0fac490b18e7a6f2e[m
+Merge: c9ae1e0 302b52d
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Fri Dec 20 11:22:36 2024 +0530
+
+    Merge branch 'main' into dhruvi
+
+[33mcommit dc192284435f20ecd743c06ae4077e9720aaaf2b[m
+Author: dhruv <dhruvpaliwal9690@gmail.com>
+Date:   Fri Dec 20 11:21:25 2024 +0530
+
+    toplogout
+
+[33mcommit c9ae1e0044e85600c455bec3f12e0de3098be925[m
+Author: dhruvisonani123 <“dhruvisonaniid@gmail.com”>
+Date:   Fri Dec 20 11:21:11 2024 +0530
+
+    commmit 20-12
+
+[33mcommit 302b52dc3757c4b1fe141e44d2b174d1c8933ada[m
+Merge: 15f321f 4d85a66
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Fri Dec 20 11:18:13 2024 +0530
+
+    Merge pull request #45 from teamflourish01/satyen
+    
+    signup-ligin-social media -voicemsg with intigration
+
+[33mcommit 4d85a6632852b2c2ec83438aa77fea10b020ce29[m
+Merge: 8813f22 15f321f
+Author: Satyen Mori <142748026+Satyenmori@users.noreply.github.com>
+Date:   Fri Dec 20 11:17:17 2024 +0530
+
+    Merge branch 'main' into satyen
+
+[33mcommit 8813f2258e00774ee24753740dad24797b8c9244[m
+Author: satyen mori <satyenmori@gmail.com>
+Date:   Fri Dec 20 11:10:41 2024 +0530
+
+    signup-ligin-social media -voicemsg with intigration
+
+[33mcommit 15f321f14a9104c3a1e7e3b5cfe64bea1b9bf60a[m
+Merge: 11af3de 6dae264
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Thu Dec 19 10:24:24 2024 +0530
+
+    Merge pull request #44 from teamflourish01/dhruvi
+    
+    commit 19-12
+
+[33mcommit 6dae26412c86977ce2ee270efe35ec8a768ff026[m
+Author: dhruvisonani123 <“dhruvisonaniid@gmail.com”>
+Date:   Thu Dec 19 10:15:16 2024 +0530
+
+    commit 19-12
+
+[33mcommit 11af3deec5c9f1ab4b498d0c6837fc4a4b44ccfa[m
+Merge: dad1ad4 bec0460
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Wed Dec 18 11:09:39 2024 +0530
+
+    Merge pull request #43 from teamflourish01/rina
+    
+    fix height according to screen in all pages
+
+[33mcommit bec04603312ea1848fe17295a5ffcd5625d2057d[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Tue Dec 17 18:03:33 2024 +0530
+
+    fix height according to screen in all pages
+
+[33mcommit dad1ad4a1e27793cfde5164ff95c90790cba9ceb[m
+Merge: 4150afb 324ce0f
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Mon Dec 16 17:36:38 2024 +0530
+
+    Merge pull request #41 from teamflourish01/dhruvi
+    
+    commit 16-12
+
+[33mcommit 4150afb2aa2e3144b953ebd979781027e3aa60f9[m
+Merge: c1a45a5 a14f677
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.com>
+Date:   Mon Dec 16 17:35:53 2024 +0530
+
+    Merge pull request #42 from teamflourish01/rina
+    
+    add preview btn in all pages and fix it
+
+[33mcommit a14f677b9c644f437b571a9ca940500713788b96[m
+Author: RinaBhalani <rina.teamflourish@gmail.com>
+Date:   Mon Dec 16 17:34:19 2024 +0530
+
+    add preview btn in all pages and fix it
+
+[33mcommit 324ce0f2903d06dba3d20bff53d3467be225e254[m
+Author: dhruvisonani123 <“dhruvisonaniid@gmail.com”>
+Date:   Mon Dec 16 17:34:10 2024 +0530
+
+    commit 16-12
+
+[33mcommit c1a45a566dc87f3862d5a64b8e22b5413b53e80c[m
+Merge: 44b025c 6fdbf55
+Author: Prince Mendpara <107980690+princepatel7405@users.noreply.github.co
