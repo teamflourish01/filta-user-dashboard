@@ -40,12 +40,15 @@ const Subscription = () => {
           <div className="plan-card">
             <div className="subscription-padding-top">
               <h3 className="plan-title">PREMIUM</h3>
+              <div className="subscription-plan-padding">
               <p className="plan-price">
+              
                 ₹ {price}/-{" "}
                 <span>
                   ({activePlan === "Monthly" ? "Per Month" : "Per Year"})
                 </span>
               </p>
+              </div>
               <button className="plan-button">Get Started</button>
             </div>
             <div className="subscription-border-bottom"></div>

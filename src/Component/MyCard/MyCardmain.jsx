@@ -13,11 +13,15 @@ const MyCardmain = () => {
       <div className="card-bg">
         <div className="card-img">
           <div className="card-pfimg">
-          <img 
-  src={userData?.card?.profileimg ? `${uri}/card/${userData.card.profileimg}` : <FaUserCircle/>} 
-  alt="pf-img" 
- 
-/>
+
+            <img
+              src={`${uri}/card/${userData?.card?.profileimg}`}
+              alt="pf-img"
+              onError={(e) => {
+                console.error("Image failed to load", e);
+              }}
+            />
+
           </div>
           <div className="card-line"></div>
         </div>
