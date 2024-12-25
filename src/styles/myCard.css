@@ -348,6 +348,7 @@
   .my-menu {
     margin: 20px 15px 21px;
     gap: 24px;
+    padding: unset;
   }
   .upload-section-container {
     padding: 20px 22px 21px 23px;
@@ -393,7 +394,7 @@
 
 @media (max-width: 768px) {
   .my-menu {
-    margin: 21px 7px 20px;
+    margin: 20px 15px 21px 15px;
     gap: 20px;
     padding: unset;
   }

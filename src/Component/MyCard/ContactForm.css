@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 36px;
+  gap: 45px;
   overflow-x: scroll;
   scrollbar-width: none;
 }
@@ -50,10 +50,10 @@
   padding: 0 15px 15px 15px;
 }
 .cont-forminput {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .cont-btnmargin {
-  padding-top: 10px;
+  padding-top: 15px;
 }
 .cont-forminput label {
   display: block;
