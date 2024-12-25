@@ -136,6 +136,7 @@ const LeftAlign = () => {
                   <div className="single-video">
                     <video controls className="fullscreen-video">
                       <source src={videos[0]} type="video/mp4" />
+                      
                       Your browser does not support the video tag.
                     </video>
                   </div>
