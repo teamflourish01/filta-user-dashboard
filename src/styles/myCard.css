@@ -105,10 +105,25 @@
   cursor: pointer;
 }
 
+.bsd-profile-img{
+  width: 90px;
+  height: 90px;
+}
+.bsd-cover-img{
+  width: 145px;
+  height: 90px;
+  border-radius: 10px;
+}
+.bsd-logo-img{
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
 .upload-icon {
   font-size: 24px;
   color: #666;
   pointer-events: none;
+  /* width: 50px; */
 }
 
 .upload-box .my-topheading {
@@ -297,13 +312,15 @@
 .basic-detail-scroll{
   overflow-y: scroll;
     scrollbar-width: thin;
+    /* height: calc(100% - 82px); */
     height: calc(90vh - 110px);
     scrollbar-color: #ccc white;
 }
 .my-priviewMain{
   overflow-y: scroll;
     scrollbar-width: thin;
-    height: calc(92vh - 110px);
+    /* height: calc(100% - 82px); */
+    height: calc(90vh - 110px);
     scrollbar-color: #ccc white;
 }
 .my-leftside{
