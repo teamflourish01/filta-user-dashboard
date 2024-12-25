@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-images/video.mp4
-images/vide02.mp4
+src/images/video.mp4
+src/images/vide02.mp4
 # testing
 /coverage
 
