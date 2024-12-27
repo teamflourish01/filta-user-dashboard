@@ -25,7 +25,8 @@
   /* 700 */
 }
 body{
-  overflow-y: hidden; /* Don't remove this It's used for Fix height screen vise*/
+  /* overflow-y: hidden;  */
+  /* Don't remove this It's used for Fix height screen vise*/
 }
 .App {
   display: flex;
