@@ -1,9 +1,32 @@
 .ct-addmore {
-  padding: 15px 31px;
+  padding: 15px 31px 15px 31px;
   display: flex;
   gap: 15px;
+  
   align-items: center;
+  scrollbar-width: thin;
   text-align: center;
+  
+}
+.mycard-overflow{
+  padding-bottom: 10px;
+  display: flex;
+  gap: 15px;
+  
+  width: 100%;
+
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  align-items: center;
+
+}
+input[type="radio"]:checked {
+  accent-color: black; /* Changes the fill color of the selected radio button */
+}
+
+input[type="radio"]:focus-visible {
+  outline: 2px solid black; /* Ensures the focus outline is black */
 }
 .ct-addmoreflex {
   padding: 8px 10px;
@@ -73,12 +96,14 @@
   border-radius: 10px;
   padding: 15px;
   margin-top: 15px;
+  
   /* height: auto; */
 }
 .ct-titlemain {
   display: flex;
   align-items: center;
   justify-content: space-between;
+ 
 }
 .ct-logotitle {
   display: flex;
@@ -159,6 +184,9 @@
   max-width: 860px;
   min-width: 280px;
   width: 100%;
+  max-height: 603px;
+    min-height: 200px;
+    height: 100%;
 }
 .modal-content p {
   font-size: 16px;
@@ -231,6 +259,7 @@
 }
 .drpbox-set {
   margin: 20px 41px 0;
+
 }
 
 .link-padd {
