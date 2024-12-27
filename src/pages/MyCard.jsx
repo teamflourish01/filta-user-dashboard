@@ -150,10 +150,10 @@ const MyCard = () => {
                         : screenWidth <= 768
                         ? "10px"
                         : "28px",
-                    position: isFullScreen ? "fixed" : "absolute ",
+                    position: isFullScreen ? "fixed" : "fixed ",
                     borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                     zIndex: isFullScreen && !isClosing ? "5" : "0",
-                  }}
+                  }}  
                 >
                   {isFullScreen && !isClosing ? (
                     <div className="center-preview-in-btn">

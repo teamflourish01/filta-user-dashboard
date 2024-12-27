@@ -81,7 +81,7 @@ const ChoosePremiumNFC = () => {
           <Link to='/nfc-card/premium-plan'>
 
             <button type="button" className="create-now-btn">
-              Create Now
+            Buy Now
             </button>
             </Link>
           </div>

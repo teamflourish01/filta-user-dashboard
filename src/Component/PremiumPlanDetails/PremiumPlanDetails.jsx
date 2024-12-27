@@ -6,6 +6,12 @@ import { FaPlus } from "react-icons/fa6";
 import "../StandardCustomizeDetail/StandardCustomizeDetail.css";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
+import theme1 from '../../images/NFC-Theme/theme1.svg';
+import theme2 from '../../images/NFC-Theme/theme2.svg';
+import theme3 from '../../images/NFC-Theme/theme3.svg';
+import theme4 from '../../images/NFC-Theme/theme4.svg';
+import theme5 from '../../images/NFC-Theme/theme5.svg';
+
 
 const PremiumPlanDetails = ({
   cardColor,
@@ -30,12 +36,17 @@ const PremiumPlanDetails = ({
   setFormData,
   selectedFile,
   setSelectedFile,
+  selectedCard,
+  setSelectedCard,
+  imageUrls,
+  useBackgroundColor,
+  setUseBackgroundColor
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
   const [qrCodeColor, setQrCodeColor] = useState("#000000");
-  const [selectedCard, setSelectedCard] = useState(0);
+  // const [selectedCard, setSelectedCard] = useState(0);
 
   const cardColorRef = useRef(null);
   const primaryTextColorRef = useRef(null);
@@ -92,8 +103,9 @@ const PremiumPlanDetails = ({
     "Jost",
     "Playfair",
     "Josefin Sans",
-    "PT Sarif"
+    "PT Sarif",
   ];
+
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
@@ -126,8 +138,10 @@ const PremiumPlanDetails = ({
   };
   const handleCardClick = (index) => {
     setSelectedCard(index);
+    console.log(useBackgroundColor, 'nn');
+    
   };
-
+  
   return (
     <>
       <>
@@ -216,7 +230,9 @@ const PremiumPlanDetails = ({
                 </div>
 
                 <div className="choose-card-layout-container">
-                  <p className="Premium-customize-your-title logo-mob-p-8-p">Logo Size</p>
+                  <p className="Premium-customize-your-title logo-mob-p-8-p">
+                    Logo Size
+                  </p>
                   <div>
                     <label>
                       <p className="maximum-txt">
@@ -357,14 +373,24 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           value={cardColor}
-                          onChange={(e) => setCardColor(e.target.value)}
+                          // onChange={(e) => setCardColor(e.target.value)}
+                          onChange={(e) => {
+                            setSelectedCard(null);
+                            setCardColor(e.target.value);
+                            setUseBackgroundColor(false); // Switch to color mode
+                          }}
                         />
                         <input
                           className="color-hide color-box"
                           type="color"
                           ref={cardColorRef}
                           value={cardColor}
-                          onChange={(e) => setCardColor(e.target.value)}
+                          // onChange={(e) => setCardColor(e.target.value)}
+                          onChange={(e) => {
+                            setSelectedCard(null);
+                            setCardColor(e.target.value);
+                            setUseBackgroundColor(true); // Switch to color mode
+                          }}
                         />
                       </div>
                       <div
@@ -412,22 +438,26 @@ const PremiumPlanDetails = ({
                 </div>
               </div>
             </div>
-             {/* ----- Choose Card Theme ----- */}
-             <div className="p-c-d-inner-bg p-20">
+            {/* ----- Choose Card Theme ----- */}
+            <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">Choose Card Theme</p>
               <div className="cards-of-choose-card-theme">
-                {/* <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div>
-                <div className="grey-cards-premium-theme"></div> */}
-                {[...Array(5)].map((_, index) => (
+                {imageUrls.map((url, index) => (
                   <div
                     key={index}
                     className={`grey-cards-premium-theme ${
                       selectedCard === index ? "selected-card" : ""
                     }`}
-                    onClick={() => handleCardClick(index)}
+                    // onClick={() => handleCardClick(index)}
+                    onClick={() => {
+                      handleCardClick(index);
+                      setUseBackgroundColor(false); // Switch to image mode
+                    }}
+                    style={{
+                      backgroundImage: `url(${url})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
                   ></div>
                 ))}
               </div>
@@ -467,7 +497,9 @@ const PremiumPlanDetails = ({
                 </div>
               </div>
               <div className="hr-line-grey"></div>
-              <p className="Premium-customize-your-title logo-mob-p-8-p">Choose Text Color</p>
+              <p className="Premium-customize-your-title logo-mob-p-8-p p-c-t-c-t">
+                Choose Text Color
+              </p>
 
               <div className="Premium-Customize-Details-bg-grey-inner ">
                 <div className="flex-color-cotent">
@@ -476,7 +508,7 @@ const PremiumPlanDetails = ({
                       Primary Text Color
                     </p>
 
-                    <div className="center-content-txt-color">
+                    <div className="center-content-txt-color p-b-5-25">
                       <div className="center-choose-color">
                         <input
                           type="text"
@@ -506,7 +538,7 @@ const PremiumPlanDetails = ({
                       Secondary Text Color
                     </p>
 
-                    <div className="center-content-txt-color">
+                    <div className="center-content-txt-color p-b-5-25">
                       <div className="center-choose-color">
                         <input
                           type="text"
@@ -538,7 +570,7 @@ const PremiumPlanDetails = ({
                 </div>
               </div>
             </div>
-           
+
             {/* ----- QR Code Color ----- */}
             <div className="p-c-d-inner-bg p-20">
               <p className="Premium-customize-your-title">QR Code Color</p>

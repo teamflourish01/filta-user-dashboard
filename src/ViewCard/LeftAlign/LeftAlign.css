@@ -329,7 +329,11 @@
   width: 100%;
 }
 .custom-audio::-webkit-media-controls-enclosure {
-  border-radius: 5px;
+  /* border-radius: 5px; */
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 /* sixeth section about CSS */
@@ -508,3 +512,45 @@
   text-align: center;
   border: unset;
 }
+
+
+
+.slick-next::before,
+.slick-prev::before {
+  content: "";
+}
+
+.custom-arrow {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.custom-next {
+  right: 7px;
+}
+
+.custom-arrow svg{
+  fill: white;
+  font-size: 19px;
+}
+.custom-prev {
+  left: 7px;
+}
+
+
+
+/* .audio-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+} */
+

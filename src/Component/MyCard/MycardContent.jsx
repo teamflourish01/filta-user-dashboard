@@ -40,6 +40,7 @@ import TimeSensitive from "./TimeSensitive";
 import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
+import Address from "./Address";
 
 
 const ContentComponent = () => {
@@ -469,6 +470,10 @@ const ContentComponent = () => {
 
           <DropdownComponent title="Team member details">
             <TeamMember />
+          </DropdownComponent>
+
+          <DropdownComponent title="Address">
+            <Address/>
           </DropdownComponent>
 
           <DropdownComponent title="Time sensitive offer/ slider form">

@@ -144,7 +144,7 @@ const StandardCustomizeDetail = ({
               <div className="center-choose-color">
                 <input
                   type="text"
-                  className="Premium-color-selector"
+                  className="Standard-color-selector"
                   placeholder="#000000"
                   value={accentColor}
                   onChange={(e) => setAccentColor(e.target.value)}
