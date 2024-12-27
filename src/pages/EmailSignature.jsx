@@ -114,7 +114,7 @@ const EmailSignature = () => {
                     : screenWidth <= 768
                     ? "10px"
                     : "20px",
-                position: isFullScreen ? "fixed" : "absolute ",
+                position: isFullScreen ? "fixed" : "fixed ",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                 zIndex: isFullScreen && !isClosing ? "5" : "0",
                 marginBottom: isFullScreen && !isClosing ? "0" : "20px"

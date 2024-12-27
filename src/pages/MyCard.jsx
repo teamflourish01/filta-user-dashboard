@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../styles/myCard.css";
 import "../Component/MyCard/Design.css";
 import profileimg from "../images/profileimg.png";
@@ -19,7 +19,9 @@ import DesignComponent from "../Component/MyCard/MycardDesign";
 import QrcodeComponent from "../Component/MyCard/MycardQRcode";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
+import userContext from "../context/userDetails";
 import { useNavigate } from "react-router-dom";
+
 const MyCard = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [profileImages, setProfileImage] = useState(null);
@@ -29,6 +31,8 @@ const MyCard = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [borderStyle, setBorderStyle] = useState("circle");
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
     name: "",
     jobTitle: "",
@@ -78,7 +82,6 @@ const MyCard = () => {
         return (
           <>
             <BasicDetails
-            
               onFormDataChange={handleFormDataChange}
               onProfileImageChange={setProfileImage}
               onCoverPhotoChange={setCoverPhoto}
@@ -147,10 +150,10 @@ const MyCard = () => {
                         : screenWidth <= 768
                         ? "10px"
                         : "28px",
-                    position: isFullScreen ? "fixed" : "absolute ",
+                    position: isFullScreen ? "fixed" : "fixed ",
                     borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                     zIndex: isFullScreen && !isClosing ? "5" : "0",
-                  }}
+                  }}  
                 >
                   {isFullScreen && !isClosing ? (
                     <div className="center-preview-in-btn">
@@ -253,10 +256,14 @@ const MyCard = () => {
         {/* Right Side */}
         <div className="my-rightside">
           <div className="e-profile">
-            <img src={profileimg} alt="profile img" />
+            {/* <img src={profileimg} alt="profile img" /> */}
+            <img
+              src={`${uri}/card/${userData?.card?.profileimg}`}
+              alt="profile-img"
+            />
             <div className="e-sidediv">
-              <p className="e-prfname">Ajay Gadhavi</p>
-              <p className="e-prfemail">ajaygadhvi045@gmail.com</p>
+              <p className="e-prfname">{userData?.card?.name}</p>
+              <p className="e-prfemail">{userData?.card?.email}</p>
             </div>
           </div>
           <hr className="hrline" />
@@ -278,7 +285,7 @@ const MyCard = () => {
                 {/* Show live card preview */}
 
                 <div className="cardshow-text">
-                  <div>
+                  {/* <div>
                     {profileImages && (
                       <img
                         src={profileImages}
@@ -290,7 +297,7 @@ const MyCard = () => {
                     {coverPhoto && (
                       <img
                         src={coverPhoto}
-                        alt="Cover Photo Preview"
+                        alt="Cover Phot Preview"
                         className="cover-photo"
                       />
                     )}
@@ -298,12 +305,18 @@ const MyCard = () => {
                     {logo && (
                       <img src={logo} alt="Logo Preview" className="logo-img" />
                     )}
+                  </div> */}
+                  <div>
+                    <img className="co-img" width={"200px"} src={`${uri}/card/${userData?.card?.coverimg}`} alt="cover-img" />
+                    <img className="pro-img" width={"100px"}  src={`${uri}/card/${userData?.card?.profileimg}`} alt="profile-img" />
+                    <img className="logo-img" width={"50px"} src={`${uri}/card/${userData?.card?.logoimg}`} alt="logo-img" />
+                    <img src="" alt="" />
                   </div>
-                  <p>{formData.name}</p>
-                  <p>{formData.jobTitle}</p>
-                  <p>{formData.company}</p>
-                  <p>{formData.location}</p>
-                  <p>{formData.bio}</p>
+                  <p>{userData?.card?.name}</p>
+                  <p>{userData?.card?.jobtitle}</p>
+                  <p>{userData?.card?.company}</p>
+                  <p>{userData?.card?.location}</p>
+                  <p>{userData?.card?.bio}</p>
                 </div>
               </div>
               <div className="my-prwbtn">

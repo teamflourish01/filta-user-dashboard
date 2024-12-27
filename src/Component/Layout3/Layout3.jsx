@@ -18,6 +18,8 @@ const Layout3 = ({
   showNfcIcon,
   selectedFile,
   formData,
+  selectedImage,
+  useBackgroundColor
 }) => {
   return (
     <div>
@@ -25,7 +27,14 @@ const Layout3 = ({
         <p className="front-side-text-lay">Front Side</p>
         <div
           className="front-side-card-design-premium"
-          style={{ backgroundColor: cardColor }}
+          // style={{ backgroundColor: cardColor }}
+          style={{
+            background: useBackgroundColor
+              ? cardColor 
+              : selectedImage
+              ? `url(${selectedImage}) center / cover no-repeat` 
+              : cardColor,
+          }}
         >
           {showNfcIcon && (
             <div className="nfc-container">
@@ -51,7 +60,14 @@ const Layout3 = ({
         <p className="back-side-text-lay">Back Side</p>
         <div
           className="back-side-card-design-premium"
-          style={{ backgroundColor: cardColor }}
+          // style={{ backgroundColor: cardColor }}
+          style={{
+            background: useBackgroundColor
+              ? cardColor 
+              : selectedImage
+              ? `url(${selectedImage}) center / cover no-repeat` 
+              : cardColor,
+          }}
         >
           {showFiltaLogo && (
             <div className="nfc-container">

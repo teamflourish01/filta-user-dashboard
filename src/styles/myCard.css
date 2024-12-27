@@ -46,7 +46,7 @@
   white-space: nowrap;
 }
 
-.profile-photo{
+.profile-photo {
   width: 250px;
   /* for setup only */
 }
@@ -55,8 +55,6 @@
   height: 100px; /* Set the height of the image */
   object-fit: cover; /* Ensures the image fits well inside the square/circle */
 }
-
-
 
 /* upload section */
 .my-container hr {
@@ -105,10 +103,25 @@
   cursor: pointer;
 }
 
+.bsd-profile-img {
+  width: 90px;
+  height: 90px;
+}
+.bsd-cover-img {
+  width: 145px;
+  height: 90px;
+  border-radius: 10px;
+}
+.bsd-logo-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
 .upload-icon {
   font-size: 24px;
   color: #666;
   pointer-events: none;
+  /* width: 50px; */
 }
 
 .upload-box .my-topheading {
@@ -190,7 +203,7 @@
   border-radius: 8px;
   background-color: #eff1f3;
   height: 45px;
-  
+
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -198,17 +211,17 @@
   font-family: Poppins-Regular;
   font-weight: 400;
   border: none;
-  color: #7B7B7B;
+  color: #7b7b7b;
   /* outline: none; */
 }
 .my-txtarea {
   height: 80px;
   resize: none;
 }
-.my-allfiled input:focus{
+.my-allfiled input:focus {
   outline: 1px solid #ccc;
 }
-.my-txtarea:focus{
+.my-txtarea:focus {
   outline: 1px solid #ccc;
 }
 /* Button styling */
@@ -294,26 +307,27 @@
 
 /* Add For Scroll by R Start*/
 
-.basic-detail-scroll{
+.basic-detail-scroll {
   overflow-y: scroll;
-    scrollbar-width: thin;
-    height: calc(90vh - 110px);
-    scrollbar-color: #ccc white;
+  scrollbar-width: thin;
+  height: calc(100% - 82px);
+  /* height: calc(90vh - 110px); */
+  scrollbar-color: #ccc white;
 }
-.my-priviewMain{
+.my-priviewMain {
   overflow-y: scroll;
-    scrollbar-width: thin;
-    height: calc(92vh - 110px);
-    scrollbar-color: #ccc white;
+  scrollbar-width: thin;
+  height: calc(100% - 72px);
+  /* height: calc(90vh - 110px); */
+  scrollbar-color: #ccc white;
 }
-.my-leftside{
+.my-leftside {
   border-bottom: 3px solid white;
 }
-.my-rightside{
+.my-rightside {
   border-bottom: 1px solid white;
 }
 /* Add For Scroll by R End*/
-
 
 @media (max-width: 1350px) and (min-width: 1025px) {
   .my-menu {
@@ -338,6 +352,7 @@
   } */
   .my-leftside {
     width: 100%;
+    height: calc(100% - 57px);
   }
   .my-rightside {
     display: none;

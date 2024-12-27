@@ -25,7 +25,9 @@ import Support from "./Component/support/Support";
 import { Rateus } from "./Component/rateusandfeedback/Rateus";
 
 import SignupFlow from "./Component/Auth/SignupFlow";
-
+import LeftAlign from "./ViewCard/LeftAlign/LeftAlign";
+import CenterAlign from "./ViewCard/CenterAlign/CenterAlign";
+import Portrait from "./ViewCard/Portrait/Portrait";
 
 // Layout for Authentication Pages
 const AuthLayout = ({ children }) => {
@@ -70,6 +72,11 @@ function App() {
           }
         />
 
+        {/* View Card Routes*/}
+        <Route path="/left-align" element={<LeftAlign />} />
+        <Route path="/center-align" element={<CenterAlign />} />
+        <Route path="/portrait" element={<Portrait />} />
+
         {/* Main Application Layout */}
         <Route
           path="*"
@@ -85,9 +92,9 @@ function App() {
                     <Route path="/my-card" element={<MyCardmain />} />
                     <Route path="my-card/edit" element={<MyCard />} />
                     <Route path="/nfc-card" element={<NFCCard />} />
-                    <Route path="/subscription" element={<Subscription/>} />
-                    <Route path="/support" element={<Support/>}/>
-                    <Route path="/rate-us" element={<Rateus/>} />
+                    <Route path="/subscription" element={<Subscription />} />
+                    <Route path="/support" element={<Support />} />
+                    <Route path="/rate-us" element={<Rateus />} />
                     <Route
                       path="/digital-review-card"
                       element={<DigitalReviewCard />}
@@ -107,14 +114,15 @@ function App() {
                       path="/nfc-card/standardplan"
                       element={<StandardPlan />}
                     />
-                    <Route path="/request-feature" element={<Requestfeature/>}/>
+                    <Route
+                      path="/request-feature"
+                      element={<Requestfeature />}
+                    />
                     <Route
                       path="/nfc-card/premium-plan"
                       element={<PremiumPlan />}
                     />
                   </Routes>
-
-                  
                 </div>
               </div>
             </div>
