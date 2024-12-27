@@ -24,12 +24,14 @@
   width: 27px;
   height: 27px;
 }
-
-.doc-docdiv {
+.doc-border {
   border-top: 1px solid #0000000d;
   border-bottom: 1px solid #0000000d;
-  padding: 15px;
   margin: 15px 0 25px 0;
+}
+.doc-docdiv {
+  padding: 15px;
+
   display: flex;
   align-items: center;
   gap: 10px;
@@ -37,16 +39,15 @@
 .doc-docimg {
   width: 80px;
   height: 65px;
-  
 }
-.doc-docimg img{
+.doc-docimg img {
   width: 80px;
   height: 65px;
   object-fit: cover;
 }
 
 .doc-info {
-  flex: 1;  
+  flex: 1;
 }
 .doc-info label {
   font-family: Poppins-Regular;
@@ -84,4 +85,19 @@
 .doc-btnmargin {
   padding: 0 15px 15px;
 }
-
+/* .pdf__Page__canvas {
+  height: 65px !important;
+  width: 80px !important;
+} */
+.doc-editdiv{
+  position: relative;
+}
+.doc-editinput{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; 
+  cursor: pointer; 
+}

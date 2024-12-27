@@ -34,29 +34,29 @@ import Documents from "./Documents";
 import Photos from "./Photos";
 import ProductGallery from "./ProductGallery";
 import Automated from "./Automated";
-import { DragDropContext ,Draggable ,Droppable } from "react-beautiful-dnd";
 import TimeSensitive from "./TimeSensitive";
 
 import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
 
-
 const ContentComponent = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [draggedItem, setDraggedItem] = useState(null);
-  
+
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [platformLinks, setPlatformLinks] = useState({});
   const [draggedItemIndex, setDraggedItemIndex] = useState(null);
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const [isAdding, setIsAdding] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
 
   const toggleModal = () => {
     setIsModalVisible((prev) => !prev);
+    setIsAdding(true);
   };
   const handlePlatformSelect = (platform) => {
-    const uniquePlatform = { ...platform, id: Date.now() };
+    const uniquePlatform = { ...platform, id: Date.now(), isLocal: true };
     setSelectedPlatforms((prev) => [...prev, uniquePlatform]);
     toggleModal();
   };
@@ -71,39 +71,50 @@ const ContentComponent = () => {
     }));
   };
 
-
-
-  
   const handleDeleteLink = async (linkId) => {
-    console.log("platfrom id", linkId);
+    const platformToDelete = selectedPlatforms.find(
+      (platform) => platform.id === linkId
+    );
 
-    try {
-      const response = await fetch(`${uri}/link/deletelink/${linkId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: AuthorizationToken,
-        },
+    if (platformToDelete?.isLocal) {
+      setSelectedPlatforms((prev) =>
+        prev.filter((platform) => platform.id !== linkId)
+      );
+      setPlatformLinks((prev) => {
+        const newLinks = { ...prev };
+        delete newLinks[linkId];
+        return newLinks;
       });
-
-      const data = await response.json();
-      if (response.ok) {
-        // Remove the deleted link from the state
-        setSelectedPlatforms((prev) =>
-          prev.filter((platform) => platform.id !== linkId)
-        );
-        setPlatformLinks((prev) => {
-          const newLinks = { ...prev };
-          delete newLinks[linkId];
-          return newLinks;
+      alert("Link removed from successfuly");
+    } else {
+      try {
+        const response = await fetch(`${uri}/link/deletelink/${linkId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthorizationToken,
+          },
         });
-        alert(`${data?.message}`);
-        getUserData();
-      } else {
-        alert(data.message || "Failed to delete link.");
+
+        const data = await response.json();
+        if (response.ok) {
+          // Remove the deleted link from the state
+          setSelectedPlatforms((prev) =>
+            prev.filter((platform) => platform.id !== linkId)
+          );
+          setPlatformLinks((prev) => {
+            const newLinks = { ...prev };
+            delete newLinks[linkId];
+            return newLinks;
+          });
+          alert(`${data?.message}`);
+          getUserData();
+        } else {
+          alert(data.message || "Failed to delete link.");
+        }
+      } catch (error) {
+        console.error("Error deleting link:", error);
       }
-    } catch (error) {
-      console.error("Error deleting link:", error);
     }
   };
   useEffect(() => {
@@ -200,7 +211,12 @@ const ContentComponent = () => {
         if (!selectedPlatforms.some((item) => item.name === platformName)) {
           setSelectedPlatforms((prev) => [
             ...prev,
-            { name: platformName, icon: getPlatformIcon(platformName) },
+            {
+              name: platformName,
+              icon: getPlatformIcon(platformName),
+              id: Date.now(),
+              isLocal: false,
+            },
           ]);
         }
         alert("Data Add Successfuly");
@@ -212,23 +228,53 @@ const ContentComponent = () => {
       console.error("Error adding link:", error);
     }
   };
+  const handleEditLink = async (platformName, title, url, linkId) => {
+    console.log("Editing Link:", { platformName, title, url, linkId });
+    if (!linkId || !title || !url) {
+      alert("All fields are required.");
+      return;
+    }
+    try {
+      const response = await fetch(`${uri}/link/update/${linkId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+        body: JSON.stringify({ platform: platformName, text: title, url }),
+      });
 
-  const handleDragStart = (index) => {
-    setDraggedItemIndex(index);
+      const data = await response.json();
+      if (response.ok) {
+        alert(`${data?.message}` || "Updates Success!");
+        getUserData();
+      } else {
+        alert(data.message || "Failed to edit link.");
+      }
+    } catch (error) {
+      console.error("Error editing link:", error);
+    }
+  };
+  const handleButtonClick = async (platformName, title, url, linkId) => {
+    if (isAdding) {
+      await handleAddLink(platformName, title, url);
+      setIsAdding(false);
+    } else {
+      await handleEditLink(platformName, title, url, linkId);
+    }
+  };
+  const handleFormSubmit = (e, platform, platformId) => {
+    e.preventDefault();
+    const title = platformLinks[platformId]?.title || "";
+    const url = platformLinks[platformId]?.url || "";
+
+    handleButtonClick(platform.name, title, url, platformId);
   };
 
-
-  const handleDragOver = (event) => {
-    event.preventDefault(); // Prevent default to allow drop
-  };
-  
-
-  
   return (
     <>
       <div className="drpBox-container">
         <div className="drpbox-set">
-        
           <DropdownComponent title="Clickable links">
             <div className="ct-addmore">
               <div className="ct-addmoreflex" onClick={toggleModal}>
@@ -282,12 +328,9 @@ const ContentComponent = () => {
                   </div>
                   <div className="ct-linkform">
                     <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        const title = platformLinks[platform.id]?.title || "";
-                        const url = platformLinks[platform.id]?.url || "";
-                        handleAddLink(platform.name, title, url);
-                      }}
+                      onSubmit={(e) =>
+                        handleFormSubmit(e, platform, platform.id)
+                      }
                     >
                       <div className="ct-fwidth">
                         <label>Title</label>
@@ -316,9 +359,14 @@ const ContentComponent = () => {
                         />
                       </div>
                       <div className="my-buttons">
-                        <button className="my-cancel">Cancel</button>
+                        <button
+                          className="my-cancel"
+                          type="button"                          
+                        >
+                          Cancel
+                        </button>
                         <button type="submit" className="my-save link-padd">
-                          Add Link
+                          {isAdding ? "Add Link" : "Edit Link"}
                         </button>
                       </div>
                     </form>
@@ -485,7 +533,7 @@ const ContentComponent = () => {
           </DropdownComponent>
           <DropdownComponent title="Product Gallery">
             <ProductGallery />
-          </DropdownComponent>          
+          </DropdownComponent>
         </div>
       </div>
     </>
