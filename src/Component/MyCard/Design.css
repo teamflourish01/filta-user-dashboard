@@ -8,7 +8,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
-  height: calc(88vh - 130px); /*Add for set height accroding to screen by R*/
+  height: calc(100% - 100px);
 
 }
 .di-maindiv {
@@ -479,7 +479,7 @@ input[type="color"] {
 /* QR Code Css */
 .delthight{
   /* height: auto; */
-  height: calc(88vh - 130px); /*Add for set height accroding to screen by R*/
+  height: calc(100% - 100px);
 
 }
 .qr-logobox {
@@ -527,7 +527,7 @@ input[type="color"] {
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
-  height: calc(60vh - 130px); /*Add for set height accroding to screen by R*/
+  height: calc(100% - 72px);
 }
 .qr-code-panel p {
   margin: 20px 0;

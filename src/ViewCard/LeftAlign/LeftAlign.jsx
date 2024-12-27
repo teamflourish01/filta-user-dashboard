@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "../LeftAlign/LeftAlign.css";
 import pla from "../../images/pla.svg";
 import flourish from "../../images/flourishblack.svg";
@@ -15,9 +15,27 @@ import imgofpdf from "../../images/fcplss.svg";
 import offer from "../../images/offer.svg";
 import pict from "../../images/pict.svg";
 import gallerypic from "../../images/pgpic.svg";
+import CustomNextArrow from "../CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "../CustomNextArrow/CustomPrevArrow";
+import VoiceMessage from '../VoiceMessage/VoiceMessage';
 
 const LeftAlign = () => {
+  const audioRef = useRef(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayback = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (audio.paused) {
+        audio.play();
+        setIsPlaying(true);
+      } else {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
   const sliderSettings = {
     dots: false,
@@ -26,6 +44,8 @@ const LeftAlign = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const sliderSettingsDot = {
@@ -35,6 +55,8 @@ const LeftAlign = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const videos = [video1, videoTwo];
@@ -242,12 +264,46 @@ const LeftAlign = () => {
             <div className="grey-box-bg-left-align">
               <div className="voice-msg-box-l-a">
                 <div className="sections-title">Voice Message</div>
+                <div className="audio-container" onClick={togglePlayback}>
+                  {/* <audio
+                    ref={audioRef}
+                    controls
+                    className="custom-audio"
+                    controlsList="nodownload noplaybackrate"
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                  >
+                    <source src={sound} type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                  </audio> */}
+                  <VoiceMessage/>
+                  {/* <div className="frequency-container">
+                    {isPlaying
+                      ? // Animated bars when audio is playing
+                        [...Array(5)].map((_, index) => (
+                          <div
+                            key={index}
+                            className={`frequency-bar`}
+                            style={{ animationDelay: `${index * 0.2}s` }}
+                          ></div>
+                        ))
+                      : // Static dots when audio is not playing
+                        [...Array(5)].map((_, index) => (
+                          <div key={index} className="frequency-dot"></div>
+                        ))}
+                  </div> */}
+                </div>
+              </div>
+            </div>
+            {/* <div className="grey-box-bg-left-align">
+              <div className="voice-msg-box-l-a">
+                <div className="sections-title">Voice Message</div>
                 <audio controls className="custom-audio" controlsList="nodownload noplaybackrate">
                   <source src={sound} type="audio/mpeg" />
                   Your browser does not support the audio element.
                 </audio>
               </div>
-            </div>
+            </div> */}
 
             {/* sixeth section about start */}
             <div className="grey-box-bg-left-align">
@@ -317,7 +373,7 @@ const LeftAlign = () => {
             <div className="grey-box-bg-left-align">
               <div className="time-sensitive-offer-section-l-a">
                 <div className="sections-title">Time sensitive offer</div>
-                
+
                 {offerImages.length > 1 ? (
                   <Slider {...sliderSettingsDot}>
                     {offerImages.map((img, index) => (
