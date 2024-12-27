@@ -34,7 +34,7 @@ import Documents from "./Documents";
 import Photos from "./Photos";
 import ProductGallery from "./ProductGallery";
 import Automated from "./Automated";
-import { DragDropContext ,Draggable ,Droppable } from "react-beautiful-dnd";
+
 import TimeSensitive from "./TimeSensitive";
 
 import userContext from "../../context/userDetails";
@@ -42,9 +42,25 @@ import userContext from "../../context/userDetails";
 import Ctabutton from "./Ctabutton";
 
 const ContentComponent = () => {
+  const [dragItems, setDragItems] = useState([
+    { id: "drag-drop-first", component: "Clickable links" },
+    { id: "drag-drop-secound", component: "Multimedia" },
+    { id: "drag-drop-third", component: "Contact Form" },
+    { id: "drag-drop-four", component: "voice message" },
+    { id: "drag-drop-five", component: "CTA Button" },
+    { id: "drag-drop-six", component: "About (introduction of company)" },
+    { id: "drag-drop-seven", component: "Documents" },
+    { id: "drag-drop-eight", component: "Team member details" },
+    { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
+    { id: "drag-drop-ten", component: "Automated" },
+    { id: "drag-drop-eleven", component: "Social Proof" },
+    { id: "drag-drop-twelv", component: "Photos" },
+    { id: "drag-drop-thirty", component: "Product Gallery" },
+  ]);
+  const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [draggedItem, setDraggedItem] = useState(null);
-  
+  const [draggedOverItemIndex, setDraggedOverItemIndex] = useState(null);
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [platformLinks, setPlatformLinks] = useState({});
   const [draggedItemIndex, setDraggedItemIndex] = useState(null);
@@ -70,9 +86,6 @@ const ContentComponent = () => {
     }));
   };
 
-
-
-  
   const handleDeleteLink = async (linkId) => {
     console.log("platfrom id", linkId);
 
@@ -212,37 +225,59 @@ const ContentComponent = () => {
     }
   };
 
-  const handleDragStart = (index) => {
-    setDraggedItemIndex(index);
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData("index", index);
+    e.target.style.opacity = "0.5"; // Visual feedback
+  };
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = "1"; // Reset visual feedback
+  };
+  const handleDrop = (e, index) => {
+    e.preventDefault();
+    const draggedIndex = e.dataTransfer.getData("index"); // Retrieve dragged item's index
+    const updatedItems = [...dragItems];
+
+    // Swap the positions of the dragged item and the target item
+    const draggedItem = updatedItems.splice(draggedIndex, 1)[0];
+    updatedItems.splice(index, 0, draggedItem);
+
+    setDragItems(updatedItems);
   };
 
-
-  const handleDragOver = (event) => {
-    event.preventDefault(); // Prevent default to allow drop
+  const toggleDropdown = (index) => {
+    setActiveDropdown(activeDropdown === index ? null : index); // Close if the same dropdown is clicked again
   };
-  
 
-  
-  return (
-    <>
-      <div className="drpBox-container">
-        <div className="drpbox-set">
-        
-          <DropdownComponent title="Clickable links">
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const renderComponent = (component) => {
+    console.log("rendercomponent", renderComponent);
+    switch (component) {
+      case "Clickable links":
+        return (
+          <DropdownComponent
+            title="Clickable links"
+            isActive={activeDropdown === 0}
+            toggleActive={() => toggleDropdown(0)}
+          >
             <div className="ct-addmore">
-              <div className="ct-addmoreflex" onClick={toggleModal}>
-                <img src={plus} alt="add icone" />
-                <p>Add More</p>
-              </div>
-              {selectedPlatforms &&
-                selectedPlatforms.map((platform) => (
-                  <div className="ct-addlinkmain" key={platform.id}>
-                    <div className="ct-addlink">
-                      <img src={platform.icon} alt={platform.name} />
-                      <p>{platform.name}</p>
+              <div className="mycard-overflow">
+                <div className="ct-addmoreflex" onClick={toggleModal}>
+                  <img src={plus} alt="add icone" />
+                  <p>Add More</p>
+                </div>
+                {selectedPlatforms &&
+                  selectedPlatforms.map((platform) => (
+                    <div className="ct-addlinkmain" key={platform.id}>
+                      <div className="ct-addlink">
+                        <img src={platform.icon} alt={platform.name} />
+                        <p>{platform.name}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+              </div>
             </div>
             <hr />
             <div className="ct-margin">
@@ -250,13 +285,13 @@ const ContentComponent = () => {
                 <div className="ct-orignal">
                   <label>
                     Original
-                    <input type="radio" />
+                    <input type="radio" name="style" value="original" />
                   </label>
                 </div>
                 <div className="ct-outline">
                   <label>
                     Outline
-                    <input type="radio" />
+                    <input type="radio" name="style" value="outline" />
                   </label>
                 </div>
               </div>
@@ -339,152 +374,291 @@ const ContentComponent = () => {
                   className="modal-content"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="md-title md-topmargin">
-                    <p>Social Media </p>
-                  </div>
-                  <div className="s-alllink">
-                    {[
-                      { name: "Instagram", icon: insta },
-                      { name: "Facebook", icon: fbImg },
-                      { name: "LinkedIn", icon: lnkImg },
-                      { name: "X (Twitter)", icon: twtrImg },
-                      { name: "Snapchat", icon: snapImg },
-                      { name: "Threads", icon: thrdsImg },
-                      { name: "Pinterest", icon: pintImg },
-                      { name: "Telegram", icon: teligImg },
-                      { name: "Youtube", icon: ytImg },
-                    ].map((platform) => (
-                      <div
-                        className="s-link"
-                        key={platform.name}
-                        onClick={() => handlePlatformSelect(platform)}
-                      >
-                        <div className="s-imgtitle">
-                          <img src={platform.icon} alt={platform.name} />
-                          <p>{platform.name}</p>
+                  <div
+                    className="mycard-content-overflow-y"
+                    style={{
+                      overflowY: "scroll",
+                      height: "100%",
+                      // scrollbarWidth:"thin",
+                      scrollbarColor: "#aeaeae white",
+                      scrollbarWidth: "thin",
+                    }}
+                  >
+                    <div className="md-title md-topmargin">
+                      <p>Social Media </p>
+                    </div>
+                    <div className="s-alllink">
+                      {[
+                        { name: "Instagram", icon: insta },
+                        { name: "Facebook", icon: fbImg },
+                        { name: "LinkedIn", icon: lnkImg },
+                        { name: "X (Twitter)", icon: twtrImg },
+                        { name: "Snapchat", icon: snapImg },
+                        { name: "Threads", icon: thrdsImg },
+                        { name: "Pinterest", icon: pintImg },
+                        { name: "Telegram", icon: teligImg },
+                        { name: "Youtube", icon: ytImg },
+                      ].map((platform) => (
+                        <div
+                          className="s-link"
+                          key={platform.name}
+                          onClick={() => handlePlatformSelect(platform)}
+                        >
+                          <div className="s-imgtitle">
+                            <img src={platform.icon} alt={platform.name} />
+                            <p>{platform.name}</p>
+                          </div>
+                          <div className="s-plusbtn">
+                            <img src={plus} alt="plus" />
+                          </div>
                         </div>
-                        <div className="s-plusbtn">
-                          <img src={plus} alt="plus" />
+                      ))}
+                    </div>
+                    <div className="md-title">
+                      <p>Contact</p>
+                    </div>
+                    <div className="s-alllink">
+                      {[
+                        { name: "Text", icon: msgImg },
+                        { name: "Call", icon: callImg },
+                        { name: "Email", icon: emailImg },
+                        { name: "Contact ", icon: contactImg },
+                        { name: "WhatsApp", icon: wappImg },
+                        { name: "Address", icon: mapImg },
+                      ].map((platform) => (
+                        <div
+                          className="s-link"
+                          key={platform.name}
+                          onClick={() => handlePlatformSelect(platform)}
+                        >
+                          <div className="s-imgtitle">
+                            <img src={platform.icon} alt={platform.name} />
+                            <p>{platform.name}</p>
+                          </div>
+                          <div className="s-plusbtn">
+                            <img src={plus} alt="plus" />
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="md-title">
-                    <p>Contact</p>
-                  </div>
-                  <div className="s-alllink">
-                    {[
-                      { name: "Text", icon: msgImg },
-                      { name: "Call", icon: callImg },
-                      { name: "Email", icon: emailImg },
-                      { name: "Contact ", icon: contactImg },
-                      { name: "WhatsApp", icon: wappImg },
-                      { name: "Address", icon: mapImg },
-                    ].map((platform) => (
-                      <div
-                        className="s-link"
-                        key={platform.name}
-                        onClick={() => handlePlatformSelect(platform)}
-                      >
-                        <div className="s-imgtitle">
-                          <img src={platform.icon} alt={platform.name} />
-                          <p>{platform.name}</p>
+                      ))}
+                    </div>
+                    <div className="md-title">
+                      <p>Payment</p>
+                    </div>
+                    <div className="s-alllink">
+                      {[
+                        { name: "Google Pay", icon: GooPlyImg },
+                        { name: "Phone Pay", icon: PhonpyImg },
+                        { name: "Paytm", icon: PaytmImg },
+                      ].map((platform) => (
+                        <div
+                          className="s-link"
+                          key={platform.name}
+                          onClick={() => handlePlatformSelect(platform)}
+                        >
+                          <div className="s-imgtitle">
+                            <img src={platform.icon} alt={platform.name} />
+                            <p>{platform.name}</p>
+                          </div>
+                          <div className="s-plusbtn">
+                            <img src={plus} alt="plus" />
+                          </div>
                         </div>
-                        <div className="s-plusbtn">
-                          <img src={plus} alt="plus" />
+                      ))}
+                    </div>
+                    <div className="md-title">
+                      <p>Other</p>
+                    </div>
+                    <div className="s-alllink s-othermargin">
+                      {[
+                        { name: "Review", icon: gogleImg },
+                        { name: "Google Drive", icon: GoolDriImg },
+                      ].map((platform) => (
+                        <div
+                          className="s-link"
+                          key={platform.name}
+                          onClick={() => handlePlatformSelect(platform)}
+                        >
+                          <div className="s-imgtitle">
+                            <img src={platform.icon} alt={platform.name} />
+                            <p>{platform.name}</p>
+                          </div>
+                          <div className="s-plusbtn">
+                            <img src={plus} alt="plus" />
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="md-title">
-                    <p>Payment</p>
-                  </div>
-                  <div className="s-alllink">
-                    {[
-                      { name: "Google Pay", icon: GooPlyImg },
-                      { name: "Phone Pay", icon: PhonpyImg },
-                      { name: "Paytm", icon: PaytmImg },
-                    ].map((platform) => (
-                      <div
-                        className="s-link"
-                        key={platform.name}
-                        onClick={() => handlePlatformSelect(platform)}
-                      >
-                        <div className="s-imgtitle">
-                          <img src={platform.icon} alt={platform.name} />
-                          <p>{platform.name}</p>
-                        </div>
-                        <div className="s-plusbtn">
-                          <img src={plus} alt="plus" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="md-title">
-                    <p>Other</p>
-                  </div>
-                  <div className="s-alllink s-othermargin">
-                    {[
-                      { name: "Review", icon: gogleImg },
-                      { name: "Google Drive", icon: GoolDriImg },
-                    ].map((platform) => (
-                      <div
-                        className="s-link"
-                        key={platform.name}
-                        onClick={() => handlePlatformSelect(platform)}
-                      >
-                        <div className="s-imgtitle">
-                          <img src={platform.icon} alt={platform.name} />
-                          <p>{platform.name}</p>
-                        </div>
-                        <div className="s-plusbtn">
-                          <img src={plus} alt="plus" />
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             )}
           </DropdownComponent>
-          <DropdownComponent title="Multimedia">
+        );
+      case "Multimedia":
+        return (
+          <DropdownComponent
+            title="Multimedia"
+            isActive={activeDropdown === 1}
+            toggleActive={() => toggleDropdown(1)}
+          >
             <MultimediaComponent />
           </DropdownComponent>
-          <DropdownComponent title="Contact Form">
+        );
+      case "Contact Form":
+        return (
+          <DropdownComponent
+            title="Contact Form"
+            isActive={activeDropdown === 2}
+            toggleActive={() => toggleDropdown(2)}
+          >
             <ContactForm />
           </DropdownComponent>
-          <DropdownComponent title="Voice Message">
+        );
+
+      case "voice message":
+        return (
+          <DropdownComponent
+            title="voice message"
+            isActive={activeDropdown === 3}
+            toggleActive={() => toggleDropdown(3)}
+          >
             <VoiceMessage />
           </DropdownComponent>
-          <DropdownComponent title="CTA Button">
+        );
+
+      case "CTA Button":
+        return (
+          <DropdownComponent
+            title="CTA Button"
+            isActive={activeDropdown === 4}
+            toggleActive={() => toggleDropdown(4)}
+          >
             <Ctabutton />
           </DropdownComponent>
-          <DropdownComponent title="About (introduction of company)">
+        );
+
+      case "About (introduction of company)":
+        return (
+          <DropdownComponent
+            title="About (introduction of company)"
+            isActive={activeDropdown === 5}
+            toggleActive={() => toggleDropdown(5)}
+          >
             <About />
           </DropdownComponent>
-          <DropdownComponent title="Documents">
+        );
+
+      case "Documents":
+        return (
+          <DropdownComponent
+            title="Documents"
+            isActive={activeDropdown === 6}
+            toggleActive={() => toggleDropdown(6)}
+          >
             <Documents />
           </DropdownComponent>
+        );
 
-          <DropdownComponent title="Team member details">
+      case "Team member details":
+        return (
+          <DropdownComponent
+            title="Team member details"
+            isActive={activeDropdown === 7}
+            toggleActive={() => toggleDropdown(7)}
+          >
             <TeamMember />
           </DropdownComponent>
+        );
 
-          <DropdownComponent title="Time sensitive offer/ slider form">
+      case "Time sensitive offer/ slider form":
+        return (
+          <DropdownComponent
+            title="Time sensitive offer/ slider form"
+            isActive={activeDropdown === 8}
+            toggleActive={() => toggleDropdown(8)}
+          >
             <TimeSensitive />
           </DropdownComponent>
-          <DropdownComponent title="Automated">
+        );
+
+      case "Automated":
+        return (
+          <DropdownComponent
+            title="Automated"
+            isActive={activeDropdown === 9}
+            toggleActive={() => toggleDropdown(9)}
+          >
             <Automated />
           </DropdownComponent>
-          <DropdownComponent title="Social Proof">
+        );
+
+      case "Social Proof":
+        return (
+          <DropdownComponent
+            title="Social Proof"
+            isActive={activeDropdown === 10}
+            toggleActive={() => toggleDropdown(10)}
+          >
             <SocialProof />
           </DropdownComponent>
-          <DropdownComponent title="Photos">
+        );
+
+      case "Photos":
+        return (
+          <DropdownComponent
+            title="Photos"
+            isActive={activeDropdown === 11}
+            toggleActive={() => toggleDropdown(11)}
+          >
             <Photos />
           </DropdownComponent>
-          <DropdownComponent title="Product Gallery">
+        );
+
+      case "Product Gallery":
+        return (
+          <DropdownComponent
+            title="Product Gallery"
+            isActive={activeDropdown === 12}
+            toggleActive={() => toggleDropdown(12)}
+          >
             <ProductGallery />
           </DropdownComponent>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+
+
+ 
+
+
+
+  
+
+
+  
+  return (
+    <>
+      <div className="drpBox-container">
+        <div className="drpbox-set">
+          <div className="drag-drop">
+            {dragItems.map((item, index) => (
+              <div
+                key={item.id}
+                className={item.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, index)}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, index)}
+                onDragEnd={handleDragEnd}
+              >
+                {renderComponent(item.component)}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
