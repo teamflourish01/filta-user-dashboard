@@ -43,7 +43,7 @@ import Ctabutton from "./Ctabutton";
 
 const ContentComponent = () => {
   const [dragItems, setDragItems] = useState([
-    {id:"drag-drop-first",component: "Clickable links"},
+    { id: "drag-drop-first", component: "Clickable links" },
     { id: "drag-drop-secound", component: "Multimedia" },
     { id: "drag-drop-third", component: "Contact Form" },
     { id: "drag-drop-four", component: "voice message" },
@@ -52,6 +52,7 @@ const ContentComponent = () => {
 
     { id: "drag-drop-seven", component: "Documents" },
     { id: "drag-drop-eight", component: "Team member details" },
+    { id: "drag-drop-thirtys", component: "Address" },
     { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
     { id: "drag-drop-ten", component: "Automated" },
     { id: "drag-drop-eleven", component: "Social Proof" },
@@ -66,13 +67,16 @@ const ContentComponent = () => {
   const [platformLinks, setPlatformLinks] = useState({});
   const [draggedItemIndex, setDraggedItemIndex] = useState(null);
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const [isAdding, setIsAdding] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
 
   const toggleModal = () => {
     setIsModalVisible((prev) => !prev);
+    setIsAdding(true);
   };
+
   const handlePlatformSelect = (platform) => {
-    const uniquePlatform = { ...platform, id: Date.now() };
+    const uniquePlatform = { ...platform, id: Date.now(), isLocal: true };
     setSelectedPlatforms((prev) => [...prev, uniquePlatform]);
     toggleModal();
   };
@@ -88,37 +92,52 @@ const ContentComponent = () => {
   };
 
   const handleDeleteLink = async (linkId) => {
-    console.log("platfrom id", linkId);
+    const platformToDelete = selectedPlatforms.find(
+      (platform) => platform.id === linkId
+    );
 
-    try {
-      const response = await fetch(`${uri}/link/deletelink/${linkId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: AuthorizationToken,
-        },
+    if (platformToDelete?.isLocal) {
+      setSelectedPlatforms((prev) =>
+        prev.filter((platform) => platform.id !== linkId)
+      );
+      setPlatformLinks((prev) => {
+        const newLinks = { ...prev };
+        delete newLinks[linkId];
+        return newLinks;
       });
-
-      const data = await response.json();
-      if (response.ok) {
-        // Remove the deleted link from the state
-        setSelectedPlatforms((prev) =>
-          prev.filter((platform) => platform.id !== linkId)
-        );
-        setPlatformLinks((prev) => {
-          const newLinks = { ...prev };
-          delete newLinks[linkId];
-          return newLinks;
+      alert("Link removed from successfuly");
+    } else {
+      try {
+        const response = await fetch(`${uri}/link/deletelink/${linkId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthorizationToken,
+          },
         });
-        alert(`${data?.message}`);
-        getUserData();
-      } else {
-        alert(data.message || "Failed to delete link.");
+
+        const data = await response.json();
+        if (response.ok) {
+          // Remove the deleted link from the state
+          setSelectedPlatforms((prev) =>
+            prev.filter((platform) => platform.id !== linkId)
+          );
+          setPlatformLinks((prev) => {
+            const newLinks = { ...prev };
+            delete newLinks[linkId];
+            return newLinks;
+          });
+          alert(`${data?.message}`);
+          getUserData();
+        } else {
+          alert(data.message || "Failed to delete link.");
+        }
+      } catch (error) {
+        console.error("Error deleting link:", error);
       }
-    } catch (error) {
-      console.error("Error deleting link:", error);
     }
   };
+
   useEffect(() => {
     if (userData && userData.socialLinks) {
       const initialLinks = {};
@@ -213,7 +232,12 @@ const ContentComponent = () => {
         if (!selectedPlatforms.some((item) => item.name === platformName)) {
           setSelectedPlatforms((prev) => [
             ...prev,
-            { name: platformName, icon: getPlatformIcon(platformName) },
+            {
+              name: platformName,
+              icon: getPlatformIcon(platformName),
+              id: Date.now(),
+              isLocal: false,
+            },
           ]);
         }
         alert("Data Add Successfuly");
@@ -224,6 +248,48 @@ const ContentComponent = () => {
     } catch (error) {
       console.error("Error adding link:", error);
     }
+  };
+  const handleEditLink = async (platformName, title, url, linkId) => {
+    console.log("Editing Link:", { platformName, title, url, linkId });
+    if (!linkId || !title || !url) {
+      alert("All fields are required.");
+      return;
+    }
+    try {
+      const response = await fetch(`${uri}/link/update/${linkId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+        body: JSON.stringify({ platform: platformName, text: title, url }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(`${data?.message}` || "Updates Success!");
+        getUserData();
+      } else {
+        alert(data.message || "Failed to edit link.");
+      }
+    } catch (error) {
+      console.error("Error editing link:", error);
+    }
+  };
+  const handleButtonClick = async (platformName, title, url, linkId) => {
+    if (isAdding) {
+      await handleAddLink(platformName, title, url);
+      setIsAdding(false);
+    } else {
+      await handleEditLink(platformName, title, url, linkId);
+    }
+  };
+  const handleFormSubmit = (e, platform, platformId) => {
+    e.preventDefault();
+    const title = platformLinks[platformId]?.title || "";
+    const url = platformLinks[platformId]?.url || "";
+
+    handleButtonClick(platform.name, title, url, platformId);
   };
 
   const handleDragStart = (e, index) => {
@@ -256,252 +322,231 @@ const ContentComponent = () => {
   const renderComponent = (component) => {
     console.log("rendercomponent", renderComponent);
     switch (component) {
-
-
       case "Clickable links":
-      return (
-        <DropdownComponent
-        title="Clickable links"
-        isActive={activeDropdown === 0}
-        toggleActive={() => toggleDropdown(0)}
-      >
-        <div className="ct-addmore">
-          <div className="mycard-overflow">
-            <div className="ct-addmoreflex" onClick={toggleModal}>
-              <img src={plus} alt="add icone" />
-              <p>Add More</p>
+        return (
+          <DropdownComponent
+            title="Clickable links"
+            isActive={activeDropdown === 0}
+            toggleActive={() => toggleDropdown(0)}
+          >
+            <div className="ct-addmore">
+              <div className="ct-addmoreflex" onClick={toggleModal}>
+                <img src={plus} alt="add icone" />
+                <p>Add More</p>
+              </div>
+              {selectedPlatforms &&
+                selectedPlatforms.map((platform) => (
+                  <div className="ct-addlinkmain" key={platform.id}>
+                    <div className="ct-addlink">
+                      <img src={platform.icon} alt={platform.name} />
+                      <p>{platform.name}</p>
+                    </div>
+                  </div>
+                ))}
             </div>
-            {selectedPlatforms &&
-              selectedPlatforms.map((platform) => (
-                <div className="ct-addlinkmain" key={platform.id}>
-                  <div className="ct-addlink">
-                    <img src={platform.icon} alt={platform.name} />
-                    <p>{platform.name}</p>
+            <hr />
+            <div className="ct-margin">
+              <div className="ct-tworadio">
+                <div className="ct-orignal">
+                  <label>
+                    Original
+                    <input type="radio" />
+                  </label>
+                </div>
+                <div className="ct-outline">
+                  <label>
+                    Outline
+                    <input type="radio" />
+                  </label>
+                </div>
+              </div>
+              {selectedPlatforms.map((platform) => (
+                <div className="ct-linkbox" key={platform.id}>
+                  <div className="ct-titlemain">
+                    <div className="ct-logotitle">
+                      <img src={platform.icon} alt={platform.name} />
+                      <p>{platform.name}</p>
+                    </div>
+                    <div className="ct-twobtnmain">
+                      <div
+                        className="ct-deltbtn"
+                        onClick={() => handleDeleteLink(platform.id)}
+                      >
+                        <img src={deltImg} alt="delt-img" />
+                      </div>
+                      <div className="ct-dotbtn">
+                        <img src={dotImg} alt="dot-img" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="ct-linkform">
+                    <form
+                      onSubmit={(e) =>
+                        handleFormSubmit(e, platform, platform.id)
+                      }
+                    >
+                      <div className="ct-fwidth">
+                        <label>Title</label>
+                        <input
+                          type="text"
+                          value={platformLinks[platform.id]?.title || ""}
+                          onChange={(e) =>
+                            handleLinkChange(
+                              platform.id,
+                              "title",
+                              e.target.value
+                            )
+                          }
+                          required
+                        />
+                      </div>
+                      <div className="ct-fwidth">
+                        <label>URL</label>
+                        <input
+                          type="text"
+                          value={platformLinks[platform.id]?.url || ""}
+                          onChange={(e) =>
+                            handleLinkChange(platform.id, "url", e.target.value)
+                          }
+                          required
+                        />
+                      </div>
+                      <div className="my-buttons">
+                        <button className="my-cancel" type="button">
+                          Cancel
+                        </button>
+                        <button type="submit" className="my-save link-padd">
+                          {isAdding ? "Add Link" : "Edit Link"}
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               ))}
-          </div>
-        </div>
-        <hr />
-        <div className="ct-margin">
-          <div className="ct-tworadio">
-            <div className="ct-orignal">
-              <label>
-                Original
-                <input type="radio" name="style" value="original" />
-              </label>
             </div>
-            <div className="ct-outline">
-              <label>
-                Outline
-                <input type="radio" name="style" value="outline" />
-              </label>
-            </div>
-          </div>
-          {selectedPlatforms.map((platform) => (
-            <div className="ct-linkbox" key={platform.id}>
-              <div className="ct-titlemain">
-                <div className="ct-logotitle">
-                  <img src={platform.icon} alt={platform.name} />
-                  <p>{platform.name}</p>
-                </div>
-                <div className="ct-twobtnmain">
-                  <div
-                    className="ct-deltbtn"
-                    onClick={() => handleDeleteLink(platform.id)}
-                  >
-                    <img src={deltImg} alt="delt-img" />
-                  </div>
-                  <div className="ct-dotbtn">
-                    <img src={dotImg} alt="dot-img" />
-                  </div>
-                </div>
-              </div>
-              <div className="ct-linkform">
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const title =
-                      platformLinks[platform.id]?.title || "";
-                    const url = platformLinks[platform.id]?.url || "";
-                    handleAddLink(platform.name, title, url);
-                  }}
-                >
-                  <div className="ct-fwidth">
-                    <label>Title</label>
-                    <input
-                      type="text"
-                      value={platformLinks[platform.id]?.title || ""}
-                      onChange={(e) =>
-                        handleLinkChange(
-                          platform.id,
-                          "title",
-                          e.target.value
-                        )
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="ct-fwidth">
-                    <label>URL</label>
-                    <input
-                      type="text"
-                      value={platformLinks[platform.id]?.url || ""}
-                      onChange={(e) =>
-                        handleLinkChange(
-                          platform.id,
-                          "url",
-                          e.target.value
-                        )
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="my-buttons">
-                    <button className="my-cancel">Cancel</button>
-                    <button type="submit" className="my-save link-padd">
-                      Add Link
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          ))}
-        </div>
-        {/* Modal Component */}
-        {isModalVisible && (
-          <div
-            className="modal-AllLink"
-            onClick={(e) => {
-              if (e.target.className === "modal-AllLink") {
-                setIsModalVisible(false);
-              }
-            }}
-          >
-            <div
-              className="modal-content"
-              onClick={(e) => e.stopPropagation()}
-            >
+            {/* Modal Component */}
+            {isModalVisible && (
               <div
-                className="mycard-content-overflow-y"
-                style={{
-                  overflowY: "scroll",
-                  height: "100%",
-                  // scrollbarWidth:"thin",
-                  scrollbarColor: "#aeaeae white",
-                  scrollbarWidth: "thin",
+                className="modal-AllLink"
+                onClick={(e) => {
+                  if (e.target.className === "modal-AllLink") {
+                    setIsModalVisible(false);
+                  }
                 }}
               >
-                <div className="md-title md-topmargin">
-                  <p>Social Media </p>
-                </div>
-                <div className="s-alllink">
-                  {[
-                    { name: "Instagram", icon: insta },
-                    { name: "Facebook", icon: fbImg },
-                    { name: "LinkedIn", icon: lnkImg },
-                    { name: "X (Twitter)", icon: twtrImg },
-                    { name: "Snapchat", icon: snapImg },
-                    { name: "Threads", icon: thrdsImg },
-                    { name: "Pinterest", icon: pintImg },
-                    { name: "Telegram", icon: teligImg },
-                    { name: "Youtube", icon: ytImg },
-                  ].map((platform) => (
-                    <div
-                      className="s-link"
-                      key={platform.name}
-                      onClick={() => handlePlatformSelect(platform)}
-                    >
-                      <div className="s-imgtitle">
-                        <img src={platform.icon} alt={platform.name} />
-                        <p>{platform.name}</p>
+                <div
+                  className="modal-content"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="md-title md-topmargin">
+                    <p>Social Media </p>
+                  </div>
+                  <div className="s-alllink">
+                    {[
+                      { name: "Instagram", icon: insta },
+                      { name: "Facebook", icon: fbImg },
+                      { name: "LinkedIn", icon: lnkImg },
+                      { name: "X (Twitter)", icon: twtrImg },
+                      { name: "Snapchat", icon: snapImg },
+                      { name: "Threads", icon: thrdsImg },
+                      { name: "Pinterest", icon: pintImg },
+                      { name: "Telegram", icon: teligImg },
+                      { name: "Youtube", icon: ytImg },
+                    ].map((platform) => (
+                      <div
+                        className="s-link"
+                        key={platform.name}
+                        onClick={() => handlePlatformSelect(platform)}
+                      >
+                        <div className="s-imgtitle">
+                          <img src={platform.icon} alt={platform.name} />
+                          <p>{platform.name}</p>
+                        </div>
+                        <div className="s-plusbtn">
+                          <img src={plus} alt="plus" />
+                        </div>
                       </div>
-                      <div className="s-plusbtn">
-                        <img src={plus} alt="plus" />
+                    ))}
+                  </div>
+                  <div className="md-title">
+                    <p>Contact</p>
+                  </div>
+                  <div className="s-alllink">
+                    {[
+                      { name: "Text", icon: msgImg },
+                      { name: "Call", icon: callImg },
+                      { name: "Email", icon: emailImg },
+                      { name: "Contact ", icon: contactImg },
+                      { name: "WhatsApp", icon: wappImg },
+                      { name: "Address", icon: mapImg },
+                    ].map((platform) => (
+                      <div
+                        className="s-link"
+                        key={platform.name}
+                        onClick={() => handlePlatformSelect(platform)}
+                      >
+                        <div className="s-imgtitle">
+                          <img src={platform.icon} alt={platform.name} />
+                          <p>{platform.name}</p>
+                        </div>
+                        <div className="s-plusbtn">
+                          <img src={plus} alt="plus" />
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="md-title">
-                  <p>Contact</p>
-                </div>
-                <div className="s-alllink">
-                  {[
-                    { name: "Text", icon: msgImg },
-                    { name: "Call", icon: callImg },
-                    { name: "Email", icon: emailImg },
-                    { name: "Contact ", icon: contactImg },
-                    { name: "WhatsApp", icon: wappImg },
-                    { name: "Address", icon: mapImg },
-                  ].map((platform) => (
-                    <div
-                      className="s-link"
-                      key={platform.name}
-                      onClick={() => handlePlatformSelect(platform)}
-                    >
-                      <div className="s-imgtitle">
-                        <img src={platform.icon} alt={platform.name} />
-                        <p>{platform.name}</p>
+                    ))}
+                  </div>
+                  <div className="md-title">
+                    <p>Payment</p>
+                  </div>
+                  <div className="s-alllink">
+                    {[
+                      { name: "Google Pay", icon: GooPlyImg },
+                      { name: "Phone Pay", icon: PhonpyImg },
+                      { name: "Paytm", icon: PaytmImg },
+                    ].map((platform) => (
+                      <div
+                        className="s-link"
+                        key={platform.name}
+                        onClick={() => handlePlatformSelect(platform)}
+                      >
+                        <div className="s-imgtitle">
+                          <img src={platform.icon} alt={platform.name} />
+                          <p>{platform.name}</p>
+                        </div>
+                        <div className="s-plusbtn">
+                          <img src={plus} alt="plus" />
+                        </div>
                       </div>
-                      <div className="s-plusbtn">
-                        <img src={plus} alt="plus" />
+                    ))}
+                  </div>
+                  <div className="md-title">
+                    <p>Other</p>
+                  </div>
+                  <div className="s-alllink s-othermargin">
+                    {[
+                      { name: "Review", icon: gogleImg },
+                      { name: "Google Drive", icon: GoolDriImg },
+                    ].map((platform) => (
+                      <div
+                        className="s-link"
+                        key={platform.name}
+                        onClick={() => handlePlatformSelect(platform)}
+                      >
+                        <div className="s-imgtitle">
+                          <img src={platform.icon} alt={platform.name} />
+                          <p>{platform.name}</p>
+                        </div>
+                        <div className="s-plusbtn">
+                          <img src={plus} alt="plus" />
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="md-title">
-                  <p>Payment</p>
-                </div>
-                <div className="s-alllink">
-                  {[
-                    { name: "Google Pay", icon: GooPlyImg },
-                    { name: "Phone Pay", icon: PhonpyImg },
-                    { name: "Paytm", icon: PaytmImg },
-                  ].map((platform) => (
-                    <div
-                      className="s-link"
-                      key={platform.name}
-                      onClick={() => handlePlatformSelect(platform)}
-                    >
-                      <div className="s-imgtitle">
-                        <img src={platform.icon} alt={platform.name} />
-                        <p>{platform.name}</p>
-                      </div>
-                      <div className="s-plusbtn">
-                        <img src={plus} alt="plus" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="md-title">
-                  <p>Other</p>
-                </div>
-                <div className="s-alllink s-othermargin">
-                  {[
-                    { name: "Review", icon: gogleImg },
-                    { name: "Google Drive", icon: GoolDriImg },
-                  ].map((platform) => (
-                    <div
-                      className="s-link"
-                      key={platform.name}
-                      onClick={() => handlePlatformSelect(platform)}
-                    >
-                      <div className="s-imgtitle">
-                        <img src={platform.icon} alt={platform.name} />
-                        <p>{platform.name}</p>
-                      </div>
-                      <div className="s-plusbtn">
-                        <img src={plus} alt="plus" />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
-      </DropdownComponent>
-      );
+            )}
+          </DropdownComponent>
+        );
       case "Multimedia":
         return (
           <DropdownComponent
@@ -577,7 +622,16 @@ const ContentComponent = () => {
             <TeamMember />
           </DropdownComponent>
         );
-
+      case "Address":
+        return (
+          <DropdownComponent
+            title="Address"
+            isActive={activeDropdown === 13}
+            toggleActive={() => toggleDropdown(13)}
+          >
+            <TeamMember />
+          </DropdownComponent>
+        );
       case "Time sensitive offer/ slider form":
         return (
           <DropdownComponent
