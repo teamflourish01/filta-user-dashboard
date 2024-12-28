@@ -25,12 +25,13 @@
 }
 .cnts-padding {
   padding: 0 25px 0 0;
+  height: calc(100% - 25px);
 }
 
 .cnt-container {
   background-color: white;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   padding-bottom: 25px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -92,12 +93,14 @@
   background-color: #eff1f3;
   padding: 10px;
   border-radius: 5px;
-
+  height: calc(100% - 124px);
   margin: 25px 25px 0 25px;
 }
 .cnt-table {
   background-color: white;
   border-radius: 5px;
+  height: calc(100% - 0px);
+  overflow-y: scroll;
   /* margin: 10px; */
   /* overflow-y: auto;
     max-height: 400px; */
@@ -140,7 +143,7 @@
   font-size: 16px;
   transition: transform 0.3s ease-in-out;
   font-family: Poppins-Regular;
-cursor: pointer;
+  cursor: pointer;
   line-height: 24px;
 }
 /* Highlight the row being dragged */
@@ -151,7 +154,7 @@ cursor: pointer;
 
 /* Highlight the target row when dragging over it */
 .table-header-row.drag-over {
-  border: 2px dashed #000;  /* Dotted border for the hovered position */
+  border: 2px dashed #000; /* Dotted border for the hovered position */
   background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -165,7 +168,6 @@ cursor: pointer;
 .table-header-center {
   text-align: center;
 }
-
 
 .draggable-row.dragging {
   background-color: #f1f8ff;
@@ -235,7 +237,7 @@ cursor: pointer;
 }
 
 .dragging {
-  opacity: 0.5; 
+  opacity: 0.5;
 }
 
 .table-header-row:not(.dragging) {
@@ -247,9 +249,7 @@ cursor: pointer;
 
 .table-header-row.dragging {
   opacity: 0.5;
-  
 }
-
 
 .drag-over {
   /* transform: translateY(10px); Animates rows when dragging over */

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import mycard from "../../images/mycard.svg";
 import nfccard from "../../images/nfccard.svg";
-import digitalreviewcard from "../../images/digitalreviewcard.svg";
+// import digitalreviewcard from "../../images/digitalreviewcard.svg";
 import emailsignature from "../../images/emailsignature.svg";
 import virtualbackground from "../../images/virtualbackground.svg";
 import contact from "../../images/contact.svg";
@@ -116,17 +116,17 @@ const Sidebar = () => {
           <img src={nfccard} className="menu-icon" alt="" />
           <span>NFC Card</span>
         </Link>
-        <Link
+        {/* <Link
           to="/digital-review-card"
           className={`menu-item ${
             location.pathname === "/digital-review-card" ? "active" : ""
           }`}
           // onClick={() => handleMenuClick("Digital Review Card")}
         >
-          {/* <FaClipboardList className="menu-icon" /> */}
+          {/* <FaClipboardList className="menu-icon" /> *
           <img src={digitalreviewcard} className="menu-icon" alt="" />
           <span>Digital Review Card</span>
-        </Link>
+        </Link> */}
         <Link
           to="/email-signature"
           className={`menu-item ${
