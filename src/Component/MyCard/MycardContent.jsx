@@ -34,7 +34,7 @@ import Documents from "./Documents";
 import Photos from "./Photos";
 import ProductGallery from "./ProductGallery";
 import Automated from "./Automated";
-import { DragDropContext ,Draggable ,Droppable } from "react-beautiful-dnd";
+// import { DragDropContext ,Draggable ,Droppable } from "react-beautiful-dnd";
 import TimeSensitive from "./TimeSensitive";
 
 import userContext from "../../context/userDetails";

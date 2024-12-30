@@ -46,7 +46,7 @@ export const User = ({ children }) => {
   }, [token]);
   return (
     <userContext.Provider
-      value={{ userData, storeTokenLS, token, getUserData,AuthorizationToken }}
+      value={{ userData, storeTokenLS, token, getUserData, AuthorizationToken }}
     >
       {children}
     </userContext.Provider>

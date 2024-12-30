@@ -54,13 +54,16 @@
   width: 27px;
   height: 27px;
 }
-.mlt-uplodvideo {
+.mlt-uplodvideo  {
   width: 116px;
   height: 80px;
   position: relative;
   /* background-color: #eff1f3; */
   border-radius: 2px;
-  background-image: url("../../images/video_img.png");
+  /* background-image: url("../../images/video_img.png"); */
+}
+.mlt-flex{
+  display: flex;
 }
 
 .mlt-uplodvideo video {
@@ -133,7 +136,7 @@
   cursor: pointer;
 }
 .mlt-addmorebtn::after {
-  content: "Add More YouTube Video";
+  content: "Add More";
 }
 .mlt-twobtn {
   display: flex;
