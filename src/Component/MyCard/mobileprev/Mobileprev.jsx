@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 // import "../../src/ViewCard/LeftAlign/LeftAlign.css";
 import "../../MyCard/mobileprev/mobileprev.css"
-import pla from "../../../images/pla.svg";
-import flourish from "../../../images/flourishblack.svg";
+// import pla from "../../../images/pla.svg";
+// import flourish from "../../../images/flourishblack.svg";
 import instaicon from "../../../images/instaicon.svg";
 import fbicon from "../../../images/fbicon.svg";
 import Slider from "react-slick";
@@ -11,20 +11,38 @@ import "slick-carousel/slick/slick-theme.css";
 import video1 from "../../../images/video.mp4";
 import videoTwo from "../../../images/video2.mp4";
 import { CiPlay1 } from "react-icons/ci";
-import sound from "../../../images/sound.mp3";
+// import sound from "../../../images/sound.mp3";
 import imgofpdf from "../../../images/fcplss.svg";
 import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
 // import { useNavigate } from "react-router-dom";
+import CustomNextArrow from './../../../ViewCard/CustomNextArrow/CustomNextArrow';
+import CustomPrevArrow from './../../../ViewCard/CustomNextArrow/CustomPrevArrow';
+import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
 
 const Mobileprev = () => {
   
     const { userData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
 
+  const audioRef = useRef(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayback = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (audio.paused) {
+        audio.play();
+        setIsPlaying(true);
+      } else {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
   const sliderSettings = {
     dots: false,
@@ -33,6 +51,8 @@ const Mobileprev = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const sliderSettingsDot = {
@@ -42,6 +62,8 @@ const Mobileprev = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const videos = [video1, videoTwo];
@@ -266,14 +288,17 @@ const Mobileprev = () => {
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-voice-msg-box-l-a">
                 <div className="mp-sections-title">Voice Message</div>
-                <audio
+                <div className="audio-container" onClick={togglePlayback}>
+                <VoiceMessage/>
+                {/* <audio
                   controls
                   className="custom-audio"
                   controlsList="nodownload noplaybackrate"
                 >
                   <source src={sound} type="audio/mpeg" />
                   Your browser does not support the audio element.
-                </audio>
+                </audio> */}
+                </div>
               </div>
             </div>
 
