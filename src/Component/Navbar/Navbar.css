@@ -97,7 +97,7 @@
 .flex-logo-hambergur {
   display: none;
 }
-@media (max-width: 1024px) {
+@media (max-width: 1150px) {
   .filta-logo-web {
     display: none;
   }
@@ -105,8 +105,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 41px;
-    padding: 0 15px 0 0;
+    gap: 35px;
+    padding: 0 15px 0 25px;
   }
 
   .hamburger-menu-icon {
@@ -119,5 +119,6 @@
 @media (max-width: 768px) {
   .flex-logo-hambergur {
     gap: 15px;
+    padding: 0 15px 0 10px;
   }
 }

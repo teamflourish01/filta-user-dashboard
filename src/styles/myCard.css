@@ -46,7 +46,7 @@
   white-space: nowrap;
 }
 
-.profile-photo{
+.profile-photo {
   width: 250px;
   /* for setup only */
 }
@@ -55,8 +55,6 @@
   height: 100px; /* Set the height of the image */
   object-fit: cover; /* Ensures the image fits well inside the square/circle */
 }
-
-
 
 /* upload section */
 .my-container hr {
@@ -85,6 +83,7 @@
   border-radius: 50%;
   position: relative;
   background: #f7f7f7;
+  overflow: hidden; /* Ensures the image does not overflow */
 }
 
 .upload-area.rectangle {
@@ -97,6 +96,13 @@
   border-radius: 10px;
 }
 
+.upload-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  border-radius: inherit;
+}
+
 .upload-area input {
   opacity: 0;
   position: absolute;
@@ -105,16 +111,16 @@
   cursor: pointer;
 }
 
-.bsd-profile-img{
+.bsd-profile-img {
   width: 90px;
   height: 90px;
 }
-.bsd-cover-img{
+.bsd-cover-img {
   width: 145px;
   height: 90px;
   border-radius: 10px;
 }
-.bsd-logo-img{
+.bsd-logo-img {
   width: 90px;
   height: 90px;
   border-radius: 50%;
@@ -205,7 +211,7 @@
   border-radius: 8px;
   background-color: #eff1f3;
   height: 45px;
-  
+
   font-size: 16px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -213,17 +219,17 @@
   font-family: Poppins-Regular;
   font-weight: 400;
   border: none;
-  color: #7B7B7B;
+  color: #7b7b7b;
   /* outline: none; */
 }
 .my-txtarea {
   height: 80px;
   resize: none;
 }
-.my-allfiled input:focus{
+.my-allfiled input:focus {
   outline: 1px solid #ccc;
 }
-.my-txtarea:focus{
+.my-txtarea:focus {
   outline: 1px solid #ccc;
 }
 /* Button styling */
@@ -261,19 +267,21 @@
 .my-priviewMain {
   text-align: center;
 }
-.my-priviewMain p {
+/* .my-priviewMain p {
   font-family: Poppins-Medium;
   font-weight: 500;
   font-size: 18px;
   margin: 20px 0;
   padding: 0;
-}
+} */
 .my-priviewcard {
   width: 280px;
   height: 550px;
-  border: 2px solid #eff1f3;
+  /* border: 2px solid #eff1f3; */
   margin: 0 auto;
   border-radius: 25px;
+  overflow: hidden;
+  border: 2.86px solid #000000
 }
 .my-prwbtn {
   display: flex;
@@ -309,28 +317,27 @@
 
 /* Add For Scroll by R Start*/
 
-.basic-detail-scroll{
+.basic-detail-scroll {
   overflow-y: scroll;
-    scrollbar-width: thin;
-    /* height: calc(100% - 82px); */
-    height: calc(90vh - 110px);
-    scrollbar-color: #ccc white;
+  scrollbar-width: thin;
+  height: calc(100% - 82px);
+  /* height: calc(90vh - 110px); */
+  scrollbar-color: #ccc white;
 }
-.my-priviewMain{
+.my-priviewMain {
   overflow-y: scroll;
-    scrollbar-width: thin;
-    /* height: calc(100% - 82px); */
-    height: calc(90vh - 110px);
-    scrollbar-color: #ccc white;
+  scrollbar-width: thin;
+  height: calc(100% - 72px);
+  /* height: calc(90vh - 110px); */
+  scrollbar-color: #ccc white;
 }
-.my-leftside{
+.my-leftside {
   border-bottom: 3px solid white;
 }
-.my-rightside{
+.my-rightside {
   border-bottom: 1px solid white;
 }
 /* Add For Scroll by R End*/
-
 
 @media (max-width: 1350px) and (min-width: 1025px) {
   .my-menu {
@@ -355,6 +362,7 @@
   } */
   .my-leftside {
     width: 100%;
+    height: calc(100% - 57px);
   }
   .my-rightside {
     display: none;

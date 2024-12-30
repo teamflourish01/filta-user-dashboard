@@ -1,9 +1,11 @@
 .Premium-Customize-Details-bg-white {
   background-color: white;
   padding: 20px 41px;
-  height: calc(90vh - 139px);
+  /* height: calc(100% - 115px);
   overflow-y: scroll;
-  scrollbar-width: none;
+  scrollbar-width: none; */
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   
 }
 .Premium-Customize-Details-bg-grey {
@@ -101,7 +103,7 @@
 
 .Premium-color-selector {
   background-color: transparent;
-  max-width: 372px;
+  max-width: 252px;
   min-width: 100px;
   width: 100%;
   height: 40px;
@@ -124,7 +126,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 316px;
+  max-width: 252px;
 }
 .color-box {
   width: 33px;
@@ -324,7 +326,9 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 136px;
+  max-width: 136px;
+  min-width: 80px;
+  width: 100%;
   height: 37px;
   background-color: #eff1f3;
   border-radius: 5px;
@@ -369,7 +373,7 @@
 .align-flex {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   /* gap: 52.5px; */
   gap: 20px 52.5px;
 }
@@ -539,7 +543,12 @@ input[type="color"]::-webkit-color-swatch-wrapper {
   width: 124px;
   height: 135px;
 }
-
+.p-c-t-c-t{
+  padding-top: 15px;
+}
+.p-b-5-25{
+  padding: 5px 0 10px;
+}
 @media (max-width: 1024px) {
   .Premium-Customize-Details-bg-white {
     padding: 20px 11px;
@@ -557,7 +566,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 }
 @media (max-width: 768px) {
   .Premium-Customize-Details-bg-white {
-    padding: unset;
+    padding: 20px 7px;
   }
   .Premium-Customize-Details-bg-grey {
     padding: 2px;
@@ -571,11 +580,12 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     gap: 15px;
   }
   .radio-container-premium {
-    width: 100px;
+    /* width: 100px; */
   }
   .align-flex {
     gap: 15px;
     /* flex-wrap: unset; */
+    overflow-x: scroll;
   }
   .choose-card-layout-container {
     padding: unset;

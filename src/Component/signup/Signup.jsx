@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../login/login.css";
 import filta from "../../images/filta.png";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
@@ -6,7 +6,8 @@ import google from "../../images/google.png";
 import axios from "axios";
 
 import "../signup/signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import userContext from "../../context/userDetails";
 
 function Signup({ onSignupSuccess }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,6 +17,8 @@ function Signup({ onSignupSuccess }) {
   });
   const [loading, setLoading] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
+  const { storeTokenLS } = useContext(userContext);
+  const navigate = useNavigate();
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -32,19 +35,21 @@ function Signup({ onSignupSuccess }) {
     setLoading(true);
     try {
       // Step 1: Signup API
-      const signupResponse = await axios.post(
-        `${uri}/user/signup`,
-        signupData
-      );
+      const signupResponse = await axios.post(`${uri}/user/signup`, signupData);
 
       if (signupResponse.status === 201) {
         const token = signupResponse.data.token;
+        storeTokenLS(token);
         onSignupSuccess(token);
+        alert("Login Success")
+        navigate("/my-card/");
       }
     } catch (error) {
       if (error.response) {
         console.error("Error response:", error.response.data);
-        alert(error.response.data.message || "An error occurred. Please try again.");
+        alert(
+          error.response.data.message || "An error occurred. Please try again."
+        );
       } else {
         console.error("Error:", error);
         alert("Failed to save digital card. Please try again.");
@@ -118,7 +123,7 @@ function Signup({ onSignupSuccess }) {
                     </span>
                   </div>
                 </div>
-                <Link to="/login">
+                <Link>
                   <button
                     type="submit"
                     onClick={handleSignup}

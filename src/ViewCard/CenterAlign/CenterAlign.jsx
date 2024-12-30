@@ -16,6 +16,8 @@ import offer from "../../images/offer.svg";
 import pict from "../../images/pict.svg";
 import gallerypic from "../../images/pgpic.svg";
 import "../CenterAlign/CenterAlign.css";
+import CustomNextArrow from "../CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "../CustomNextArrow/CustomPrevArrow";
 
 const CenterAlign = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -27,6 +29,8 @@ const CenterAlign = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const sliderSettingsDot = {
@@ -36,6 +40,8 @@ const CenterAlign = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const videos = [video1, video2];

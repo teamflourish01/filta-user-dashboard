@@ -25,7 +25,8 @@
   /* 700 */
 }
 body{
-  overflow-y: hidden; /* Don't remove this It's used for Fix height screen vise*/
+  /* overflow-y: hidden;  */
+  /* Don't remove this It's used for Fix height screen vise*/
 }
 .App {
   display: flex;
@@ -75,11 +76,17 @@ body{
 }
 @media (max-width: 1024px) {
 
-  .main-content {
+  /* .main-content {
     padding: 20px 0 20px 0;
-  }
+  } */
   .sidebar-container {
     padding: 0 25px; /*Don't Toch this padding */
+  }
+}
+
+@media (max-width:1150px){
+  .main-content {
+    padding: 20px 0 20px 0;
   }
 }
 @media (max-width: 768px) {

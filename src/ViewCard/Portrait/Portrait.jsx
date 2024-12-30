@@ -17,6 +17,8 @@ import pict from "../../images/pict.svg";
 import gallerypic from "../../images/pgpic.svg";
 import "../Portrait/Portrait.css";
 import ppic from "../../images/pp.png";
+import CustomNextArrow from "../CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "../CustomNextArrow/CustomPrevArrow";
 
 const Portrait = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,6 +30,8 @@ const Portrait = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const sliderSettingsDot = {
@@ -37,6 +41,8 @@ const Portrait = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const videos = [video1, video2];

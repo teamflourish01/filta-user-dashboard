@@ -5,15 +5,15 @@
 }
 .div {
   padding-right: 25px;
+  height: 100%;
 }
 .my-lead-container {
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
   border: 5px solid rgba(239, 241, 243, 1);
-  /* height: 826px; */
+  height: calc(100% - 6px);
   overflow-y: scroll;
-  height: calc(98.5vh - 90px);
   scrollbar-color: #ccc white;
   scrollbar-width: thin;
 }
@@ -22,7 +22,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 25px;
-  border: 1px solid rgba(239, 241, 243, 1);
+  border-bottom: 1px solid rgba(239, 241, 243, 1);
+  border-top: 1px solid rgba(239, 241, 243, 1);
 }
 .search-bar {
   position: relative;
@@ -306,7 +307,7 @@
 }
 
 @media (max-width: 768px) {
-  .search-bar{
+  .search-bar {
     max-width: unset;
     padding: 16px 0 0;
   }
@@ -391,15 +392,15 @@
   border-radius: 5px;
   height: 372px;
 }
-.p-40{
+.p-40 {
   padding: 15px 0 15px 40px;
   color: black !important;
 }
-.p-top-21{
-padding: 22px 0 21px;
+.p-top-21 {
+  padding: 22px 0 21px;
 }
-.p-top-15{
-  padding: 15px 15px 15px  0;
+.p-top-15 {
+  padding: 15px 15px 15px 0;
 }
 .try-lead,
 .try-th,
@@ -425,16 +426,15 @@ padding: 22px 0 21px;
   border-collapse: collapse;
 }
 
-@media(max-width:1024px){
-  
+@media (max-width: 1024px) {
   .try-lead {
     width: 1000px;
     /* overflow-x: scroll; */
   }
-  .lead-table{
+  .lead-table {
     overflow-x: scroll;
   }
-  .bg-w-try{
+  .bg-w-try {
     width: 1000px;
   }
   .leads-title {
@@ -442,7 +442,7 @@ padding: 22px 0 21px;
   }
 }
 
-@media(max-width:768px){
+@media (max-width: 768px) {
   .lead-table {
     border: 2px solid #eff1f3;
     height: 372px;
@@ -455,5 +455,5 @@ padding: 22px 0 21px;
   }
   .p-40 {
     padding: 15px 0 15px 15px;
-}
+  }
 }

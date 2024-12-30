@@ -21,6 +21,8 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 import userContext from "../context/userDetails";
 import { useNavigate } from "react-router-dom";
+import Mobileprev from './../Component/MyCard/mobileprev/Mobileprev';
+// import Mobileprev from "../../src/Component/MyCard/mobileprev/Mobileprev"
 
 const MyCard = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -74,6 +76,7 @@ const MyCard = () => {
       }, 1000);
     }
   };
+  
   //Preview button Animation Function End
   // Tab content components
   const renderTabContent = () => {
@@ -150,10 +153,10 @@ const MyCard = () => {
                         : screenWidth <= 768
                         ? "10px"
                         : "28px",
-                    position: isFullScreen ? "fixed" : "absolute ",
+                    position: isFullScreen ? "fixed" : "fixed ",
                     borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                     zIndex: isFullScreen && !isClosing ? "5" : "0",
-                  }}
+                  }}  
                 >
                   {isFullScreen && !isClosing ? (
                     <div className="center-preview-in-btn">
@@ -281,44 +284,7 @@ const MyCard = () => {
           ) : (
             <div className="my-priviewMain">
               <p>Card live preview</p>
-              <div className="my-priviewcard">
-                {/* Show live card preview */}
-
-                <div className="cardshow-text">
-                  {/* <div>
-                    {profileImages && (
-                      <img
-                        src={profileImages}
-                        alt="Profile Preview"
-                        className={`profile-photo ${borderStyle}`}
-                      />
-                    )}
-
-                    {coverPhoto && (
-                      <img
-                        src={coverPhoto}
-                        alt="Cover Phot Preview"
-                        className="cover-photo"
-                      />
-                    )}
-
-                    {logo && (
-                      <img src={logo} alt="Logo Preview" className="logo-img" />
-                    )}
-                  </div> */}
-                  <div>
-                    <img className="co-img" width={"200px"} src={`${uri}/card/${userData?.card?.coverimg}`} alt="cover-img" />
-                    <img className="pro-img" width={"100px"}  src={`${uri}/card/${userData?.card?.profileimg}`} alt="profile-img" />
-                    <img className="logo-img" width={"50px"} src={`${uri}/card/${userData?.card?.logoimg}`} alt="logo-img" />
-                    <img src="" alt="" />
-                  </div>
-                  <p>{userData?.card?.name}</p>
-                  <p>{userData?.card?.jobtitle}</p>
-                  <p>{userData?.card?.company}</p>
-                  <p>{userData?.card?.location}</p>
-                  <p>{userData?.card?.bio}</p>
-                </div>
-              </div>
+              <Mobileprev/>
               <div className="my-prwbtn">
                 <span>Share your card</span>
                 <img src={sharebtn} alt="sharebtn" />

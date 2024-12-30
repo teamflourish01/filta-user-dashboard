@@ -13,12 +13,16 @@ import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-
+import theme1 from "../../images/NFC-Theme/theme1.svg";
+import theme2 from "../../images/NFC-Theme/theme2.svg";
+import theme3 from "../../images/NFC-Theme/theme3.svg";
+import theme4 from "../../images/NFC-Theme/theme4.svg";
+import theme5 from "../../images/NFC-Theme/theme5.svg";
 
 const PremiumPlan = () => {
   const navigate = useNavigate();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
+  const [selectedCard, setSelectedCard] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [cardColor, setCardColor] = useState("#000000");
@@ -30,7 +34,7 @@ const PremiumPlan = () => {
   const [showFiltaLogo, setShowFiltaLogo] = useState(true);
   const [showNfcIcon, setShowNfcIcon] = useState(true);
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [useBackgroundColor, setUseBackgroundColor] = useState(false);
   const [logoWidth, setLogoWidth] = useState();
   const [logoHeight, setLogoHeight] = useState();
   const [selectedLayout, setSelectedLayout] = useState("layout1");
@@ -42,12 +46,16 @@ const PremiumPlan = () => {
   });
 
   useEffect(() => {
+    console.log(useBackgroundColor, "effect");
+
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const imageUrls = [theme1, theme2, theme3, theme4, theme5];
 
   const hideMobileNo = () => {
     setShowMobileNo(!showMobileNo);
@@ -90,7 +98,7 @@ const PremiumPlan = () => {
             className="my-back-btn-nfc"
             onClick={() => navigate("/nfc-card")}
           >
-            <HiOutlineArrowLeft style={{ fontSize:'22px' }} />
+            <HiOutlineArrowLeft style={{ fontSize: "22px" }} />
             <span>Back to My Card</span>
           </button>
         </div>
@@ -115,7 +123,7 @@ const PremiumPlan = () => {
                     : screenWidth <= 768
                     ? "10px"
                     : "28px",
-                position: isFullScreen ? "fixed" : "absolute ",
+                position: isFullScreen ? "fixed" : "fixed ",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                 zIndex: isFullScreen && !isClosing ? "5" : "0",
               }}
@@ -157,6 +165,13 @@ const PremiumPlan = () => {
                           formData={formData}
                           selectedFile={selectedFile}
                           hideMobileNo={hideMobileNo}
+                          selectedCard={selectedCard}
+                          useBackgroundColor={useBackgroundColor}
+                          selectedImage={
+                            selectedCard !== null
+                              ? imageUrls[selectedCard]
+                              : null
+                          }
                         />
                       )}
                       {selectedLayout === "layout2" && (
@@ -173,6 +188,13 @@ const PremiumPlan = () => {
                           showFiltaLogo={showFiltaLogo}
                           formData={formData}
                           selectedFile={selectedFile}
+                          selectedCard={selectedCard}
+                          useBackgroundColor={useBackgroundColor}
+                          selectedImage={
+                            selectedCard !== null
+                              ? imageUrls[selectedCard]
+                              : null
+                          }
                         />
                       )}
                       {selectedLayout === "layout3" && (
@@ -189,6 +211,13 @@ const PremiumPlan = () => {
                           showFiltaLogo={showFiltaLogo}
                           formData={formData}
                           selectedFile={selectedFile}
+                          selectedCard={selectedCard}
+                          useBackgroundColor={useBackgroundColor}
+                          selectedImage={
+                            selectedCard !== null
+                              ? imageUrls[selectedCard]
+                              : null
+                          }
                         />
                       )}
                     </div>
@@ -230,30 +259,37 @@ const PremiumPlan = () => {
         <div className="premium-plan">
           <div className="left-premium-n-f-c-card">
             <div className="premium-l-n-f-c">Premium Plan</div>
-            <PremiumPlanDetails
-              cardColor={cardColor}
-              setCardColor={setCardColor}
-              primaryTextColor={primaryTextColor}
-              setPrimaryTextColor={setPrimaryTextColor}
-              secondaryTextColor={secondaryTextColor}
-              setSecondaryTextColor={setSecondaryTextColor}
-              accentColorPremium={accentColorPremium}
-              setAccentColorPremium={setAccentColorPremium}
-              logoWidth={logoWidth}
-              setLogoWidth={setLogoWidth}
-              logoHeight={logoHeight}
-              setLogoHeight={setLogoHeight}
-              selectedLayout={selectedLayout}
-              setSelectedLayout={setSelectedLayout}
-              logoHide={logoHide}
-              hideNfc={hideNfc}
-              hideEmailId={hideEmailId}
-              hideMobileNo={hideMobileNo}
-              formData={formData}
-              setFormData={setFormData}
-              selectedFile={selectedFile}
-              setSelectedFile={setSelectedFile}
-            />
+            <div className="premium-card-content">
+              <PremiumPlanDetails
+                cardColor={cardColor}
+                setCardColor={setCardColor}
+                primaryTextColor={primaryTextColor}
+                setPrimaryTextColor={setPrimaryTextColor}
+                secondaryTextColor={secondaryTextColor}
+                setSecondaryTextColor={setSecondaryTextColor}
+                accentColorPremium={accentColorPremium}
+                setAccentColorPremium={setAccentColorPremium}
+                logoWidth={logoWidth}
+                setLogoWidth={setLogoWidth}
+                logoHeight={logoHeight}
+                setLogoHeight={setLogoHeight}
+                selectedLayout={selectedLayout}
+                setSelectedLayout={setSelectedLayout}
+                logoHide={logoHide}
+                hideNfc={hideNfc}
+                hideEmailId={hideEmailId}
+                hideMobileNo={hideMobileNo}
+                formData={formData}
+                setFormData={setFormData}
+                selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
+                selectedCard={selectedCard}
+                setSelectedCard={setSelectedCard}
+                imageUrls={imageUrls}
+                useBackgroundColor={useBackgroundColor}
+                setUseBackgroundColor={setUseBackgroundColor}
+              />
+            </div>
           </div>
 
           <div className="right-premium-n-f-c-card">
@@ -267,75 +303,83 @@ const PremiumPlan = () => {
               </div>
             </div>
             <div className="bottom-content-scroll-standard">
+              <div className="bottom-premium-section">
+                <div className="standard-nfc-card-preview-title">
+                  NFC card live preview
+                </div>
+                <div className="layout-preview">
+                  {selectedLayout === "layout1" && (
+                    <Layout1
+                      cardColor={cardColor}
+                      logoWidth={logoWidth}
+                      logoHeight={logoHeight}
+                      primaryTextColor={primaryTextColor}
+                      secondaryTextColor={secondaryTextColor}
+                      accentColorPremium={accentColorPremium}
+                      showEmailId={showEmailId}
+                      showMobileNo={showMobileNo}
+                      showNfcIcon={showNfcIcon}
+                      showFiltaLogo={showFiltaLogo}
+                      formData={formData}
+                      selectedFile={selectedFile}
+                      hideMobileNo={hideMobileNo}
+                      selectedImage={
+                        selectedCard !== null ? imageUrls[selectedCard] : null
+                      }
+                    />
+                  )}
+                  {selectedLayout === "layout2" && (
+                    <Layout2
+                      cardColor={cardColor}
+                      logoWidth={logoWidth}
+                      logoHeight={logoHeight}
+                      primaryTextColor={primaryTextColor}
+                      secondaryTextColor={secondaryTextColor}
+                      accentColorPremium={accentColorPremium}
+                      showEmailId={showEmailId}
+                      showMobileNo={showMobileNo}
+                      showNfcIcon={showNfcIcon}
+                      showFiltaLogo={showFiltaLogo}
+                      formData={formData}
+                      selectedFile={selectedFile}
+                      selectedImage={
+                        selectedCard !== null ? imageUrls[selectedCard] : null
+                      }
+                    />
+                  )}
+                  {selectedLayout === "layout3" && (
+                    <Layout3
+                      cardColor={cardColor}
+                      logoWidth={logoWidth}
+                      logoHeight={logoHeight}
+                      primaryTextColor={primaryTextColor}
+                      secondaryTextColor={secondaryTextColor}
+                      accentColorPremium={accentColorPremium}
+                      showEmailId={showEmailId}
+                      showMobileNo={showMobileNo}
+                      showNfcIcon={showNfcIcon}
+                      showFiltaLogo={showFiltaLogo}
+                      formData={formData}
+                      selectedFile={selectedFile}
+                      selectedImage={
+                        selectedCard !== null ? imageUrls[selectedCard] : null
+                      }
+                    />
+                  )}
+                </div>
 
-            <div className="bottom-premium-section">
-              <div className="standard-nfc-card-preview-title">
-                NFC card live preview
+                <div className="but-now-btn-nfc">
+                  <button type="button" className="btn-buy-now-nfc">
+                    <div className="buy-now-flex">
+                      <span>Buy Now at </span>
+                      <span className="rupee-f">
+                        <FaIndianRupeeSign />
+                        899
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
-              <div className="layout-preview">
-                {selectedLayout === "layout1" && (
-                  <Layout1
-                    cardColor={cardColor}
-                    logoWidth={logoWidth}
-                    logoHeight={logoHeight}
-                    primaryTextColor={primaryTextColor}
-                    secondaryTextColor={secondaryTextColor}
-                    accentColorPremium={accentColorPremium}
-                    showEmailId={showEmailId}
-                    showMobileNo={showMobileNo}
-                    showNfcIcon={showNfcIcon}
-                    showFiltaLogo={showFiltaLogo}
-                    formData={formData}
-                    selectedFile={selectedFile}
-                    hideMobileNo={hideMobileNo}
-                  />
-                )}
-                {selectedLayout === "layout2" && (
-                  <Layout2
-                    cardColor={cardColor}
-                    logoWidth={logoWidth}
-                    logoHeight={logoHeight}
-                    primaryTextColor={primaryTextColor}
-                    secondaryTextColor={secondaryTextColor}
-                    accentColorPremium={accentColorPremium}
-                    showEmailId={showEmailId}
-                    showMobileNo={showMobileNo}
-                    showNfcIcon={showNfcIcon}
-                    showFiltaLogo={showFiltaLogo}
-                    formData={formData}
-                    selectedFile={selectedFile}
-                  />
-                )}
-                {selectedLayout === "layout3" && (
-                  <Layout3
-                    cardColor={cardColor}
-                    logoWidth={logoWidth}
-                    logoHeight={logoHeight}
-                    primaryTextColor={primaryTextColor}
-                    secondaryTextColor={secondaryTextColor}
-                    accentColorPremium={accentColorPremium}
-                    showEmailId={showEmailId}
-                    showMobileNo={showMobileNo}
-                    showNfcIcon={showNfcIcon}
-                    showFiltaLogo={showFiltaLogo}
-                    formData={formData}
-                    selectedFile={selectedFile}
-                  />
-                )}
-              </div>
-
-              <div className="but-now-btn-nfc">
-                <button type="button" className="btn-buy-now-nfc">
-                  <div className="buy-now-flex">
-                    <span>Buy Now at </span>
-                    <span className="rupee-f">
-                      <FaIndianRupeeSign />
-                      899
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
             </div>
           </div>
         </div>
