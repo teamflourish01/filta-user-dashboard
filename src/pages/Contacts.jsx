@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../styles/contacts.css";
 import search from "../images/cntsearch.svg";
 import actionbtn3 from "../images/ctndelet.svg";
@@ -7,10 +7,13 @@ import suffle from "../images/shuffle.svg";
 import ctnpen from "../images/ctnpen.svg";
 import profile from "../images/profile.svg";
 import Cntmodal from "../Component/cntmodal/Cntmodal";
+import userContext from "../context/userDetails";
 
 const Contacts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [draggedIndex, setDraggedIndex] = useState(null);
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
   const [contacts, setContacts] = useState([
     {
       name: "Ajay Gadhavi",
@@ -128,12 +131,13 @@ const Contacts = () => {
                     >
                       <td>
                         <div className="img-profile-cell">
-                          <img src={profile} alt="Profile" />
-                          {contact.name}
+                          <img src={`${uri}/card/${userData?.card?.profileimg}`}
+              alt="profile-img" className="contact-profile-img" />
+                          {userData?.card?.name}
                         </div>
                       </td>
-                      <td className="try-c-tbl-td">{contact.jobTitle}</td>
-                      <td className="try-c-tbl-td">{contact.company}</td>
+                      <td className="try-c-tbl-td">{userData?.card?.jobtitle}</td>
+                      <td className="try-c-tbl-td">{userData?.card?.company}</td>
                       <td className="try-c-tbl-td">{contact.added}</td>
                       <td>
                         <div className="table-action-flex">
