@@ -73,6 +73,7 @@ const Flip = () => {
   const [showBlackCard, setShowBlackCard] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   const flipCardData = {
     name: "Ajay Gadhavi",
@@ -110,7 +111,7 @@ const Flip = () => {
         {/* <--- Top Front Card ---> */}
         <div className="front">
           <div className="flip-front-logo-c">
-            <img src={userLogo} alt="" className="user-logo-f-f" />
+            <img src={`${uri}/card/${userData?.card?.logoimg}`} alt="" className="user-logo-f-f" />
           </div>
           <div className="hr-line-l1-flip"></div>
           <div className="user-card-name-mobile-flip">
@@ -153,7 +154,7 @@ const Flip = () => {
               <img src={UserProfile} alt="" className="user-pic-flip-b" />
             </div>
             <div className="user-logo-flip-circle">
-              <img src={userLogo} alt="" />
+              <img src={`${uri}/card/${userData?.card?.logoimg}`} alt="" className="user-logo-img-flip-size"/>
             </div>
             <div className="user-detail-flip-content">
               <div className="dashed-border-content">
