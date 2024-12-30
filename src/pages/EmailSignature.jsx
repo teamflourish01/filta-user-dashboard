@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../styles/EmailSignature.css";
 import profileimg from "../images/profileimg.png";
 import logoimg from "../images/filta.png";
 import qrcode from "../images/qrcode.png";
 import html2canvas from "html2canvas";
 import { AiOutlineClose } from "react-icons/ai";
+import userContext from "../context/userDetails";
 
 const EmailSignature = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -18,10 +19,13 @@ const EmailSignature = () => {
     phonenumber: "",
     location: "",
   });
+  console.log(formData, "formdata");
   const [message, setMessage] = useState("");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const signatureRef = useRef(null);
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   useEffect(() => {
     const handleResize = () => {
@@ -94,131 +98,133 @@ const EmailSignature = () => {
     <>
       {/* Preview Button Responsive Start */}
       <div
-          style={{ width: "100%", margin: "auto", position: "" }}
-          className="btn-display-preview"
-        >
-          <div className="btn-content-preview-mobile">
-            <button
-              onClick={handleFullscreen}
-              className="btn-font-preview"
-              style={{
-                transition:
-                  "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
-                width: isFullScreen && !isClosing ? "100%" : "117px",
-                height: isFullScreen && !isClosing ? "100vh" : "34px",
-                backgroundColor: isFullScreen && !isClosing ? "white" : "black",
-                top: isFullScreen && !isClosing ? "0" : "90px",
-                right:
-                  isFullScreen && !isClosing
-                    ? "0"
-                    : screenWidth <= 768
-                    ? "10px"
-                    : "20px",
-                position: isFullScreen ? "fixed" : "fixed ",
-                borderRadius: isFullScreen && !isClosing ? "0" : "35px",
-                zIndex: isFullScreen && !isClosing ? "5" : "0",
-                marginBottom: isFullScreen && !isClosing ? "0" : "20px"
-              }}
-            >
-              {isFullScreen && !isClosing ? (
-                <div className="center-preview-in-btn">
-                  <div className="e-profile">
-                    <img src={profileimg} alt="profile img" />
-
-                    <div className="e-sidediv">
-                      <p className="e-prfname">Ajay Gadhavi</p>
-                      <p className="e-prfemail">ajaygadhvi045@gmail.com</p>
-                    </div>
-                  </div>
-                  <hr className="hrline" />
-                  <div className="e-rightmain">
-                    <div className="email-preview">
-                      <h3 className="e-cardheding">Email Signature Preview</h3>
-                      <div className="signature-card" ref={signatureRef}>
-                        <div className="signature-info">
-                          {Photo && (
-                            <img
-                              src={profileimg}
-                              alt="Profile"
-                              className="signature-image"
-                            />
-                          )}
-                          <p className="e-cardname">
-                            {formData.name || "Ajay Gadhavi"}
-                          </p>
-                          <p className="e-cardtitle">
-                            {formData.jobtitle || "Ui / Ux Designer"}
-                          </p>
-                          <p className="e-cardcmpny">
-                            {formData.company || "Flourish Creation PVT.LTD."}
-                          </p>
-                          <p className="e-cardno">
-                            {formData.phonenumber || "6353123096"}
-                          </p>
-                          <p className="e-cardlocation">
-                            {formData.location || "Ahmedabad, Gujarat, India"}
-                          </p>
-                        </div>
-                        <div className={`e-cardright ${qrimg ? "img" : ""}`}>
-                          <img
-                            src={logoimg}
-                            alt="Profile"
-                            className={`e-filtalogo ${
-                              qrimg ? "qrimg-active" : ""
-                            }`}
-                          />
-                          {qrimg && (
-                            <>
-                              <div className="qr-code">
-                                <img src={qrcode} alt="qrcode" />
-                              </div>
-                              <p>Connect with me</p>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                      <button
-                        className="add-to-email"
-                        onClick={handleCopyToClipboard}
-                      >
-                        + Add to your email
-                      </button>
-                      {message && (
-                        <p style={{ color: "green", margin: "0" }}>{message}</p>
-                      )}
-                      <p className="e-or">OR</p>
-                      <a
-                        href="#"
-                        className="e-download"
-                        onClick={handleDownloadSignature}
-                      >
-                        Download
-                      </a>
-                    </div>
-                  </div>
-                  {/* Close Icon */}
-                  <AiOutlineClose
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleClose();
-                    }}
-                    className="close-btn-icon-cross"
+        style={{ width: "100%", margin: "auto", position: "" }}
+        className="btn-display-preview"
+      >
+        <div className="btn-content-preview-mobile">
+          <button
+            onClick={handleFullscreen}
+            className="btn-font-preview"
+            style={{
+              transition:
+                "width 1s ease,right 1s ease, height 1s ease,position 1s ease-out, z-index 2s ease-out, background-color 1s ease, top 1s ease, border-radius 1s ease",
+              width: isFullScreen && !isClosing ? "100%" : "117px",
+              height: isFullScreen && !isClosing ? "100vh" : "34px",
+              backgroundColor: isFullScreen && !isClosing ? "white" : "black",
+              top: isFullScreen && !isClosing ? "0" : "90px",
+              right:
+                isFullScreen && !isClosing
+                  ? "0"
+                  : screenWidth <= 768
+                  ? "10px"
+                  : "20px",
+              position: isFullScreen ? "fixed" : "fixed ",
+              borderRadius: isFullScreen && !isClosing ? "0" : "35px",
+              zIndex: isFullScreen && !isClosing ? "5" : "0",
+              marginBottom: isFullScreen && !isClosing ? "0" : "20px",
+            }}
+          >
+            {isFullScreen && !isClosing ? (
+              <div className="center-preview-in-btn">
+                <div className="e-profile">
+                  <img
+                    src={`${uri}/card/${userData?.card?.profileimg}`}
+                    alt="profile-img"
                   />
-                </div>
-              ) : (
-                "Preview"
-              )}
 
-              {/* Black overlay */}
-              {isFullScreen && !isClosing && (
-                <div className="black-overlay-btn-preview"></div>
-              )}
-            </button>
-          </div>
+                  <div className="e-sidediv">
+                    <p className="e-prfname">{userData?.card?.name}</p>
+                    <p className="e-prfemail">{userData?.card?.email}</p>
+                  </div>
+                </div>
+                <hr className="hrline" />
+                <div className="e-rightmain">
+                  <div className="email-preview">
+                    <h3 className="e-cardheding">Email Signature Preview</h3>
+                    <div className="signature-card" ref={signatureRef}>
+                      <div className="signature-info">
+                        {Photo && (
+                          <img
+                            src={`${uri}/card/${userData?.card?.profileimg}`}
+                            alt="profile-img"
+                            className="signature-image"
+                          />
+                        )}
+                        <p className="e-cardname">
+                          {formData.name || userData?.card?.name}
+                        </p>
+                        <p className="e-cardtitle">
+                          {formData.jobtitle || userData?.card?.jobtitle}
+                        </p>
+                        <p className="e-cardcmpny">
+                          {formData.company || userData?.card?.company}
+                        </p>
+                        <p className="e-cardno">
+                          {formData.phonenumber || "6353123096"}
+                        </p>
+                        <p className="e-cardlocation">
+                          {formData.location || userData?.card?.location}
+                        </p>
+                      </div>
+                      <div className={`e-cardright ${qrimg ? "img" : ""}`}>
+                        <img
+                          src={logoimg}
+                          alt="Profile"
+                          className={`e-filtalogo ${
+                            qrimg ? "qrimg-active" : ""
+                          }`}
+                        />
+                        {qrimg && (
+                          <>
+                            <div className="qr-code">
+                              <img src={qrcode} alt="qrcode" />
+                            </div>
+                            <p>Connect with me</p>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    <button
+                      className="add-to-email"
+                      onClick={handleCopyToClipboard}
+                    >
+                      + Add to your email
+                    </button>
+                    {message && (
+                      <p style={{ color: "green", margin: "0" }}>{message}</p>
+                    )}
+                    <p className="e-or">OR</p>
+                    <a
+                      href="#"
+                      className="e-download"
+                      onClick={handleDownloadSignature}
+                    >
+                      Download
+                    </a>
+                  </div>
+                </div>
+                {/* Close Icon */}
+                <AiOutlineClose
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClose();
+                  }}
+                  className="close-btn-icon-cross"
+                />
+              </div>
+            ) : (
+              "Preview"
+            )}
+
+            {/* Black overlay */}
+            {isFullScreen && !isClosing && (
+              <div className="black-overlay-btn-preview"></div>
+            )}
+          </button>
         </div>
-        {/* Preview Button Responsive End */}
+      </div>
+      {/* Preview Button Responsive End */}
       <div className="e-container">
-      
         <div className="e-leftpanel">
           <div className="e-checkboxcontiner">
             <label>
@@ -318,11 +324,12 @@ const EmailSignature = () => {
         </div>
         <div className="e-rightpanel">
           <div className="e-profile">
-            <img src={profileimg} alt="profile img" />
+            <img src={`${uri}/card/${userData?.card?.profileimg}`}
+              alt="profile-img" />
 
             <div className="e-sidediv">
-              <p className="e-prfname">Ajay Gadhavi</p>
-              <p className="e-prfemail">ajaygadhvi045@gmail.com</p>
+              <p className="e-prfname">{userData?.card?.name}</p>
+              <p className="e-prfemail">{userData?.card?.email}</p>
             </div>
           </div>
           <hr className="hrline" />
@@ -333,25 +340,25 @@ const EmailSignature = () => {
                 <div className="signature-info">
                   {Photo && (
                     <img
-                      src={profileimg}
-                      alt="Profile"
+                      src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="profile-img"
                       className="signature-image"
                     />
                   )}
                   <p className="e-cardname">
-                    {formData.name || "Ajay Gadhavi"}
+                    {formData.name || userData?.card?.name}
                   </p>
                   <p className="e-cardtitle">
-                    {formData.jobtitle || "Ui / Ux Designer"}
+                    {formData.jobtitle || userData?.card?.jobtitle}
                   </p>
                   <p className="e-cardcmpny">
-                    {formData.company || "Flourish Creation PVT.LTD."}
+                    {formData.company || userData?.card?.company}
                   </p>
                   <p className="e-cardno">
-                    {formData.phonenumber || "6353123096"}
+                    {formData.phoneNumber || "6353123096"}
                   </p>
                   <p className="e-cardlocation">
-                    {formData.location || "Ahmedabad, Gujarat, India"}
+                    {formData.location || userData?.card?.location}
                   </p>
                 </div>
                 <div className={`e-cardright ${qrimg ? "img" : ""}`}>

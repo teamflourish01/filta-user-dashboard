@@ -1,9 +1,99 @@
-
-*{
+* {
   /* overflow-x:hidden ; */
 }
+.digital-link-padding{
+  padding: 0 8px;
+}
+.digital-email-image {
+  height: 27.46px;
+  width: 27.46px;
+}
+.digital-email-icon-flex {
+  display: flex;
+  justify-content: first baseline;
+  gap: 50px;
+  padding-left: 31px;
+  padding-bottom: 11.46px;
+}
+.digital-email-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 3.53px;
+}
+.digital-last-button {
+  
+  background: rgba(239, 241, 243, 0.81);
+  padding: 14.07px 0;
+  position: absolute;
+  width: 305px;
+  bottom: 0;
+ 
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  margin-top: 96px;
+  
+}
+.digitalcard-profile {
+  position: relative;
+  /* top: 23%; */
+  padding: 0 0 0 8px;
+}
+.digital-email-p {
+  font-size: 10.99px;
+  line-height: 16.48px;
+  font-family: Poppins-Regular;
+}
+.card-digital-prev-flex {
+  display: flex;
+  gap: 4px;
+  padding: 7px 8px 0 8px;
+  flex-direction: column;
+}
+.digital-card-text-preview {
+  
+  padding-left: 7.85px;
+  height: 172px;
+  position: relative;
+    top: 68px;
+}
+.text-preview-last-padding{
+  /* padding-bottom: 11.62px; */
+}
+.digital-card-photo {
+  position: absolute;
+  top: -66px;
+}
+.digital-card-link {
+  background: rgba(239, 241, 243, 1);
+  border: 0.48px solid rgba(0, 0, 0, 0.2);
+  margin-top: 27.22px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+}
+.digital-buttons button {
+  background-color: white;
+  padding: 5px 0;
+  border-radius: 24px;
+  width: 112px;
+}
+.digital-buttons {
+  display: flex;
+  gap: 11.73px;
+  justify-content: center;
+}
+.digital-card-clickable {
+  font-size: 15.69px;
+  font-family: Poppins-SemiBold;
+  padding: 11.75px 0 9.36px 7.85px;
+}
+.card-inner-preview-digital {
+  border: 0.48px solid rgba(0, 0, 0, 0.2);
 
-
+  border-bottom-right-radius: 4.77px;
+  border-bottom-left-radius: 4.77px;
+  background: rgba(239, 241, 243, 1);
+}
 .digital-card-main {
   width: 100%;
   display: flex;
@@ -47,7 +137,6 @@
   margin: 0 0 15px 0;
   font-family: Poppins-Medium;
 
-  
   font-size: 16px;
   /* line-height: 27px; */
   color: #718096;
@@ -110,7 +199,7 @@
   padding: 30px 0 0;
   text-align: center;
 }
-.card-preview {
+.card-preview-flex{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -119,15 +208,38 @@
   gap: 25px;
   
 }
+.card-preview {
+ 
+}
+.card-prev-digital {
+  background: rgba(239, 241, 243, 1);
+  border: 0.48px solid rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 21.53px;
+  border-top-right-radius: 21.53px;
+  height: 73px;
+}
+.card-for-sticky{
+  position: relative;
+}
 .card-for-preview {
   /* padding: 171px 0 0; */
-  width: 254px;
-  height: 550px;
+  position: relative;
+  height: 100%;
+   width: 305px;
+  height: 550px; 
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
-  padding: 20px;
-  margin: 0 0 10px 0;
 
+  border: 2.86px solid rgba(0, 0, 0, 1); 
+  /* margin: 0 0 10px 0; */
+}
+.card-for-height{
+    width: 305px;
+ height: 550px; 
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+
+  border: 2.86px solid rgba(0, 0, 0, 1);
 }
 .card-preview-title {
   font-family: Poppins-Regular;
@@ -135,56 +247,63 @@
   line-height: 24px;
   text-align: center;
 }
-.text-preview{
+.text-preview {
   padding: 0 0 5px;
 }
+.text-preview-name {
+  font-size: 17.26px;
+  font-family: Poppins-Bold;
+  line-height: 25.89px;
+}
+.text-preview-field {
+  color: #78797a;
+  font-size: 14.12px;
+  line-height: 21.19px;
+}
 
-
-@media screen and (max-width:1024px) {
-  .digital-card-main{
+@media screen and (max-width: 1024px) {
+  .digital-card-main {
     flex-wrap: wrap;
     justify-content: center;
   }
-  .digital-card-form{
+  .digital-card-form {
     width: 100%;
     padding: 68px 25px 60px 25px;
   }
-  .row-one{
+  .row-one {
     justify-content: center;
   }
-  .digital-card-main{
+  .digital-card-main {
     background-color: white;
   }
-  .input-field-card{
+  .input-field-card {
     max-width: unset;
     min-width: unset;
     width: 100%;
   }
-  .digital-card-form{
+  .digital-card-form {
     box-shadow: none;
   }
-  .card-preview{
+  .card-preview {
     padding-bottom: 78px;
   }
 }
 
-
-@media screen and (max-width:767px){
-  .card-preview{
+@media screen and (max-width: 767px) {
+  .card-preview {
     display: none;
-    
   }
-  .row-one{
+  .row-one {
     flex-direction: column;
     gap: 0px;
   }
-  .input-field-card{
+  .input-field-card {
     margin: 0 0 15px 0;
   }
-  .input-group-card{
+  .input-group-card {
     margin: 0 0 5px;
   }
-  .digital-card-form{
+  .digital-card-form {
     padding: 25px 15px;
   }
 }

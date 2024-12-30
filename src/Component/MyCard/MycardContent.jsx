@@ -57,6 +57,7 @@ const ContentComponent = () => {
     { id: "drag-drop-eleven", component: "Social Proof" },
     { id: "drag-drop-twelv", component: "Photos" },
     { id: "drag-drop-thirty", component: "Product Gallery" },
+    
   ]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -254,7 +255,7 @@ const ContentComponent = () => {
   };
 
   const renderComponent = (component) => {
-    console.log("rendercomponent", renderComponent);
+ 
     switch (component) {
 
 
