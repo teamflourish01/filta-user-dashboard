@@ -11,7 +11,6 @@
     "html2canvas": "^1.4.1",
     "pdfjs-dist": "^4.9.155",
     "react": "^18.3.1",
-    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.1",
     "react-icon": "^1.0.0",

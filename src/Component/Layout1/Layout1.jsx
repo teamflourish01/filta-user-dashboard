@@ -4,6 +4,11 @@ import logol1 from "../../images/flogo.png";
 import nfc from "../../images/lay1nfc.svg";
 import filta from "../../images/lay1filta.svg";
 import scanner from "../../images/scanner.svg";
+import theme1 from '../../images/NFC-Theme/theme1.svg';
+import theme2 from '../../images/NFC-Theme/theme2.svg';
+import theme3 from '../../images/NFC-Theme/theme3.svg';
+import theme4 from '../../images/NFC-Theme/theme4.svg';
+import theme5 from '../../images/NFC-Theme/theme5.svg';
 
 const Layout1 = ({
   cardColor,
@@ -19,6 +24,9 @@ const Layout1 = ({
   formData,
   selectedFile,
   hideMobileNo,
+  selectedCard,
+  selectedImage,
+  useBackgroundColor
 }) => {
   const hasLogoOrUserDetails = selectedFile && (formData.name || formData.info);
   const hideBackLine =
@@ -31,7 +39,13 @@ const Layout1 = ({
         <p className="front-side-text-lay">Front Side</p>
         <div
           className="front-side-card-design-premium"
-          style={{ backgroundColor: cardColor }}
+          style={{
+            background: useBackgroundColor
+              ? cardColor 
+              : selectedImage
+              ? `url(${selectedImage}) center / cover no-repeat` 
+              : cardColor,
+          }}
         >
           {showNfcIcon && (
             <div className="nfc-container">
@@ -92,7 +106,13 @@ const Layout1 = ({
         <p className="back-side-text-lay">Back Side</p>
         <div
           className="back-side-card-design-premium"
-          style={{ backgroundColor: cardColor }}
+          style={{
+            background: useBackgroundColor
+              ? cardColor 
+              : selectedImage
+              ? `url(${selectedImage}) center / cover no-repeat` 
+              : cardColor,
+          }}
         >
           {showFiltaLogo && (
             <div className="nfc-container">

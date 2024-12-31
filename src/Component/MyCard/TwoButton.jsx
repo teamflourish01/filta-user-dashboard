@@ -5,7 +5,7 @@ const TwoButton = ({ onSave, onCancel }) => {
   return (
     <>
       <div className="btn-twobtn">
-        <button className="btn-cancel" onClick={onCancel}>
+        <button type="button" className="btn-cancel" onClick={onCancel}>
           Cancel
         </button>
         <button type="submit" className="btn-save" onClick={onSave}>

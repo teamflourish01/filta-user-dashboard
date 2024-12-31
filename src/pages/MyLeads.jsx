@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import { PiArrowLineDownBold } from "react-icons/pi";
 import { IoEyeOutline } from "react-icons/io5";
 import "../styles/MyLeads.css";
 import LeadDetails from "../Component/LeadDetails/LeadDetails";
+import userContext from "../context/userDetails";
 
 const MyLeads = () => {
+  const { userData, getUserData } = useContext(userContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {

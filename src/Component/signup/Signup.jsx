@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../login/login.css";
 import filta from "../../images/filta.png";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import google from "../../images/google.png";
 import axios from "axios";
+import digitalphoto from "../../images/digitalphoto.png";
+import emailicon from "../../images/email.svg";
+import digitalphone from "../../images/phonecolor.svg";
 
 import "../signup/signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import userContext from "../../context/userDetails";
 
-function Signup({ onSignupSuccess }) {
+
+function Signup({ onSignupSuccess, digitalCardData }) {
+
   const [showPassword, setShowPassword] = useState(false);
   const [signupData, setSignupData] = useState({
     email: "",
@@ -16,6 +22,9 @@ function Signup({ onSignupSuccess }) {
   });
   const [loading, setLoading] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
+  const { storeTokenLS } = useContext(userContext);
+  const navigate = useNavigate();
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -32,19 +41,21 @@ function Signup({ onSignupSuccess }) {
     setLoading(true);
     try {
       // Step 1: Signup API
-      const signupResponse = await axios.post(
-        `${uri}/user/signup`,
-        signupData
-      );
+      const signupResponse = await axios.post(`${uri}/user/signup`, signupData);
 
       if (signupResponse.status === 201) {
         const token = signupResponse.data.token;
+        storeTokenLS(token);
         onSignupSuccess(token);
+        alert("Login Success");
+        navigate("/my-card/");
       }
     } catch (error) {
       if (error.response) {
         console.error("Error response:", error.response.data);
-        alert(error.response.data.message || "An error occurred. Please try again.");
+        alert(
+          error.response.data.message || "An error occurred. Please try again."
+        );
       } else {
         console.error("Error:", error);
         alert("Failed to save digital card. Please try again.");
@@ -58,11 +69,11 @@ function Signup({ onSignupSuccess }) {
     <div className="sign-scontainer">
       <div className="signup-with-prev">
         <div className="signup-container">
-          <Link to="/">
-            <div className="back-arrow">
+          
+            <div className="back-arrow" onClick={() => navigate("/")}>
               <FaArrowLeft />
             </div>
-          </Link>
+        
           <div className="signup-page">
             <div className="signup-form-container">
               <div className="logo-container-signup">
@@ -118,7 +129,7 @@ function Signup({ onSignupSuccess }) {
                     </span>
                   </div>
                 </div>
-                <Link to="/login">
+                <Link>
                   <button
                     type="submit"
                     onClick={handleSignup}
@@ -132,16 +143,74 @@ function Signup({ onSignupSuccess }) {
             </div>
           </div>
         </div>
-        <div className="signup-card-pre">
+        {/* <div className="signup-card-pre">
           <div className="card-for-preview">
-            <p className="text-preview"> </p>
-            <p className="text-preview"> </p>
-            <p className="text-preview"> </p>
-            <p className="text-preview"> </p>
-            <p className="text-preview"></p>
-            <p className="text-preview"> </p>
+            <p className="text-preview">{digitalCardData?.name || "N/A"} </p>
+            <p className="text-preview"> {digitalCardData?.company}</p>
+            <p className="text-preview"> {digitalCardData?.email}</p>
+            <p className="text-preview">{digitalCardData?.jobtitle} </p>
+            <p className="text-preview">{digitalCardData?.location}</p>
+            <p className="text-preview"> {digitalCardData?.phoneNumber}</p>
           </div>
+        </div> */}
+        <div className="card-preview-flex">
+      <div className="card-for-preview">
+      <div className="card-digital-prev-flex">
+            <div className="card-prev-digital"> </div>
+            <div className="digitalcard-profile">
+              <img src={digitalphoto} alt="" className="digital-card-photo" />
+            </div>
+            <div className="card-inner-preview-digital">
+              <div className="digital-card-text-preview">
+                <p className="text-preview-name">{digitalCardData?.name.toUpperCase()}</p>
+                <p className="text-preview-field">{digitalCardData?.jobtitle}</p>
+                <p className="text-preview-field">{digitalCardData?.company}</p>
+                <p className="text-preview-field text-preview-last-padding">
+                  {digitalCardData?.location}
+                </p>
+              </div>
+            </div>
+          </div>
+
+  <div className="digital-card-link">
+    <div className="digital-card-clickable">Clickable Links</div>
+    <div className="digital-email-icon-flex">
+     
+        <div className="digital-email-icon">
+          <img
+            src={emailicon}
+            alt="email icon"
+            className="digital-email-image"
+          />
+          <p className="digital-email-p">Email</p>
         </div>
+    
+
+      
+        <div className="digital-email-icon">
+          <img
+            src={digitalphone}
+            alt="phone icon"
+            className="digital-email-image"
+          />
+          <p className="digital-email-p">Phone</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+
+          <div className="digital-last-button">
+            <div className="digital-buttons">
+              <button>Share Card</button>
+              <button>Contact Me</button>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+        
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { AiOutlineClose } from "react-icons/ai";
+import userContext from "../context/userDetails";
 
 import "../styles/VirtualBackground.css";
 import vbfiltaqr from "../images/VirtualBackgroundimage/vbfiltaqr.svg";
@@ -104,6 +105,8 @@ const images = [
 const categories = ["All", "Indoor", "Mountain", "Abstract", "Nature", "Solid"];
 const VirtualBackground = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -220,7 +223,7 @@ const VirtualBackground = () => {
                     : screenWidth <= 768
                     ? "10px"
                     : "20px",
-                position: isFullScreen ? "fixed" : "absolute ",
+                position: isFullScreen ? "fixed" : "fixed ",
                 borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                 zIndex: isFullScreen && !isClosing ? "5" : "0",
                 marginBottom: isFullScreen && !isClosing ? "0" : "20px",
@@ -232,14 +235,14 @@ const VirtualBackground = () => {
 
                   <div className="vb-user-name">
                     <img
-                      src="https://via.placeholder.com/50"
-                      alt="Profile"
+                      src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="profile-img"
                       className="vb-profile-img "
                     />
 
                     <div className="vb-user-n-m">
-                      <p className="vb-name">Ajay Gadhavi</p>
-                      <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
+                      <p className="vb-name">{userData?.card?.name}</p>
+                      <p className="vb-gamil">{userData?.card?.email}</p>
                     </div>
                   </div>
                   <hr className="vr-hr" />
@@ -269,25 +272,29 @@ const VirtualBackground = () => {
                               <div className="vb-flex-preview-child">
                                 {fields.userPhoto && (
                                   <img
-                                    src="https://via.placeholder.com/50"
-                                    alt="Profile"
+                                    src={`${uri}/card/${userData?.card?.profileimg}`}
+                                    alt="profile-img"
                                     className="vb-profile-img vb-profile-photo"
                                   />
                                 )}
                                 {fields.name && (
-                                  <p className="vb-n-500">Ajay Gadhavi</p>
+                                  <p className="vb-n-500">
+                                    {userData?.card?.name}
+                                  </p>
                                 )}
                                 {fields.jobTitle && (
-                                  <p className="vb-n-400">UI / UX Designer</p>
+                                  <p className="vb-n-400">
+                                    {userData?.card?.jobtitle}
+                                  </p>
                                 )}
                                 {fields.company && (
                                   <p className="vb-n-400">
-                                    Flourish Creation PVT.LTD.
+                                    {userData?.card?.company}
                                   </p>
                                 )}
                                 {fields.location && (
                                   <p className="vb-n-400">
-                                    Ahmedabad, Gujarat, India
+                                    {userData?.card?.location}
                                   </p>
                                 )}
                               </div>
@@ -489,13 +496,13 @@ const VirtualBackground = () => {
         <div className="vb-rightpannel">
           <div className="vb-user-name">
             <img
-              src="https://via.placeholder.com/50"
-              alt="Profile"
+              src={`${uri}/card/${userData?.card?.profileimg}`}
+              alt="profile-img"
               className="vb-profile-img"
             />
             <div className="vb-user-n-m">
-              <p className="vb-name">Ajay Gadhavi</p>
-              <p className="vb-gamil">ajaygadhavi045@gmail.com</p>
+              <p className="vb-name">{userData?.card?.name}</p>
+              <p className="vb-gamil">{userData?.card?.email}</p>
             </div>
           </div>
           <hr className="vr-hr" />
@@ -517,20 +524,22 @@ const VirtualBackground = () => {
                     <div className="vb-flex-preview-child">
                       {fields.userPhoto && (
                         <img
-                          src="https://via.placeholder.com/50"
-                          alt="Profile"
+                          src={`${uri}/card/${userData?.card?.profileimg}`}
+                          alt="profile-img"
                           className="vb-profile-img"
                         />
                       )}
-                      {fields.name && <p className="vb-n-500">Ajay Gadhavi</p>}
+                      {fields.name && (
+                        <p className="vb-n-500">{userData?.card?.name}</p>
+                      )}
                       {fields.jobTitle && (
-                        <p className="vb-n-400">UI / UX Designer</p>
+                        <p className="vb-n-400">{userData?.card?.jobtitle}</p>
                       )}
                       {fields.company && (
-                        <p className="vb-n-400">Flourish Creation PVT.LTD.</p>
+                        <p className="vb-n-400">{userData?.card?.company}</p>
                       )}
                       {fields.location && (
-                        <p className="vb-n-400">Ahmedabad, Gujarat, India</p>
+                        <p className="vb-n-400">{userData?.card?.location}</p>
                       )}
                     </div>
                     {fields.qrCode && (

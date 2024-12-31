@@ -1,102 +1,57 @@
-import React, { useContext, useEffect, useState } from "react";
+
+import React, { useContext, useState } from "react";
 import "./Multimedia.css";
 import uploadimg from "../../images/uploadimg.png";
 import deltImg from "../../images/delete.png";
-import axios from "axios";
 import userContext from "../../context/userDetails";
+import axios from "axios";
 
 const MultimediaComponent = () => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  const [video, setVideo] = useState({});
-  const [dataUrl, setDataUrl] = useState("");
-  const [youtube, setYoutube] = useState("");
-  
-  const [data, setData] = useState([]);
+  const uri = process.env.REACT_APP_DEV_URL;
+  const [docFiles, setDocFiles] = useState([]);
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
-  let url = process.env.REACT_APP_DEV_URL;
-
-  const handleAdd = async (formData) => {
-    try {
-      let data = await axios.post(`${url}/multimedia/add`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: AuthorizationToken,
-        },
-      });
-      console.log(data.data.data, "data");
-      getUserData()
-    } catch (error) {
-      console.log(error);
-    }
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    const newFiles = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+    setDocFiles((prev) => [...prev, ...newFiles]);
+    event.target.value = null;
   };
-
-  const handleEdit = async (formData) => {
-    try {
-      let data = await axios.post(`${url}/multimedia/edit`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: AuthorizationToken,
-        },
-      });
-      console.log(data.data, "updated");
-    } catch (error) {
-      console.log(error);
-    }
+  const handleYoutubeUrlChange = (e) => {
+    setYoutubeUrl(e.target.value);
   };
-
-  const handleDelete=async(id)=>{
-    try {
-      let data=await fetch(`${url}/multimedia/delete/${id}`,{
-        method: 'DELETE',
-        headers:{
-          Authorization: AuthorizationToken,
-        }
-      })
-      data=await data.json()
-      console.log(data,"deleted");
-      getUserData()
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
-    console.log(video, "video");
+    docFiles.forEach((doc) => {
+      formData.append("video_file", doc.file);
+    });
+    formData.append("youtube_url", JSON.stringify([youtubeUrl]));
+    try {
+      const response = await axios.post(`${uri}/multimedia/add`, formData, {
 
-      formData.append("multimedia", video);
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: AuthorizationToken,
+        },
+      });
 
-    formData.append("youtube_url", youtube);
-
-    handleAdd(formData)
-    // if (userData?.multimedia?._id) {
-    //   handleEdit(formData);
-    // } else {
-    //   handleAdd(formData);
-    // }
-  };
-
-  const handleVideoChange = (e) => {
-    let file = e.target.files[0];
-    console.log(file, "file");
-    setVideo(file);
-    if (file) {
-      let reader = new FileReader();
-      reader.onloadend = () => {
-        setDataUrl( reader.result);
-      };
-      reader.readAsDataURL(file);
+      alert(`${response?.data?.msg}`);
+      setDocFiles([]);
+      setYoutubeUrl("");
+      getUserData();
+    } catch (error) {
+      console.error("Upload Error:", error.response?.data || error.message);
+      alert("Failed to Multimedia Upload.");
     }
-    e.target.value = "";
   };
-
-  useEffect(() => {
-    getUserData();
-    if(video){
-    handleSubmit()
-
-    }
-  }, [video]);
+  const handleRemoveFile = (index) => {
+    setDocFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   return (
     <>
@@ -109,47 +64,44 @@ const MultimediaComponent = () => {
           </span>
         </div>
         <p className="mlt-vdtitle">Upload Video</p>
-        <div className="mlt-video">
-          <div className="mlt-uplod">
-            <input
-              type="file"
-              name="multimedia"
-              onChange={(e) => handleVideoChange(e)}
-            />
-            <img src={uploadimg} alt="upload img" />
-          </div>
-          {userData?.multimedia?.map((e) => (
+
+        <form onSubmit={handleSubmit}>
+          <div className="mlt-video">
+            <div className="mlt-uplod">
+              <input type="file" onChange={handleFileChange} />
+              <img src={uploadimg} alt="upload img" />
+            </div>
             <div className="mlt-uplodvideo">
-              <div className="mlt-flex"></div>
-              <video>
-                <source src={`${url}/multimedia/${e.video_file}`} type="video/mp4" />
-              </video>
-              
-              <div className="mlt-deltbtn" onClick={()=>handleDelete(e?._id)}>
+              <video src=""></video>
+              <div className="mlt-deltbtn">
                 <img src={deltImg} alt="delet-btn" />
               </div>
             </div>
-          ))}
-        </div>
-        <hr />
-        <div className="mlt-urlform">
-          <p className="mlt-urltitle">YouTube Video</p>
-          <p className="mlt-url">YouTube URL</p>
-
-          <div className="mlt-inputbox">
-            <input type="text" required />
           </div>
+          <hr />
+          <div className="mlt-urlform">
+            <p className="mlt-urltitle">YouTube Video</p>
+            <p className="mlt-url">YouTube URL</p>
 
-          <div className="mlt-btnmain">
-            <div className="mlt-addmorebtn"></div>
-            <div className="mlt-twobtn">
-              <button className="mlt-cancel">Cancel</button>
-              <button className="mlt-save" onClick={handleSubmit}>
-                Save
-              </button>
+            <div className="mlt-inputbox">
+              <input
+                type="text"
+                name="youtube_url"
+                value={youtubeUrl}
+                onChange={(e) => setYoutubeUrl(e.target.value)}
+              />
+            </div>
+
+            <div className="mlt-btnmain">
+              <div className="mlt-addmorebtn"></div>
+              <div className="mlt-twobtn">
+                <button className="mlt-cancel">Cancel</button>
+                <button className="mlt-save">Save</button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
+
       </div>
     </>
   );

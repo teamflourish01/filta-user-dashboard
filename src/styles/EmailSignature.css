@@ -60,7 +60,6 @@
   font-size: 16px;
   position: absolute;
   top: -5px;
-  
 }
 /* #left-checkbox {
   margin: 0 15px 0 0;
@@ -74,7 +73,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
-  height: calc(90vh - 130px); /*Add for set height accroding to screen by R*/
+  height: calc(100% - 77px); /*Add for set height accroding to screen by R*/
 }
 
 .e-allfiled {
@@ -123,7 +122,7 @@
 }
 
 .e-form input,
-.e-txtarea:focus{
+.e-txtarea:focus {
   outline: 1px solid #ccc;
 }
 
@@ -216,7 +215,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
-  height: calc(90vh - 95px); /*Add for set height accroding to screen by R*/
+  height: calc(100% - 77px); /*Add for set height accroding to screen by R*/
 }
 .e-cardheding {
   font-family: Poppins-Medium;
@@ -339,6 +338,7 @@
   .e-leftpanel {
     width: 100%;
     margin-top: 55px;
+    height:calc(100% - 54px);
   }
   .e-rightpanel {
     display: none;
@@ -357,55 +357,50 @@
 }
 
 @media (max-width: 1150px) {
-  .e-checkboxcontiner
-   {
+  .e-checkboxcontiner {
     padding: 21px 15px 19px;
   }
-  .e-form{
+  .e-form {
     padding: 19px 7px;
   }
-  .e-flexfiled{
+  .e-flexfiled {
     flex-direction: column;
     gap: 10px;
   }
-  .signature-card{
+  .signature-card {
     padding: 15px;
     gap: 39px;
   }
 }
 
-
-
-@media screen and (max-width:380px) {
+@media screen and (max-width: 380px) {
   .signature-card {
     padding: 10px;
     gap: 18px;
-}
+  }
 }
 
-
-@media screen and (max-width:350px) {
+@media screen and (max-width: 350px) {
   .signature-card {
     padding: 5px;
     gap: 5px;
-}
+  }
 }
 
-
-@media screen and (max-width:325px) {
-  .signature-card .e-cardname{
+@media screen and (max-width: 325px) {
+  .signature-card .e-cardname {
     font-size: 16px;
   }
-  .signature-card p{
+  .signature-card p {
     font-size: 12px;
   }
 }
 
-@media screen and (max-width:300px) {
+@media screen and (max-width: 300px) {
   .signature-card p {
     font-size: 11px;
-}
-.signature-card .e-cardno{
-  padding: unset;
-}
+  }
+  .signature-card .e-cardno {
+    padding: unset;
+  }
 }

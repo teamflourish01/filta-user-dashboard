@@ -22,6 +22,7 @@
   justify-content: space-between;
   padding: 25px 17.5px 24px 31px;
   position: relative;
+  
  
 }
 .drp-dotscircle {
@@ -34,12 +35,20 @@
   justify-content: center;
   position: absolute;
   top: 50%;
-  
+
   transform: translate(-50%, -50%);
   background-color: #eff1f3;
-  cursor: pointer;
+  cursor: all-scroll;
   z-index: 0;
   left: 0;
+}
+.drp-dropdown-content {
+  max-height: 0; 
+  overflow: hidden;
+  transition: max-height 0.200s ease-out; 
+}
+.drp-dropdown-content.active {
+  max-height: 100%; 
 }
 .drp-dots-icon {
   width: 9px;
