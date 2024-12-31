@@ -36,6 +36,8 @@
   display: flex;
   gap: 15px;
   padding: 0px 15px 26px 15px;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .ph-uplod img {
   width: 27px;
@@ -46,6 +48,8 @@
   height: 80px;
   position: relative;
   border-radius: 2px;
+  display: flex;
+  gap: 10px;
 }
 
 /* .ph-uplodimg img {

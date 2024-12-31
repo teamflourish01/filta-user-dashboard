@@ -24,7 +24,7 @@ const Address = () => {
               />
             </div>
             <div className="cont-forminput">
-              <label>Description</label>
+              <label>Address</label>
               <textarea
                 className="cont-txtarea"
                 name="description"

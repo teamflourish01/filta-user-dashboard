@@ -1,8 +1,69 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ContactForm.css";
 import TwoButton from "./TwoButton";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import userContext from "../../context/userDetails";
 
 const ContactForm = () => {
+  const { AuthorizationToken } = useContext(userContext);
+  const [formData, setFormData] = useState({
+    loginemail: "",
+    loginmessage: "",
+  });
+  const uri = process.env.REACT_APP_DEV_URL;
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${uri}/email/add`,
+        { ...formData },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthorizationToken,
+          },
+        }
+      );
+      alert(`${response?.data?.message}`);
+    } catch (error) {
+      console.error("Error saving About Data:", error);
+    }
+  };
+  useEffect(() => {
+    const getEmailMessage = async () => {
+      try {
+        const response = await fetch(`${uri}/email/gatemailmsg`, {
+          method: "GET",
+          headers: {
+            Authorization: AuthorizationToken,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setFormData({
+            loginemail: data.data[0]?.loginemail || "",
+            loginmessage: data.data[0]?.loginmessage || "",
+          });
+        } else {
+          console.error("Error fetching user data");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getEmailMessage();
+  }, [AuthorizationToken, uri]);
   return (
     <>
       <div className="mlt-margin">
@@ -47,14 +108,24 @@ const ContactForm = () => {
           </span>
         </div>
         <div className="cont-formdiv">
-          <form>
+          <form onSubmit={handleSave}>
             <div className="cont-forminput">
               <label>Email</label>
-              <input type="text" />
+              <input
+                type="text"
+                name="loginemail"
+                value={formData.loginemail}
+                onChange={handleInputChange}
+              />
             </div>
             <div className="cont-forminput">
               <label>Message</label>
-              <textarea className="cont-txtarea" />
+              <textarea
+                className="cont-txtarea"
+                name="loginmessage"
+                value={formData.loginmessage}
+                onChange={handleInputChange}
+              />
             </div>
             <div className="cont-btnmargin">
               <TwoButton />

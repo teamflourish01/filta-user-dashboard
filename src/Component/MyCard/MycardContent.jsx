@@ -40,6 +40,7 @@ import TimeSensitive from "./TimeSensitive";
 import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
+import Address from "./Address";
 
 const ContentComponent = () => {
   const [dragItems, setDragItems] = useState([
@@ -321,7 +322,7 @@ const ContentComponent = () => {
   };
 
   const renderComponent = (component) => {
- 
+
     switch (component) {
       case "Clickable links":
         return (
@@ -591,7 +592,7 @@ const ContentComponent = () => {
           </DropdownComponent>
         );
 
-      case "CTA Button":
+      case "About (introduction of company)":
         return (
           <DropdownComponent
             title="About (introduction of company)"
@@ -630,7 +631,7 @@ const ContentComponent = () => {
             isActive={activeDropdown === 13}
             toggleActive={() => toggleDropdown(13)}
           >
-            <TeamMember />
+            <Address />
           </DropdownComponent>
         );
       case "Time sensitive offer/ slider form":
