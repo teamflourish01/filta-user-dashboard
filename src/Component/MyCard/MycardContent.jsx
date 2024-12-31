@@ -40,7 +40,9 @@ import TimeSensitive from "./TimeSensitive";
 import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
-import Address from "./Address";
+
+import Address from './Address';
+
 
 const ContentComponent = () => {
   const [dragItems, setDragItems] = useState([
@@ -478,7 +480,7 @@ const ContentComponent = () => {
                       { name: "Text", icon: msgImg },
                       { name: "Call", icon: callImg },
                       { name: "Email", icon: emailImg },
-                      { name: "Contact ", icon: contactImg },
+                      { name: "Contact", icon: contactImg },
                       { name: "WhatsApp", icon: wappImg },
                       { name: "Address", icon: mapImg },
                     ].map((platform) => (
@@ -631,7 +633,9 @@ const ContentComponent = () => {
             isActive={activeDropdown === 13}
             toggleActive={() => toggleDropdown(13)}
           >
-            <Address />
+
+            <Address/>
+
           </DropdownComponent>
         );
       case "Time sensitive offer/ slider form":
