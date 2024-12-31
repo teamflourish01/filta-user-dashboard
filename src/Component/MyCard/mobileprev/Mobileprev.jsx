@@ -1,30 +1,44 @@
 import React, { useContext, useRef, useState } from "react";
 // import "../../src/ViewCard/LeftAlign/LeftAlign.css";
-import "../../MyCard/mobileprev/mobileprev.css"
-// import pla from "../../../images/pla.svg";
-// import flourish from "../../../images/flourishblack.svg";
-import instaicon from "../../../images/instaicon.svg";
-import fbicon from "../../../images/fbicon.svg";
+import "../../MyCard/mobileprev/mobileprev.css";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import video1 from "../../../images/video.mp4";
 import videoTwo from "../../../images/video2.mp4";
 import { CiPlay1 } from "react-icons/ci";
-// import sound from "../../../images/sound.mp3";
 import imgofpdf from "../../../images/fcplss.svg";
 import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
-// import { useNavigate } from "react-router-dom";
-import CustomNextArrow from './../../../ViewCard/CustomNextArrow/CustomNextArrow';
-import CustomPrevArrow from './../../../ViewCard/CustomNextArrow/CustomPrevArrow';
+import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "./../../../ViewCard/CustomNextArrow/CustomPrevArrow";
 import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
+import minstagram from "../../../images/minstagram.svg";
+import mfacebook from "../../../images/mfacebook.svg";
+import mlinkidin from "../../../images/mlinkidin.svg";
+import mxtwitter from "../../../images/mxtwitter.svg";
+import msnapchat from "../../../images/msnapchat.svg";
+import mThreads from "../../../images/mThreads.svg";
+import mpinterest from "../../../images/mpinterest.svg";
+import mtelegram from "../../../images/mtelegram.svg";
+import myoutube from "../../../images/myoutube.svg";
+import mtext from "../../../images/mtext.svg";
+import mcall from "../../../images/mcall.svg";
+import memail from "../../../images/memail.svg";
+import mcontact from "../../../images/mcontact.svg";
+import mwhatsapp from "../../../images/mwhatsapp.svg";
+import mlocation from "../../../images/mlocation.svg";
+// import mgoogleplay from "../../../images/mgoogleplay.svg"
+import mphonepay from "../../../images/mphonepay.svg";
+import mpaytm from "../../../images/mpaytm.svg";
+import mreview from "../../../images/mreview.svg";
+import mgoogledrive from "../../../images/mgoogledrive.svg";
 
 const Mobileprev = () => {
-  
-    const { userData } = useContext(userContext);
+  const { userData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
 
   const audioRef = useRef(null);
@@ -81,6 +95,70 @@ const Mobileprev = () => {
     videoElement.play();
     setIsPlaying(true);
   };
+  // Map platform names to local icon paths
+  const iconMap = {
+    Email: memail,
+    Call: mcall,
+    Instagram: minstagram,
+    Facebook: mfacebook,
+    LinkedIn: mlinkidin,
+    "X (Twitter)": mxtwitter,
+    Snapchat: msnapchat,
+    Threads: mThreads,
+    Pinterest: mpinterest,
+    Telegram: mtelegram,
+    Youtube: myoutube,
+    Text: mtext,
+    Contact: mcontact,
+    WhatsApp: mwhatsapp,
+    Address: mlocation,
+    // "Google Pay": mgooglepay,
+    "Phone Pay": mphonepay,
+    Paytm: mpaytm,
+    Review: mreview,
+    "Google Drive": mgoogledrive,
+  };
+  // Function to generate dynamic href links for various platforms
+  const generateHref = (platform, url) => {
+    switch (platform) {
+      case "Email":
+        return `mailto:${url}`;
+      case "Call":
+        return `tel:${url}`;
+      case "WhatsApp":
+        return `https://wa.me/${url}`; // WhatsApp phone link
+      case "Telegram":
+        return `https://t.me/${url}`; // Telegram username
+      case "Address":
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          url
+        )}`; // Google Maps for addresses
+      // case "Google Pay":
+      //   return `https://pay.google.com/gp/w/u/0/home/activity?p=${encodeURIComponent(url)}`;
+      // // Google Pay URL link
+      case "Phone Pay":
+        return `https://www.phonepe.com/${url}`; // Assuming PhonePe has URL handling
+      case "Paytm":
+        return `https://paytm.com/${url}`; // Assuming Paytm has URL handling
+      case "Review":
+        return `https://www.google.com/search?q=${encodeURIComponent(
+          url
+        )}+reviews`; // Google Search for reviews
+      case "Google Drive":
+        return `https://drive.google.com/drive/u/0/folders/${url}`; // Google Drive folder link
+      case "Instagram":
+      case "Facebook":
+      case "LinkedIn":
+      case "X (Twitter)":
+      case "Snapchat":
+      case "Threads":
+      case "Pinterest":
+      case "Youtube":
+        return url; // Direct URLs for standard platforms
+      default:
+        return url; // Fallback for unknown platforms
+    }
+  };
   return (
     <>
       <div className="my-priviewcard">
@@ -92,36 +170,40 @@ const Mobileprev = () => {
               <div className="mp-top-inner-content-left-a">
                 {/* <img src="" alt="" /> */}
                 <img
-                      src={`${uri}/card/${userData?.card?.coverimg}`}
-                      alt="cover img"
-                    />
+                  src={`${uri}/card/${userData?.card?.coverimg}`}
+                  alt="cover img"
+                />
               </div>
               <div className="hr-btw-top-bottom-l-a"></div>
               <div className="mp-bottom-inner-content-left-a">
                 <div className="mp-info-user-left-card-padding">
-                  <p className="mp-user-name-left-align-card">{userData?.card?.name}</p>
-                  <p className="mp-grey-bottom-txt">{userData?.card?.jobtitle}</p>
-                  <p className="mp-grey-bottom-txt">
-                  {userData?.card?.company}
+                  <p className="mp-user-name-left-align-card">
+                    {userData?.card?.name}
                   </p>
-                  <p className="mp-grey-bottom-txt">{userData?.card?.location}</p>
+                  <p className="mp-grey-bottom-txt">
+                    {userData?.card?.jobtitle}
+                  </p>
+                  <p className="mp-grey-bottom-txt">
+                    {userData?.card?.company}
+                  </p>
+                  <p className="mp-grey-bottom-txt">
+                    {userData?.card?.location}
+                  </p>
                 </div>
               </div>
               <div className="profile-pic-container-left-align">
                 <div className="mp-profile-pic-c-l-a">
-                  
                   <img
-                      src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="Profile-img"
-                    />
+                    src={`${uri}/card/${userData?.card?.profileimg}`}
+                    alt="Profile-img"
+                  />
                 </div>
                 <div className="mp-logo-profile-c-l-a">
-                  
                   <img
-                      className="mp-l-size-flourish"
-                      src={`${uri}/card/${userData?.card?.logoimg}`}
-                      alt="logo img"
-                    />
+                    className="mp-l-size-flourish"
+                    src={`${uri}/card/${userData?.card?.logoimg}`}
+                    alt="logo img"
+                  />
                 </div>
               </div>
             </div>
@@ -131,43 +213,79 @@ const Mobileprev = () => {
               <div className="mp-clickable-link-section">
                 <div className="mp-sections-title">Clickable Links</div>
                 <div className="mp-social-icon-c-c-l">
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
+                  {userData?.socialLinks?.map((link) => (
+                    <div className="icon-container-box" key={link._id}>
+                      <div className="mp-a-tag">
+                        {/* Dynamic icon rendering */}
+                        <a
+                        className=" mp-padding-icon-container-box"
+                          href={generateHref(link.platform, link.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                        <div className="mp-under-icon-img">
+                        
+                          <img
+                            src={
+                              iconMap[link.platform] ||
+                              "https://via.placeholder.com/50"
+                            } // Placeholder for unknown platforms
+                            alt={link.platform}
+                          />
+                        
+                        </div>
+                        </a>
+                        {/* Clickable platform name */}
+                        <a
+                          href={generateHref(link.platform, link.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mp-icon-name-c-l"
+                        >
+                          {link.text}
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
+                {/* <div className="mp-social-icon-c-c-l">
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={instaicon} alt="" />
+                      <p className="mp-icon-name-c-l">Instagram</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={fbicon} alt="" />
+                      <p className="mp-icon-name-c-l">Facebook</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={instaicon} alt="" />
+                      <p className="mp-icon-name-c-l">Instagram</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={fbicon} alt="" />
+                      <p className="mp-icon-name-c-l">Facebook</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={instaicon} alt="" />
+                      <p className="mp-icon-name-c-l">Instagram</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={fbicon} alt="" />
+                      <p className="mp-icon-name-c-l">Facebook</p>
+                    </div>
+                  </div>
+                </div> */}
               </div>
             </div>
 
@@ -289,8 +407,8 @@ const Mobileprev = () => {
               <div className="mp-voice-msg-box-l-a">
                 <div className="mp-sections-title">Voice Message</div>
                 <div className="audio-container" onClick={togglePlayback}>
-                <VoiceMessage/>
-                {/* <audio
+                  <VoiceMessage />
+                  {/* <audio
                   controls
                   className="custom-audio"
                   controlsList="nodownload noplaybackrate"
@@ -308,7 +426,7 @@ const Mobileprev = () => {
                 <div className="mp-sections-title">About</div>
                 <div className="mp-ui-ux-text">{userData?.about?.title}</div>
                 <div className="mp-about-description">
-                {userData?.about?.description}
+                  {userData?.about?.description}
                 </div>
               </div>
             </div>
