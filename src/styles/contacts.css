@@ -2,6 +2,12 @@
   margin: 0;
   padding: 0;
 }
+
+
+.contact-profile-img{
+  height: 35px;
+  width: 35px;
+}
 .custom-table {
   display: none;
 }

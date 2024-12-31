@@ -60,17 +60,20 @@
 
 // export default Flip;
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../Flip/Flip.css";
 import logo from "../../images/whiteFilta.svg";
 import "../Flip/CardDesign.css";
 import UserProfile from "../../images/user-flip-img.svg";
 import userLogo from "../../images/flourishLogoOld.svg";
 import scanner from "../../images/scanner.svg";
+import userContext from "../../context/userDetails";
 
 const Flip = () => {
   const [showBlackCard, setShowBlackCard] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   const flipCardData = {
     name: "Ajay Gadhavi",
@@ -108,12 +111,13 @@ const Flip = () => {
         {/* <--- Top Front Card ---> */}
         <div className="front">
           <div className="flip-front-logo-c">
-            <img src={userLogo} alt="" className="user-logo-f-f" />
+            <img src={`${uri}/card/${userData?.card?.logoimg}`} alt="" className="user-logo-f-f" />
           </div>
           <div className="hr-line-l1-flip"></div>
           <div className="user-card-name-mobile-flip">
-            <p className="u-n-flip-bold">Ajay Gadhavi</p>
-            <p className="u-n-flip-semiBold">UI/UX Designer</p>
+            <p className="u-n-flip-bold">{userData?.card?.name}</p>
+
+            <p className="u-n-flip-semiBold"> {userData?.card?.jobtitle}</p>
           </div>
         </div>
         {/* <--- Top Back Card ---> */}
@@ -123,8 +127,8 @@ const Flip = () => {
           </div>
           <div className="hr-line-l1-horizontal-flip"></div>
           <div className="user-email-regular-SemiBold">
-            <p>ajaygadhavi9847@gmail.com</p>
-            <p>6353123096</p>
+            <p>{userData?.card?.email}</p>
+            <p>{userData?.card?.phoneNumber}</p>
           </div>
         </div>
       </div>
@@ -140,28 +144,28 @@ const Flip = () => {
           </div>
         </div>
         <div className="center-card">
-        <div
-          className={`card white-card ${
-            !showBlackCard ? "visible" : "hidden"
-          } ${isTransitioning ? "transitioning" : ""}`}
-        >
-          {/* <div className="card white-card visible"> */}
-          <div className="user-profile-flip-content">
-            <img src={UserProfile} alt="" className="user-pic-flip-b" />
-          </div>
-          <div className="user-logo-flip-circle">
-            <img src={userLogo} alt="" />
-          </div>
-          <div className="user-detail-flip-content">
-            <div className="dashed-border-content">
-              <p className="user-name">{flipCardData.name}</p>
-              <p className="designation">{flipCardData.designation}</p>
-              <p className="designation">{flipCardData.company}</p>
-              <p className="designation">{flipCardData.location}</p>
+          <div
+            className={`card white-card ${
+              !showBlackCard ? "visible" : "hidden"
+            } ${isTransitioning ? "transitioning" : ""}`}
+          >
+            {/* <div className="card white-card visible"> */}
+            <div className="user-profile-flip-content">
+              <img src={UserProfile} alt="" className="user-pic-flip-b" />
             </div>
-            <p className="clickable-link-flip">Clickable Links</p>
+            <div className="user-logo-flip-circle">
+              <img src={`${uri}/card/${userData?.card?.logoimg}`} alt="" className="user-logo-img-flip-size"/>
+            </div>
+            <div className="user-detail-flip-content">
+              <div className="dashed-border-content">
+                <p className="user-name">{userData?.card?.name}</p>
+                <p className="designation">{userData?.card?.jobtitle}</p>
+                <p className="designation">{userData?.card?.company}</p>
+                <p className="designation">{userData?.card?.location}</p>
+              </div>
+              <p className="clickable-link-flip">Clickable Links</p>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

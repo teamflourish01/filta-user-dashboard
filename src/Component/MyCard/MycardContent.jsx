@@ -40,7 +40,9 @@ import TimeSensitive from "./TimeSensitive";
 import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
+
 import Address from './Address';
+
 
 const ContentComponent = () => {
   const [dragItems, setDragItems] = useState([
@@ -59,6 +61,7 @@ const ContentComponent = () => {
     { id: "drag-drop-eleven", component: "Social Proof" },
     { id: "drag-drop-twelv", component: "Photos" },
     { id: "drag-drop-thirty", component: "Product Gallery" },
+    
   ]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -321,7 +324,7 @@ const ContentComponent = () => {
   };
 
   const renderComponent = (component) => {
-    // console.log("rendercomponent", renderComponent);
+
     switch (component) {
       case "Clickable links":
         return (
@@ -630,7 +633,9 @@ const ContentComponent = () => {
             isActive={activeDropdown === 13}
             toggleActive={() => toggleDropdown(13)}
           >
+
             <Address/>
+
           </DropdownComponent>
         );
       case "Time sensitive offer/ slider form":

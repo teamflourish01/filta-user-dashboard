@@ -2,6 +2,13 @@ import React, { useContext, useRef, useState } from "react";
 // import "../../src/ViewCard/LeftAlign/LeftAlign.css";
 import "../../MyCard/mobileprev/mobileprev.css";
 
+
+import pla from "../../../images/pla.svg";
+import flourish from "../../../images/flourishblack.svg";
+
+import instaicon from "../../../images/instaicon.svg";
+import fbicon from "../../../images/fbicon.svg";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,6 +20,7 @@ import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
+
 import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
 import CustomPrevArrow from "./../../../ViewCard/CustomNextArrow/CustomPrevArrow";
 import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
@@ -37,9 +45,29 @@ import mpaytm from "../../../images/mpaytm.svg";
 import mreview from "../../../images/mreview.svg";
 import mgoogledrive from "../../../images/mgoogledrive.svg";
 
+import { useForm } from "react-hook-form";
+import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "./../../../ViewCard/CustomNextArrow/CustomPrevArrow";
+import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
+import { Document, Page, pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
 const Mobileprev = () => {
-  const { userData } = useContext(userContext);
+
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+
+
   const uri = process.env.REACT_APP_DEV_URL;
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const audioRef = useRef(null);
 
@@ -95,6 +123,7 @@ const Mobileprev = () => {
     videoElement.play();
     setIsPlaying(true);
   };
+
   // Map platform names to local icon paths
   const iconMap = {
     Email: memail,
@@ -159,6 +188,31 @@ const Mobileprev = () => {
         return url; // Fallback for unknown platforms
     }
   };
+
+
+  //Contact-Form EmailApi
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${uri}/email/send-email`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+      });
+      alert(`${response?.data?.message}`);
+      getUserData();
+      reset();
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send email. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   return (
     <>
       <div className="my-priviewcard">
@@ -166,6 +220,7 @@ const Mobileprev = () => {
         <div className="mp-mobile-modifi">
           <div className="mp-padding-whole-10-l-a">
             {/* top profile section start */}
+
             <div className="top-profile-container-left-align">
               <div className="mp-top-inner-content-left-a">
                 {/* <img src="" alt="" /> */}
@@ -180,10 +235,12 @@ const Mobileprev = () => {
                   <p className="mp-user-name-left-align-card">
                     {userData?.card?.name}
                   </p>
+
                   <p className="mp-grey-bottom-txt">
                     {userData?.card?.jobtitle}
                   </p>
-                  <p className="mp-grey-bottom-txt">
+                  <p className="mp-grey-bottom-txt">=======
+
                     {userData?.card?.company}
                   </p>
                   <p className="mp-grey-bottom-txt">
@@ -295,11 +352,14 @@ const Mobileprev = () => {
                 <div className="mp-sections-title mp-p-10-side-l-a">
                   Multimedia
                 </div>
-                {videos.length === 1 ? (
+                {userData?.multimedia.length === 1 ? (
                   // Display single video
                   <div className="single-video">
                     <video controls className="fullscreen-video">
-                      <source src={videos[0]} type="video/mp4" />
+                      <source
+                        src={`${uri}/multimedia/${userData?.multimedia[0]?.video_file}`}
+                        type="video/mp4"
+                      />
                       Your browser does not support the video tag.
                     </video>
                   </div>
@@ -307,10 +367,10 @@ const Mobileprev = () => {
                   // Display slider for multiple videos
                   <div className="mp-video-container">
                     <Slider {...sliderSettings}>
-                      {videos.map((video, index) => (
-                        <div key={index} className="mp-video-slide">
+                      {userData?.multimedia?.map((video) => (
+                        <div className="mp-video-slide">
                           <video
-                            src={video}
+                            src={`${uri}/multimedia/${video.video_file}`}
                             controls={isPlaying}
                             onClick={(e) => handlePlay(e.target)}
                           ></video>
@@ -365,40 +425,61 @@ const Mobileprev = () => {
             {/* fourth section contact form start */}
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-contact-form-left-align">
-                <div className="mp-sections-title">Contact Form</div>
-                <div className="mp-input-container-c-f">
-                  <div className="input-field-contact-form-leftalign">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      className="mp-input-field-single"
-                    />
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="mp-sections-title">Contact Form</div>
+                  <div className="mp-input-container-c-f">
+                    <div className="input-field-contact-form-leftalign">
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        className="mp-input-field-single"
+                        {...register("name", { required: "Name is required" })}
+                      />
+                    </div>
+                    <div className="input-field-contact-form-leftalign">
+                      <input
+                        type="text"
+                        placeholder="Email"
+                        className="mp-input-field-single"
+                        {...register("email", {
+                          required: "Email is required",
+                        })}
+                      />
+                    </div>
+                    <div className="input-field-contact-form-leftalign">
+                      <input
+                        type="text"
+                        placeholder="Mobile Number"
+                        className="mp-input-field-single"
+                        {...register("number", {
+                          required: "Mobile number is required",
+                          pattern: {
+                            value: /^[0-9]{10}$/,
+                            message: "Enter a valid 10-digit mobile number",
+                          },
+                        })}
+                      />
+                      {errors.number && (
+                        <p className="error">{errors.number.message}</p>
+                      )}
+                    </div>
+                    <div className="input-field-contact-form-leftalign">
+                      <textarea
+                        type="text"
+                        placeholder="Message"
+                        className="mp-input-field-single mp-textarea-class"
+                        {...register("message", {
+                          required: "Message is required",
+                        })}
+                      />
+                    </div>
                   </div>
-                  <div className="input-field-contact-form-leftalign">
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      className="mp-input-field-single"
-                    />
-                  </div>
-                  <div className="input-field-contact-form-leftalign">
-                    <input
-                      type="text"
-                      placeholder="Mobile Number"
-                      className="mp-input-field-single"
-                    />
-                  </div>
-                  <div className="input-field-contact-form-leftalign">
-                    <textarea
-                      type="text"
-                      placeholder="Message"
-                      className="mp-input-field-single mp-textarea-class"
-                    />
-                  </div>
-                </div>
-                <button type="submit" className="btn-white-submit-leftalign">
-                  <span className="mp-btn-text-leftalign">Submit</span>
-                </button>
+                  <button type="submit" className="btn-white-submit-leftalign">
+                    <span className="mp-btn-text-leftalign">
+                      {loading ? "Loading..." : "Submit"}
+                    </span>
+                  </button>
+                </form>
               </div>
             </div>
 
@@ -435,17 +516,61 @@ const Mobileprev = () => {
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-document-section-box-l-a">
                 <div className="mp-sections-title">Document</div>
-                {pdf.length > 1 ? (
+                {userData?.documents?.length > 1 ? (
                   <Slider {...sliderSettings}>
-                    {pdf.map((pdf, index) => (
-                      <div className="img-container-document-l-a">
-                        <img src={pdf} className="mp-i-d-l-a-size" alt="" />
-                      </div>
+                    {userData?.documents?.map((pdf) => (
+                      <Document
+                        file={`${uri}/documents/${pdf.document}`}
+                        onLoadError={(error) =>
+                          console.error("PDF Load Error:", error)
+                        }
+                        width={248}
+                        height={238.53}
+                      >
+                        
+                        <a
+                          href={`${uri}/documents/${pdf.document}`}
+                          target="_blank"
+                        >
+                          <Page
+                            pageNumber={1}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                            width={248}
+                            height={238.53}
+                          />
+                        </a>
+                      </Document>
                     ))}
                   </Slider>
                 ) : (
-                  <div className="img-container-document-l-a">
-                    <img src={pdf} className="mp-i-d-l-a-size" alt="" />
+                  <div className="img-container-document-l-a ">
+                    <Document
+                      file={`${uri}/documents/${userData?.documents[0]?.document}`}
+                      onLoadError={(error) =>
+                        console.error("PDF Load Error:", error)
+                      }
+                      width={248}
+                      height={238.53}
+                    >
+                      <a
+                        href={`${uri}/documents/${userData?.documents[0]?.document}`}
+                        target="_blank"
+                      >
+                        <Page
+                          pageNumber={1}
+                          renderTextLayer={false}
+                          renderAnnotationLayer={false}
+                          width={248}
+                          height={238.53}
+                        />
+                      </a>
+                    </Document>
+                    {/* <img
+                      src={`${uri}/documents/${userData?.documents[0].document}`}
+                      className="mp-i-d-l-a-size"
+                      alt=""
+                    /> */}
                   </div>
                 )}
                 <p className="mp-d-l-a-name">Flourish Profile</p>

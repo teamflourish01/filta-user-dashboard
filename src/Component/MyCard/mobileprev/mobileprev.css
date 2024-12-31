@@ -737,3 +737,8 @@
     background-color: #050505;
     border-radius: 50%;
   }
+  /* canvas{
+    width: 248px !important;
+    height: 174px !important;
+    object-fit: contain !important;
+  } */
