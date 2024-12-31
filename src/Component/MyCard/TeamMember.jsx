@@ -31,11 +31,11 @@ const TeamMember = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let obj = {};
-    if (data.length > 0) {
+    if (data?.length > 0) {
       obj = {
-        name: data.map((e) => e.name),
-        job_title: data.map((e) => e.job_title),
-        number: data.map((e) => e.number),
+        name: data?.map((e) => e.name),
+        job_title: data?.map((e) => e.job_title),
+        number: data?.map((e) => e.number),
       };
     } else {
       obj = team;
@@ -65,7 +65,7 @@ const TeamMember = () => {
   }
 
   const objToArrayConvert = (data) => {
-    return data.name.map((_, index) => ({
+    return data?.name?.map((_, index) => ({
       name: data?.name[index],
       job_title: data?.job_title[index],
       number: data?.number[index],
@@ -89,7 +89,7 @@ const TeamMember = () => {
       </div>
       <div className="cont-formdiv">
         <form onSubmit={handleSubmit}>
-          {data.length > 0 ? (
+          {data?.length > 0 ? (
             data.map((ele, i) => {
               return (
                 <div div key={i}>
