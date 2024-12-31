@@ -414,7 +414,7 @@ const Mobileprev = () => {
                 ) : (
                   <div className="img-container-document-l-a ">
                     <Document
-                      file={`${uri}/documents/${userData?.documents[0].document}`}
+                      file={`${uri}/documents/${userData?.documents[0]?.document}`}
                       onLoadError={(error) =>
                         console.error("PDF Load Error:", error)
                       }
@@ -422,7 +422,7 @@ const Mobileprev = () => {
                       height={238.53}
                     >
                       <a
-                        href={`${uri}/documents/${userData?.documents[0].document}`}
+                        href={`${uri}/documents/${userData?.documents[0]?.document}`}
                         target="_blank"
                       >
                         <Page
