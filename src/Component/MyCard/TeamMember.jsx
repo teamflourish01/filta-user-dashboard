@@ -66,9 +66,9 @@ const TeamMember = () => {
 
   const objToArrayConvert = (data) => {
     return data.name.map((_, index) => ({
-      name: data.name[index],
-      job_title: data.job_title[index],
-      number: data.number[index],
+      name: data?.name[index],
+      job_title: data?.job_title[index],
+      number: data?.number[index],
     }));
   };
   useEffect(() => {
