@@ -1,5 +1,4 @@
-
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Multimedia.css";
 import uploadimg from "../../images/uploadimg.png";
 import deltImg from "../../images/delete.png";
@@ -10,7 +9,9 @@ const MultimediaComponent = () => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
   const [docFiles, setDocFiles] = useState([]);
-  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [youtubeUrls, setYoutubeUrls] = useState([""]);
+  const [deletedUrls, setDeletedUrls] = useState([]);
+  const [deletedVideos, setDeletedVideos] = useState([]);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -21,8 +22,21 @@ const MultimediaComponent = () => {
     setDocFiles((prev) => [...prev, ...newFiles]);
     event.target.value = null;
   };
-  const handleYoutubeUrlChange = (e) => {
-    setYoutubeUrl(e.target.value);
+  const handleYoutubeUrlChange = (index, value) => {
+    const updatedUrls = [...youtubeUrls];
+    updatedUrls[index] = value;
+    setYoutubeUrls(updatedUrls);
+  };
+  const handleAddMore = () => {
+    setYoutubeUrls((prev) => [...prev, ""]);
+  };
+  const handleRemoveUrl = (index) => {
+    setDeletedUrls((prev) => [...prev, youtubeUrls[index]]);
+    setYoutubeUrls((prev) => prev.filter((_, i) => i !== index));
+  };
+  const handleRemoveFile = (index) => {
+    setDeletedVideos((prev) => [...prev, docFiles[index].file]);
+    setDocFiles((prev) => prev.filter((_, i) => i !== index));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,10 +44,12 @@ const MultimediaComponent = () => {
     docFiles.forEach((doc) => {
       formData.append("video_file", doc.file);
     });
-    formData.append("youtube_url", JSON.stringify([youtubeUrl]));
+    const filteredYoutubeUrls = youtubeUrls.filter((url) => url.trim() !== "");
+    formData.append("youtube_url", JSON.stringify(filteredYoutubeUrls));
+    formData.append("deleted_urls", JSON.stringify(deletedUrls));
+    formData.append("deleted_videos", JSON.stringify(deletedVideos));
     try {
       const response = await axios.post(`${uri}/multimedia/add`, formData, {
-
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: AuthorizationToken,
@@ -42,17 +58,28 @@ const MultimediaComponent = () => {
 
       alert(`${response?.data?.msg}`);
       setDocFiles([]);
-      setYoutubeUrl("");
+      setYoutubeUrls([""]);
+      setDeletedUrls([]);
+      setDeletedVideos([]);
       getUserData();
     } catch (error) {
       console.error("Upload Error:", error.response?.data || error.message);
       alert("Failed to Multimedia Upload.");
     }
   };
-  const handleRemoveFile = (index) => {
-    setDocFiles((prev) => prev.filter((_, i) => i !== index));
-  };
 
+  useEffect(() => {
+    if (userData && userData.multimedia && userData.multimedia.length > 0) {
+      const multimediaData = userData.multimedia[0];
+      const videoFiles = multimediaData.video_file.map((file) => ({
+        file,
+        preview: `${uri}/multimedia/${file}`,
+      }));
+      setDocFiles(videoFiles);
+
+      setYoutubeUrls(multimediaData.youtube_url || [""]);
+    }
+  }, [userData, uri]);
   return (
     <>
       <div className="mlt-margin">
@@ -71,37 +98,63 @@ const MultimediaComponent = () => {
               <input type="file" onChange={handleFileChange} />
               <img src={uploadimg} alt="upload img" />
             </div>
-            <div className="mlt-uplodvideo">
-              <video src=""></video>
-              <div className="mlt-deltbtn">
-                <img src={deltImg} alt="delet-btn" />
+            {docFiles.map((doc, index) => (
+              <div key={index} className="mlt-uplodvideo">
+                <video src={doc.preview}></video>
+                <div
+                  className="mlt-deltbtn"
+                  onClick={() => handleRemoveFile(index)}
+                >
+                  <img src={deltImg} alt="delet-btn" />
+                </div>
               </div>
-            </div>
+            ))}
           </div>
           <hr />
           <div className="mlt-urlform">
             <p className="mlt-urltitle">YouTube Video</p>
             <p className="mlt-url">YouTube URL</p>
-
-            <div className="mlt-inputbox">
-              <input
-                type="text"
-                name="youtube_url"
-                value={youtubeUrl}
-                onChange={(e) => setYoutubeUrl(e.target.value)}
-              />
-            </div>
-
+            {youtubeUrls.map((url, index) => (
+              <div key={index} className="mlt-inputbox">
+                <input
+                  type="text"
+                  name="youtube_url_${index}"
+                  value={url}
+                  onChange={(e) =>
+                    handleYoutubeUrlChange(index, e.target.value)
+                  }
+                />
+                {youtubeUrls.length > 1 && (
+                  <button
+                    type="button"
+                    className=""
+                    onClick={() => handleRemoveUrl(index)}
+                  >
+                    <img src={deltImg} alt="delet-btn" />
+                  </button>
+                )}
+              </div>
+            ))}
             <div className="mlt-btnmain">
-              <div className="mlt-addmorebtn"></div>
+              <div className="mlt-addmorebtn" onClick={handleAddMore}></div>
               <div className="mlt-twobtn">
-                <button className="mlt-cancel">Cancel</button>
-                <button className="mlt-save">Save</button>
+                <button
+                  type="button"
+                  className="mlt-cancel"
+                  onClick={() => {
+                    setDocFiles([]);
+                    setYoutubeUrls([""]);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button type="submit" className="mlt-save">
+                  Save
+                </button>
               </div>
             </div>
           </div>
         </form>
-
       </div>
     </>
   );
