@@ -5,7 +5,7 @@ const CustomNextArrow = (props) => {
   const { onClick } = props;
   return (
     <div className="custom-arrow custom-next" onClick={onClick}>
-      <FaArrowRight />
+      <FaArrowRight/>
     </div>
   );
 };

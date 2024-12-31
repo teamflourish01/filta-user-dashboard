@@ -1,8 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 // import "../../src/ViewCard/LeftAlign/LeftAlign.css";
 import "../../MyCard/mobileprev/mobileprev.css";
+
 import pla from "../../../images/pla.svg";
 import flourish from "../../../images/flourishblack.svg";
+
 import instaicon from "../../../images/instaicon.svg";
 import fbicon from "../../../images/fbicon.svg";
 import Slider from "react-slick";
@@ -11,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import video1 from "../../../images/video.mp4";
 import videoTwo from "../../../images/video2.mp4";
 import { CiPlay1 } from "react-icons/ci";
-import sound from "../../../images/sound.mp3";
+// import sound from "../../../images/sound.mp3";
 import imgofpdf from "../../../images/fcplss.svg";
 import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
@@ -20,9 +22,17 @@ import userContext from "../../../context/userDetails";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
+import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "./../../../ViewCard/CustomNextArrow/CustomPrevArrow";
+import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
+import { Document, Page, pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Mobileprev = () => {
+
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
   const {
@@ -32,7 +42,22 @@ const Mobileprev = () => {
     reset,
   } = useForm();
 
+  const audioRef = useRef(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayback = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      if (audio.paused) {
+        audio.play();
+        setIsPlaying(true);
+      } else {
+        audio.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
   const sliderSettings = {
     dots: false,
@@ -41,6 +66,8 @@ const Mobileprev = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const sliderSettingsDot = {
@@ -50,6 +77,8 @@ const Mobileprev = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const videos = [video1, videoTwo];
@@ -97,6 +126,7 @@ const Mobileprev = () => {
         <div className="mp-mobile-modifi">
           <div className="mp-padding-whole-10-l-a">
             {/* top profile section start */}
+
             <div className="top-profile-container-left-align">
               <div className="mp-top-inner-content-left-a">
                 {/* <img src="" alt="" /> */}
@@ -190,11 +220,14 @@ const Mobileprev = () => {
                 <div className="mp-sections-title mp-p-10-side-l-a">
                   Multimedia
                 </div>
-                {videos.length === 1 ? (
+                {userData?.multimedia.length === 1 ? (
                   // Display single video
                   <div className="single-video">
                     <video controls className="fullscreen-video">
-                      <source src={videos[0]} type="video/mp4" />
+                      <source
+                        src={`${uri}/multimedia/${userData?.multimedia[0]?.video_file}`}
+                        type="video/mp4"
+                      />
                       Your browser does not support the video tag.
                     </video>
                   </div>
@@ -202,10 +235,10 @@ const Mobileprev = () => {
                   // Display slider for multiple videos
                   <div className="mp-video-container">
                     <Slider {...sliderSettings}>
-                      {videos.map((video, index) => (
-                        <div key={index} className="mp-video-slide">
+                      {userData?.multimedia?.map((video) => (
+                        <div className="mp-video-slide">
                           <video
-                            src={video}
+                            src={`${uri}/multimedia/${video.video_file}`}
                             controls={isPlaying}
                             onClick={(e) => handlePlay(e.target)}
                           ></video>
@@ -322,14 +355,17 @@ const Mobileprev = () => {
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-voice-msg-box-l-a">
                 <div className="mp-sections-title">Voice Message</div>
-                <audio
+                <div className="audio-container" onClick={togglePlayback}>
+                  <VoiceMessage />
+                  {/* <audio
                   controls
                   className="custom-audio"
                   controlsList="nodownload noplaybackrate"
                 >
                   <source src={sound} type="audio/mpeg" />
                   Your browser does not support the audio element.
-                </audio>
+                </audio> */}
+                </div>
               </div>
             </div>
 
@@ -348,17 +384,61 @@ const Mobileprev = () => {
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-document-section-box-l-a">
                 <div className="mp-sections-title">Document</div>
-                {pdf.length > 1 ? (
+                {userData?.documents?.length > 1 ? (
                   <Slider {...sliderSettings}>
-                    {pdf.map((pdf, index) => (
-                      <div className="img-container-document-l-a">
-                        <img src={pdf} className="mp-i-d-l-a-size" alt="" />
-                      </div>
+                    {userData?.documents?.map((pdf) => (
+                      <Document
+                        file={`${uri}/documents/${pdf.document}`}
+                        onLoadError={(error) =>
+                          console.error("PDF Load Error:", error)
+                        }
+                        width={248}
+                        height={238.53}
+                      >
+                        
+                        <a
+                          href={`${uri}/documents/${pdf.document}`}
+                          target="_blank"
+                        >
+                          <Page
+                            pageNumber={1}
+                            renderTextLayer={false}
+                            renderAnnotationLayer={false}
+                            width={248}
+                            height={238.53}
+                          />
+                        </a>
+                      </Document>
                     ))}
                   </Slider>
                 ) : (
-                  <div className="img-container-document-l-a">
-                    <img src={pdf} className="mp-i-d-l-a-size" alt="" />
+                  <div className="img-container-document-l-a ">
+                    <Document
+                      file={`${uri}/documents/${userData?.documents[0].document}`}
+                      onLoadError={(error) =>
+                        console.error("PDF Load Error:", error)
+                      }
+                      width={248}
+                      height={238.53}
+                    >
+                      <a
+                        href={`${uri}/documents/${userData?.documents[0].document}`}
+                        target="_blank"
+                      >
+                        <Page
+                          pageNumber={1}
+                          renderTextLayer={false}
+                          renderAnnotationLayer={false}
+                          width={248}
+                          height={238.53}
+                        />
+                      </a>
+                    </Document>
+                    {/* <img
+                      src={`${uri}/documents/${userData?.documents[0].document}`}
+                      className="mp-i-d-l-a-size"
+                      alt=""
+                    /> */}
                   </div>
                 )}
                 <p className="mp-d-l-a-name">Flourish Profile</p>

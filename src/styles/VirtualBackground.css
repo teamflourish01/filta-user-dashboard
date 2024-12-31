@@ -24,7 +24,7 @@ p {
   border-bottom: 5px solid white;
   overflow-y: scroll;
   /* height: 754px; */
-  height: calc(90vh - 95px);
+  height: calc(100vh - 192px);
   scrollbar-width: thin; /* Firefox: Thin scrollbar */
   scrollbar-color: #aeaeae white;
   border-radius: 0 0 20px 20px;

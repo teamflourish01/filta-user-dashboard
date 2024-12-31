@@ -1,3 +1,4 @@
+
 import React, { useContext, useState } from "react";
 import "./Multimedia.css";
 import uploadimg from "../../images/uploadimg.png";
@@ -32,11 +33,13 @@ const MultimediaComponent = () => {
     formData.append("youtube_url", JSON.stringify([youtubeUrl]));
     try {
       const response = await axios.post(`${uri}/multimedia/add`, formData, {
+
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: AuthorizationToken,
         },
       });
+
       alert(`${response?.data?.msg}`);
       setDocFiles([]);
       setYoutubeUrl("");
@@ -49,6 +52,7 @@ const MultimediaComponent = () => {
   const handleRemoveFile = (index) => {
     setDocFiles((prev) => prev.filter((_, i) => i !== index));
   };
+
   return (
     <>
       <div className="mlt-margin">
@@ -60,6 +64,7 @@ const MultimediaComponent = () => {
           </span>
         </div>
         <p className="mlt-vdtitle">Upload Video</p>
+
         <form onSubmit={handleSubmit}>
           <div className="mlt-video">
             <div className="mlt-uplod">
@@ -96,6 +101,7 @@ const MultimediaComponent = () => {
             </div>
           </div>
         </form>
+
       </div>
     </>
   );

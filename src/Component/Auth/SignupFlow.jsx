@@ -6,6 +6,7 @@ import axios from "axios";
 const SignupFlow = () => {
   const [step, setStep] = useState(1);
   const [digitalCardData, setDigitalCardData] = useState(null);
+  console.log("digitalCardData",digitalCardData)
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleDigitalCardSubmit = (data) => {
@@ -84,8 +85,8 @@ const SignupFlow = () => {
   };
   return (
     <>
-      {step === 1 && <Digitalcard onContinue={handleDigitalCardSubmit} />}
-      {step === 2 && <Signup onSignupSuccess={handleSignupSuccess} />}
+      {step === 1 && <Digitalcard onContinue={handleDigitalCardSubmit}  />}
+      {step === 2 && <Signup onSignupSuccess={handleSignupSuccess}  digitalCardData={digitalCardData}/>}
     </>
   );
 };
