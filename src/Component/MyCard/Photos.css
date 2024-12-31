@@ -24,6 +24,9 @@
   position: relative;
   overflow: hidden;
 }
+.to-uploddiv{  
+  height: 76px;
+}
 .ph-uplod input {
   opacity: 0;
   width: 100%;
@@ -50,6 +53,10 @@
   border-radius: 2px;
   display: flex;
   gap: 10px;
+}
+.to-uplod{
+  width: 145px;
+  height: 76px;
 }
 
 /* .ph-uplodimg img {
