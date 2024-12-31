@@ -19,7 +19,7 @@ const SignupFlow = () => {
       // Step 2: API call to save the digital card data
       const response = await axios.post(
         `${uri}/card/addcard`,
-         digitalCardData, 
+        digitalCardData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,13 +71,15 @@ const SignupFlow = () => {
         alert("Card, Email and Call Saved Successfully");
       }
     } catch (error) {
-        if (error.response) {
-            console.error("Error response:", error.response.data);
-            alert(error.response.data.message || "An error occurred. Please try again.");
-          } else {
-            console.error("Error:", error);
-            alert("Failed to save digital card. Please try again.");
-          }
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+        alert(
+          error.response.data.message || "An error occurred. Please try again."
+        );
+      } else {
+        console.error("Error:", error);
+        alert("Failed to save digital card. Please try again.");
+      }
     }
   };
   return (

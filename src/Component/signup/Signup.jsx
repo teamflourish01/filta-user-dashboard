@@ -9,7 +9,7 @@ import "../signup/signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userDetails";
 
-function Signup({ onSignupSuccess }) {
+function Signup({ onSignupSuccess, digitalCardData }) {
   const [showPassword, setShowPassword] = useState(false);
   const [signupData, setSignupData] = useState({
     email: "",
@@ -41,7 +41,7 @@ function Signup({ onSignupSuccess }) {
         const token = signupResponse.data.token;
         storeTokenLS(token);
         onSignupSuccess(token);
-        alert("Login Success")
+        alert("Login Success");
         navigate("/my-card/");
       }
     } catch (error) {

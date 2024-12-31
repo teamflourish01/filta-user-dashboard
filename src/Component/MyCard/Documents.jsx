@@ -49,7 +49,8 @@ const Documents = () => {
     );
     setDocuments(updatedDocs);
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     // if (docFiles.length === 0) {
     //   alert("Please select at least one Document file.");
     //   return;
@@ -142,105 +143,47 @@ const Documents = () => {
             the readable content of a page when looking at its layout.
           </span>
         </div>
-
-        <div className="doc-padding">
-          <div
-            className="doc-uplod"
-            onClick={() => setShowFileInput(!showFileInput)}
-          >
-            <input
-              type="file"
-              onChange={(e) => handleFileChange(e, null)}
-              accept=".pdf"
-            />
-            <img src={uploadimg} alt="upload img" />
-          </div>
-        </div>
-
-        {showFileInput && (
-          <>
-            <div className="doc-border">
-              <div className="doc-docdiv">
-                <div
-                  className="doc-docimg"
-                  style={{ height: "65px", overflow: "hidden" }}
-                >
-                  {docPreview ? (
-                    <Document
-                      file={docPreview}
-                      onLoadError={(error) =>
-                        console.error("PDF Load Error:", error)
-                      }
-                    >
-                      <Page
-                        pageNumber={1}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        width={80}
-                        height={65}
-                      />
-                    </Document>
-                  ) : (
-                    <img src={docImg} alt="doc-img" />
-                  )}
-                </div>
-                <div className="doc-info">
-                  <label>Heading</label>
-                  <div className="doc-deltcenter">
-                    <input
-                      type="text"
-                      placeholder="Catalog, Brochure"
-                      value={heading}
-                      onChange={(e) => setHeading(e.target.value)}
-                    />
-                    <div className="doc-dltbtn" onClick={handleDeleteinput}>
-                      <img src={deltImg} alt="delete-btn" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <form onSubmit={handleSubmit}>
+          <div className="doc-padding">
+            <div
+              className="doc-uplod"
+              onClick={() => setShowFileInput(!showFileInput)}
+            >
+              <input
+                type="file"
+                onChange={(e) => handleFileChange(e, null)}
+                accept=".pdf"
+              />
+              <img src={uploadimg} alt="upload img" />
             </div>
-          </>
-        )}
+          </div>
 
-        <div className="doc-border">
-          {documents.length > 0 &&
-            documents.map((doc) => {
-              const docUrl = `${uri}/documents/${doc.document}`;
-              return (
-                <div
-                  key={doc._id}
-                  className="doc-docdiv"
-                  onClick={() => {
-                    setEditingDocId(doc._id);
-                    setHeading(doc.heading || "");
-                  }}
-                >
+          {showFileInput && (
+            <>
+              <div className="doc-border">
+                <div className="doc-docdiv">
                   <div
-                    className="doc-docimg doc-editdiv"
+                    className="doc-docimg"
                     style={{ height: "65px", overflow: "hidden" }}
                   >
-                    <Document
-                      file={docUrl}
-                      onLoadError={(error) =>
-                        console.error("PDF Load Error:", error)
-                      }
-                    >
-                      <Page
-                        pageNumber={1}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        width={80}
-                        height={65}
-                      />
-                    </Document>
-
-                    <input
-                      type="file"
-                      onChange={(e) => handleFileChange(e, doc._id)}
-                      accept=".pdf"
-                      className="doc-editinput"
-                    />
+                    {docPreview ? (
+                      <Document
+                        file={docPreview}
+                        onLoadError={(error) =>
+                          console.error("PDF Load Error:", error)
+                        }
+                      >
+                        <Page
+                          pageNumber={1}
+                          renderTextLayer={false}
+                          renderAnnotationLayer={false}
+                          width={80}
+                          height={65}
+                        />
+                      </Document>
+                    ) : (
+                      <img src={docImg} alt="doc-img" />
+                    )}
                   </div>
                   <div className="doc-info">
                     <label>Heading</label>
@@ -248,25 +191,84 @@ const Documents = () => {
                       <input
                         type="text"
                         placeholder="Catalog, Brochure"
-                        value={doc.heading}
-                        onChange={(e) => handleHeadingChange(e, doc._id)}
+                        value={heading}
+                        onChange={(e) => setHeading(e.target.value)}
                       />
-                      <div
-                        className="doc-dltbtn"
-                        onClick={() => handleDeleteLink(doc._id)}
-                      >
+                      <div className="doc-dltbtn" onClick={handleDeleteinput}>
                         <img src={deltImg} alt="delete-btn" />
                       </div>
                     </div>
                   </div>
                 </div>
-              );
-            })}
-        </div>
+              </div>
+            </>
+          )}
 
-        <div className="doc-btnmargin">
-          <TwoButton onSave={handleSubmit} onCancel={handleCancel} />
-        </div>
+          <div className="doc-border">
+            {documents.length > 0 &&
+              documents.map((doc) => {
+                const docUrl = `${uri}/documents/${doc.document}`;
+                return (
+                  <div
+                    key={doc._id}
+                    className="doc-docdiv"
+                    onClick={() => {
+                      setEditingDocId(doc._id);
+                      setHeading(doc.heading || "");
+                    }}
+                  >
+                    <div
+                      className="doc-docimg doc-editdiv"
+                      style={{ height: "65px", overflow: "hidden" }}
+                    >
+                      <Document
+                        file={docUrl}
+                        onLoadError={(error) =>
+                          console.error("PDF Load Error:", error)
+                        }
+                      >
+                        <Page
+                          pageNumber={1}
+                          renderTextLayer={false}
+                          renderAnnotationLayer={false}
+                          width={80}
+                          height={65}
+                        />
+                      </Document>
+
+                      <input
+                        type="file"
+                        onChange={(e) => handleFileChange(e, doc._id)}
+                        accept=".pdf"
+                        className="doc-editinput"
+                      />
+                    </div>
+                    <div className="doc-info">
+                      <label>Heading</label>
+                      <div className="doc-deltcenter">
+                        <input
+                          type="text"
+                          placeholder="Catalog, Brochure"
+                          value={doc.heading}
+                          onChange={(e) => handleHeadingChange(e, doc._id)}
+                        />
+                        <div
+                          className="doc-dltbtn"
+                          onClick={() => handleDeleteLink(doc._id)}
+                        >
+                          <img src={deltImg} alt="delete-btn" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          <div className="doc-btnmargin">
+            <TwoButton onCancel={handleCancel} />
+          </div>
+        </form>
       </div>
     </>
   );

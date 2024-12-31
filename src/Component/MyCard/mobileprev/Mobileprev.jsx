@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 // import "../../src/ViewCard/LeftAlign/LeftAlign.css";
-import "../../MyCard/mobileprev/mobileprev.css"
+import "../../MyCard/mobileprev/mobileprev.css";
 import pla from "../../../images/pla.svg";
 import flourish from "../../../images/flourishblack.svg";
 import instaicon from "../../../images/instaicon.svg";
@@ -17,12 +17,20 @@ import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 
 const Mobileprev = () => {
-  
-    const { userData } = useContext(userContext);
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -59,6 +67,29 @@ const Mobileprev = () => {
     videoElement.play();
     setIsPlaying(true);
   };
+
+  //Contact-Form EmailApi
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${uri}/email/send-email`, data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+      });
+      alert(`${response?.data?.message}`);
+      getUserData();
+      reset();
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("Failed to send email. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="my-priviewcard">
@@ -70,36 +101,40 @@ const Mobileprev = () => {
               <div className="mp-top-inner-content-left-a">
                 {/* <img src="" alt="" /> */}
                 <img
-                      src={`${uri}/card/${userData?.card?.coverimg}`}
-                      alt="cover img"
-                    />
+                  src={`${uri}/card/${userData?.card?.coverimg}`}
+                  alt="cover img"
+                />
               </div>
               <div className="hr-btw-top-bottom-l-a"></div>
               <div className="mp-bottom-inner-content-left-a">
                 <div className="mp-info-user-left-card-padding">
-                  <p className="mp-user-name-left-align-card">{userData?.card?.name}</p>
-                  <p className="mp-grey-bottom-txt">{userData?.card?.jobtitle}</p>
-                  <p className="mp-grey-bottom-txt">
-                  {userData?.card?.company}
+                  <p className="mp-user-name-left-align-card">
+                    {userData?.card?.name}
                   </p>
-                  <p className="mp-grey-bottom-txt">{userData?.card?.location}</p>
+                  <p className="mp-grey-bottom-txt">
+                    {userData?.card?.jobtitle}
+                  </p>
+                  <p className="mp-grey-bottom-txt">
+                    {userData?.card?.company}
+                  </p>
+                  <p className="mp-grey-bottom-txt">
+                    {userData?.card?.location}
+                  </p>
                 </div>
               </div>
               <div className="profile-pic-container-left-align">
                 <div className="mp-profile-pic-c-l-a">
-                  
                   <img
-                      src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="Profile-img"
-                    />
+                    src={`${uri}/card/${userData?.card?.profileimg}`}
+                    alt="Profile-img"
+                  />
                 </div>
                 <div className="mp-logo-profile-c-l-a">
-                  
                   <img
-                      className="mp-l-size-flourish"
-                      src={`${uri}/card/${userData?.card?.logoimg}`}
-                      alt="logo img"
-                    />
+                    className="mp-l-size-flourish"
+                    src={`${uri}/card/${userData?.card?.logoimg}`}
+                    alt="logo img"
+                  />
                 </div>
               </div>
             </div>
@@ -225,40 +260,61 @@ const Mobileprev = () => {
             {/* fourth section contact form start */}
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-contact-form-left-align">
-                <div className="mp-sections-title">Contact Form</div>
-                <div className="mp-input-container-c-f">
-                  <div className="input-field-contact-form-leftalign">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      className="mp-input-field-single"
-                    />
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="mp-sections-title">Contact Form</div>
+                  <div className="mp-input-container-c-f">
+                    <div className="input-field-contact-form-leftalign">
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        className="mp-input-field-single"
+                        {...register("name", { required: "Name is required" })}
+                      />
+                    </div>
+                    <div className="input-field-contact-form-leftalign">
+                      <input
+                        type="text"
+                        placeholder="Email"
+                        className="mp-input-field-single"
+                        {...register("email", {
+                          required: "Email is required",
+                        })}
+                      />
+                    </div>
+                    <div className="input-field-contact-form-leftalign">
+                      <input
+                        type="text"
+                        placeholder="Mobile Number"
+                        className="mp-input-field-single"
+                        {...register("number", {
+                          required: "Mobile number is required",
+                          pattern: {
+                            value: /^[0-9]{10}$/,
+                            message: "Enter a valid 10-digit mobile number",
+                          },
+                        })}
+                      />
+                      {errors.number && (
+                        <p className="error">{errors.number.message}</p>
+                      )}
+                    </div>
+                    <div className="input-field-contact-form-leftalign">
+                      <textarea
+                        type="text"
+                        placeholder="Message"
+                        className="mp-input-field-single mp-textarea-class"
+                        {...register("message", {
+                          required: "Message is required",
+                        })}
+                      />
+                    </div>
                   </div>
-                  <div className="input-field-contact-form-leftalign">
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      className="mp-input-field-single"
-                    />
-                  </div>
-                  <div className="input-field-contact-form-leftalign">
-                    <input
-                      type="text"
-                      placeholder="Mobile Number"
-                      className="mp-input-field-single"
-                    />
-                  </div>
-                  <div className="input-field-contact-form-leftalign">
-                    <textarea
-                      type="text"
-                      placeholder="Message"
-                      className="mp-input-field-single mp-textarea-class"
-                    />
-                  </div>
-                </div>
-                <button type="submit" className="btn-white-submit-leftalign">
-                  <span className="mp-btn-text-leftalign">Submit</span>
-                </button>
+                  <button type="submit" className="btn-white-submit-leftalign">
+                    <span className="mp-btn-text-leftalign">
+                      {loading ? "Loading..." : "Submit"}
+                    </span>
+                  </button>
+                </form>
               </div>
             </div>
 
@@ -283,7 +339,7 @@ const Mobileprev = () => {
                 <div className="mp-sections-title">About</div>
                 <div className="mp-ui-ux-text">{userData?.about?.title}</div>
                 <div className="mp-about-description">
-                {userData?.about?.description}
+                  {userData?.about?.description}
                 </div>
               </div>
             </div>
