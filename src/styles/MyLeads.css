@@ -382,6 +382,7 @@
 
 .lead-table {
   border: 10px solid #eff1f3;
+  /* padding: 10px; */
   height: 372px;
   margin: 8px 25px;
   border-radius: 5px;

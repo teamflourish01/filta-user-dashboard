@@ -21,14 +21,14 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
     message: false,
   });
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setSelectedFields((prevFields) => ({
-      ...prevFields,
-      [name]: checked,
-    }));
-    onSelectedFieldsChange({ ...selectedFields, [name]: checked });
-  };
+  // const handleCheckboxChange = (e) => {
+  //   const { name, checked } = e.target;
+  //   setSelectedFields((prevFields) => ({
+  //     ...prevFields,
+  //     [name]: checked,
+  //   }));
+  //   onSelectedFieldsChange({ ...selectedFields, [name]: checked });
+  // };
 
 
   const [checkboxStates, setCheckboxStates] = useState({
