@@ -30,7 +30,6 @@ import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const Mobileprev = () => {
-
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
 
   const uri = process.env.REACT_APP_DEV_URL;
@@ -301,7 +300,7 @@ const Mobileprev = () => {
                         type="text"
                         placeholder="Name"
                         className="mp-input-field-single"
-                        {...register("name", { required: "Name is required" })}
+                        {...register("name")}
                       />
                     </div>
                     <div className="input-field-contact-form-leftalign">
@@ -319,13 +318,7 @@ const Mobileprev = () => {
                         type="text"
                         placeholder="Mobile Number"
                         className="mp-input-field-single"
-                        {...register("number", {
-                          required: "Mobile number is required",
-                          pattern: {
-                            value: /^[0-9]{10}$/,
-                            message: "Enter a valid 10-digit mobile number",
-                          },
-                        })}
+                        {...register("number")}
                       />
                       {errors.number && (
                         <p className="error">{errors.number.message}</p>
@@ -336,9 +329,7 @@ const Mobileprev = () => {
                         type="text"
                         placeholder="Message"
                         className="mp-input-field-single mp-textarea-class"
-                        {...register("message", {
-                          required: "Message is required",
-                        })}
+                        {...register("message")}
                       />
                     </div>
                   </div>
@@ -395,7 +386,6 @@ const Mobileprev = () => {
                         width={248}
                         height={238.53}
                       >
-                        
                         <a
                           href={`${uri}/documents/${pdf.document}`}
                           target="_blank"
