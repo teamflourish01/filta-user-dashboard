@@ -21,7 +21,8 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
 import userContext from "../context/userDetails";
 import { useNavigate } from "react-router-dom";
-import Mobileprev from './../Component/MyCard/mobileprev/Mobileprev';
+import Mobileprev from "./../Component/MyCard/mobileprev/Mobileprev";
+import QrcodeGen from "../Component/MyCard/QrcodeGen";
 // import Mobileprev from "../../src/Component/MyCard/mobileprev/Mobileprev"
 
 const MyCard = () => {
@@ -76,7 +77,7 @@ const MyCard = () => {
       }, 1000);
     }
   };
-  
+
   //Preview button Animation Function End
   // Tab content components
   const renderTabContent = () => {
@@ -156,7 +157,7 @@ const MyCard = () => {
                     position: isFullScreen ? "fixed" : "fixed ",
                     borderRadius: isFullScreen && !isClosing ? "0" : "35px",
                     zIndex: isFullScreen && !isClosing ? "5" : "0",
-                  }}  
+                  }}
                 >
                   {isFullScreen && !isClosing ? (
                     <div className="center-preview-in-btn">
@@ -284,7 +285,7 @@ const MyCard = () => {
           ) : (
             <div className="my-priviewMain">
               <p>Card live preview</p>
-              <Mobileprev/>
+              <Mobileprev />
               <div className="my-prwbtn">
                 <span>Share your card</span>
                 <img src={sharebtn} alt="sharebtn" />
