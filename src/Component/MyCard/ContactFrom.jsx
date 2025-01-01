@@ -5,12 +5,40 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import userContext from "../../context/userDetails";
 
-const ContactForm = () => {
+const ContactForm = ({ onSelectedFieldsChange }) => {
   const { AuthorizationToken } = useContext(userContext);
   const [formData, setFormData] = useState({
     loginemail: "",
     loginmessage: "",
   });
+
+
+  const [selectedFields, setSelectedFields] = useState({
+    name: false,
+    email: true,
+    number: false,
+    // address: false,
+    message: false,
+  });
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setSelectedFields((prevFields) => ({
+      ...prevFields,
+      [name]: checked,
+    }));
+    onSelectedFieldsChange({ ...selectedFields, [name]: checked });
+  };
+
+
+  const [checkboxStates, setCheckboxStates] = useState({
+    name: true,
+    email: true,
+    number: true,
+    message: true,
+  });
+
+
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleInputChange = (e) => {
@@ -19,6 +47,29 @@ const ContactForm = () => {
       ...prevData,
       [name]: value,
     }));
+  };
+  const handleCheckboxChange = async (field) => {
+    const updatedState = !checkboxStates[field];
+    setCheckboxStates((prevState) => ({
+      ...prevState,
+      [field]: updatedState,
+    }));
+
+    try {
+      const response = await axios.post(
+        `${uri}/email/add`,
+        { [field]: updatedState },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthorizationToken,
+          },
+        }
+      );
+      alert(`${response?.data?.message}`);
+    } catch (error) {
+      console.error("Error toggling checkbox state:", error);
+    }
   };
 
   const handleSave = async (e) => {
@@ -39,6 +90,7 @@ const ContactForm = () => {
       console.error("Error saving About Data:", error);
     }
   };
+
   useEffect(() => {
     const getEmailMessage = async () => {
       try {
@@ -54,6 +106,12 @@ const ContactForm = () => {
           setFormData({
             loginemail: data.data[0]?.loginemail || "",
             loginmessage: data.data[0]?.loginmessage || "",
+          });
+          setCheckboxStates({
+            name: data.data[0]?.name ?? true,
+            email: data.data[0]?.email ?? true,
+            number: data.data[0]?.number ?? true,
+            message: data.data[0]?.message ?? true,
           });
         } else {
           console.error("Error fetching user data");
@@ -74,41 +132,59 @@ const ContactForm = () => {
             the readable content of a page when looking at its layout.
           </span>
         </div>
-        <div className="cont-reqfiled">
-          <p>Required Field </p>
-          <div className="cont-chkbox">
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Name</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Email</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Number</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Address</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Message</label>
+
+        <form onSubmit={handleSave}>
+          <div className="cont-reqfiled">
+            <p>Required Field </p>
+            <div className="cont-chkbox">
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.name}
+                  onChange={() => handleCheckboxChange("name")}
+                />
+                <label>Name</label>
+              </div>
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.email}
+                  onChange={() => handleCheckboxChange("email")}
+                />
+                <label>Email</label>
+              </div>
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.number}
+                  onChange={() => handleCheckboxChange("number")}
+                />
+                <label>Number</label>
+              </div>
+              {/* <div className="cont-chk">
+                <input type="checkbox" />
+                <label>Address</label>
+              </div> */}
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.message}
+                  onChange={() => handleCheckboxChange("message")}
+                />
+                <label>Message</label>
+              </div>
             </div>
           </div>
-        </div>
-        <hr />
-        <div className="mlt-info">
-          <span className="mlt-title">Responce : </span>
-          <span className="mlt-desc">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout.
-          </span>
-        </div>
-        <div className="cont-formdiv">
-          <form onSubmit={handleSave}>
+          <hr />
+          <div className="mlt-info">
+            <span className="mlt-title">Responce : </span>
+            <span className="mlt-desc">
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
+            </span>
+          </div>
+          <div className="cont-formdiv">
+
             <div className="cont-forminput">
               <label>Email</label>
               <input
@@ -130,8 +206,8 @@ const ContactForm = () => {
             <div className="cont-btnmargin">
               <TwoButton />
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </>
   );

@@ -42,7 +42,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-const Mobileprev = () => {
+
+const Mobileprev = ({ selectedFields, borderStyle }) => {
 
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
 
@@ -236,7 +237,9 @@ const Mobileprev = () => {
                 </div>
               </div>
               <div className="profile-pic-container-left-align">
-                <div className="mp-profile-pic-c-l-a">
+                {/* <div className="mp-profile-pic-c-l-a"> */}
+
+                <div className={`mp-profile-pic-c-l-a ${borderStyle ? "circle" : "square"}`}>
                   <img
                     src={`${uri}/card/${userData?.card?.profileimg}`}
                     alt="Profile-img"
@@ -377,14 +380,19 @@ const Mobileprev = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mp-sections-title">Contact Form</div>
                   <div className="mp-input-container-c-f">
-                    <div className="input-field-contact-form-leftalign">
-                      <input
+
+                    {selectedFields.name && (
+                      <div className="input-field-contact-form-leftalign">
+                         <input
                         type="text"
                         placeholder="Name"
                         className="mp-input-field-single"
-                        {...register("name", { required: "Name is required" })}
+                        {...register("name")}
                       />
-                    </div>
+                      </div>
+                    )}
+                    {/* {selectedFields.email && ( */}
+
                     <div className="input-field-contact-form-leftalign">
                       <input
                         type="text"
@@ -395,33 +403,31 @@ const Mobileprev = () => {
                         })}
                       />
                     </div>
-                    <div className="input-field-contact-form-leftalign">
-                      <input
+
+                    {/* // )} */}
+                    {selectedFields.number && (
+                      <div className="input-field-contact-form-leftalign">
+                       <input
                         type="text"
                         placeholder="Mobile Number"
                         className="mp-input-field-single"
-                        {...register("number", {
-                          required: "Mobile number is required",
-                          pattern: {
-                            value: /^[0-9]{10}$/,
-                            message: "Enter a valid 10-digit mobile number",
-                          },
-                        })}
+                        {...register("number")}
                       />
-                      {errors.number && (
-                        <p className="error">{errors.number.message}</p>
-                      )}
-                    </div>
-                    <div className="input-field-contact-form-leftalign">
-                      <textarea
+
+                      </div>
+                    )}
+                    {selectedFields.message && (
+                      <div className="input-field-contact-form-leftalign">
+                        <textarea
                         type="text"
                         placeholder="Message"
                         className="mp-input-field-single mp-textarea-class"
-                        {...register("message", {
-                          required: "Message is required",
-                        })}
+                        {...register("message")}
                       />
-                    </div>
+                      </div>
+                    )}
+
+
                   </div>
                   <button type="submit" className="btn-white-submit-leftalign">
                     <span className="mp-btn-text-leftalign">
@@ -474,9 +480,8 @@ const Mobileprev = () => {
                           console.error("PDF Load Error:", error)
                         }
                         width={248}
-                        height={238.53}
+                        // height={238.53}
                       >
-                        
                         <a
                           href={`${uri}/documents/${pdf.document}`}
                           target="_blank"
@@ -486,7 +491,7 @@ const Mobileprev = () => {
                             renderTextLayer={false}
                             renderAnnotationLayer={false}
                             width={248}
-                            height={238.53}
+                            // height={238.53}
                           />
                         </a>
                       </Document>
@@ -500,7 +505,7 @@ const Mobileprev = () => {
                         console.error("PDF Load Error:", error)
                       }
                       width={248}
-                      height={238.53}
+                      // height={238.53}
                     >
                       <a
                         href={`${uri}/documents/${userData?.documents[0]?.document}`}
@@ -511,7 +516,7 @@ const Mobileprev = () => {
                           renderTextLayer={false}
                           renderAnnotationLayer={false}
                           width={248}
-                          height={238.53}
+                          // height={238.53}
                         />
                       </a>
                     </Document>
@@ -609,18 +614,22 @@ const Mobileprev = () => {
               <div className="mp-photos-section-l-a">
                 <div className="mp-sections-title">Photos</div>
 
-                {photosImages.length > 1 ? (
+                {userData?.photos[0].image.length > 1 ? (
                   <Slider {...sliderSettingsDot}>
-                    {photosImages.map((img, index) => (
+                    {userData?.photos[0].image.map((img, index) => (
                       <div className="img-offer-content" key={index}>
-                        <img src={img} alt="" className="mp-img-r-curve-l-a" />
+                        <img
+                          src={`${uri}/photo/${img}`}
+                          alt=""
+                          className="mp-img-r-curve-l-a"
+                        />
                       </div>
                     ))}
                   </Slider>
                 ) : (
                   <div className="img-offer-content">
                     <img
-                      src={photosImages[0]}
+                      src={`${uri}/photo/${userData?.photos[0].image[0]}`}
                       alt=""
                       className="mp-img-r-curve-l-a"
                     />
