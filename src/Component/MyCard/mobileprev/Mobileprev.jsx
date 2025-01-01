@@ -2,23 +2,49 @@ import React, { useContext, useRef, useState } from "react";
 // import "../../src/ViewCard/LeftAlign/LeftAlign.css";
 import "../../MyCard/mobileprev/mobileprev.css";
 
+
 import pla from "../../../images/pla.svg";
 import flourish from "../../../images/flourishblack.svg";
 
 import instaicon from "../../../images/instaicon.svg";
 import fbicon from "../../../images/fbicon.svg";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import video1 from "../../../images/video.mp4";
 import videoTwo from "../../../images/video2.mp4";
 import { CiPlay1 } from "react-icons/ci";
-// import sound from "../../../images/sound.mp3";
 import imgofpdf from "../../../images/fcplss.svg";
 import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
+
+import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
+import CustomPrevArrow from "./../../../ViewCard/CustomNextArrow/CustomPrevArrow";
+import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
+import minstagram from "../../../images/minstagram.svg";
+import mfacebook from "../../../images/mfacebook.svg";
+import mlinkidin from "../../../images/mlinkidin.svg";
+import mxtwitter from "../../../images/mxtwitter.svg";
+import msnapchat from "../../../images/msnapchat.svg";
+import mThreads from "../../../images/mThreads.svg";
+import mpinterest from "../../../images/mpinterest.svg";
+import mtelegram from "../../../images/mtelegram.svg";
+import myoutube from "../../../images/myoutube.svg";
+import mtext from "../../../images/mtext.svg";
+import mcall from "../../../images/mcall.svg";
+import memail from "../../../images/memail.svg";
+import mcontact from "../../../images/mcontact.svg";
+import mwhatsapp from "../../../images/mwhatsapp.svg";
+import mlocation from "../../../images/mlocation.svg";
+// import mgoogleplay from "../../../images/mgoogleplay.svg"
+import mphonepay from "../../../images/mphonepay.svg";
+import mpaytm from "../../../images/mpaytm.svg";
+import mreview from "../../../images/mreview.svg";
+import mgoogledrive from "../../../images/mgoogledrive.svg";
+
 import { useForm } from "react-hook-form";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
@@ -29,8 +55,11 @@ import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
+
 const Mobileprev = ({ selectedFields, borderStyle }) => {
+
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -96,6 +125,72 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
     setIsPlaying(true);
   };
 
+  // Map platform names to local icon paths
+  const iconMap = {
+    Email: memail,
+    Call: mcall,
+    Instagram: minstagram,
+    Facebook: mfacebook,
+    LinkedIn: mlinkidin,
+    "X (Twitter)": mxtwitter,
+    Snapchat: msnapchat,
+    Threads: mThreads,
+    Pinterest: mpinterest,
+    Telegram: mtelegram,
+    Youtube: myoutube,
+    Text: mtext,
+    Contact: mcontact,
+    WhatsApp: mwhatsapp,
+    Address: mlocation,
+    // "Google Pay": mgooglepay,
+    "Phone Pay": mphonepay,
+    Paytm: mpaytm,
+    Review: mreview,
+    "Google Drive": mgoogledrive,
+  };
+  // Function to generate dynamic href links for various platforms
+  const generateHref = (platform, url) => {
+    switch (platform) {
+      case "Email":
+        return `mailto:${url}`;
+      case "Call":
+        return `tel:${url}`;
+      case "WhatsApp":
+        return `https://wa.me/${url}`; // WhatsApp phone link
+      case "Telegram":
+        return `https://t.me/${url}`; // Telegram username
+      case "Address":
+        return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+          url
+        )}`; // Google Maps for addresses
+      // case "Google Pay":
+      //   return `https://pay.google.com/gp/w/u/0/home/activity?p=${encodeURIComponent(url)}`;
+      // // Google Pay URL link
+      case "Phone Pay":
+        return `https://www.phonepe.com/${url}`; // Assuming PhonePe has URL handling
+      case "Paytm":
+        return `https://paytm.com/${url}`; // Assuming Paytm has URL handling
+      case "Review":
+        return `https://www.google.com/search?q=${encodeURIComponent(
+          url
+        )}+reviews`; // Google Search for reviews
+      case "Google Drive":
+        return `https://drive.google.com/drive/u/0/folders/${url}`; // Google Drive folder link
+      case "Instagram":
+      case "Facebook":
+      case "LinkedIn":
+      case "X (Twitter)":
+      case "Snapchat":
+      case "Threads":
+      case "Pinterest":
+      case "Youtube":
+        return url; // Direct URLs for standard platforms
+      default:
+        return url; // Fallback for unknown platforms
+    }
+  };
+
+
   //Contact-Form EmailApi
 
   const onSubmit = async (data) => {
@@ -117,6 +212,7 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
       setLoading(false);
     }
   };
+
 
   return (
     <>
@@ -140,10 +236,12 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                   <p className="mp-user-name-left-align-card">
                     {userData?.card?.name}
                   </p>
+
                   <p className="mp-grey-bottom-txt">
                     {userData?.card?.jobtitle}
                   </p>
-                  <p className="mp-grey-bottom-txt">
+                  <p className="mp-grey-bottom-txt">=======
+
                     {userData?.card?.company}
                   </p>
                   <p className="mp-grey-bottom-txt">
@@ -175,43 +273,79 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
               <div className="mp-clickable-link-section">
                 <div className="mp-sections-title">Clickable Links</div>
                 <div className="mp-social-icon-c-c-l">
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
+                  {userData?.socialLinks?.map((link) => (
+                    <div className="icon-container-box" key={link._id}>
+                      <div className="mp-a-tag">
+                        {/* Dynamic icon rendering */}
+                        <a
+                        className=" mp-padding-icon-container-box"
+                          href={generateHref(link.platform, link.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                        <div className="mp-under-icon-img">
+                        
+                          <img
+                            src={
+                              iconMap[link.platform] ||
+                              "https://via.placeholder.com/50"
+                            } // Placeholder for unknown platforms
+                            alt={link.platform}
+                          />
+                        
+                        </div>
+                        </a>
+                        {/* Clickable platform name */}
+                        <a
+                          href={generateHref(link.platform, link.url)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mp-icon-name-c-l"
+                        >
+                          {link.text}
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
+                {/* <div className="mp-social-icon-c-c-l">
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={instaicon} alt="" />
+                      <p className="mp-icon-name-c-l">Instagram</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={fbicon} alt="" />
+                      <p className="mp-icon-name-c-l">Facebook</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={instaicon} alt="" />
+                      <p className="mp-icon-name-c-l">Instagram</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={fbicon} alt="" />
+                      <p className="mp-icon-name-c-l">Facebook</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={instaicon} alt="" />
+                      <p className="mp-icon-name-c-l">Instagram</p>
+                    </div>
+                  </div>
+                  <div className="icon-container-box">
+                    <div className="mp-padding-icon-container-box">
+                      <img src={fbicon} alt="" />
+                      <p className="mp-icon-name-c-l">Facebook</p>
+                    </div>
+                  </div>
+                </div> */}
               </div>
             </div>
 
@@ -297,19 +431,19 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="mp-sections-title">Contact Form</div>
                   <div className="mp-input-container-c-f">
+
                     {selectedFields.name && (
                       <div className="input-field-contact-form-leftalign">
-                        <input
-                          type="text"
-                          placeholder="Name"
-                          className="mp-input-field-single"
-                          {...register("name", {
-                            required: "Name is required",
-                          })}
-                        />
+                         <input
+                        type="text"
+                        placeholder="Name"
+                        className="mp-input-field-single"
+                        {...register("name")}
+                      />
                       </div>
                     )}
                     {/* {selectedFields.email && ( */}
+
                     <div className="input-field-contact-form-leftalign">
                       <input
                         type="text"
@@ -320,38 +454,31 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                         })}
                       />
                     </div>
+
                     {/* // )} */}
                     {selectedFields.number && (
                       <div className="input-field-contact-form-leftalign">
-                        <input
-                          type="text"
-                          placeholder="Mobile Number"
-                          className="mp-input-field-single"
-                          {...register("number", {
-                            required: "Mobile number is required",
-                            pattern: {
-                              value: /^[0-9]{10}$/,
-                              message: "Enter a valid 10-digit mobile number",
-                            },
-                          })}
-                        />
-                        {errors.number && (
-                          <p className="error">{errors.number.message}</p>
-                        )}
+                       <input
+                        type="text"
+                        placeholder="Mobile Number"
+                        className="mp-input-field-single"
+                        {...register("number")}
+                      />
+
                       </div>
                     )}
                     {selectedFields.message && (
                       <div className="input-field-contact-form-leftalign">
                         <textarea
-                          type="text"
-                          placeholder="Message"
-                          className="mp-input-field-single mp-textarea-class"
-                          {...register("message", {
-                            required: "Message is required",
-                          })}
-                        />
+                        type="text"
+                        placeholder="Message"
+                        className="mp-input-field-single mp-textarea-class"
+                        {...register("message")}
+                      />
                       </div>
                     )}
+
+
                   </div>
                   <button type="submit" className="btn-white-submit-leftalign">
                     <span className="mp-btn-text-leftalign">

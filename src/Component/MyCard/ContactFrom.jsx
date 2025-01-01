@@ -12,6 +12,7 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
     loginmessage: "",
   });
 
+
   const [selectedFields, setSelectedFields] = useState({
     name: false,
     email: true,
@@ -29,6 +30,15 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
     onSelectedFieldsChange({ ...selectedFields, [name]: checked });
   };
 
+
+  const [checkboxStates, setCheckboxStates] = useState({
+    name: true,
+    email: true,
+    number: true,
+    message: true,
+  });
+
+
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleInputChange = (e) => {
@@ -37,6 +47,29 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
       ...prevData,
       [name]: value,
     }));
+  };
+  const handleCheckboxChange = async (field) => {
+    const updatedState = !checkboxStates[field];
+    setCheckboxStates((prevState) => ({
+      ...prevState,
+      [field]: updatedState,
+    }));
+
+    try {
+      const response = await axios.post(
+        `${uri}/email/add`,
+        { [field]: updatedState },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthorizationToken,
+          },
+        }
+      );
+      alert(`${response?.data?.message}`);
+    } catch (error) {
+      console.error("Error toggling checkbox state:", error);
+    }
   };
 
   const handleSave = async (e) => {
@@ -74,6 +107,12 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
             loginemail: data.data[0]?.loginemail || "",
             loginmessage: data.data[0]?.loginmessage || "",
           });
+          setCheckboxStates({
+            name: data.data[0]?.name ?? true,
+            email: data.data[0]?.email ?? true,
+            number: data.data[0]?.number ?? true,
+            message: data.data[0]?.message ?? true,
+          });
         } else {
           console.error("Error fetching user data");
         }
@@ -93,61 +132,59 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
             the readable content of a page when looking at its layout.
           </span>
         </div>
-        <div className="cont-reqfiled">
-          <p>Required Field</p>
-          <div className="cont-chkbox">
-            {["name", "email", "number", "message"].map((field) => (
-              <div className="cont-chk" key={field}>
+
+        <form onSubmit={handleSave}>
+          <div className="cont-reqfiled">
+            <p>Required Field </p>
+            <div className="cont-chkbox">
+              <div className="cont-chk">
                 <input
                   type="checkbox"
-                  name={field}
-                  checked={field === "email" ? true : selectedFields[field]}
-                  onChange={
-                    field === "email" ? undefined : handleCheckboxChange
-                  }
-                  disabled={field === "email"} 
-                 
+                  checked={checkboxStates.name}
+                  onChange={() => handleCheckboxChange("name")}
                 />
-                <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+                <label>Name</label>
               </div>
-            ))}
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.email}
+                  onChange={() => handleCheckboxChange("email")}
+                />
+                <label>Email</label>
+              </div>
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.number}
+                  onChange={() => handleCheckboxChange("number")}
+                />
+                <label>Number</label>
+              </div>
+              {/* <div className="cont-chk">
+                <input type="checkbox" />
+                <label>Address</label>
+              </div> */}
+              <div className="cont-chk">
+                <input
+                  type="checkbox"
+                  checked={checkboxStates.message}
+                  onChange={() => handleCheckboxChange("message")}
+                />
+                <label>Message</label>
+              </div>
+            </div>
           </div>
-        </div>
-        {/* <div className="cont-reqfiled">
-          <p>Required Field </p>
-          <div className="cont-chkbox">
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Name</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Email</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Number</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Address</label>
-            </div>
-            <div className="cont-chk">
-              <input type="checkbox" />
-              <label>Message</label>
-            </div>
+          <hr />
+          <div className="mlt-info">
+            <span className="mlt-title">Responce : </span>
+            <span className="mlt-desc">
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
+            </span>
           </div>
-        </div> */}
-        <hr />
-        <div className="mlt-info">
-          <span className="mlt-title">Responce : </span>
-          <span className="mlt-desc">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout.
-          </span>
-        </div>
-        <div className="cont-formdiv">
-          <form onSubmit={handleSave}>
+          <div className="cont-formdiv">
+
             <div className="cont-forminput">
               <label>Email</label>
               <input
@@ -169,8 +206,8 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
             <div className="cont-btnmargin">
               <TwoButton />
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </>
   );
