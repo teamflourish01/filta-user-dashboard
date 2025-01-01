@@ -60,21 +60,21 @@ const TeamMember = () => {
   };
 
   const handleDelete=(i)=>{
-    let arr=data.splice(i, 1);
+    let arr=data?.splice(i, 1);
     setData(arr)
   }
 
   const objToArrayConvert = (data) => {
-    return data?.name?.map((_, index) => ({
+    return data?.name.map((_, index) => ({
       name: data?.name[index],
       job_title: data?.job_title[index],
       number: data?.number[index],
     }));
   };
+  
   useEffect(() => {
     getUserData();
     console.log(objToArrayConvert(userData?.teamMember), "fgfgf");
-
     setData(objToArrayConvert(userData?.teamMember));
   }, []);
 
@@ -90,7 +90,7 @@ const TeamMember = () => {
       <div className="cont-formdiv">
         <form onSubmit={handleSubmit}>
           {data?.length > 0 ? (
-            data.map((ele, i) => {
+            data?.map((ele, i) => {
               return (
                 <div div key={i}>
                      <hr />
@@ -109,7 +109,7 @@ const TeamMember = () => {
                     <label>Name</label>
                     <input
                       type="text"
-                      value={ele.name}
+                      value={ele?.name}
                       name="name"
                       onChange={(e) => handleChange(e, i)}
                     />
@@ -118,7 +118,7 @@ const TeamMember = () => {
                     <label>Job Title</label>
                     <input
                       type="text"
-                      value={ele.job_title}
+                      value={ele?.job_title}
                       name="job_title"
                       onChange={(e) => handleChange(e, i)}
                     />
@@ -127,7 +127,7 @@ const TeamMember = () => {
                     <label>Number</label>
                     <input
                       type="text"
-                      value={ele.number}
+                      value={ele?.number}
                       name="number"
                       onChange={(e) => handleChange(e, i)}
                     />
@@ -141,7 +141,7 @@ const TeamMember = () => {
                 <label>Name</label>
                 <input
                   type="text"
-                  value={team.name}
+                  value={team?.name}
                   name="name"
                   onChange={(e) => handleChange(e)}
                 />
@@ -150,7 +150,7 @@ const TeamMember = () => {
                 <label>Job Title</label>
                 <input
                   type="text"
-                  value={team.job_title}
+                  value={team?.job_title}
                   name="job_title"
                   onChange={(e) => handleChange(e)}
                 />
@@ -159,7 +159,7 @@ const TeamMember = () => {
                 <label>Number</label>
                 <input
                   type="text"
-                  value={team.number}
+                  value={team?.number}
                   name="number"
                   onChange={(e) => handleChange(e)}
                 />
