@@ -1,14 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-// import "../../src/ViewCard/LeftAlign/LeftAlign.css";
 import "../../MyCard/mobileprev/mobileprev.css";
-
-
-import pla from "../../../images/pla.svg";
-import flourish from "../../../images/flourishblack.svg";
-
-import instaicon from "../../../images/instaicon.svg";
-import fbicon from "../../../images/fbicon.svg";
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -20,7 +11,6 @@ import offer from "../../../images/offer.svg";
 import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
-
 import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
 import CustomPrevArrow from "./../../../ViewCard/CustomNextArrow/CustomPrevArrow";
 import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
@@ -47,9 +37,10 @@ import mgoogledrive from "../../../images/mgoogledrive.svg";
 
 import { useForm } from "react-hook-form";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
-// import VoiceMessage from "./../../../ViewCard/VoiceMessage/VoiceMessage";
+
+
+
+
 import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -307,44 +298,6 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                     </div>
                   ))}
                 </div>
-                {/* <div className="mp-social-icon-c-c-l">
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={instaicon} alt="" />
-                      <p className="mp-icon-name-c-l">Instagram</p>
-                    </div>
-                  </div>
-                  <div className="icon-container-box">
-                    <div className="mp-padding-icon-container-box">
-                      <img src={fbicon} alt="" />
-                      <p className="mp-icon-name-c-l">Facebook</p>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
 
