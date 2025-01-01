@@ -10,11 +10,13 @@ const BasicDetails = ({
   onProfileImageChange,
   onCoverPhotoChange,
   onLogoChange,
+  borderStyle,
+  setBorderStyle
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  const [borderStyle, setBorderStyle] = useState(
-    userData?.card?.style ? "circle" : "square"
-  );
+  // const [borderStyle, setBorderStyle] = useState(
+  //   userData?.card?.style ? "circle" : "square"
+  // );
   const uri = process.env.REACT_APP_DEV_URL;
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
@@ -126,7 +128,7 @@ const BasicDetails = ({
             <div className="upload-box">
               <p className="my-topheading">Profile Picture</p>
               <div 
-              className={`upload-area ${borderStyle}`}
+              className={`upload-area ${borderStyle ? "circle" : "square"}`}
               >
                 <input
                   type="file"
@@ -159,9 +161,9 @@ const BasicDetails = ({
                   <input
                     type="radio"
                     name="profileStyle"
-                    value="circle"
-                    checked={borderStyle === "circle"}
-                    onChange={() => setBorderStyle("circle")}
+                    value={true}
+                    checked={borderStyle} // Match with "circle"
+                    onChange={(e) => setBorderStyle(e.target.value)}
                   />
                 </label>
                 <label>
@@ -169,9 +171,9 @@ const BasicDetails = ({
                   <input
                     type="radio"
                     name="profileStyle"
-                    value="square"
-                    checked={borderStyle === "square"}
-                    onChange={() => setBorderStyle("square")}
+                    value={false}
+                    checked={!borderStyle} // Match with "square"
+                    onChange={(e) => setBorderStyle(e.target.value)}
                   />
                 </label>
               </div>

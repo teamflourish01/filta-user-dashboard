@@ -5,18 +5,39 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import userContext from "../../context/userDetails";
 
-const ContactForm = () => {
+const ContactForm = ({ onSelectedFieldsChange }) => {
   const { AuthorizationToken } = useContext(userContext);
   const [formData, setFormData] = useState({
     loginemail: "",
     loginmessage: "",
   });
+
+
+  const [selectedFields, setSelectedFields] = useState({
+    name: false,
+    email: true,
+    number: false,
+    // address: false,
+    message: false,
+  });
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setSelectedFields((prevFields) => ({
+      ...prevFields,
+      [name]: checked,
+    }));
+    onSelectedFieldsChange({ ...selectedFields, [name]: checked });
+  };
+
+
   const [checkboxStates, setCheckboxStates] = useState({
     name: true,
     email: true,
     number: true,
     message: true,
   });
+
 
   const uri = process.env.REACT_APP_DEV_URL;
 
@@ -69,6 +90,7 @@ const ContactForm = () => {
       console.error("Error saving About Data:", error);
     }
   };
+
   useEffect(() => {
     const getEmailMessage = async () => {
       try {
@@ -110,6 +132,7 @@ const ContactForm = () => {
             the readable content of a page when looking at its layout.
           </span>
         </div>
+
         <form onSubmit={handleSave}>
           <div className="cont-reqfiled">
             <p>Required Field </p>
@@ -161,6 +184,7 @@ const ContactForm = () => {
             </span>
           </div>
           <div className="cont-formdiv">
+
             <div className="cont-forminput">
               <label>Email</label>
               <input
