@@ -24,8 +24,13 @@
   position: relative;
   overflow: hidden;
 }
+
+.ph-up-fixed {
+  /* position: fixed; */
+}
 .to-uploddiv{  
   height: 76px;
+
 }
 .ph-uplod input {
   opacity: 0;
@@ -39,7 +44,7 @@
   display: flex;
   gap: 15px;
   padding: 0px 15px 26px 15px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   scrollbar-width: none;
 }
 .ph-uplod img {
@@ -54,10 +59,29 @@
   display: flex;
   gap: 10px;
 }
+
+.ph-uploadimg-scroll {
+  display: flex;
+  gap: 15px;
+  overflow-y: scroll;
+  width: 560px;
+  scrollbar-width: none;
+}
+.img-photos-ph {
+  width: 116px;
+  height: 80px;
+  object-fit: contain;
+}
+.ph-uploadimg-flex {
+  display: flex;
+  gap: 5px;
+}
+
 .to-uplod{
   width: 145px;
   height: 76px;
 }
+
 
 /* .ph-uplodimg img {
   width: 100%;

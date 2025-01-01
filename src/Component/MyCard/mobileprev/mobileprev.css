@@ -106,7 +106,7 @@
   .mp-profile-pic-c-l-a img {
     width: 117.7px;
     height: 117.7px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     position: absolute;
     bottom: 116.08px;
     left: 7.84px;
@@ -114,6 +114,15 @@
     border: 1.57px solid #FFFFFF;
     object-fit: cover;
   }
+
+  .circle img {
+    border-radius: 50%; /* Makes the image circular */
+  }
+  
+  .square img {
+    border-radius: 0; /* Keeps the image as a square */
+  }
+  
   .mp-logo-profile-c-l-a {
     width: 47.08px;
     height: 47.08px;
@@ -148,30 +157,48 @@
     text-align: left;
   }
   .mp-social-icon-c-c-l {
-    display: flex;
+    display: grid;
     gap: 15px 26px;
     flex-wrap: wrap;
     padding-bottom: 11.77px;
     justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
   }
   .mp-icon-name-c-l {
     font-family: Poppins-Regular;
     font-size: 10px;
     line-height: 16.48px;
+    color: black;
+    text-decoration: none;
   }
   
   .mp-padding-icon-container-box {
-    padding: 5px;
+    /* padding: 5px; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 5px;
   }
-  .mp-padding-icon-container-box img {
+  .mp-under-icon-img{
+    background: black;
     width: 27.46px;
     height: 27.46px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
   }
+  .mp-a-tag{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  
   /* third section multimedia css */
   
   .mp-p-10-side-l-a {
@@ -564,9 +591,10 @@
   }
   
   .voice-message {
-    /* height: 88px; */
-    /* border: 1px solid black; */
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
   .voice-heading {
     padding-bottom: 12px;
@@ -718,8 +746,8 @@
     background-color: #050505;
     border-radius: 50%;
   }
-  canvas{
+  /* canvas{
     width: 248px !important;
     height: 174px !important;
     object-fit: contain !important;
-  }
+  } */

@@ -33,8 +33,11 @@ const MyCard = () => {
   const [activeTab, setActiveTab] = useState("Basic Details");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [borderStyle, setBorderStyle] = useState("circle");
   const { userData } = useContext(userContext);
+   const [borderStyle, setBorderStyle] = useState(
+      // userData?.card?.style ? "circle" : "square"
+       userData?.card?.style
+    );
   const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
     name: "",
@@ -43,6 +46,10 @@ const MyCard = () => {
     location: "",
     bio: "",
   });
+
+  const [selectedFields, setSelectedFields] = useState({});
+
+ 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -78,6 +85,13 @@ const MyCard = () => {
     }
   };
 
+
+
+  const handleSelectedFieldsChange = (fields) => {
+    setSelectedFields(fields);
+  };
+  
+
   //Preview button Animation Function End
   // Tab content components
   const renderTabContent = () => {
@@ -90,13 +104,15 @@ const MyCard = () => {
               onProfileImageChange={setProfileImage}
               onCoverPhotoChange={setCoverPhoto}
               onLogoChange={setLogo}
+              borderStyle={borderStyle}
+              setBorderStyle={setBorderStyle}
             />
           </>
         );
       case "Content":
         return (
           <>
-            <ContentComponent onFormDataChange={handleFormDataChange} />
+            <ContentComponent onFormDataChange={handleFormDataChange} onSelectedFieldsChange={handleSelectedFieldsChange} />
           </>
         );
       case "Design":
@@ -285,7 +301,11 @@ const MyCard = () => {
           ) : (
             <div className="my-priviewMain">
               <p>Card live preview</p>
-              <Mobileprev />
+
+              
+
+              <Mobileprev selectedFields={selectedFields} borderStyle={borderStyle}/>
+
               <div className="my-prwbtn">
                 <span>Share your card</span>
                 <img src={sharebtn} alt="sharebtn" />

@@ -7,7 +7,6 @@ import userEvent from "@testing-library/user-event";
 const Ctabutton = () => {
   const [selectedOption, setSelectedOption] = useState("Contact");
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-
   const [data, setData] = useState("");
   const [text, setText] = useState("");
   const [cta, setCta] = useState({
@@ -49,11 +48,11 @@ const Ctabutton = () => {
   useEffect(()=>{
     getUserData()
     setCta({
-      btn_type:userData.cta.btn_type,
-      btn_text:userData.cta.btn_text,
-      mail:userData.cta.mail,
-      url:userData.cta.url,
-      mobile:userData.cta.mobile
+      btn_type:userData?.cta?.btn_type,
+      btn_text:userData?.cta?.btn_text,
+      mail:userData?.cta?.mail,
+      url:userData?.cta?.url,
+      mobile:userData?.cta?.mobile
     })
     setSelectedOption(userData?.cta?.btn_type)
     setText(userData?.cta?.btn_text)

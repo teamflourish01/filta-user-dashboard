@@ -40,9 +40,11 @@ import TimeSensitive from "./TimeSensitive";
 import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
-import Address from "./Address";
 
-const ContentComponent = () => {
+import Address from './Address';
+
+
+const ContentComponent = ({onSelectedFieldsChange}) => {
   const [dragItems, setDragItems] = useState([
     { id: "drag-drop-first", component: "Clickable links" },
     { id: "drag-drop-secound", component: "Multimedia" },
@@ -336,6 +338,7 @@ const ContentComponent = () => {
                 <img src={plus} alt="add icone" />
                 <p>Add More</p>
               </div>
+              <div className="ct-scroll-container">
               {selectedPlatforms &&
                 selectedPlatforms.map((platform) => (
                   <div className="ct-addlinkmain" key={platform.id}>
@@ -345,6 +348,7 @@ const ContentComponent = () => {
                     </div>
                   </div>
                 ))}
+                </div>
             </div>
             <hr />
             <div className="ct-margin">
@@ -478,7 +482,7 @@ const ContentComponent = () => {
                       { name: "Text", icon: msgImg },
                       { name: "Call", icon: callImg },
                       { name: "Email", icon: emailImg },
-                      { name: "Contact ", icon: contactImg },
+                      { name: "Contact", icon: contactImg },
                       { name: "WhatsApp", icon: wappImg },
                       { name: "Address", icon: mapImg },
                     ].map((platform) => (
@@ -566,7 +570,7 @@ const ContentComponent = () => {
             isActive={activeDropdown === 2}
             toggleActive={() => toggleDropdown(2)}
           >
-            <ContactForm />
+            <ContactForm onSelectedFieldsChange={onSelectedFieldsChange}/>
           </DropdownComponent>
         );
 
@@ -631,7 +635,9 @@ const ContentComponent = () => {
             isActive={activeDropdown === 13}
             toggleActive={() => toggleDropdown(13)}
           >
-            <Address />
+
+            <Address/>
+
           </DropdownComponent>
         );
       case "Time sensitive offer/ slider form":
