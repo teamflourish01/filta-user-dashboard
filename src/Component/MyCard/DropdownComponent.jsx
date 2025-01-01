@@ -10,7 +10,7 @@ const DropdownComponent = ({ title, children, isActive, toggleActive }) => {
     toggleActive();
   };
 
-   const handleOnDragEnd = (result) => {
+  const handleOnDragEnd = (result) => {
     const { destination, source } = result;
     if (!destination) return;
 
@@ -26,7 +26,7 @@ const DropdownComponent = ({ title, children, isActive, toggleActive }) => {
     <>
       <div className="drp-main">
         <div className="drp-container">
-          <div className="drp-dropdownmain " >
+          <div className="drp-dropdownmain "  onClick={toggleDropdown}>
             <div className="drp-dotscircle">
               <img src={dotsIcon} alt="dots" className="drp-dots-icon" />
             </div>
@@ -39,13 +39,13 @@ const DropdownComponent = ({ title, children, isActive, toggleActive }) => {
             />
           </div>
           <div className={`drp-dropdown-content ${isActive ? "active" : ""}`}>
-          {isActive && (
-            <>
-              <hr />
-              {children}
-            </>
-          )}
-        </div>
+            {isActive && (
+              <>
+                <hr />
+                {children}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>

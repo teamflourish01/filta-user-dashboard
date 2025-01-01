@@ -2,24 +2,22 @@
   padding: 15px 31px 15px 31px;
   display: flex;
   gap: 15px;
-  
+
   align-items: center;
   scrollbar-width: thin;
   text-align: center;
-  
 }
-.mycard-overflow{
+.mycard-overflow {
   padding-bottom: 10px;
   display: flex;
   gap: 15px;
-  
+
   width: 100%;
 
-    white-space: nowrap;
-    overflow-x: auto;
-    scrollbar-width: thin;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin;
   align-items: center;
-
 }
 input[type="radio"]:checked {
   accent-color: black; /* Changes the fill color of the selected radio button */
@@ -29,27 +27,32 @@ input[type="radio"]:focus-visible {
   outline: 2px solid black; /* Ensures the focus outline is black */
 }
 .ct-addmoreflex {
-  padding: 8px 10px;
+  padding: 12px 10px 8px;
   background-color: #ffffff;
   border-radius: 10px;
   cursor: pointer;
+  width: 69px;
+  height: 46px;
 }
 .ct-addmoreflex img {
   height: 14px;
   width: 14px;
 }
 .ct-addmoreflex p {
-  font-size: 16px;
+  font-size: 14px;
   font-family: SemiBold;
   font-weight: 600;
   line-height: 21px;
   margin-top: 5px;
+  white-space: nowrap;
 }
 .ct-addlinkmain {
   display: flex;
   gap: 15px;
 }
 .ct-addlink {
+  width: 64px;
+  height: 53px;
   padding: 7px 12px 6px 13px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -57,6 +60,7 @@ input[type="radio"]:focus-visible {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 3px;
 }
 .ct-addlink img {
   width: 35px;
@@ -66,6 +70,7 @@ input[type="radio"]:focus-visible {
   font-family: Poppins-Medium;
   font-weight: 500;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 /* Last box */
@@ -96,14 +101,13 @@ input[type="radio"]:focus-visible {
   border-radius: 10px;
   padding: 15px;
   margin-top: 15px;
-  
+
   /* height: auto; */
 }
 .ct-titlemain {
   display: flex;
   align-items: center;
   justify-content: space-between;
- 
 }
 .ct-logotitle {
   display: flex;
@@ -184,9 +188,11 @@ input[type="radio"]:focus-visible {
   max-width: 860px;
   min-width: 280px;
   width: 100%;
-  max-height: 603px;
-    min-height: 200px;
-    height: 100%;
+  max-height: 730px;
+  min-height: 200px;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
 .modal-content p {
   font-size: 16px;
@@ -255,15 +261,21 @@ input[type="radio"]:focus-visible {
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
-
 }
 .drpbox-set {
   margin: 20px 41px 0;
-
 }
 
 .link-padd {
   padding: 5px 21px;
+}
+
+.ct-scroll-container {
+  display: flex;
+  gap: 15px;
+  overflow-y: scroll;
+  width: 560px;
+  scrollbar-width: none;
 }
 @media (max-width: 1150px) and (min-width: 1025px) {
   .drpbox-set {

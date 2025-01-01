@@ -106,7 +106,7 @@
   .mp-profile-pic-c-l-a img {
     width: 117.7px;
     height: 117.7px;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     position: absolute;
     bottom: 116.08px;
     left: 7.84px;
@@ -114,6 +114,15 @@
     border: 1.57px solid #FFFFFF;
     object-fit: cover;
   }
+
+  .circle img {
+    border-radius: 50%; /* Makes the image circular */
+  }
+  
+  .square img {
+    border-radius: 0; /* Keeps the image as a square */
+  }
+  
   .mp-logo-profile-c-l-a {
     width: 47.08px;
     height: 47.08px;

@@ -5,12 +5,30 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import userContext from "../../context/userDetails";
 
-const ContactForm = () => {
+const ContactForm = ({ onSelectedFieldsChange }) => {
   const { AuthorizationToken } = useContext(userContext);
   const [formData, setFormData] = useState({
     loginemail: "",
     loginmessage: "",
   });
+
+  const [selectedFields, setSelectedFields] = useState({
+    name: false,
+    email: true,
+    number: false,
+    // address: false,
+    message: false,
+  });
+
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setSelectedFields((prevFields) => ({
+      ...prevFields,
+      [name]: checked,
+    }));
+    onSelectedFieldsChange({ ...selectedFields, [name]: checked });
+  };
+
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleInputChange = (e) => {
@@ -39,6 +57,7 @@ const ContactForm = () => {
       console.error("Error saving About Data:", error);
     }
   };
+
   useEffect(() => {
     const getEmailMessage = async () => {
       try {
@@ -75,6 +94,26 @@ const ContactForm = () => {
           </span>
         </div>
         <div className="cont-reqfiled">
+          <p>Required Field</p>
+          <div className="cont-chkbox">
+            {["name", "email", "number", "message"].map((field) => (
+              <div className="cont-chk" key={field}>
+                <input
+                  type="checkbox"
+                  name={field}
+                  checked={field === "email" ? true : selectedFields[field]}
+                  onChange={
+                    field === "email" ? undefined : handleCheckboxChange
+                  }
+                  disabled={field === "email"} 
+                 
+                />
+                <label>{field.charAt(0).toUpperCase() + field.slice(1)}</label>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* <div className="cont-reqfiled">
           <p>Required Field </p>
           <div className="cont-chkbox">
             <div className="cont-chk">
@@ -98,7 +137,7 @@ const ContactForm = () => {
               <label>Message</label>
             </div>
           </div>
-        </div>
+        </div> */}
         <hr />
         <div className="mlt-info">
           <span className="mlt-title">Responce : </span>

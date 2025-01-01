@@ -80,11 +80,14 @@ const Photos = () => {
         <p className="ph-vdtitle">Upload Photos</p>
         <form onSubmit={handleSubmit}>
           <div className="ph-imagesUpload">
+            <div className="ph-up-fixed">
             <div className="ph-uplod">
               <input type="file" onChange={handleFileChange} accept="image/*" />
               <img src={uploadimg} alt="upload img" />
             </div>
-            <div className="ph-uplodimg">
+            </div>
+            {/* <div className="ph-uploadimg-scroll"> */}
+            <div className="ph-uploadimg-scroll">
               {docFiles.length > 0 &&
                 docFiles.map((doc, index) => (
                   <div key={index} className="ph-uplodimg">
@@ -102,12 +105,13 @@ const Photos = () => {
                 ))}
               {userData?.photos?.length > 0 &&
                 userData.photos.map((photo, index) => (
-                  <div key={index} className="ph-uplodimg">
+                  <div key={index} className="ph-uploadimg-flex">
                     {photo.image.map((imageUrl, imgIndex) => (
                       <div key={imgIndex} className="ph-uplodimg">
                         <img
                           src={`${uri}/photo/${imageUrl}`}
                           alt={`Uploaded ${imgIndex + 1}`}
+                          className="img-photos-ph"
                         />
                         <div
                           className="ph-deltbtn"
