@@ -41,10 +41,15 @@ import userContext from "../../context/userDetails";
 
 import Ctabutton from "./Ctabutton";
 
-import Address from './Address';
+import Address from "./Address";
 
-
-const ContentComponent = ({onSelectedFieldsChange}) => {
+const ContentComponent = ({
+  onSelectedFieldsChange,
+  checkboxStates,
+  setCheckboxStates,
+  formDatac,
+  setFormDatac
+}) => {
   const [dragItems, setDragItems] = useState([
     { id: "drag-drop-first", component: "Clickable links" },
     { id: "drag-drop-secound", component: "Multimedia" },
@@ -61,7 +66,6 @@ const ContentComponent = ({onSelectedFieldsChange}) => {
     { id: "drag-drop-eleven", component: "Social Proof" },
     { id: "drag-drop-twelv", component: "Photos" },
     { id: "drag-drop-thirty", component: "Product Gallery" },
-    
   ]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -324,7 +328,6 @@ const ContentComponent = ({onSelectedFieldsChange}) => {
   };
 
   const renderComponent = (component) => {
-
     switch (component) {
       case "Clickable links":
         return (
@@ -339,16 +342,16 @@ const ContentComponent = ({onSelectedFieldsChange}) => {
                 <p>Add More</p>
               </div>
               <div className="ct-scroll-container">
-              {selectedPlatforms &&
-                selectedPlatforms.map((platform) => (
-                  <div className="ct-addlinkmain" key={platform.id}>
-                    <div className="ct-addlink">
-                      <img src={platform.icon} alt={platform.name} />
-                      <p>{platform.name}</p>
+                {selectedPlatforms &&
+                  selectedPlatforms.map((platform) => (
+                    <div className="ct-addlinkmain" key={platform.id}>
+                      <div className="ct-addlink">
+                        <img src={platform.icon} alt={platform.name} />
+                        <p>{platform.name}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-                </div>
+                  ))}
+              </div>
             </div>
             <hr />
             <div className="ct-margin">
@@ -570,7 +573,14 @@ const ContentComponent = ({onSelectedFieldsChange}) => {
             isActive={activeDropdown === 2}
             toggleActive={() => toggleDropdown(2)}
           >
-            <ContactForm onSelectedFieldsChange={onSelectedFieldsChange}/>
+            <ContactForm
+              onSelectedFieldsChange={onSelectedFieldsChange}
+              checkboxStates={checkboxStates}
+              setCheckboxStates={setCheckboxStates}
+              setFormDatac={setFormDatac}
+              formDatac={formDatac}
+
+            />
           </DropdownComponent>
         );
 
@@ -635,9 +645,7 @@ const ContentComponent = ({onSelectedFieldsChange}) => {
             isActive={activeDropdown === 13}
             toggleActive={() => toggleDropdown(13)}
           >
-
-            <Address/>
-
+            <Address />
           </DropdownComponent>
         );
       case "Time sensitive offer/ slider form":
