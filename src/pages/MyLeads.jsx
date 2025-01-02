@@ -7,8 +7,14 @@ import LeadDetails from "../Component/LeadDetails/LeadDetails";
 import userContext from "../context/userDetails";
 
 const MyLeads = () => {
-  const { userData, getUserData } = useContext(userContext);
+  // const { userData, getUserData } = useContext(userContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { userData } = useContext(userContext);
+  
+
+
+
+
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -82,10 +88,11 @@ const MyLeads = () => {
                   <th className="try-th p-top-15">View</th>
                   <th className="try-th">Status</th>
                 </tr>
+                {userData?.myLeads?.map((lead, index) => (
                 <tr className="tr-try">
-                  <td className="td-try   p-40">Ajay Gadhavi</td>
-                  <td className="td-try p-top-21">ajaygadhavi9847@gmail.com</td>
-                  <td className="td-try p-top-21">6353123096</td>
+                  <td className="td-try   p-40">{lead?.name}</td>
+                  <td className="td-try p-top-21">{lead?.email}</td>
+                  <td className="td-try p-top-21">{lead?.number}</td>
                   <td className="td-try p-top-21">24 Oct 2024</td>
                   <td className="td-try p-top-21">
                     {" "}
@@ -95,6 +102,7 @@ const MyLeads = () => {
                   </td>
                   <td className="td-try p-top-21"></td>
                 </tr>
+              ))}
               </table>
             </div>
           </div>

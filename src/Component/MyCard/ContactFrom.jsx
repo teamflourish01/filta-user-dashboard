@@ -5,13 +5,19 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import userContext from "../../context/userDetails";
 
-const ContactForm = ({ onSelectedFieldsChange }) => {
-  const { AuthorizationToken } = useContext(userContext);
-  const [formData, setFormData] = useState({
-    loginemail: "",
-    loginmessage: "",
-  });
+const ContactForm = ({
+  onSelectedFieldsChange,
+  setCheckboxStates,
+  checkboxStates,
+  formDatac,
+  setFormDatac
 
+}) => {
+  const { AuthorizationToken } = useContext(userContext);
+  // const [formDatac, setFormDatac] = useState({
+  //   loginemail: "",
+  //   loginmessage: "",
+  // });
 
   const [selectedFields, setSelectedFields] = useState({
     name: false,
@@ -30,20 +36,18 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
   //   onSelectedFieldsChange({ ...selectedFields, [name]: checked });
   // };
 
-
-  const [checkboxStates, setCheckboxStates] = useState({
-    name: true,
-    email: true,
-    number: true,
-    message: true,
-  });
-
+  // const [checkboxStates, setCheckboxStates] = useState({
+  //   name: true,
+  //   email: true,
+  //   number: true,
+  //   message: true,
+  // });
 
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormDatac((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -77,7 +81,7 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
     try {
       const response = await axios.post(
         `${uri}/email/add`,
-        { ...formData },
+        { ...formDatac },
         {
           headers: {
             "Content-Type": "application/json",
@@ -103,7 +107,7 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
 
         if (response.ok) {
           const data = await response.json();
-          setFormData({
+          setFormDatac({
             loginemail: data.data[0]?.loginemail || "",
             loginmessage: data.data[0]?.loginmessage || "",
           });
@@ -184,13 +188,12 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
             </span>
           </div>
           <div className="cont-formdiv">
-
             <div className="cont-forminput">
               <label>Email</label>
               <input
                 type="text"
                 name="loginemail"
-                value={formData.loginemail}
+                value={formDatac.loginemail}
                 onChange={handleInputChange}
               />
             </div>
@@ -199,7 +202,7 @@ const ContactForm = ({ onSelectedFieldsChange }) => {
               <textarea
                 className="cont-txtarea"
                 name="loginmessage"
-                value={formData.loginmessage}
+                value={formDatac.loginmessage}
                 onChange={handleInputChange}
               />
             </div>
