@@ -27,14 +27,12 @@ const SocialProof = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let obj = {};
-    if (data?.length > 0) {
+    
       obj = {
         text: data?.map((e) => e?.text),
         digit: data?.map((e) => e?.digit),
       };
-    } else {
-      obj = proof;
-    }
+    
     try {
       let res = await fetch(`${url}/social/add`, {
         method: "POST",
@@ -59,6 +57,9 @@ const SocialProof = () => {
   };
 
   const objToArrayConvert = (data) => {
+    if (!data || !data.text || !data.digit) {
+      return []; // Return an empty array if data is invalid
+    }
     return data?.text?.map((_, index) => ({
       text: data?.text[index],
       digit: data?.digit[index],

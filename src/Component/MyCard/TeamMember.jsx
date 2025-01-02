@@ -60,12 +60,16 @@ const TeamMember = () => {
   };
 
   const handleDelete=(i)=>{
-    let arr=data?.splice(i, 1);
+let arr=[...data]
+     arr?.splice(i, 1);
     setData(arr)
   }
 
   const objToArrayConvert = (data) => {
-    return data?.name.map((_, index) => ({
+    if (!data || !data?.name || !data?.job_title || !data?.number) {
+      return []; // Return an empty array if data is invalid
+    }
+    return data?.name?.map((_, index) => ({
       name: data?.name[index],
       job_title: data?.job_title[index],
       number: data?.number[index],
@@ -96,7 +100,7 @@ const TeamMember = () => {
                      <hr />
                   <div style={{ display: "flex",justifyContent:"space-between", alignItems:"center" }}>
                     <p>Member {i + 1}</p>
-                    <div className="" onClick={(ele,i)=>handleDelete(i)} >
+                    <div className="" onClick={()=>handleDelete(i)} >
                       <img src={deltImg} alt="delet-btn" />
                     </div>
                   </div>
