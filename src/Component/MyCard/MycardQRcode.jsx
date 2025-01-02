@@ -1,16 +1,46 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import clrpiker from "../../images/desigin_clrpiker.png";
 import qrplus from "../../images/qr_plus.png";
-const QrcodeComponent = () => {
-  const [selectedColor, setSelectedColor] = useState("#000000");
+import axios from "axios";
+import userContext from "../../context/userDetails";
 
-  const handleColorChange = (color) => {
-    setSelectedColor(color);
-  };
+const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
+  const [logo, setLogo] = useState(null);
+  const [loading, setLoading] = useState(false);
   const ColorRef = useRef(null);
   const handleClrEdit = (ref) => {
     if (ref.current) {
       ref.current.click();
+    }
+  };
+
+  const handleLogoChange = (file) => {
+    setLogo(file);
+    onLogoChange(file);
+  };
+  const handleSave = async () => {
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("qrcolor", selectedColor);
+    formData.append("qrimage", logo);
+
+    try {
+      const response = await axios.post(`${uri}/qr/add`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: AuthorizationToken,
+        },
+      });
+      alert(`${response?.data?.message}`);
+      getUserData();
+    } catch (error) {
+      console.error("Error saving QR code:", error);
+      alert("An error occurred while saving QR code.");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -32,7 +62,7 @@ const QrcodeComponent = () => {
                       id="color-code"
                       placeholder="#000000"
                       value={selectedColor}
-                      onChange={(e) => handleColorChange(e.target.value)}
+                      onChange={(e) => onColorChange(e.target.value)}
                     />
 
                     <input
@@ -40,7 +70,7 @@ const QrcodeComponent = () => {
                       id="color-picker"
                       ref={ColorRef}
                       value={selectedColor}
-                      onChange={(e) => handleColorChange(e.target.value)}
+                      onChange={(e) => onColorChange(e.target.value)}
                     />
                   </div>
 
@@ -55,13 +85,25 @@ const QrcodeComponent = () => {
               <p>Add Logo </p>
               <div className="qr-logobox">
                 <div className="qr-addlogo">
+                  <input
+                    type="file"
+                    className="qr-logoinput"
+                    accept="image/*"
+                    onChange={(e) => handleLogoChange(e.target.files[0])}
+                  />
                   <img src={qrplus} alt="qrplus" />
                   <p>Add Logo</p>
                 </div>
               </div>
               <div className="di-buttons delpadding">
                 <button className="di-cancel">Cancel</button>
-                <button className="di-save">Save</button>
+                <button
+                  className="di-save"
+                  onClick={handleSave}
+                  disabled={loading}
+                >
+                  {loading ? "Wait..." : "Save"}
+                </button>
               </div>
             </form>
           </div>

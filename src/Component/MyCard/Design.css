@@ -9,7 +9,6 @@
   scrollbar-width: thin;
   scrollbar-color: #ccc white;
   height: calc(100% - 100px);
-
 }
 .di-maindiv {
   /* height: 277px; */
@@ -477,10 +476,9 @@ input[type="color"] {
 }
 
 /* QR Code Css */
-.delthight{
+.delthight {
   /* height: auto; */
   height: calc(100% - 100px);
-
 }
 .qr-logobox {
   background-color: #eff1f3;
@@ -496,6 +494,8 @@ input[type="color"] {
   margin: 20px 0;
   padding: 15px 25px;
   border-radius: 5px;
+  position: relative;
+  overflow: hidden;
 }
 .qr-addlogo p {
   font-size: 16px;
@@ -503,6 +503,16 @@ input[type="color"] {
   font-weight: 400;
   color: #000;
   margin: 0;
+}
+.qr-logoinput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
 }
 
 /* qr right panel */
@@ -559,7 +569,14 @@ input[type="color"] {
   width: 60px;
   height: 27px;
 }
-
+.qr-downloadbtn {
+  color: #5aba47;
+  text-decoration: none;
+  font-family: Poppins-Regular;
+  font-weight: 400;
+  font-size: 14px;
+  margin-top: 15px;
+}
 /* Responsive Upto-1024 */
 @media (max-width: 1282px) and (min-width: 1025px) {
   .di-margin {
