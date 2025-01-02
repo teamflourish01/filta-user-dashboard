@@ -1,12 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import clrpiker from "../../images/desigin_clrpiker.png";
 import uparrow from "../../images/design_uparrow.png";
-import arrowIcon from "../../images/ct_downarrow.png";
 import { SlArrowDown } from "react-icons/sl";
 import TwoButton from "./TwoButton";
+import userContext from "../../context/userDetails";
+import axios from "axios";
 const DesignComponent = () => {
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
   const [colors, setColors] = useState({
-    flatColor: "#000000",
+    flatColor: userData?.card?.design?.card_background?.flat_color,
     grdColor: "#000000",
     grdSecColor: "#ffffff",
     prmColor: "#000000",
@@ -14,7 +17,8 @@ const DesignComponent = () => {
     natClor: "#000000",
     prmTxtColor: "#000000",
     secTxtColor: "#000000",
-    themeColor: "#000000",
+    themeColor: userData?.card?.design?.theme_color,
+
   });
   const refs = {
     flatColor: useRef(null),
@@ -56,6 +60,27 @@ const DesignComponent = () => {
   const handleFontSelect = (font) => {
     setSelectedFont(font);
     setIsOpen(false);
+  };
+  // edit logic
+
+  const onSubmit = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("design.theme_color", colors.themeColor);
+
+      const response = await axios.patch(`${uri}/card/editcard`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: AuthorizationToken,
+        },
+      });
+
+      alert(response.data.msg || "Data updated successfully!");
+      getUserData();
+    } catch (error) {
+      console.error("Error updating data:", error);
+      alert(error.response?.data?.error || "Failed to update data");
+    }
   };
   return (
     <>
@@ -102,7 +127,7 @@ const DesignComponent = () => {
           <hr />
           <div className="di-secinfo">
             <p>Flat Color</p>
-            <form>
+            <form onSubmit={onsubmit}>
               <div className="di-fltbox">
                 <div class="color-picker-container">
                   <div className="di-twoinput">
@@ -197,8 +222,9 @@ const DesignComponent = () => {
                 </div>
               </div>
               <div className="di-buttons delpadding">
-                <button className="di-cancel">Cancel</button>
-                <button className="di-save">Save</button>
+                {/* <button className="di-cancel">Cancel</button>
+                <button className="di-save">Save</button> */}
+                <TwoButton />
               </div>
             </form>
           </div>
@@ -458,40 +484,42 @@ const DesignComponent = () => {
             </div>
             <hr />
             <div className="di-secinfo delmargin delpadd">
-              <p>Choose Theme Color</p>
-              <div className="di-fltbox">
-                <div class="color-picker-container">
-                  <div className="di-twoinput">
-                    <input
-                      type="text"
-                      id="color-code"
-                      placeholder="#000000"
-                      name="themeColor"
-                      value={colors.themeColor}
-                      onChange={handleColorChange}
-                    />
+              <form onSubmit={onSubmit}>
+                <p>Choose Theme Color</p>
+                <div className="di-fltbox">
+                  <div class="color-picker-container">
+                    <div className="di-twoinput">
+                      <input
+                        type="text"
+                        id="color-code"
+                        placeholder="#000000"
+                        name="themeColor"
+                        value={colors.themeColor}
+                        onChange={handleColorChange}
+                      />
 
-                    <input
-                      type="color"
-                      id="color-picker"
-                      name="themeColor"
-                      value={colors.themeColor}
-                      ref={refs.themeColor}
-                      onChange={handleColorChange}
-                    />
-                  </div>
+                      <input
+                        type="color"
+                        id="color-picker"
+                        name="themeColor"
+                        value={colors.themeColor}
+                        ref={refs.themeColor}
+                        onChange={handleColorChange}
+                      />
+                    </div>
 
-                  <div
-                    id="search-button"
-                    onClick={() => handleColorEdit("themeColor")}
-                  >
-                    <img src={clrpiker} alt="color piker" />
+                    <div
+                      id="search-button"
+                      onClick={() => handleColorEdit("themeColor")}
+                    >
+                      <img src={clrpiker} alt="color piker" />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="btnmargin-10">
-                <TwoButton />
-              </div>
+                <div className="btnmargin-10">
+                  <TwoButton />
+                </div>
+              </form>
             </div>
           </div>
         </div>

@@ -617,9 +617,9 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
               <div className="mp-photos-section-l-a">
                 <div className="mp-sections-title">Photos</div>
 
-                {userData?.photos[0].image.length > 1 ? (
+                {userData?.photos[0]?.image.length > 1 ? (
                   <Slider {...sliderSettingsDot}>
-                    {userData?.photos[0].image.map((img, index) => (
+                    {userData?.photos[0]?.image.map((img, index) => (
                       <div className="img-offer-content" key={index}>
                         <img
                           src={`${uri}/photo/${img}`}
@@ -632,7 +632,7 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                 ) : (
                   <div className="img-offer-content">
                     <img
-                      src={`${uri}/photo/${userData?.photos[0].image[0]}`}
+                      src={`${uri}/photo/${userData?.photos[0]?.image[0]}`}
                       alt=""
                       className="mp-img-r-curve-l-a"
                     />
