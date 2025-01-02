@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../../MyCard/mobileprev/mobileprev.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -34,22 +34,23 @@ import mphonepay from "../../../images/mphonepay.svg";
 import mpaytm from "../../../images/mpaytm.svg";
 import mreview from "../../../images/mreview.svg";
 import mgoogledrive from "../../../images/mgoogledrive.svg";
-
+import flogo from "../../../images/filta.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
-
-
 
 import { Document, Page, pdfjs } from "react-pdf";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-
-const Mobileprev = ({ selectedFields, borderStyle }) => {
-
+const Mobileprev = ({
+  selectedFields,
+  borderStyle,
+  setCheckboxStates,
+  checkboxStates,
+  formDatac,
+}) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-
+  // const socialProof = userData.card.socialProof || [];
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -63,6 +64,45 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
   const audioRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const [userDetails, setUserDetails] = useState(null);
+  const [error, setError] = useState(null);
+  // const [token, setToken] = useState(localStorage.getItem("token"));
+
+  // const AuthorizationToken = `Bearer ${token}`;
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await fetch(`${uri}/email/gatemailmsg`, {
+          method: "GET",
+          headers: {
+            Authorization: AuthorizationToken,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUserDetails(data);
+        console.log(data, "dataaaa");
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchUserDetails();
+  }, []); // Empty dependency array to call useEffect only once
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!userDetails) {
+    return <div>Loading...</div>;
+  }
 
   const togglePlayback = () => {
     const audio = audioRef.current;
@@ -99,17 +139,7 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
     prevArrow: <CustomPrevArrow />,
   };
 
-  const videos = [video1, videoTwo];
-
-  const youtubeVideos = [
-    "https://www.youtube.com/embed/tgbNymZ7vqY",
-    "https://www.youtube.com/embed/Pst9FCWkKTQ?si=qfH4bxmvs0ryLW4Y",
-  ];
-
-  const offerImages = [offer, offer, offer];
-  const photosImages = [pict, pict];
   const galleryImages = [gallerypic, gallerypic];
-  const pdf = [imgofpdf, imgofpdf];
   const handlePlay = (videoElement) => {
     videoElement.play();
     setIsPlaying(true);
@@ -180,7 +210,6 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
     }
   };
 
-
   //Contact-Form EmailApi
 
   const onSubmit = async (data) => {
@@ -203,6 +232,23 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
     }
   };
 
+  const getGridClass = (count) => {
+    if (count === 1) return "one-item";
+    if (count === 2) return "two-items";
+    if (count === 3) return "three-items";
+    return "two-items"; // Fallback for more than 3 items
+  };
+
+  const cta = userData?.cta;
+  const handleButtonClick = () => {
+    if (cta?.btn_type === "Mail") {
+      window.location.href = `mailto:${cta?.mail}`;
+    } else if (cta?.btn_type === "Contact") {
+      window.location.href = `tel:${cta?.mobile}`;
+    } else if (cta?.btn_type === "Visit") {
+      window.open(cta?.url, "_blank");
+    }
+  };
 
   return (
     <>
@@ -231,7 +277,6 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                     {userData?.card?.jobtitle}
                   </p>
                   <p className="mp-grey-bottom-txt">
-
                     {userData?.card?.company}
                   </p>
                   <p className="mp-grey-bottom-txt">
@@ -242,7 +287,11 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
               <div className="profile-pic-container-left-align">
                 {/* <div className="mp-profile-pic-c-l-a"> */}
 
-                <div className={`mp-profile-pic-c-l-a ${borderStyle ? "circle" : "square"}`}>
+                <div
+                  className={`mp-profile-pic-c-l-a ${
+                    borderStyle ? "circle" : "square"
+                  }`}
+                >
                   <img
                     src={`${uri}/card/${userData?.card?.profileimg}`}
                     alt="Profile-img"
@@ -268,22 +317,20 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                       <div className="mp-a-tag">
                         {/* Dynamic icon rendering */}
                         <a
-                        className=" mp-padding-icon-container-box"
+                          className=" mp-padding-icon-container-box"
                           href={generateHref(link.platform, link.url)}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                        <div className="mp-under-icon-img">
-                        
-                          <img
-                            src={
-                              iconMap[link.platform] ||
-                              "https://via.placeholder.com/50"
-                            } // Placeholder for unknown platforms
-                            alt={link.platform}
-                          />
-                        
-                        </div>
+                          <div className="mp-under-icon-img">
+                            <img
+                              src={
+                                iconMap[link.platform] ||
+                                "https://via.placeholder.com/50"
+                              } // Placeholder for unknown platforms
+                              alt={link.platform}
+                            />
+                          </div>
                         </a>
                         {/* Clickable platform name */}
                         <a
@@ -302,152 +349,174 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
             </div>
 
             {/* third multimedia section start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="multimedia-section">
-                <div className="mp-sections-title mp-p-10-side-l-a">
-                  Multimedia
-                </div>
-                {userData?.multimedia.length === 1 ? (
-                  // Display single video
-                  <div className="single-video">
-                    <video controls className="fullscreen-video">
-                      <source
-                        src={`${uri}/multimedia/${userData?.multimedia[0]?.video_file}`}
-                        type="video/mp4"
-                      />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                ) : (
-                  // Display slider for multiple videos
-                  <div className="mp-video-container">
-                    <Slider {...sliderSettings}>
-                      {userData?.multimedia?.map((video) => (
-                        <div className="mp-video-slide">
-                          <video
-                            src={`${uri}/multimedia/${video.video_file}`}
-                            controls={isPlaying}
-                            onClick={(e) => handlePlay(e.target)}
-                          ></video>
+            {userData?.multimedia[0]?.video_file?.length > 0 &&
+              userData?.multimedia[0]?.youtube_url.length > 0 && (
+                <div className="mp-grey-box-bg-left-align">
+                  <div className="multimedia-section">
+                    <div className="mp-sections-title mp-p-10-side-l-a">
+                      Multimedia
+                    </div>
+                    {userData?.multimedia[0]?.video_file?.length === 1 ? (
+                      // Display single video
+                      <div className="single-video">
+                        <video controls className="fullscreen-video">
+                          <source
+                            src={`${uri}/multimedia/${userData?.multimedia[0]?.video_file[0]}`}
+                            type="video/mp4"
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    ) : (
+                      // Display slider for multiple videos
+                      <div className="mp-video-container">
+                        <Slider {...sliderSettings}>
+                          {userData?.multimedia[0]?.video_file.map((video) => (
+                            <div className="mp-video-slide">
+                              <video
+                                src={`${uri}/multimedia/${video}`}
+                                controls={isPlaying}
+                                onClick={(e) => handlePlay(e.target)}
+                              ></video>
 
-                          {!isPlaying && (
-                            <div
-                              className="play-button-overlay"
-                              onClick={(e) =>
-                                handlePlay(e.target.previousSibling)
-                              }
-                            >
-                              <CiPlay1 />
+                              {!isPlaying && (
+                                <div
+                                  className="play-button-overlay"
+                                  onClick={(e) =>
+                                    handlePlay(e.target.previousSibling)
+                                  }
+                                >
+                                  <CiPlay1 />
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-                      ))}
-                    </Slider>
-                  </div>
-                )}
+                          ))}
+                        </Slider>
+                      </div>
+                    )}
 
-                <hr className="hr-line-left-align-card" />
-                <div className="mp-youtube-video-title">YouTube Video</div>
+                    {userData?.multimedia[0]?.youtube_url.length > 0 &&
+                      userData?.multimedia[0]?.video_file.length > 0 && (
+                        <>
+                          <hr className="hr-line-left-align-card" />
+                        </>
+                      )}
 
-                {youtubeVideos.length === 1 ? (
-                  // Display single video
-                  <div className="single-video">
-                    <iframe
-                      className="fullscreen-video v-h"
-                      src={youtubeVideos[0]}
-                      frameBorder="0"
-                    ></iframe>
-                  </div>
-                ) : (
-                  // Display slider for multiple videos
-                  <div className="mp-video-container">
-                    <Slider {...sliderSettings}>
-                      {youtubeVideos.map((youtubeVideos, index) => (
-                        <div key={index} className="mp-video-slide-youtube">
-                          <iframe
-                            src={youtubeVideos}
-                            frameBorder="0"
-                            className="v-h"
-                          ></iframe>
+                    {userData?.multimedia[0]?.youtube_url.length > 0 && (
+                      <>
+                        <div className="mp-youtube-video-title">
+                          YouTube Video
                         </div>
-                      ))}
-                    </Slider>
+
+                        {userData?.multimedia[0]?.youtube_url.length === 1 ? (
+                          // Display single video
+                          <div className="single-video">
+                            <iframe
+                              className="fullscreen-video v-h"
+                              src={userData?.multimedia[0]?.youtube_url[0]}
+                              frameBorder="0"
+                            ></iframe>
+                          </div>
+                        ) : (
+                          // Display slider for multiple videos
+                          <div className="mp-video-container">
+                            <Slider {...sliderSettings}>
+                              {userData?.multimedia[0]?.youtube_url.map(
+                                (youtubeVideos, index) => (
+                                  <div
+                                    key={index}
+                                    className="mp-video-slide-youtube"
+                                  >
+                                    <iframe
+                                      src={youtubeVideos}
+                                      frameBorder="0"
+                                      className="v-h"
+                                    ></iframe>
+                                  </div>
+                                )
+                              )}
+                            </Slider>
+                          </div>
+                        )}
+                      </>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
+                </div>
+              )}
 
             {/* fourth section contact form start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-contact-form-left-align">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="mp-sections-title">Contact Form</div>
-                  <div className="mp-input-container-c-f">
+            {userDetails.data[0].loginemail && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-contact-form-left-align">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mp-sections-title">Contact Form</div>
+                    <div className="mp-input-container-c-f">
+                      {checkboxStates.name && (
+                        <div className="input-field-contact-form-leftalign">
+                          <input
+                            type="text"
+                            placeholder="Name"
+                            className="mp-input-field-single"
+                            {...register("name")}
+                          />
+                        </div>
+                      )}
+                      {/* {selectedFields.email && ( */}
 
-                    {selectedFields.name && (
                       <div className="input-field-contact-form-leftalign">
-                         <input
-                        type="text"
-                        placeholder="Name"
-                        className="mp-input-field-single"
-                        {...register("name")}
-                      />
+                        <input
+                          type="text"
+                          placeholder="Email"
+                          className="mp-input-field-single"
+                          {...register("email", {
+                            required: "Email is required",
+                          })}
+                        />
                       </div>
-                    )}
-                    {/* {selectedFields.email && ( */}
 
-                    <div className="input-field-contact-form-leftalign">
-                      <input
-                        type="text"
-                        placeholder="Email"
-                        className="mp-input-field-single"
-                        {...register("email", {
-                          required: "Email is required",
-                        })}
-                      />
+                      {/* // )} */}
+                      {checkboxStates.number && (
+                        <div className="input-field-contact-form-leftalign">
+                          <input
+                            type="text"
+                            placeholder="Mobile Number"
+                            className="mp-input-field-single"
+                            {...register("number")}
+                          />
+                        </div>
+                      )}
+                      {checkboxStates.message && (
+                        <div className="input-field-contact-form-leftalign">
+                          <textarea
+                            type="text"
+                            placeholder="Message"
+                            className="mp-input-field-single mp-textarea-class"
+                            {...register("message")}
+                          />
+                        </div>
+                      )}
                     </div>
-
-                    {/* // )} */}
-                    {selectedFields.number && (
-                      <div className="input-field-contact-form-leftalign">
-                       <input
-                        type="text"
-                        placeholder="Mobile Number"
-                        className="mp-input-field-single"
-                        {...register("number")}
-                      />
-
-                      </div>
-                    )}
-                    {selectedFields.message && (
-                      <div className="input-field-contact-form-leftalign">
-                        <textarea
-                        type="text"
-                        placeholder="Message"
-                        className="mp-input-field-single mp-textarea-class"
-                        {...register("message")}
-                      />
-                      </div>
-                    )}
-
-
-                  </div>
-                  <button type="submit" className="btn-white-submit-leftalign">
-                    <span className="mp-btn-text-leftalign">
-                      {loading ? "Loading..." : "Submit"}
-                    </span>
-                  </button>
-                </form>
+                    <button
+                      type="submit"
+                      className="btn-white-submit-leftalign"
+                    >
+                      <span className="mp-btn-text-leftalign">
+                        {loading ? "Loading..." : "Submit"}
+                      </span>
+                    </button>
+                  </form>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* fifth section voice message start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-voice-msg-box-l-a">
-                <div className="mp-sections-title">Voice Message</div>
-                <div className="audio-container" onClick={togglePlayback}>
-                  <VoiceMessage />
-                  {/* <audio
+            {userData?.voiceMessage?.length > 0 && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-voice-msg-box-l-a">
+                  <div className="mp-sections-title">Voice Message</div>
+                  <div className="audio-container" onClick={togglePlayback}>
+                    <VoiceMessage />
+                    {/* <audio
                   controls
                   className="custom-audio"
                   controlsList="nodownload noplaybackrate"
@@ -455,30 +524,58 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                   <source src={sound} type="audio/mpeg" />
                   Your browser does not support the audio element.
                 </audio> */}
+                  </div>
                 </div>
               </div>
-            </div>
-
+            )}
             {/* sixeth section about start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-about-section">
-                <div className="mp-sections-title">About</div>
-                <div className="mp-ui-ux-text">{userData?.about?.title}</div>
-                <div className="mp-about-description">
-                  {userData?.about?.description}
+            {userData?.about?.title && userData?.about?.description && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-about-section">
+                  <div className="mp-sections-title">About</div>
+                  <div className="mp-ui-ux-text">{userData?.about?.title}</div>
+                  <div className="mp-about-description">
+                    {userData?.about?.description}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* seventh section document start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-document-section-box-l-a">
-                <div className="mp-sections-title">Document</div>
-                {userData?.documents?.length > 1 ? (
-                  <Slider {...sliderSettings}>
-                    {userData?.documents?.map((pdf) => (
+            {userData?.documents.length > 0 && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-document-section-box-l-a">
+                  <div className="mp-sections-title">Document</div>
+                  {userData?.documents?.length > 1 ? (
+                    <Slider {...sliderSettings}>
+                      {userData?.documents?.map((pdf) => (
+                        <Document
+                          file={`${uri}/documents/${pdf.document}`}
+                          onLoadError={(error) =>
+                            console.error("PDF Load Error:", error)
+                          }
+                          width={248}
+                          // height={238.53}
+                        >
+                          <a
+                            href={`${uri}/documents/${pdf.document}`}
+                            target="_blank"
+                          >
+                            <Page
+                              pageNumber={1}
+                              renderTextLayer={false}
+                              renderAnnotationLayer={false}
+                              width={248}
+                              // height={238.53}
+                            />
+                          </a>
+                        </Document>
+                      ))}
+                    </Slider>
+                  ) : (
+                    <div className="img-container-document-l-a ">
                       <Document
-                        file={`${uri}/documents/${pdf.document}`}
+                        file={`${uri}/documents/${userData?.documents[0]?.document}`}
                         onLoadError={(error) =>
                           console.error("PDF Load Error:", error)
                         }
@@ -486,7 +583,7 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                         // height={238.53}
                       >
                         <a
-                          href={`${uri}/documents/${pdf.document}`}
+                          href={`${uri}/documents/${userData?.documents[0]?.document}`}
                           target="_blank"
                         >
                           <Page
@@ -498,156 +595,174 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                           />
                         </a>
                       </Document>
-                    ))}
-                  </Slider>
-                ) : (
-                  <div className="img-container-document-l-a ">
-                    <Document
-                      file={`${uri}/documents/${userData?.documents[0]?.document}`}
-                      onLoadError={(error) =>
-                        console.error("PDF Load Error:", error)
-                      }
-                      width={248}
-                      // height={238.53}
-                    >
-                      <a
-                        href={`${uri}/documents/${userData?.documents[0]?.document}`}
-                        target="_blank"
-                      >
-                        <Page
-                          pageNumber={1}
-                          renderTextLayer={false}
-                          renderAnnotationLayer={false}
-                          width={248}
-                          // height={238.53}
-                        />
-                      </a>
-                    </Document>
-                    {/* <img
+                      {/* <img
                       src={`${uri}/documents/${userData?.documents[0].document}`}
                       className="mp-i-d-l-a-size"
                       alt=""
                     /> */}
-                  </div>
-                )}
-                <p className="mp-d-l-a-name">Flourish Profile</p>
+                    </div>
+                  )}
+                  <p className="mp-d-l-a-name">Flourish Profile</p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* eight section team member details start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-team-member-details-box-l-a">
-                <div className="mp-sections-title">Team Member Details </div>
-                <div className="mp-details-t-m-d-l-a-grey">
-                  Name : <span className="details-info-n">Pratik Chandera</span>
-                </div>
-                <div className="mp-details-t-m-d-l-a-grey mp-p-9-d-b">
-                  Designation : <span className="details-info-n ">HR</span>
-                </div>
-                <div className="mp-details-t-m-d-l-a-grey p-15-d-b">
-                  Number :{" "}
-                  <span className="details-info-n">+91 81540 34968</span>
+            {userData?.teamMember?.name.length > 0 && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-team-member-details-box-l-a">
+                  <div className="mp-sections-title">Team Member Details </div>
+                  {userData?.teamMember?.name?.map((teamMember, index) => (
+                    <>
+                      <div className="mp-details-t-m-d-l-a-grey">
+                        Name :{" "}
+                        <span className="details-info-n">{teamMember}</span>
+                      </div>
+                      <div className="mp-details-t-m-d-l-a-grey mp-p-9-d-b">
+                        Designation :{" "}
+                        <span className="details-info-n ">
+                          {userData?.teamMember?.job_title[index]}
+                        </span>
+                      </div>
+                      <div className="mp-details-t-m-d-l-a-grey p-15-d-b">
+                        Number :{" "}
+                        <span className="details-info-n">
+                          {userData?.teamMember?.number[index]}
+                        </span>
+                      </div>
+                    </>
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
 
             {/* nine section address start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-address-section-box-l-a">
-                <div className="mp-sections-title">Address</div>
-                <p className="mp-address-lines-l-a">
-                  A-206, PNTC, Times of India Press Road, Vejalpur, Ahmedabad -
-                  380015
-                </p>
+            {userData?.address?.title && userData?.address?.address && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-address-section-box-l-a">
+                  <div className="mp-sections-title">Address</div>
+                  <p className="mp-title-add">{userData?.address?.title}</p>
+                  <p className="mp-address-lines-l-a">
+                    {userData?.address?.address}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* ten section time sensitive offer start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-time-sensitive-offer-section-l-a">
-                <div className="mp-sections-title">Time sensitive offer</div>
+            {userData?.timeoffer[0]?.image?.length > 0 && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-time-sensitive-offer-section-l-a">
+                  <div className="mp-sections-title">Time sensitive offer</div>
 
-                {offerImages.length > 1 ? (
-                  <Slider {...sliderSettingsDot}>
-                    {offerImages.map((img, index) => (
-                      <div className="img-offer-content" key={index}>
-                        <img src={img} alt="" className="mp-img-r-curve-l-a" />
-                      </div>
-                    ))}
-                  </Slider>
-                ) : (
-                  <div className="img-offer-content">
-                    <img
-                      src={offerImages[0]}
-                      alt=""
-                      className="mp-img-r-curve-l-a"
-                    />
-                  </div>
-                )}
+                  {userData?.timeoffer[0]?.image?.length > 1 ? (
+                    <Slider {...sliderSettingsDot}>
+                      {userData?.timeoffer[0]?.image?.map((img, index) => (
+                        <div className="img-offer-content" key={index}>
+                          <img
+                            src={`${uri}/timesoffer/${img}`}
+                            alt=""
+                            className="mp-img-r-curve-l-a"
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  ) : (
+                    <div className="img-offer-content">
+                      <img
+                        src={`${uri}/timesoffer/${userData?.timeoffer[0]?.image[0]}`}
+                        alt=""
+                        className="mp-img-r-curve-l-a"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* eleven section social proof start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-social-proof-section-l-a">
-                <div className="mp-sections-title">Social Proof</div>
-                <div className="w-card-s-p-l-a">
-                  <div className="white-clr-cards-l-a">
-                    <div className="mp-counts--s-l">150+</div>
-                    <div className="mp-s-l-title-name">Projects Done</div>
-                  </div>
-                  <div className="white-clr-cards-l-a">
-                    <div className="mp-counts--s-l">3+</div>
-                    <div className="mp-s-l-title-name">Years Experience</div>
-                  </div>
-                  <div className="white-clr-cards-l-a">
-                    <div className="mp-counts--s-l">15+</div>
-                    <div className="mp-s-l-title-name">Industries</div>
-                  </div>
-                  <div className="white-clr-cards-l-a">
-                    <div className="mp-counts--s-l">125+</div>
-                    <div className="mp-s-l-title-name">Clients</div>
+
+            {userData?.socialProof?.text?.length > 0 && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-social-proof-section-l-a">
+                  <div className="mp-sections-title">Social Proof</div>
+                  <div
+                    className={`w-card-s-p-l-a ${getGridClass(
+                      userData?.socialProof?.text?.length
+                    )}`}
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns:
+                        userData?.socialProof?.text?.length === 1
+                          ? "1fr"
+                          : "1fr 1fr",
+                      gap: "16px",
+                    }}
+                  >
+                    {userData?.socialProof?.text?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="white-clr-cards-l-a"
+                        style={{
+                          gridColumn:
+                            userData?.socialProof?.text?.length % 2 !== 0 &&
+                            index === userData?.socialProof?.text?.length - 1
+                              ? "span 2"
+                              : "auto",
+                        }}
+                      >
+                        <div className="mp-counts--s-l">
+                          {userData.socialProof?.digit[index]}+
+                        </div>
+                        <div className="mp-s-l-title-name">{item}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* twelve section photos start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-photos-section-l-a">
-                <div className="mp-sections-title">Photos</div>
 
-                {userData?.photos[0].image.length > 1 ? (
-                  <Slider {...sliderSettingsDot}>
-                    {userData?.photos[0].image.map((img, index) => (
-                      <div className="img-offer-content" key={index}>
-                        <img
-                          src={`${uri}/photo/${img}`}
-                          alt=""
-                          className="mp-img-r-curve-l-a"
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                ) : (
-                  <div className="img-offer-content">
-                    <img
-                      src={`${uri}/photo/${userData?.photos[0].image[0]}`}
-                      alt=""
-                      className="mp-img-r-curve-l-a"
-                    />
-                  </div>
-                )}
+
+            {userData?.photos[0]?.image?.length > 0 && (
+              <div className="mp-grey-box-bg-left-align">
+                <div className="mp-photos-section-l-a">
+                  <div className="mp-sections-title">Photos</div>
+
+                  {userData?.photos[0]?.image?.length > 1 ? (
+                    <Slider {...sliderSettingsDot}>
+                      {userData?.photos[0]?.image?.map((img, index) => (
+                        <div className="img-offer-content" key={index}>
+                          <img
+                            src={`${uri}/photo/${img}`}
+                            alt=""
+                            className="mp-img-r-curve-l-a"
+                          />
+                        </div>
+                      ))}
+                    </Slider>
+                  ) : (
+                    <div className="img-offer-content">
+                      <img
+                        src={`${uri}/photo/${userData?.photos[0]?.image[0]}`}
+                        alt=""
+                        className="mp-img-r-curve-l-a"
+                      />
+                    </div>
+                  )}
+                </div>
+
               </div>
-            </div>
+            )}
 
             {/* thirteen section product gallery start */}
             <div className="mp-grey-box-bg-left-align">
               <div className="mp-product-gallery-box-l-a">
                 <div className="mp-sections-title">Product gallery</div>
-                {galleryImages.length > 1 ? (
+                {galleryImages?.length > 1 ? (
                   <Slider {...sliderSettings}>
-                    {galleryImages.map((img, index) => (
+                    {galleryImages?.map((img, index) => (
                       <div className="img-offer-content" key={index}>
                         <img src={img} alt="" className="mp-img-r-curve-l-a" />
                       </div>
@@ -673,6 +788,36 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
                 </button>
               </div>
             </div>
+
+            {/* fourteen section two btn add start */}
+
+            <div className="mp-grey-box-bg-left-align">
+              <div className="btn-visit-translate-flex">
+                {cta?.btn_type && (
+                  <button
+                    className="btn-visit-translate"
+                    onClick={handleButtonClick}
+                  >
+                    <span className="btn-visit-txt">{cta?.btn_text}</span>
+                  </button>
+                )}
+                <button className="btn-visit-translate">
+                  <span className="btn-visit-txt">Translate</span>
+                </button>
+              </div>
+            </div>
+
+            {/* fifteen section copiright start */}
+            <div className="mp-grey-box-bg-left-align">
+              <div className="mp-copy-flex">
+                <p className="mp-copy-txt">
+                  © 2025 ajay gadhavi. All Rights Reserved.
+                </p>
+                <p className="mp-created-from-txt">
+                  Created From : <img src={flogo} alt="" />
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -680,7 +825,7 @@ const Mobileprev = ({ selectedFields, borderStyle }) => {
           <div className="mp-grey-bottom-btn-container">
             <button className="mp-btn-bottom-l-a">Share Card</button>
 
-            <button className="mp-btn-bottom-l-a">Contact Me</button>
+            <button className="mp-btn-bottom-l-a">Save Contact</button>
           </div>
         </div>
       </div>

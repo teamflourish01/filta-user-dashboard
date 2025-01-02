@@ -75,6 +75,151 @@
   padding: 0 6.18%;
 }
 
+.every-introduction-container{
+  max-width: 709px;
+  min-width: 200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+.key-benefit-ui{
+  max-width: 709px;
+  min-width: 200px;
+  width: 100%;
+  margin: 0 auto;
+ 
+}
+.every-introduction{
+ 
+}
+
+
+.build-trust-padding {
+  list-style: disc;
+  position: relative;
+ 
+}
+
+
+
+.build-trust-padding::marker {
+  font-size: 25px; /* Set custom font size */
+  margin: 0; /* Remove marker margin */
+  padding: 0; /* Remove marker padding */
+  content: '•'; /* Optional: Customize the bullet symbol */
+}
+.build-trust-padding span {
+}
+
+.how-it-work-card-flex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  /* justify-content: space-between; */
+  gap: 35px;
+}
+.div-p-li{
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 3px;
+  align-items: baseline;
+}
+.make-every-intro{
+  font-size: 18px;
+  line-height: 27px;
+  font-family: Poppins-SemiBold;
+  padding: 0 0 5px 0;
+}
+.smart-nfc-business{
+  padding-bottom: 30px;
+  font-size: 16px;
+  font-family: Poppins-Regular;
+padding-bottom: 30px;
+}
+.key-introcuction-p{
+  font-size: 18px;
+  font-family: Poppins-SemiBold;
+
+
+}
+.key-introcuction{
+  padding-bottom: 5px;
+}
+.build-trust-padding{
+  font-size: 16px;
+  font-family: Poppins-Regular;
+}
+.build-trust-padding p{
+  font-size: 18px;
+  font-family: Poppins-Medium;
+}
+.how-it-work-div{
+  font-size: 18px;
+  font-family: Poppins-SemiBold;
+padding: 30px 0 10px 0;
+}
+
+.design-smart-box {
+  width: 211px;
+  
+ 
+  height: 219px;
+  border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(239, 241, 243, 1);
+
+}
+
+
+.design-smart-box-p {
+  max-width: 211px;
+  min-width: 100px;
+  width: 100%;
+}
+.design-smart-inner-p {
+  font-size: 17px;
+  line-height: 25.5px;
+  font-family: Poppins-Medium;
+  padding-top: 15px;
+}
+.design-smart-para {
+  font-size: 16px;
+  line-height: 24px;
+  font-family: poppins-Regular;
+  padding-top: 3px;
+}
+
+
+
+
+
+.build-trust-padding span {
+  font-weight: bold;
+}
+
+.universal-capability{
+  font-size: 16px;
+  line-height: 24px;
+  font-family: Poppins-Medium;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 5000px) {
   .n-f-c {
     flex-direction: column;
@@ -113,6 +258,10 @@
     flex-direction: column;
     /* gap: 50px; */
   }
+  .how-it-work-card-flex {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
   .left-n-f-c-card {
     width: 100%;
     height: auto;
@@ -144,6 +293,10 @@
   }
   .standard-premium-creat-flex {
     flex-direction: column;
+    gap: 15px;
+  }
+  .how-it-work-card-flex {
+    grid-template-columns: repeat(1, 1fr);
     gap: 15px;
   }
   .grey-b-o-x-nfc-how {

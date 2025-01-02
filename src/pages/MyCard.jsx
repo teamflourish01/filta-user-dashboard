@@ -68,6 +68,20 @@ const MyCard = () => {
     }
   }, [userData]);
 
+
+  const [checkboxStates, setCheckboxStates] = useState({
+    name: true,
+    email: true,
+    number: true,
+    message: true,
+  });
+   const [formDatac, setFormDatac] = useState({
+    loginemail: "",
+    loginmessage: "",
+  });
+
+  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -130,6 +144,12 @@ const MyCard = () => {
             <ContentComponent
               onFormDataChange={handleFormDataChange}
               onSelectedFieldsChange={handleSelectedFieldsChange}
+
+              checkboxStates={checkboxStates}
+              setCheckboxStates={setCheckboxStates}
+              formDatac={formDatac}
+              setFormDatac={setFormDatac}
+
             />
           </>
         );
@@ -328,6 +348,12 @@ const MyCard = () => {
               <Mobileprev
                 selectedFields={selectedFields}
                 borderStyle={borderStyle}
+
+                checkboxStates={checkboxStates}
+              setCheckboxStates={setCheckboxStates}
+              formDatac={formDatac}
+              setFormDatac={setFormDatac}
+
               />
 
               <div className="my-prwbtn">
