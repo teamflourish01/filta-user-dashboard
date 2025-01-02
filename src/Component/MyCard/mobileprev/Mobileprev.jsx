@@ -724,6 +724,7 @@ const Mobileprev = ({
 
             {/* twelve section photos start */}
 
+
             {userData?.photos[0]?.image?.length > 0 && (
               <div className="mp-grey-box-bg-left-align">
                 <div className="mp-photos-section-l-a">
