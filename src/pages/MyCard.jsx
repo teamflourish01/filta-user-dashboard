@@ -34,10 +34,10 @@ const MyCard = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { userData } = useContext(userContext);
-   const [borderStyle, setBorderStyle] = useState(
-      // userData?.card?.style ? "circle" : "square"
-       userData?.card?.style
-    );
+  const [borderStyle, setBorderStyle] = useState(
+    // userData?.card?.style ? "circle" : "square"
+    userData?.card?.style
+  );
   const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
     name: "",
@@ -49,7 +49,18 @@ const MyCard = () => {
 
   const [selectedFields, setSelectedFields] = useState({});
 
- 
+  const [checkboxStates, setCheckboxStates] = useState({
+    name: true,
+    email: true,
+    number: true,
+    message: true,
+  });
+   const [formDatac, setFormDatac] = useState({
+    loginemail: "",
+    loginmessage: "",
+  });
+
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -85,12 +96,9 @@ const MyCard = () => {
     }
   };
 
-
-
   const handleSelectedFieldsChange = (fields) => {
     setSelectedFields(fields);
   };
-  
 
   //Preview button Animation Function End
   // Tab content components
@@ -112,7 +120,14 @@ const MyCard = () => {
       case "Content":
         return (
           <>
-            <ContentComponent onFormDataChange={handleFormDataChange} onSelectedFieldsChange={handleSelectedFieldsChange} />
+            <ContentComponent
+              onFormDataChange={handleFormDataChange}
+              onSelectedFieldsChange={handleSelectedFieldsChange}
+              checkboxStates={checkboxStates}
+              setCheckboxStates={setCheckboxStates}
+              formDatac={formDatac}
+              setFormDatac={setFormDatac}
+            />
           </>
         );
       case "Design":
@@ -302,9 +317,14 @@ const MyCard = () => {
             <div className="my-priviewMain">
               <p>Card live preview</p>
 
-              
-
-              <Mobileprev selectedFields={selectedFields} borderStyle={borderStyle}/>
+              <Mobileprev
+                selectedFields={selectedFields}
+                borderStyle={borderStyle}
+                checkboxStates={checkboxStates}
+              setCheckboxStates={setCheckboxStates}
+              formDatac={formDatac}
+              setFormDatac={setFormDatac}
+              />
 
               <div className="my-prwbtn">
                 <span>Share your card</span>
