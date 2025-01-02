@@ -26,6 +26,7 @@ import QrcodeGen from "../Component/MyCard/QrcodeGen";
 // import Mobileprev from "../../src/Component/MyCard/mobileprev/Mobileprev"
 
 const MyCard = () => {
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [profileImages, setProfileImage] = useState(null);
   const [coverPhoto, setCoverPhoto] = useState(null);
@@ -33,7 +34,7 @@ const MyCard = () => {
   const [activeTab, setActiveTab] = useState("Basic Details");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const { userData } = useContext(userContext);
+
   const [borderStyle, setBorderStyle] = useState(
     // userData?.card?.style ? "circle" : "square"
     userData?.card?.style
@@ -46,8 +47,27 @@ const MyCard = () => {
     location: "",
     bio: "",
   });
-
   const [selectedFields, setSelectedFields] = useState({});
+  const [selectedColor, setSelectedColor] = useState("#000000");
+  const [qrlogo, setQrLogo] = useState(null);
+  //Qr code color change
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+  };
+  const handleQrLogoChange = (file) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      setQrLogo(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+  useEffect(() => {
+    // Check if UserData and UserData.qrcode.qrcolor exist
+    if (userData && userData.qrcode && userData.qrcode.qrcolor) {
+      setSelectedColor(userData.qrcode.qrcolor);
+    }
+  }, [userData]);
+
 
   const [checkboxStates, setCheckboxStates] = useState({
     name: true,
@@ -61,6 +81,7 @@ const MyCard = () => {
   });
 
   
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -123,10 +144,12 @@ const MyCard = () => {
             <ContentComponent
               onFormDataChange={handleFormDataChange}
               onSelectedFieldsChange={handleSelectedFieldsChange}
+
               checkboxStates={checkboxStates}
               setCheckboxStates={setCheckboxStates}
               formDatac={formDatac}
               setFormDatac={setFormDatac}
+
             />
           </>
         );
@@ -139,7 +162,11 @@ const MyCard = () => {
       case "QR Code":
         return (
           <>
-            <QrcodeComponent />
+            <QrcodeComponent
+              selectedColor={selectedColor}
+              onColorChange={handleColorChange}
+              onLogoChange={handleQrLogoChange}
+            />
           </>
         );
       default:
@@ -304,15 +331,16 @@ const MyCard = () => {
           <hr className="hrline" />
 
           {activeTab === "QR Code" ? (
-            <div className="qr-code-panel">
-              <p>QR Code</p>
-              <div className="qr-imgmain">
-                <div className="qr-imgdiv">
-                  <img className="qrimg" src={qrcodeImg} alt="qr-code" />
-                  <img className="qrlogo" src={qrLogoImg} alt="logo-img" />
-                </div>
-              </div>
-            </div>
+            // <div className="qr-code-panel">
+            //   <p>QR Code</p>
+            //   <div className="qr-imgmain">
+            //     <div className="qr-imgdiv">
+            //       <img className="qrimg" src={qrcodeImg} alt="qr-code" />
+            //       <img className="qrlogo" src={qrLogoImg} alt="logo-img" />
+            //     </div>
+            //   </div>
+            // </div>
+            <QrcodeGen selectedColor={selectedColor} logo={qrlogo} />
           ) : (
             <div className="my-priviewMain">
               <p>Card live preview</p>
@@ -320,10 +348,12 @@ const MyCard = () => {
               <Mobileprev
                 selectedFields={selectedFields}
                 borderStyle={borderStyle}
+
                 checkboxStates={checkboxStates}
               setCheckboxStates={setCheckboxStates}
               formDatac={formDatac}
               setFormDatac={setFormDatac}
+
               />
 
               <div className="my-prwbtn">

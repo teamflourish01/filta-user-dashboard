@@ -1,43 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import qrLogoImg from "../../images/qrlogoImg.png";
-const QrcodeGen = () => {
-  const [url, setUrl] = useState("http://192.168.43.112:3000/left-align");
+import userContext from "../../context/userDetails";
+import html2canvas from "html2canvas";
+
+const QrcodeGen = ({ selectedColor, logo }) => {
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [qrData, setQrData] = useState("");
-  const generateQrCode = () => {
-    if (url) {
-      setQrData(url); // Set the URL as QR code value
-    } else {
-      alert("Please enter a URL to generate the QR Code.");
+  const [logoUrl, setLogoUrl] = useState(null);
+  const uri = process.env.REACT_APP_DEV_URL;
+
+  const handleDownload = async () => {
+    const element = document.querySelector(".qr-imgmain");
+    if (element) {
+      try {
+        const canvas = await html2canvas(element, { useCORS: true, scale: 4 });
+        const dataURL = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "Qrcode.png";
+        link.click();
+      } catch (error) {
+        console.error("Error generating the image:", error);
+      }
     }
   };
+  useEffect(() => {
+    setQrData("http://192.168.1.12:3000/left-align");
+  }, []);
+  useEffect(() => {
+    if (userData?.qrcode?.qrimage) {
+      setLogoUrl(`${uri}/qrcodelogo/${userData.qrcode.qrimage}`);
+    } else {
+      setLogoUrl(null);
+    }
+  }, [userData]);
+
   return (
     <>
       <div className="qr-code-panel">
-        <p>QR Code Generator</p>
-
-        {/* Input Fields */}
-        <div>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            style={{ padding: "10px", margin: "5px" }}
-          />          
-          <button
-            onClick={generateQrCode}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#007BFF",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Generate QR Code
-          </button>
-        </div>
+        <p>QR Code </p>
 
         {/* QR Code Section */}
         <div className="qr-imgmain">
@@ -45,31 +47,25 @@ const QrcodeGen = () => {
             <div className="qr-imgdiv">
               <QRCodeCanvas
                 className="qrimg"
-                value={qrData} // Pass dynamic data to QR Code
-                size={200}
+                value={qrData}
                 bgColor="#ffffff"
-                fgColor="blue"
-                level="H" // Error correction level
+                fgColor={selectedColor || "#ffffff"}
+                level="H"
               />
               {/* Logo Overlay */}
               <img
                 className="qrlogo"
-                src={qrLogoImg} // Replace with your logo path
+                src={logoUrl || qrLogoImg}
                 alt="logo-img"
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "50px",
-                  height: "50px",
-                }}
               />
             </div>
           ) : (
             <p>No QR Code Generated Yet</p>
           )}
         </div>
+        <a href="#" className="qr-downloadbtn" onClick={handleDownload}>
+          Download
+        </a>
       </div>
     </>
   );
