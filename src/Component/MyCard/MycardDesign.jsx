@@ -10,15 +10,14 @@ const DesignComponent = () => {
   const uri = process.env.REACT_APP_DEV_URL;
   const [colors, setColors] = useState({
     flatColor: userData?.card?.design?.card_background?.flat_color,
-    grdColor: "#000000",
-    grdSecColor: "#ffffff",
-    prmColor: "#000000",
-    secdClor: "#000000",
-    natClor: "#000000",
-    prmTxtColor: "#000000",
-    secTxtColor: "#000000",
+    grdColor: userData?.card?.design?.card_background?.gradient_color1,
+    grdSecColor: userData?.card?.design?.card_background?.gradient_color2,
+    prmColor: userData?.card?.design?.card_color?.primary_color,
+    secdClor: userData?.card?.design?.card_color?.secondary_color,
+    natClor: userData?.card?.design?.card_color?.neutral_color,
+    prmTxtColor: userData?.card?.design?.font_style?.primary_text_color,
+    secTxtColor: userData?.card?.design?.font_style?.secondary_text_color,
     themeColor: userData?.card?.design?.theme_color,
-
   });
   const refs = {
     flatColor: useRef(null),
@@ -63,11 +62,26 @@ const DesignComponent = () => {
   };
   // edit logic
 
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
     try {
       const formData = new FormData();
+      formData.append("design.card_background.flat_color", colors.flatColor);
+      formData.append("design.card_background.gradient_color1", colors.grdColor);
+      formData.append("design.card_background.gradient_color2", colors.grdSecColor);
+      formData.append("design.card_color.primary_color", colors.prmColor);
+      formData.append("design.card_color.secondary_color", colors.secdClor);
+      formData.append("design.card_color.neutral_color", colors.natClor);
+      
+      formData.append(
+        "design.font_style.primary_text_color",
+        colors.prmTxtColor
+      );
+      formData.append(
+        "design.font_style.secondary_text_color",
+        colors.secTxtColor
+      );
       formData.append("design.theme_color", colors.themeColor);
-
       const response = await axios.patch(`${uri}/card/editcard`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -127,7 +141,7 @@ const DesignComponent = () => {
           <hr />
           <div className="di-secinfo">
             <p>Flat Color</p>
-            <form onSubmit={onsubmit}>
+            <form onSubmit={onSubmit}>
               <div className="di-fltbox">
                 <div class="color-picker-container">
                   <div className="di-twoinput">
@@ -237,217 +251,102 @@ const DesignComponent = () => {
           <hr />
           <div className="di-thrdinfo">
             <p>Choose Color</p>
-            <div className="di-choosebox">
-              <div className="thr-padding">
-                {/* Primary color */}
-                <div class="trd-color-container margin-botm">
-                  <div className="trd-twoinput-container">
-                    <label htmlFor="thr-color-code">Primary Color</label>
-                    <div className="thr-inputandbtn">
-                      <div className="trd-twoinput">
-                        <input
-                          type="text"
-                          id="thr-color-code"
-                          name="prmColor"
-                          placeholder="#000000"
-                          value={colors.prmColor}
-                          onChange={handleColorChange}
-                        />
-
-                        <input
-                          type="color"
-                          id="thr-color-picker"
-                          name="prmColor"
-                          value={colors.prmColor}
-                          ref={refs.prmColor}
-                          onChange={handleColorChange}
-                        />
-                      </div>
-                      <div
-                        id="search-button"
-                        onClick={() => handleColorEdit("prmColor")}
-                      >
-                        <img src={clrpiker} alt="color piker" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Secondary Color */}
-                <div class="trd-color-container margin-botm">
-                  <div className="trd-twoinput-container">
-                    <label htmlFor="thr-color-code">Secondary Color</label>
-                    <div className="thr-inputandbtn">
-                      <div className="trd-twoinput">
-                        <input
-                          type="text"
-                          id="thr-color-code"
-                          placeholder="#000000"
-                          name="secdClor"
-                          value={colors.secdClor}
-                          onChange={handleColorChange}
-                        />
-
-                        <input
-                          type="color"
-                          id="thr-color-picker"
-                          name="secdClor"
-                          value={colors.secdClor}
-                          ref={refs.secdClor}
-                          onChange={handleColorChange}
-                        />
-                      </div>
-                      <div
-                        id="search-button"
-                        onClick={() => handleColorEdit("secdClor")}
-                      >
-                        <img src={clrpiker} alt="color piker" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Neutral Color */}
-                <div class="trd-color-container ">
-                  <div className="trd-twoinput-container">
-                    <label htmlFor="thr-color-code">Neutral Color</label>
-                    <div className="thr-inputandbtn">
-                      <div className="trd-twoinput">
-                        <input
-                          type="text"
-                          id="thr-color-code"
-                          placeholder="#000000"
-                          name="natClor"
-                          value={colors.natClor}
-                          onChange={handleColorChange}
-                        />
-
-                        <input
-                          type="color"
-                          id="thr-color-picker"
-                          name="natClor"
-                          value={colors.natClor}
-                          ref={refs.natClor}
-                          onChange={handleColorChange}
-                        />
-                      </div>
-                      <div
-                        id="search-button"
-                        onClick={() => handleColorEdit("natClor")}
-                      >
-                        <img src={clrpiker} alt="color piker" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="di-buttons delpadding">
-              <button className="di-cancel">Cancel</button>
-              <button className="di-save">Save</button>
-            </div>
-          </div>
-        </div>
-        {/* Font Style & Font Color Box */}
-        <div className="di-thrdbox">
-          <div className="di-thrdtitle">
-            <p>Font Style & Font Color</p>
-          </div>
-          <hr />
-          <div className="di-thrdinfo delpadding">
-            <div className="drp-dropdown">
-              <p>Choose Font Style</p>
-              <div className="drp-dropdown-main">
-                <div className="drp-dropdownbox">
-                  <input
-                    className="Premium-cutomize-field-input h-42"
-                    readOnly
-                    value={selectedFont}
-                    onClick={toggleDropdown}
-                  />
-                  <span
-                    className={`drp-dropdown-arrow ${isOpen ? "rotate" : ""}`}
-                    onClick={toggleDropdown}
-                  >
-                    <SlArrowDown />
-                  </span>
-                </div>
-
-                <div className={`drp-optionbox ${isOpen ? "open" : "closed"}`}>
-                  {fonts.map((font) => (
-                    <div
-                      className="drp-option"
-                      onClick={() => handleFontSelect(font)}
-                    >
-                      {font}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <hr />
-            <div className="di-txtclrbox">
-              <p>Choose Text Color</p>
+            <form onSubmit={onSubmit}>
               <div className="di-choosebox">
                 <div className="thr-padding">
+                  {/* Primary color */}
                   <div class="trd-color-container margin-botm">
                     <div className="trd-twoinput-container">
-                      <label htmlFor="thr-color-code">Primary Text Color</label>
+                      <label htmlFor="thr-color-code">Primary Color</label>
                       <div className="thr-inputandbtn">
                         <div className="trd-twoinput">
                           <input
                             type="text"
                             id="thr-color-code"
+                            name="prmColor"
                             placeholder="#000000"
-                            name="prmTxtColor"
-                            value={colors.prmTxtColor}
+                            value={colors.prmColor}
                             onChange={handleColorChange}
                           />
 
                           <input
                             type="color"
                             id="thr-color-picker"
-                            name="prmTxtColor"
-                            value={colors.prmTxtColor}
-                            ref={refs.prmTxtColor}
+                            name="prmColor"
+                            value={colors.prmColor}
+                            ref={refs.prmColor}
                             onChange={handleColorChange}
                           />
                         </div>
                         <div
                           id="search-button"
-                          onClick={() => handleColorEdit("prmTxtColor")}
+                          onClick={() => handleColorEdit("prmColor")}
                         >
                           <img src={clrpiker} alt="color piker" />
                         </div>
                       </div>
                     </div>
                   </div>
+                  {/* Secondary Color */}
                   <div class="trd-color-container margin-botm">
                     <div className="trd-twoinput-container">
-                      <label htmlFor="thr-color-code">
-                        Secondary Text Color
-                      </label>
+                      <label htmlFor="thr-color-code">Secondary Color</label>
                       <div className="thr-inputandbtn">
                         <div className="trd-twoinput">
                           <input
                             type="text"
                             id="thr-color-code"
                             placeholder="#000000"
-                            name="secTxtColor"
-                            value={colors.secTxtColor}
+                            name="secdClor"
+                            value={colors.secdClor}
                             onChange={handleColorChange}
                           />
 
                           <input
                             type="color"
                             id="thr-color-picker"
-                            name="secTxtColor"
-                            value={colors.secTxtColor}
-                            ref={refs.secTxtColor}
+                            name="secdClor"
+                            value={colors.secdClor}
+                            ref={refs.secdClor}
                             onChange={handleColorChange}
                           />
                         </div>
                         <div
                           id="search-button"
-                          onClick={() => handleColorEdit("secTxtColor")}
+                          onClick={() => handleColorEdit("secdClor")}
+                        >
+                          <img src={clrpiker} alt="color piker" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Neutral Color */}
+                  <div class="trd-color-container ">
+                    <div className="trd-twoinput-container">
+                      <label htmlFor="thr-color-code">Neutral Color</label>
+                      <div className="thr-inputandbtn">
+                        <div className="trd-twoinput">
+                          <input
+                            type="text"
+                            id="thr-color-code"
+                            placeholder="#000000"
+                            name="natClor"
+                            value={colors.natClor}
+                            onChange={handleColorChange}
+                          />
+
+                          <input
+                            type="color"
+                            id="thr-color-picker"
+                            name="natClor"
+                            value={colors.natClor}
+                            ref={refs.natClor}
+                            onChange={handleColorChange}
+                          />
+                        </div>
+                        <div
+                          id="search-button"
+                          onClick={() => handleColorEdit("natClor")}
                         >
                           <img src={clrpiker} alt="color piker" />
                         </div>
@@ -457,11 +356,136 @@ const DesignComponent = () => {
                 </div>
               </div>
               <div className="di-buttons delpadding">
-                <button className="di-cancel">Cancel</button>
-                <button className="di-save">Save</button>
+                {/* <button className="di-cancel">Cancel</button>
+              <button className="di-save">Save</button> */}
+                <TwoButton />
+              </div>
+            </form>
+          </div>
+        </div>
+        {/* Font Style & Font Color Box */}
+        <div className="di-thrdbox">
+          <div className="di-thrdtitle">
+            <p>Font Style & Font Color</p>
+          </div>
+          <hr />
+          <form onSubmit={onSubmit}>
+            <div className="di-thrdinfo delpadding">
+              <div className="drp-dropdown">
+                <p>Choose Font Style</p>
+                <div className="drp-dropdown-main">
+                  <div className="drp-dropdownbox">
+                    <input
+                      className="Premium-cutomize-field-input h-42"
+                      readOnly
+                      value={selectedFont}
+                      onClick={toggleDropdown}
+                    />
+                    <span
+                      className={`drp-dropdown-arrow ${isOpen ? "rotate" : ""}`}
+                      onClick={toggleDropdown}
+                    >
+                      <SlArrowDown />
+                    </span>
+                  </div>
+
+                  <div
+                    className={`drp-optionbox ${isOpen ? "open" : "closed"}`}
+                  >
+                    {fonts.map((font) => (
+                      <div
+                        className="drp-option"
+                        onClick={() => handleFontSelect(font)}
+                      >
+                        {font}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="di-txtclrbox">
+                <p>Choose Text Color</p>
+                <div className="di-choosebox">
+                  <div className="thr-padding">
+                    <div class="trd-color-container margin-botm">
+                      <div className="trd-twoinput-container">
+                        <label htmlFor="thr-color-code">
+                          Primary Text Color
+                        </label>
+                        <div className="thr-inputandbtn">
+                          <div className="trd-twoinput">
+                            <input
+                              type="text"
+                              id="thr-color-code"
+                              placeholder="#000000"
+                              name="prmTxtColor"
+                              value={colors.prmTxtColor}
+                              onChange={handleColorChange}
+                            />
+
+                            <input
+                              type="color"
+                              id="thr-color-picker"
+                              name="prmTxtColor"
+                              value={colors.prmTxtColor}
+                              ref={refs.prmTxtColor}
+                              onChange={handleColorChange}
+                            />
+                          </div>
+                          <div
+                            id="search-button"
+                            onClick={() => handleColorEdit("prmTxtColor")}
+                          >
+                            <img src={clrpiker} alt="color piker" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="trd-color-container margin-botm">
+                      <div className="trd-twoinput-container">
+                        <label htmlFor="thr-color-code">
+                          Secondary Text Color
+                        </label>
+                        <div className="thr-inputandbtn">
+                          <div className="trd-twoinput">
+                            <input
+                              type="text"
+                              id="thr-color-code"
+                              placeholder="#000000"
+                              name="secTxtColor"
+                              value={colors.secTxtColor}
+                              onChange={handleColorChange}
+                            />
+
+                            <input
+                              type="color"
+                              id="thr-color-picker"
+                              name="secTxtColor"
+                              value={colors.secTxtColor}
+                              ref={refs.secTxtColor}
+                              onChange={handleColorChange}
+                            />
+                          </div>
+                          <div
+                            id="search-button"
+                            onClick={() => handleColorEdit("secTxtColor")}
+                          >
+                            <img src={clrpiker} alt="color piker" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="di-buttons delpadding">
+                  {/* <button className="di-cancel">Cancel</button>
+                  <button className="di-save">Save</button> */}
+                  <TwoButton />
+                </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
         {/* Themes Box */}
         <div className="di-thrdbox">
