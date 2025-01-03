@@ -23,7 +23,8 @@ import userContext from "../context/userDetails";
 import { useNavigate } from "react-router-dom";
 import Mobileprev from "./../Component/MyCard/mobileprev/Mobileprev";
 import QrcodeGen from "../Component/MyCard/QrcodeGen";
-// import Mobileprev from "../../src/Component/MyCard/mobileprev/Mobileprev"
+import { useForm } from "react-hook-form";
+import dummyprofile from "../images/digitalphoto.png";
 
 const MyCard = () => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
@@ -34,11 +35,8 @@ const MyCard = () => {
   const [activeTab, setActiveTab] = useState("Basic Details");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-
-  const [borderStyle, setBorderStyle] = useState(
-    // userData?.card?.style ? "circle" : "square"
-    userData?.card?.style
-  );
+  const [profileImagePreview, setProfileImagePreview] = useState();
+  const [borderStyle, setBorderStyle] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
     name: "",
@@ -66,8 +64,9 @@ const MyCard = () => {
     if (userData && userData.qrcode && userData.qrcode.qrcolor) {
       setSelectedColor(userData.qrcode.qrcolor);
     }
+    setBorderStyle(userData?.card?.style);
+    console.log(borderStyle, "borderStyle");
   }, [userData]);
-
 
   const [checkboxStates, setCheckboxStates] = useState({
     name: true,
@@ -75,12 +74,10 @@ const MyCard = () => {
     number: true,
     message: true,
   });
-   const [formDatac, setFormDatac] = useState({
+  const [formDatac, setFormDatac] = useState({
     loginemail: "",
     loginmessage: "",
   });
-
-  
 
   const navigate = useNavigate();
 
@@ -88,6 +85,7 @@ const MyCard = () => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -121,6 +119,24 @@ const MyCard = () => {
     setSelectedFields(fields);
   };
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm({
+    values: {
+      name: userData?.card?.name,
+      jobtitle: userData?.card?.jobtitle || "",
+      company: userData?.card?.company || "",
+      location: userData?.card?.location || "",
+      bio: userData?.card?.bio || "",
+    },
+  });
+
+  const watchedData = watch();
+
   //Preview button Animation Function End
   // Tab content components
   const renderTabContent = () => {
@@ -132,9 +148,17 @@ const MyCard = () => {
               onFormDataChange={handleFormDataChange}
               onProfileImageChange={setProfileImage}
               onCoverPhotoChange={setCoverPhoto}
+              coverPhoto={coverPhoto}
               onLogoChange={setLogo}
+              logo={logo}
               borderStyle={borderStyle}
               setBorderStyle={setBorderStyle}
+              profileImagePreview={profileImagePreview}
+              setProfileImagePreview={setProfileImagePreview}
+              profileImages={profileImages}
+              register={register}
+              handleSubmit={handleSubmit}
+              errors={errors}
             />
           </>
         );
@@ -144,12 +168,10 @@ const MyCard = () => {
             <ContentComponent
               onFormDataChange={handleFormDataChange}
               onSelectedFieldsChange={handleSelectedFieldsChange}
-
               checkboxStates={checkboxStates}
               setCheckboxStates={setCheckboxStates}
               formDatac={formDatac}
               setFormDatac={setFormDatac}
-
             />
           </>
         );
@@ -319,10 +341,14 @@ const MyCard = () => {
         <div className="my-rightside">
           <div className="e-profile">
             {/* <img src={profileimg} alt="profile img" /> */}
-            <img
-              src={`${uri}/card/${userData?.card?.profileimg}`}
-              alt="profile-img"
-            />
+            {userData?.card?.profileimg ? (
+              <img
+                src={`${uri}/card/${userData?.card?.profileimg}`}
+                alt="profile-img"
+              />
+            ) : (
+              <img src={dummyprofile} alt="profile-img" />
+            )}
             <div className="e-sidediv">
               <p className="e-prfname">{userData?.card?.name}</p>
               <p className="e-prfemail">{userData?.card?.email}</p>
@@ -348,12 +374,17 @@ const MyCard = () => {
               <Mobileprev
                 selectedFields={selectedFields}
                 borderStyle={borderStyle}
-
                 checkboxStates={checkboxStates}
-              setCheckboxStates={setCheckboxStates}
-              formDatac={formDatac}
-              setFormDatac={setFormDatac}
-
+                setCheckboxStates={setCheckboxStates}
+                formDatac={formDatac}
+                setFormDatac={setFormDatac}
+                // profileImagePreview={profileImagePreview}
+                // setProfileImagePreview={setProfileImagePreview}
+                profileImages={profileImages}
+                coverPhoto={coverPhoto}
+                onLogoChange={setLogo}
+                logo={logo}
+                watch={watchedData}
               />
 
               <div className="my-prwbtn">
