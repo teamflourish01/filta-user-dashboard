@@ -4,6 +4,8 @@ import "../../Component/MyCard/MyEditCard.css";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import userContext from "../../context/userDetails";
+import dummyprofile from "../../images/digitalphoto.png";
+
 const MyCardmain = () => {
   const { userData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
@@ -13,15 +15,17 @@ const MyCardmain = () => {
       <div className="card-bg">
         <div className="card-img">
           <div className="card-pfimg">
-
-            <img
-              src={`${uri}/card/${userData?.card?.profileimg}`}
-              alt="pf-img"
-              onError={(e) => {
-                console.error("Image failed to load", e);
-              }}
-            />
-
+            {userData?.card?.profileimg ? (
+              <img
+                src={`${uri}/card/${userData?.card?.profileimg}`}
+                alt="pf-img"
+                onError={(e) => {
+                  console.error("Image failed to load", e);
+                }}
+              />
+            ) : (
+              <img src={dummyprofile} alt="pf-img" />
+            )}
           </div>
           <div className="card-line"></div>
         </div>
