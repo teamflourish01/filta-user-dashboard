@@ -7,10 +7,11 @@ import emailsignature from "../../images/emailsignature.svg";
 import virtualbackground from "../../images/virtualbackground.svg";
 import contact from "../../images/contact.svg";
 import myleads from "../../images/myleads.svg";
-import setting from "../../images/setting.svg";
+// import setting from "../../images/setting.svg";
 import "./Sidebar.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import userContext from "../../context/userDetails";
+import dummyprofile from "../../images/digitalphoto.png";
 
 const Sidebar = () => {
   // const [activeItem, setActiveItem] = useState(" ");
@@ -54,16 +55,20 @@ const Sidebar = () => {
       <div className="profile-section-mobile-pic">
         <img
           src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="Profile Imag"
+          alt="Profile Imag"
           className="profile-img"
         />
       </div>
       <div className="profile-section">
-        <img
-          src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="Profile Imag"
-          className="profile-img"
-        />
+        {userData?.card?.profileimg ? (
+          <img
+            src={`${uri}/card/${userData?.card?.profileimg}`}
+            alt="Profile Imag"
+            className="profile-img"
+          />
+        ) : (
+          <img src={dummyprofile} alt="Profile Imag" className="profile-img" />
+        )}
         <div className="profile-info">
           <p>{userData?.card?.name || "Ajay Gadhavi"}</p>
           <span>User</span>
@@ -82,7 +87,7 @@ const Sidebar = () => {
           <div className="profile-dropdown-menu">
             <ul>
               <li>
-                <Link to="/request-feature" >Request a feature</Link>
+                <Link to="/request-feature">Request a feature</Link>
               </li>
               <li>
                 <Link onClick={handleLogOut}>Logout</Link>
@@ -149,17 +154,16 @@ const Sidebar = () => {
           <img src={virtualbackground} className="menu-icon" alt="" />
           <span>Virtual Background</span>
         </Link>
-        <Link
+        {/* <Link
           to="/contacts"
           className={`menu-item ${
             location.pathname === "/contacts" ? "active" : ""
           }`}
           // onClick={() => handleMenuClick("Contacts")}
         >
-          {/* <FaUserFriends className="menu-icon" /> */}
           <img src={contact} className="menu-icon" alt="" />
           <span>Contacts</span>
-        </Link>
+        </Link> */}
         <Link
           to="/my-leads"
           className={`menu-item ${
@@ -171,17 +175,16 @@ const Sidebar = () => {
           <img src={myleads} className="menu-icon" alt="" />
           <span>My Leads</span>
         </Link>
-        <Link
+        {/* <Link
           to="/settings"
           className={`menu-item ${
             location.pathname === "/settings" ? "active" : ""
           }`}
           // onClick={() => handleMenuClick("Settings")}
         >
-          {/* <FaCog className="menu-icon" /> */}
           <img src={setting} className="menu-icon" alt="" />
           <span>Settings</span>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

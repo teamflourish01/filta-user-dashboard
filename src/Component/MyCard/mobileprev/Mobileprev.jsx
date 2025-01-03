@@ -32,8 +32,9 @@ import mgoogledrive from "../../../images/mgoogledrive.svg";
 import flogo from "../../../images/filta.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import dummyprofile from "../../../images/digitalphoto.png";
 import { Document, Page, pdfjs } from "react-pdf";
+import defaultlogo from "../../../images/filta.png";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -42,10 +43,13 @@ const Mobileprev = ({
   borderStyle,
   setCheckboxStates,
   checkboxStates,
+  profileImages,
+  coverPhoto,
+  logo,
+  watch,
   formDatac,
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  // const socialProof = userData.card.socialProof || [];
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -62,9 +66,6 @@ const Mobileprev = ({
 
   const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
-  // const [token, setToken] = useState(localStorage.getItem("token"));
-
-  // const AuthorizationToken = `Bearer ${token}`;
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -89,7 +90,7 @@ const Mobileprev = ({
     };
 
     fetchUserDetails();
-  }, []); // Empty dependency array to call useEffect only once
+  }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -231,7 +232,7 @@ const Mobileprev = ({
     if (count === 1) return "one-item";
     if (count === 2) return "two-items";
     if (count === 3) return "three-items";
-    return "two-items"; // Fallback for more than 3 items
+    return "two-items";
   };
 
   const cta = userData?.cta;
@@ -267,18 +268,26 @@ const Mobileprev = ({
             
 
             <div className="top-profile-container-left-align">
-              <div className="mp-top-inner-content-left-a" 
-              
-              
-              style={{
-                background:userData?.card?.design?.card_color?.primary_color,border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`}}
-                
-              >
-                {/* <img src="" alt="" /> */}
-                <img
-                  src={`${uri}/card/${userData?.card?.coverimg}`}
-                  alt="cover img"
-                />
+
+              <div className="mp-top-inner-content-left-a"   style={{
+                background:userData?.card?.design?.card_color?.primary_color,border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`}}>
+                {coverPhoto && (
+                  <img
+                    src={
+                      coverPhoto
+                        ? coverPhoto
+                        : `${uri}/card/${userData?.card?.coverimg}`
+                    }
+                    alt="cover img"
+                  />
+                )}
+                {userData?.card?.coverimg && (
+                  <img
+                    src={`${uri}/card/${userData?.card?.coverimg}`}
+                    alt="cover img"
+                  />
+                )}
+
               </div>
               <div className="hr-btw-top-bottom-l-a"
               style={{
@@ -290,90 +299,107 @@ const Mobileprev = ({
               >
                 <div className="mp-info-user-left-card-padding">
                   <p className="mp-user-name-left-align-card">
-                    {userData?.card?.name}
+                    {watch.name || "Name"}
                   </p>
 
                   <p className="mp-grey-bottom-txt">
-                    {userData?.card?.jobtitle}
+                    {watch.jobtitle || "Job Title"}
                   </p>
                   <p className="mp-grey-bottom-txt">
-                    {userData?.card?.company}
+                    {watch.company || "Company"}
                   </p>
                   <p className="mp-grey-bottom-txt">
-                    {userData?.card?.location}
+                    {watch.location || "Location"}
                   </p>
                 </div>
               </div>
               <div className="profile-pic-container-left-align">
-                {/* <div className="mp-profile-pic-c-l-a"> */}
-
                 <div
                   className={`mp-profile-pic-c-l-a ${
                     borderStyle ? "circle" : "square"
                   }`}
                 >
-                  <img
-                    src={`${uri}/card/${userData?.card?.profileimg}`}
-                    alt="Profile-img"
-                  />
+                  {userData?.card?.profileimg ? (
+                    <img
+                      src={
+                        profileImages
+                          ? profileImages
+                          : `${uri}/card/${userData?.card?.profileimg}`
+                      }
+                      alt="Profile-img"
+                    />
+                  ) : (
+                    <img
+                      src={profileImages ? profileImages : dummyprofile}
+                      alt="Profile-img"
+                    />
+                  )}
                 </div>
                 <div className="mp-logo-profile-c-l-a">
-                  <img
-                    className="mp-l-size-flourish"
-                    src={`${uri}/card/${userData?.card?.logoimg}`}
-                    alt="logo img"
-                  />
+                  {userData?.card?.logoimg ? (
+                    <img
+                      className="mp-l-size-flourish"
+                      src={
+                        logo ? logo : `${uri}/card/${userData?.card?.logoimg}`
+                      }
+                      alt="logo img"
+                    />
+                  ) : (
+                    <img
+                      className="mp-l-size-flourish"
+                      src={logo ? logo : defaultlogo}
+                      alt="logo img"
+                    />
+                  )}
                 </div>
               </div>
             </div>
 
             {/* second clickable link section start */}
-            <div className="mp-grey-box-bg-left-align"
-            style={{
-              background:userData?.card?.design?.card_color?.primary_color,border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`}}
-            >
-              <div className="mp-clickable-link-section">
-                <div className="mp-sections-title">Clickable Links</div>
-                <div className="mp-social-icon-c-c-l">
-                  {userData?.socialLinks?.map((link) => (
-                    <div className="icon-container-box" key={link._id}>
-                      <div className="mp-a-tag">
-                        {/* Dynamic icon rendering */}
-                        <a
-                          className=" mp-padding-icon-container-box"
-                          href={generateHref(link.platform, link.url)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div className="mp-under-icon-img"
-                          style={{
-                            background:userData?.card?.design?.card_color?.secondary_color
-                          }}
+
+            {userData?.socialLinks.length > 0 && (
+              <div className="mp-grey-box-bg-left-align" style={{
+              background:userData?.card?.design?.card_color?.primary_color,border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`}}>
+                <div className="mp-clickable-link-section">
+                  <div className="mp-sections-title">Clickable Links</div>
+                  <div className="mp-social-icon-c-c-l">
+                    {userData?.socialLinks?.map((link) => (
+                      <div className="icon-container-box" key={link._id}>
+                        <div className="mp-a-tag">
+                          {/* Dynamic icon rendering */}
+                          <a
+                            className=" mp-padding-icon-container-box"
+                            href={generateHref(link.platform, link.url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            <img
-                              src={
-                                iconMap[link.platform] ||
-                                "https://via.placeholder.com/50"
-                              } // Placeholder for unknown platforms
-                              alt={link.platform}
-                            />
-                          </div>
-                        </a>
-                        {/* Clickable platform name */}
-                        <a
-                          href={generateHref(link.platform, link.url)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mp-icon-name-c-l"
-                        >
-                          {link.text}
-                        </a>
+                            <div className="mp-under-icon-img">
+                              <img
+                                src={
+                                  iconMap[link.platform] ||
+                                  "https://via.placeholder.com/50"
+                                } // Placeholder for unknown platforms
+                                alt={link.platform}
+                              />
+                            </div>
+                          </a>
+                          {/* Clickable platform name */}
+                          <a
+                            href={generateHref(link.platform, link.url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mp-icon-name-c-l"
+                          >
+                            {link.text}
+                          </a>
+                        </div>
+
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* third multimedia section start */}
             {userData?.multimedia[0]?.video_file?.length > 0 &&
@@ -479,11 +505,13 @@ const Mobileprev = ({
               )}
 
             {/* fourth section contact form start */}
+
             {userDetails.data[0]?.loginemail && (
               <div className="mp-grey-box-bg-left-align"
               style={{
                 background:userData?.card?.design?.card_color?.primary_color,border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`}}
               >
+
                 <div className="mp-contact-form-left-align">
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mp-sections-title">Contact Form</div>
@@ -498,7 +526,6 @@ const Mobileprev = ({
                           />
                         </div>
                       )}
-                      {/* {selectedFields.email && ( */}
 
                       <div className="input-field-contact-form-leftalign">
                         <input
@@ -511,7 +538,6 @@ const Mobileprev = ({
                         />
                       </div>
 
-                      {/* // )} */}
                       {checkboxStates.number && (
                         <div className="input-field-contact-form-leftalign">
                           <input
@@ -560,14 +586,6 @@ const Mobileprev = ({
                   <div className="mp-sections-title">Voice Message</div>
                   <div className="audio-container" onClick={togglePlayback}>
                     <VoiceMessage />
-                    {/* <audio
-                  controls
-                  className="custom-audio"
-                  controlsList="nodownload noplaybackrate"
-                >
-                  <source src={sound} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio> */}
                   </div>
                 </div>
               </div>
@@ -645,11 +663,6 @@ const Mobileprev = ({
                           />
                         </a>
                       </Document>
-                      {/* <img
-                      src={`${uri}/documents/${userData?.documents[0].document}`}
-                      className="mp-i-d-l-a-size"
-                      alt=""
-                    /> */}
                     </div>
                   )}
                   <p className="mp-d-l-a-name">Flourish Profile</p>
@@ -784,7 +797,6 @@ const Mobileprev = ({
 
             {/* twelve section photos start */}
 
-
             {userData?.photos[0]?.image?.length > 0 && (
               <div className="mp-grey-box-bg-left-align"
               style={{
@@ -815,7 +827,6 @@ const Mobileprev = ({
                     </div>
                   )}
                 </div>
-
               </div>
             )}
 
