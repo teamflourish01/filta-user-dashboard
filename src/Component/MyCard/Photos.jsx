@@ -81,10 +81,14 @@ const Photos = () => {
         <form onSubmit={handleSubmit}>
           <div className="ph-imagesUpload">
             <div className="ph-up-fixed">
-            <div className="ph-uplod">
-              <input type="file" onChange={handleFileChange} accept="image/*" />
-              <img src={uploadimg} alt="upload img" />
-            </div>
+              <div className="ph-uplod">
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
+                <img src={uploadimg} alt="upload img" />
+              </div>
             </div>
             {/* <div className="ph-uploadimg-scroll"> */}
             <div className="ph-uploadimg-scroll">
