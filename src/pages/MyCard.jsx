@@ -270,7 +270,7 @@ const MyCard = () => {
                         </div>
                       ) : (
                         <div className="my-priviewMain">
-                          <p>Card live preview</p>
+                          <p className="clp">Card live preview</p>
                           <div className="my-priviewcard"></div>
                           <div className="my-prwbtn">
                             <span>Share your card</span>
@@ -369,7 +369,7 @@ const MyCard = () => {
             <QrcodeGen selectedColor={selectedColor} logo={qrlogo} />
           ) : (
             <div className="my-priviewMain">
-              <p>Card live preview</p>
+              <p className="clp">Card live preview</p>
 
               <Mobileprev
                 selectedFields={selectedFields}

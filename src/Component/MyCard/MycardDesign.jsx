@@ -60,6 +60,14 @@ const DesignComponent = () => {
     setSelectedFont(font);
     setIsOpen(false);
   };
+
+  const [layout, setLayout] = useState(
+    userData?.card?.design?.layout || "left"
+  );
+  // Handle layout change
+  const handleLayoutChange = (e) => {
+    setLayout(e.target.value);
+  };
   // edit logic
 
   const onSubmit = async (e) => {
@@ -67,12 +75,18 @@ const DesignComponent = () => {
     try {
       const formData = new FormData();
       formData.append("design.card_background.flat_color", colors.flatColor);
-      formData.append("design.card_background.gradient_color1", colors.grdColor);
-      formData.append("design.card_background.gradient_color2", colors.grdSecColor);
+      formData.append(
+        "design.card_background.gradient_color1",
+        colors.grdColor
+      );
+      formData.append(
+        "design.card_background.gradient_color2",
+        colors.grdSecColor
+      );
       formData.append("design.card_color.primary_color", colors.prmColor);
       formData.append("design.card_color.secondary_color", colors.secdClor);
       formData.append("design.card_color.neutral_color", colors.natClor);
-      
+
       formData.append(
         "design.font_style.primary_text_color",
         colors.prmTxtColor
@@ -82,6 +96,8 @@ const DesignComponent = () => {
         colors.secTxtColor
       );
       formData.append("design.theme_color", colors.themeColor);
+      // Append the layout data to the form
+      formData.append("design.layout", layout);
       const response = await axios.patch(`${uri}/card/editcard`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -96,42 +112,61 @@ const DesignComponent = () => {
       alert(error.response?.data?.error || "Failed to update data");
     }
   };
+
   return (
     <>
       <div className="di-margin">
         {/* first Box */}
+        
         <div className="di-maindiv">
           <div className="di-title">
             <p>Card Layout</p>
           </div>
           <hr />
+          <form onSubmit={onSubmit}>
           <div className="di-info">
             <p>Choose Card Layout</p>
             <div className="di-threebtn">
               <div className="di-lftbtn">
                 <label>
                   Left Align
-                  <input type="radio" />
+                  <input
+                    type="radio"
+                    value="left"
+                    checked={layout === "left"}
+                    onChange={handleLayoutChange}
+                  />
                 </label>
               </div>
               <div className="di-ctrtbtn">
                 <label>
                   Center Align
-                  <input type="radio" />
+                  <input
+                    type="radio"
+                    value="center"
+                    checked={layout === "center"}
+                    onChange={handleLayoutChange}
+                  />
                 </label>
               </div>
               <div className="di-rgtbtn">
                 <label>
                   Portrait
-                  <input type="radio" />
+                  <input
+                    type="radio"
+                    value="portrait"
+                    checked={layout === "portrait"}
+                    onChange={handleLayoutChange}
+                  />
                 </label>
               </div>
             </div>
             <div className="di-buttons">
-              <button className="di-cancel">Cancel</button>
-              <button className="di-save">Save</button>
+              {/* Pass the layout to TwoButton */}
+              <TwoButton layout={layout} />
             </div>
           </div>
+          </form>
         </div>
         {/* Seconed Box */}
         <div className="di-seconedbox">

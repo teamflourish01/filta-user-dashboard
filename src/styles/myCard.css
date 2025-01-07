@@ -267,13 +267,13 @@
 .my-priviewMain {
   text-align: center;
 }
-/* .my-priviewMain p {
+.my-priviewMain .clp {
   font-family: Poppins-Medium;
   font-weight: 500;
   font-size: 18px;
   margin: 20px 0;
   padding: 0;
-} */
+}
 .my-priviewcard {
   width: 280px;
   height: 550px;
