@@ -66,7 +66,7 @@
 .digital-card-link {
   background: rgba(239, 241, 243, 1);
   border: 0.48px solid rgba(0, 0, 0, 0.2);
-  margin-top: 27.22px;
+  margin: 27.22px 8px 0 8px;
   border-radius: 4px;
   display: flex;
   flex-direction: column; /* Stack children vertically */

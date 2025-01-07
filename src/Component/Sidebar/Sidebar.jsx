@@ -13,6 +13,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import userContext from "../../context/userDetails";
 
 const Sidebar = () => {
+  
   // const [activeItem, setActiveItem] = useState(" ");
   const location = useLocation();
   const navigate = useNavigate();
@@ -50,7 +51,10 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <div className="sidebar"
+    onMouseEnter={() => document.querySelector(".nav-title").classList.add("hovered")}
+    onMouseLeave={() => document.querySelector(".nav-title").classList.remove("hovered")}
+    >
       <div className="profile-section-mobile-pic">
         <img
           src={`${uri}/card/${userData?.card?.profileimg}`}

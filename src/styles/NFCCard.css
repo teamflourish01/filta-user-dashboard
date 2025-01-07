@@ -9,6 +9,14 @@
   height: 100%;
 
 }
+
+
+
+.build-trust-title{
+  font-size: 16px;
+    line-height: 24px;
+    font-family: poppins-Regular;
+}
 .n-f-c-scroll{
   width: 100%;
   overflow-y: scroll;
