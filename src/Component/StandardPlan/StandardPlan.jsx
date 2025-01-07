@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../StandardPlan/StandardPlan.css";
 import Sprofile from "../../images/profile.svg";
 import nfc from "../../images/nfc.svg";
@@ -13,10 +13,14 @@ import "../../styles/Preview.css";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { HiOutlineArrowLeft } from "react-icons/hi";
+import { handlePayment } from "../../uttils/Payment";
+import userContext from "../../context/userDetails";
 
 const StandardPlan = () => {
   const navigate = useNavigate();
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+
 
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -37,12 +41,22 @@ const StandardPlan = () => {
     accent_color:"",
     hide_nfc:""
   });
+    const [mobile, setMobile] = useState("");
+  
+
+  const filterMobile = async() => {
+    let arr = userData?.socialLinks?.filter((e) => e?.platform == "Call");
+    setMobile(arr[0]?.url);
+    return arr[0]?.url
+  };
+
 
 
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
+    getUserData()
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -283,91 +297,103 @@ const StandardPlan = () => {
               </div>
             </div>
             <div className="bottom-content-scroll-standard">
-            <div className="bottom-standard-section">
-              <div className="standard-nfc-card-preview-title">
-                NFC card live preview
-              </div>
-              <div className="front-standard-card">
-                <p className="front-side-text">Front Side</p>
-                <div
-                  className={`front-side-card-design ${
-                    selectedColor === "white" ? "white-bg" : "black-bg"
-                  }`}
-                >
-                  {showNfcIcon && (
-                    <div className="nfc-icon">
-                      <img
-                        src={selectedColor === "white" ? blackNFC : nfc}
-                        alt=""
-                        className="nfc-i-s-s"
-                      />
-                    </div>
-                  )}
-                  <p
-                    className={`name-card ${
-                      selectedColor === "white"
-                        ? "text-black "
-                        : "white-name-black-card"
+              <div className="bottom-standard-section">
+                <div className="standard-nfc-card-preview-title">
+                  NFC card live preview
+                </div>
+                <div className="front-standard-card">
+                  <p className="front-side-text">Front Side</p>
+                  <div
+                    className={`front-side-card-design ${
+                      selectedColor === "white" ? "white-bg" : "black-bg"
                     }`}
                   >
-                    {formData.name}
-                  </p>
-                  <p className="green-name-black-card">{formData.info}</p>
-                </div>
-              </div>
-              <div className="line-between-front-back"></div>
-              <div className="back-standard-card">
-                <p className="back-side-text">Back Side</p>
-                <div
-                  className={`back-side-card-design ${
-                    selectedColor === "white" ? "white-bg" : "black-bg"
-                  }`}
-                >
-                  {showFiltaLogo && (
-                    <div className="nfc-icon">
-                      <img
-                        src={
-                          selectedColor === "white" ? blackFilta : whiteFilta
-                        }
-                        alt=""
-                        className="filta-b-s-s"
-                      />
-                    </div>
-                  )}
-
-                  <div className="scanner-container-standard">
-                    <img src={scanner} alt="" className="nfc-scanner" />
-                    {hideBackLine && (
-                      <div
-                        className={
-                          selectedColor === "white"
-                            ? "black-hr"
-                            : " hr-standard"
-                        }
-                        style={{ backgroundColor: accentColor }}
-                      ></div>
-                    )}
-                    {formData.email || formData.mobileNumber ? (
-                      <div className="back-details-card">
-                        {showEmailId && <p>{formData.email}</p>}
-                        {showMobileNo && <p>{formData.mobileNumber}</p>}
+                    {showNfcIcon && (
+                      <div className="nfc-icon">
+                        <img
+                          src={selectedColor === "white" ? blackNFC : nfc}
+                          alt=""
+                          className="nfc-i-s-s"
+                        />
                       </div>
-                    ) : null}
+                    )}
+                    <p
+                      className={`name-card ${
+                        selectedColor === "white"
+                          ? "text-black "
+                          : "white-name-black-card"
+                      }`}
+                    >
+                      {formData.name}
+                    </p>
+                    <p className="green-name-black-card">{formData.info}</p>
                   </div>
                 </div>
-              </div>
-              <div className="but-now-btn-nfc">
-                <button type="button" className="btn-buy-now-nfc">
-                  <div className="buy-now-flex">
-                    <span>Buy Now at </span>
-                    <span className="rupee-f">
-                      <FaIndianRupeeSign />
-                      899
-                    </span>
+                <div className="line-between-front-back"></div>
+                <div className="back-standard-card">
+                  <p className="back-side-text">Back Side</p>
+                  <div
+                    className={`back-side-card-design ${
+                      selectedColor === "white" ? "white-bg" : "black-bg"
+                    }`}
+                  >
+                    {showFiltaLogo && (
+                      <div className="nfc-icon">
+                        <img
+                          src={
+                            selectedColor === "white" ? blackFilta : whiteFilta
+                          }
+                          alt=""
+                          className="filta-b-s-s"
+                        />
+                      </div>
+                    )}
+
+                    <div className="scanner-container-standard">
+                      <img src={scanner} alt="" className="nfc-scanner" />
+                      {hideBackLine && (
+                        <div
+                          className={
+                            selectedColor === "white"
+                              ? "black-hr"
+                              : " hr-standard"
+                          }
+                          style={{ backgroundColor: accentColor }}
+                        ></div>
+                      )}
+                      {formData.email || formData.mobileNumber ? (
+                        <div className="back-details-card">
+                          {showEmailId && <p>{formData.email}</p>}
+                          {showMobileNo && <p>{formData.mobileNumber}</p>}
+                        </div>
+                      ) : null}
+                    </div>
                   </div>
-                </button>
+                </div>
+                <div className="but-now-btn-nfc">
+                  <button
+                    type="button"
+                    className="btn-buy-now-nfc"
+                    onClick={() =>
+                      handlePayment({
+                        amount: 1399,
+                        name: userData?.card?.name,
+                        email: userData?.email,
+                        mobile: filterMobile(),
+                        userId: userData?._id,
+                      })
+                    }
+                  >
+                    <div className="buy-now-flex">
+                      <span>Buy Now at </span>
+                      <span className="rupee-f">
+                        <FaIndianRupeeSign />
+                        899
+                      </span>
+                    </div>
+                  </button>
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>
