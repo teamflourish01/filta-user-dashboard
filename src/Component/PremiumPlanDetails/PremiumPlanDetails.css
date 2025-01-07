@@ -88,6 +88,7 @@
   font-weight: 600;
   line-height: 24px;
   border: none;
+  border: 1px solid #E2E2E2
 }
 .save-blk-btn {
   width: 111px;

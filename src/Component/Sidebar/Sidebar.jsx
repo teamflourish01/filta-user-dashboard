@@ -53,11 +53,15 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="profile-section-mobile-pic">
-        <img
-          src={`${uri}/card/${userData?.card?.profileimg}`}
-          alt="Profile Imag"
-          className="profile-img"
-        />
+      {userData?.card?.profileimg ? (
+          <img
+            src={`${uri}/card/${userData?.card?.profileimg}`}
+            alt="Profile Imag"
+            className="profile-img"
+          />
+        ) : (
+          <img src={dummyprofile} alt="Profile Imag" className="profile-img" />
+        )}
       </div>
       <div className="profile-section">
         {userData?.card?.profileimg ? (

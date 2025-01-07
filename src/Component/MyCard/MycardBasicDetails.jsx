@@ -122,7 +122,7 @@ const BasicDetails = ({
             <div className="upload-box">
               <p className="my-topheading">Profile Picture</p>
               <div
-                className={`upload-area ${borderStyle ? "circle" : "square"}`}
+                className={`upload-area ${borderStyle ? " square" : "circle"}`}
               >
                 <input
                   type="file"
@@ -156,9 +156,9 @@ const BasicDetails = ({
                   <input
                     type="radio"
                     name="style"
-                    value={true}
-                    checked={borderStyle}
-                    onChange={() => setBorderStyle(true)}
+                    value={false}
+                    checked={!borderStyle}
+                    onChange={() => setBorderStyle(false)}
                   />
                 </label>
                 <label>
@@ -166,9 +166,9 @@ const BasicDetails = ({
                   <input
                     type="radio"
                     name="style"
-                    value={false}
-                    checked={!borderStyle}
-                    onChange={() => setBorderStyle(false)}
+                    value={true}
+                    checked={borderStyle}
+                    onChange={() => setBorderStyle(true)}
                   />
                 </label>
               </div>
