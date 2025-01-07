@@ -573,18 +573,18 @@ const Mobileprev = ({
 
             style={{
               background: userData?.card?.design?.card_background?.flat_color,
-
+            }}
             // style={{
             //   background: userData?.card?.design?.card_background?.flat_color
             // }}
-            style={{
-              background:
-                userData?.card?.design?.card_background?.gradient_color1 &&
-                userData?.card?.design?.card_background?.gradient_color2
-                  ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-                  : userData?.card?.design?.card_background?.flat_color,
+            // style={{
+            //   background:
+            //     userData?.card?.design?.card_background?.gradient_color1 &&
+            //     userData?.card?.design?.card_background?.gradient_color2
+            //       ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+            //       : userData?.card?.design?.card_background?.flat_color,
 
-            }}
+            // }}
           >
             {/* top profile section start */}
 
@@ -1157,7 +1157,7 @@ const Mobileprev = ({
 
             {/* eight section team member details start */}
 
-            {userData?.teamMember?.name.length > 0 && (
+            {/* {userData?.teamMember?.name.length > 0 && ( */}
 
             {userData?.teamMember?.name?.filter(
               (item) => item.trim().length > 0
@@ -1338,7 +1338,7 @@ const Mobileprev = ({
             {/* eleven section social proof start */}
 
 
-            {userData?.socialProof?.text?.length > 0 && (
+            {/* {userData?.socialProof?.text?.length > 0 && ( */}
 
             {userData?.socialProof?.text?.filter(
               (item) => item.trim().length > 0
@@ -1482,7 +1482,7 @@ const Mobileprev = ({
                 >
                   Product gallery
                 </div>
-                {galleryImages?.length > 1 ? (
+                {/* {galleryImages?.length > 1 ? ( */}
 
                 <div className="mp-sections-title">Product gallery</div>
                 {userData?.productGallary?.length > 1 ? (
