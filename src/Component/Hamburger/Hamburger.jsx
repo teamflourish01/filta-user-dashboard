@@ -12,6 +12,8 @@ import "../Hamburger/Hamburger.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import userContext from "../../context/userDetails";
+import dummyprofile from "../../images/digitalphoto.png";
+
 
 
 
@@ -49,11 +51,19 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
           </div>
 
           <div className="profile-section-ham">
+          {userData?.card?.profileimg ? (
             <img
               src={`${uri}/card/${userData?.card?.profileimg}`}
                       alt="Profile-img"
               className="profile-img-ham"
             />
+          ):(
+            <img
+            src={dummyprofile}
+                    alt="Profile-img"
+            className="profile-img-ham"
+          />
+          )}
             <div className="profile-info">
               <p>{userData?.card?.name}</p>
               <span>User</span>

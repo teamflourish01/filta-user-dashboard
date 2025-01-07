@@ -27,6 +27,9 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
+.back-to-nfc{
+  white-space: nowrap;
+}
 .standard-l-n-f-c {
   font-family: Poppins-SemiBold;
   font-size: 20px;

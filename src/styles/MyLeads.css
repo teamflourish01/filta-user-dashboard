@@ -383,7 +383,7 @@
 .lead-table {
   border: 10px solid #eff1f3;
   /* padding: 10px; */
-  height: 372px;
+  height: 200px;
   margin: 8px 25px;
   border-radius: 5px;
   background-color: #eff1f3;
@@ -391,7 +391,11 @@
 .bg-w-try {
   background-color: white;
   border-radius: 5px;
-  height: 372px;
+  height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  
+
 }
 .p-40 {
   padding: 15px 0 15px 40px;

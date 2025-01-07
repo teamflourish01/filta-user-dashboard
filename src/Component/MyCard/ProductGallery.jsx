@@ -330,7 +330,7 @@ const ProductGallery = () => {
           </div>
           <hr />
           <div className="prd-photos-container">
-            {userData.productGallary.map((item, index) => (
+            {userData?.productGallary?.map((item, index) => (
               <div className="prd-photos" key={item._id}>
                 <p>Photo {index + 1}</p>
                 <div className="prd-photo">
@@ -368,7 +368,127 @@ const ProductGallery = () => {
         onClose={closeModal}
         selectedItem={selectedItem}
       >
-        <div className="modal-pg-container-white">
+        <div className="inner-bg">
+          <div className="prd-prodimg-modal-pg-img-div">
+            <img
+              src={`${uri}/photogallery/${selectedItem?.image}`}
+              alt=""
+              className="prd-prodimg-modal-pg"
+            />
+          </div>
+          <div className="row-int-field-flexx">
+            <div className="input-modal-f">
+              <div className="flex-inp">
+                <p className="inpt-title">Title</p>
+                <input
+                  type="text"
+                  name="title"
+                  required=""
+                  value={selectedItem?.title || ""}
+                  className="cutomize-field-input-modal-p-g"
+                  onChange={(e) => handleInputChange(e, "title")}
+                />
+              </div>
+              <div className="flex-inp">
+                <p className="inpt-title">Price (Optional)</p>
+                <input
+                  type="text"
+                  name="price"
+                  required=""
+                  value={selectedItem?.price || ""}
+                  className="cutomize-field-input-modal-p-g"
+                  onChange={(e) => handleInputChange(e, "price")}
+                />
+              </div>
+            </div>
+            <div className="input-modal-f">
+              <div className="flex-inp">
+                <p className="inpt-title gap-btw-10">Button Type</p>
+                <select
+                  name="button_type"
+                  id=""
+                  className=" drop-font"
+                  onChange={(e) => handleInputChange(e, "button_type")}
+                >
+                  <option value="" className="cutomize-field-input-modal-p-g ">
+                    {selectedItem?.button_type || "Choose Button Type"}
+                  </option>
+
+                  <option
+                    className="cutomize-field-input-modal-p-g"
+                    type="text"
+                    name="button_type"
+                    // name="price"
+                    required=""
+                    value="Buy Now"
+                  >
+                    Buy Now
+                  </option>
+                  <option
+                    className="cutomize-field-input-modal-p-g"
+                    // name="price"
+                    name="button_type"
+                    required=""
+                    value="Inquiry Now"
+                  >
+                    Inquiry Now
+                  </option>
+                  <option
+                    className="cutomize-field-input-modal-p-g"
+                    // name="price"
+                    required=""
+                    name="button_type"
+                    value="Get A Quote"
+                  >
+                    Get A Quote
+                  </option>
+                </select>
+                {/* <input type="text" class="cutomize-field-input" /> */}
+              </div>
+              <div className="flex-inp">
+                <p className="inpt-title gap-btw-10">Button Link</p>
+                <input
+                  type="text"
+                  name="button_link"
+                  required=""
+                  value={selectedItem?.button_link || ""}
+                  className="cutomize-field-input-modal-p-g"
+                  onChange={(e) => handleInputChange(e, "button_link")}
+                />
+              </div>
+            </div>
+            <div className="desc-flex-p-g">
+              <lable className="input-f-p-g-title gap-btw-10">
+                Description
+              </lable>
+              <textarea
+                type="text"
+                name="name"
+                required=""
+                value={selectedItem?.description || ""}
+                className="textarea-p-g"
+                onChange={(e) => handleInputChange(e, "description")}
+              ></textarea>
+            </div>
+            <div className="buttons-save-cancel-p-g">
+              <button
+                type="button"
+                className="close-white-btn"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="save-blk-btn"
+                onClick={handleSave}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+        {/* <div className="modal-pg-container-white">
           <div className="img-modal-pg-container">
             <img
               className="prd-prodimg-modal-pg"
@@ -457,7 +577,7 @@ const ProductGallery = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </ModalProductGallery>
     </>
   );

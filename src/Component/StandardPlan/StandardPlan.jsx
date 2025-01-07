@@ -29,10 +29,15 @@ const StandardPlan = () => {
   const [accentColor, setAccentColor] = useState("#fff");
   const [formData, setFormData] = useState({
     name: "",
-    info: "",
+    additional: "",
     email: "",
-    mobileNumber: "",
+    phone: "",
+    card_url:"",
+    card_color:"",
+    accent_color:"",
+    hide_nfc:""
   });
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,7 +95,7 @@ const StandardPlan = () => {
             onClick={() => navigate("/nfc-card")}
           >
             <HiOutlineArrowLeft style={{ fontSize: "22px" }} />
-            <span>Back to My Card</span>
+            <span className="back-to-nfc">Back to NFC Card</span>
           </button>
         </div>
         {/* Preview Button Responsive Start */}
