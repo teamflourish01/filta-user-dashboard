@@ -37,6 +37,8 @@ const MyCard = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [profileImagePreview, setProfileImagePreview] = useState();
   const [borderStyle, setBorderStyle] = useState(false);
+    const [showTranslateBtn, setshowTranslateBtn] = useState(true);
+  
   const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
     name: "",
@@ -118,6 +120,13 @@ const MyCard = () => {
   const handleSelectedFieldsChange = (fields) => {
     setSelectedFields(fields);
   };
+
+  const showTbtn = () => {
+    setshowTranslateBtn(!showTranslateBtn);
+    console.log(showTranslateBtn, 'gbvdvf');
+    
+  };
+  
 
   const {
     register,
@@ -270,7 +279,7 @@ const MyCard = () => {
                         </div>
                       ) : (
                         <div className="my-priviewMain">
-                          <p>Card live preview</p>
+                          <p className="clp">Card live preview</p>
                           <div className="my-priviewcard"></div>
                           <div className="my-prwbtn">
                             <span>Share your card</span>
@@ -340,6 +349,7 @@ const MyCard = () => {
         {/* Right Side */}
         <div className="my-rightside">
           <div className="e-profile">
+            <div className="profile-name-email-pic-m-l">
             {/* <img src={profileimg} alt="profile img" /> */}
             {userData?.card?.profileimg ? (
               <img
@@ -352,6 +362,18 @@ const MyCard = () => {
             <div className="e-sidediv">
               <p className="e-prfname">{userData?.card?.name}</p>
               <p className="e-prfemail">{userData?.card?.email}</p>
+            </div>
+            </div>
+            <div className="multi-language-toggle">
+              <p className="multi-lang-txt">
+              Multiple Language
+              </p>
+              <div className="toggle-btn-m-l">
+                  <label className="switch-hide-m-l">
+                    <input type="checkbox" onChange={showTbtn}/>
+                    <span className="slider-hide-m-l round"></span>
+                  </label>
+                </div>
             </div>
           </div>
           <hr className="hrline" />
@@ -369,7 +391,7 @@ const MyCard = () => {
             <QrcodeGen selectedColor={selectedColor} logo={qrlogo} />
           ) : (
             <div className="my-priviewMain">
-              <p>Card live preview</p>
+              <p className="clp">Card live preview</p>
 
               <Mobileprev
                 selectedFields={selectedFields}
@@ -385,6 +407,7 @@ const MyCard = () => {
                 onLogoChange={setLogo}
                 logo={logo}
                 watch={watchedData}
+                showTbtn={showTbtn}
               />
 
               <div className="my-prwbtn">

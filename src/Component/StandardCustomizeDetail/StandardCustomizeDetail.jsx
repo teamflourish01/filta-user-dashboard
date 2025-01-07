@@ -1,6 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "../StandardCustomizeDetail/StandardCustomizeDetail.css";
 import editPen from "../../images/pickup.svg";
+import axios from "axios";
+import userContext from "../../context/userDetails";
 
 const StandardCustomizeDetail = ({
   logoHide,
@@ -14,12 +16,15 @@ const StandardCustomizeDetail = ({
   setFormData,
 }) => {
   const [selectedColor, setSelectedColor] = useState("black");
+  const { AuthorizationToken } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      
     }));
   };
 
@@ -33,6 +38,26 @@ const StandardCustomizeDetail = ({
   const handleColorChangeLocal = (color) => {
     setSelectedColor(color);
     handleColorChange(color);
+  };
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${uri}/nfc-standard/add`,
+        { ...formData },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AuthorizationToken,
+          },
+        }
+      );
+      console.log(response, "standardp");
+      alert(`${response?.data?.message}`);
+    } catch (error) {
+      console.error("Error saving About Data:", error);
+    }
   };
 
   return (
@@ -60,8 +85,8 @@ const StandardCustomizeDetail = ({
               <input
                 type="text"
                 className="cutomize-field-input"
-                name="info"
-                value={formData.info}
+                name="additional"
+                value={formData.additional}
                 onChange={handleInputChange}
               />
             </div>
@@ -77,7 +102,11 @@ const StandardCustomizeDetail = ({
                 />
                 <div className="toggle-btn-standard">
                   <label className="switch-hide-standard">
-                    <input type="checkbox" onChange={hideEmailId}  defaultChecked/>
+                    <input
+                      type="checkbox"
+                      onChange={hideEmailId}
+                      defaultChecked
+                    />
                     <span className="slider-hide-standard round"></span>
                   </label>
                 </div>
@@ -89,13 +118,17 @@ const StandardCustomizeDetail = ({
                 <input
                   type="number"
                   className="cutomize-field-input"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleInputChange}
                 />
                 <div className="toggle-btn-standard">
                   <label className="switch-hide-standard">
-                    <input type="checkbox" onChange={hideMobileNo} defaultChecked />
+                    <input
+                      type="checkbox"
+                      onChange={hideMobileNo}
+                      defaultChecked
+                    />
                     <span className="slider-hide-standard round"></span>
                   </label>
                 </div>
@@ -105,7 +138,13 @@ const StandardCustomizeDetail = ({
           <div className="s-c-d-inner-bg p-20 p-15-i">
             <p className="customize-your-title">Custom URL </p>
             <p className="url-title">URL</p>
-            <input type="text" className="cutomize-field-input" />
+            <input
+              type="text"
+              name="card_url"
+              className="cutomize-field-input"
+              value={formData.card_url}
+              onChange={handleInputChange}
+            />
           </div>
           <div className="s-c-d-inner-bg p-20 p-15-i">
             <p className="customize-your-title">Choose Card Color</p>
@@ -117,10 +156,13 @@ const StandardCustomizeDetail = ({
               >
                 <input
                   type="radio"
-                  name="color"
+                  name="card_color"
                   value="black"
                   className="black-color"
-                  onChange={() => handleColorChangeLocal("black")}
+                  onChange={(e) => {
+                    handleColorChangeLocal("black");
+                    handleInputChange(e);
+                  }}
                 />
                 <p className="check-title">Black</p>
               </label>
@@ -131,9 +173,11 @@ const StandardCustomizeDetail = ({
               >
                 <input
                   type="radio"
-                  name="color"
+                  name="card_color"
                   value="white"
-                  onChange={() => handleColorChangeLocal("white")}
+                  onChange={(e) => {handleColorChangeLocal("white")
+                    handleInputChange(e);
+                  }}
                 />
                 <p className="check-title">White</p>
               </label>
@@ -144,22 +188,29 @@ const StandardCustomizeDetail = ({
               <div className="center-choose-color">
                 <input
                   type="text"
+                  name='accent_color'
                   className="Standard-color-selector"
                   placeholder="#000000"
                   value={accentColor}
-                  onChange={(e) => setAccentColor(e.target.value)}
+                  onChange={(e) => {setAccentColor(e.target.value)
+                    handleInputChange(e);
+                  }}
                 />
                 <input
                   className="color-hide color-box"
                   type="color"
+                  name='accent_color'
                   ref={accentColorRef}
                   value={accentColor}
-                  onChange={(e) => setAccentColor(e.target.value)}
+                  onChange={(e) => {setAccentColor(e.target.value)
+                    handleInputChange(e);
+                  }}
                 />
               </div>
               <div
                 className="edit-color"
                 onClick={() => handleEditClick(accentColorRef)}
+                onChange={(e) =>  handleInputChange(e)}
               >
                 <img src={editPen} alt="Edit" />
               </div>
@@ -172,7 +223,10 @@ const StandardCustomizeDetail = ({
                 <div className="hide-title">Hide NFC Icon</div>
                 <div className="toggle-btn">
                   <label className="switch-hide">
-                    <input type="checkbox" onChange={hideNfc} />
+                    <input type="checkbox" name="hide_nfc" 
+                    onChange={(e) => {hideNfc()
+                      handleInputChange({ target: { name: "hide_email", value: e.target.checked } });
+                    }} />
                     <span className="slider-hide round"></span>
                   </label>
                 </div>
@@ -184,7 +238,8 @@ const StandardCustomizeDetail = ({
                 <div className="hide-title">Hide Filta Logo</div>
                 <div className="toggle-btn">
                   <label className="switch-hide">
-                    <input type="checkbox" onChange={logoHide} />
+                    <input type="checkbox"  onChange={logoHide
+                    } />
                     <span className="slider-hide round"></span>
                   </label>
                 </div>
@@ -196,7 +251,7 @@ const StandardCustomizeDetail = ({
             <button type="button" className="close-white-btn">
               Cancel
             </button>
-            <button type="button" className="save-blk-btn">
+            <button type="button" className="save-blk-btn" onClick={handleSave}>
               Save
             </button>
           </div>

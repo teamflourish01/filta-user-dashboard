@@ -11,6 +11,9 @@
   height: 100%;
 
 }
+.premium-white-s{
+  white-space: nowrap;
+}
 .left-premium-n-f-c-card {
   width: 52.08%;
   background-color: white;

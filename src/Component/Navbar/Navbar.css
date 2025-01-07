@@ -1,16 +1,38 @@
 .nav-width-100 {
   height: 70px;
-    background: rgba(255, 255, 255, 1);
-    display: flex;
-    justify-content: space-between;
-    text-align: center;
-    align-items: center;
-    /* padding: 0 20px; */
-    top: 0;
-    position: fixed; /* Navbar fixed at the top */
-    width: 100%; /* Full width navbar */
-    /* z-index: 1000;  */
+  background: rgba(255, 255, 255, 1);
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  /* padding: 0 20px; */
+  top: 0;
+
+  position: fixed; /* Navbar fixed at the top */
+  width: 100%; /* Full width navbar */
+  /* z-index: 1000;  */
 }
+.style-navbar-add {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 0 45px;
+}
+.nav-title {
+  max-width: 316px;
+  min-width: 200px;
+  width: 100%;
+  border-right: 1px solid rgba(226, 226, 226, 1);
+}
+.nav-title.hovered {
+  max-width: 316px;
+  min-width: 200px;
+  width: 100%;
+
+  justify-content: center;
+}
+
 /* .nav-width-100 {
     display: flex;
     justify-content: space-between;
@@ -29,7 +51,7 @@
   z-index: 10;
 }
 
-.overlay-ham{
+.overlay-ham {
   position: fixed;
   top: 0;
   left: 0;
@@ -46,7 +68,7 @@
   background: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  
+
   z-index: 20;
   max-width: 205px;
   min-width: 50px;
@@ -58,7 +80,7 @@
   list-style: none;
   padding: 0;
   height: 86px;
-    padding: 18px 0;
+  padding: 18px 0;
   /* margin: -8px; */
   margin: 0px;
 }
@@ -67,13 +89,27 @@
   /* padding: 6px 0px;  */
   cursor: pointer;
   margin: 3px 0;
-  
+
   border-radius: 12px;
   height: 25px;
   display: flex;
   /* text-align: center; */
   align-items: center;
 }
+.my-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 5px 8px 5px 10px;
+  font-family: Poppins-SemiBold;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 35px;
+}
+
 .dropdown-menu li a {
   padding: 3px 0 3px 15px;
   text-decoration: none;
@@ -85,28 +121,55 @@
 
 .dropdown-menu li:hover {
   background-color: #f0f0f0;
- 
 }
 .filta-logo-web {
   display: block;
-  padding: 0 0 0 20px;
+  /* padding: 0 0 0 20px; */
 }
-.nav-dot{
+.nav-dot {
   padding: 0 20px 0 0;
 }
 .flex-logo-hambergur {
   display: none;
 }
+.filta-logo-web-t {
+  font-size: 20px;
+  line-height: 30px;
+  font-family: Poppins-SemiBold;
+}
+.my-back-btn-navbar {
+  display: block;
+}
+
+/* Initially, hide the text */
+
+
+.my-back-btn-navbar{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #000000;
+        border: none;
+        color: white;
+        padding: 5px 8px 5px 10px;
+        font-family: Poppins-SemiBold;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 35px;
+}
 @media (max-width: 1150px) {
   .filta-logo-web {
-    display: none;
+    /* display: none; */
   }
   .flex-logo-hambergur {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 35px;
-    padding: 0 15px 0 25px;
+    /* border-right: ; */
+    border-right: 1px solid rgba(226, 226, 226, 1);
+
+    padding: 20px 15px 20px 25px;
   }
 
   .hamburger-menu-icon {
@@ -119,6 +182,80 @@
 @media (max-width: 768px) {
   .flex-logo-hambergur {
     gap: 15px;
-    padding: 0 15px 0 10px;
+    padding: 20px 15px 20px 10px;
+  }
+  .style-navbar-add {
+    margin: 0 0 0 20px;
   }
 }
+
+@media (max-width: 1600px) and (min-width: 1024px) {
+  .nav-title {
+    max-width: 84px;
+    min-width: 71px;
+    width: 84px;
+    padding-left: 17px;
+    /* padding-right: 45px; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .nav-title {
+    display: none;
+  }
+  
+}
+
+@media screen and (max-width: 1151px) {
+  .nav-title {
+    display: none;
+  }
+  .style-navbar-add {
+    margin: 0 0 0 25px;
+  }
+  .my-back-btn {
+    display: none;
+  }
+  
+}
+
+
+
+
+@media screen and (max-width:1151px) {
+  .my-back-btn-navbar{
+    background: none;
+    color: black;
+    border: none;
+  }
+  
+  
+}
+/* For screens smaller than 1024px */
+@media (max-width: 1151px) {
+  .back-to-text {
+    display: inline-block;  /* Show 'Back to My Card' or 'Back to NFC Card' */
+  }
+
+  .my-card-text, .nfc-card-text {
+    display: none;  /* Hide 'My Card' or 'NFC Card' */
+  }
+  .arrow-button{
+    display: none;
+  }
+}
+
+/* For screens larger than 1024px */
+@media (min-width: 1151px) {
+  .back-to-text {
+    display: none;  /* Hide 'Back to My Card' or 'Back to NFC Card' */
+  }
+
+  .my-card-text, .nfc-card-text {
+    display: inline-block;  /* Show 'My Card' or 'NFC Card' */
+  }
+}
+
