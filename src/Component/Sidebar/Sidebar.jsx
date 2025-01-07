@@ -14,6 +14,7 @@ import userContext from "../../context/userDetails";
 import dummyprofile from "../../images/digitalphoto.png";
 
 const Sidebar = () => {
+  
   // const [activeItem, setActiveItem] = useState(" ");
   const location = useLocation();
   const navigate = useNavigate();
@@ -51,7 +52,10 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <div className="sidebar">
+    <div className="sidebar"
+    onMouseEnter={() => document.querySelector(".nav-title").classList.add("hovered")}
+    onMouseLeave={() => document.querySelector(".nav-title").classList.remove("hovered")}
+    >
       <div className="profile-section-mobile-pic">
       {userData?.card?.profileimg ? (
           <img

@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import "../LeadDetails/LeadDetails.css";
+import userContext from "../../context/userDetails";
 
 const LeadDetails = ({ isOpen, onClose }) => {
   const modalRef = useRef(null);
+  const { userData } = useContext(userContext);
+
 
   useEffect(() => {
     if (isOpen && modalRef.current) {
@@ -29,40 +32,41 @@ const LeadDetails = ({ isOpen, onClose }) => {
         </div>
         <div className="modal-content-lead">
           <p className="lead-detail-title">Lead Details</p>
+          {userData?.myLeads?.map((lead, index) => (
           <div className="lead-details-container">
             <div className="input-field">
               <div className="field-name-lead-detail">ID :</div>
-              <div className="field-lead-details-data">4545</div>
+              <div className="field-lead-details-data">{lead?.userId}</div>
             </div>
             <div className="input-field">
               <div className="field-name-lead-detail">Name :</div>
-              <div className="field-lead-details-data">Ajay Gadhavi</div>
+              <div className="field-lead-details-data">{lead?.name}</div>
             </div>
             <div className="input-field">
               <div className="field-name-lead-detail">Email :</div>
               <div className="field-lead-details-data">
-                ajaygadhavi9847@gmail.com
+               {lead?.email}
               </div>
             </div>
             <div className="input-field">
               <div className="field-name-lead-detail">Phone :</div>
-              <div className="field-lead-details-data">6353123096</div>
+              <div className="field-lead-details-data">{lead?.number}</div>
             </div>
             <div className="input-field ">
               <div className="field-name-lead-detail p-10">
                 Message :
                 <span className="field-lead-details-data message">
-                  Hi i am ajay gadhavi i am ui ux designer at flourish creations
-                  PVT. LTD
+                  {lead?.message}
                 </span>
               </div>
             </div>
           </div>
-          <p className="lead-management">Lead Management</p>
+        ))}
+          {/* <p className="lead-management">Lead Management</p>
           <div className="notes-desc">
             <p className="notes">Notes</p>
             <textarea className="grey-textarea"></textarea>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

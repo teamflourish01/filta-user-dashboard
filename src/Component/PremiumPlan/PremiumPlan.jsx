@@ -99,7 +99,7 @@ const PremiumPlan = () => {
             onClick={() => navigate("/nfc-card")}
           >
             <HiOutlineArrowLeft style={{ fontSize: "22px" }} />
-            <span>Back to My Card</span>
+            <span className="premium-white-s">Back to NFC Card</span>
           </button>
         </div>
         <div
