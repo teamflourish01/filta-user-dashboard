@@ -100,6 +100,10 @@
 .profile-pic-container-left-align {
   position: relative;
 }
+.mp-profile-pic-c-l-a {
+  /* width: 117.7px;
+  height: 117.7px; */
+}
 .mp-profile-pic-c-l-a img {
   width: 117.7px;
   height: 117.7px;
@@ -108,8 +112,17 @@
   bottom: 116.08px;
   left: 7.84px;
   /* outline: 2px solid white; */
-  border: 1.57px solid #ffffff;
+  border: 2px solid #ffffff;
   object-fit: cover;
+}
+.mp-profile-pic-c-l-a-center img {
+  width: 117.7px;
+  height: 117.7px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 195px;
+  left: 78px;
+  /* outline: 2px solid white; */
 }
 
 .circle img {
@@ -134,10 +147,33 @@
   border: 2.35px solid #ffffff;
   box-shadow: 0px 0px 3.14px 0px #00000033;
 }
+.mp-logo-profile-c-l-a-center {
+  width: 47.08px;
+  height: 47.08px;
+  border-radius: 50px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 196.3px;
+  left: 153px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 4px 0px #00000033;
+}
 .mp-l-size-flourish {
   width: 30px;
   height: 30px;
   object-fit: scale-down;
+}
+.mp-portrait-pp{
+  /* width: 530px;  */
+    /* height: 530px; */
+    border-radius: 10px 10px 46px 10px;
+    opacity: 0px;
+    height: 280px;
+    width: 100%;
+    max-width: 280px;
+    min-width: 200px;
 }
 
 /* second section clickable-link css */
@@ -320,16 +356,19 @@
 .mp-contact-form-left-align {
   padding: 0 7.83px;
 }
-.input-field-contact-form-leftalign {
-  border: 0.5px solid #00000033;
+.mp-input-field-contact-form-leftalign {
+  /* border: 0.5px solid #00000033; */
   border-radius: 5px;
   display: flex;
 }
 .mp-input-field-single {
   background-color: transparent;
   width: 100%;
-  border: unset;
+  border-radius: 5px;
   padding: 14.9px 0 14.9px 7.85px;
+  outline: none;
+  font-size: 16px;
+  line-height: 24px;
 }
 .mp-input-field-single::placeholder {
   color: black;
@@ -348,7 +387,7 @@
   /* padding: 10px 10px 10px; */
   padding: 7.85px 0 0 7.85px;
 }
-.btn-white-submit-leftalign {
+.mp-btn-white-submit-leftalign {
   max-width: 510px;
   min-width: 200px;
   width: 100%;
@@ -356,7 +395,7 @@
   border-radius: 5px;
   margin: 15px 0;
   border: none;
-  height: 55px;
+  height: 43.16px;
 }
 .mp-btn-text-leftalign {
   font-family: Poppins-SemiBold;
