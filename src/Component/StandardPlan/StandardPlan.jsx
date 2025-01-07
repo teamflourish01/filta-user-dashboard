@@ -29,10 +29,15 @@ const StandardPlan = () => {
   const [accentColor, setAccentColor] = useState("#fff");
   const [formData, setFormData] = useState({
     name: "",
-    info: "",
+    additional: "",
     email: "",
-    mobileNumber: "",
+    phone: "",
+    card_url:"",
+    card_color:"",
+    accent_color:"",
+    hide_nfc:""
   });
+
 
   useEffect(() => {
     const handleResize = () => {
