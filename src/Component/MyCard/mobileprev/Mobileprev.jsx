@@ -3,12 +3,7 @@ import "../../MyCard/mobileprev/mobileprev.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import video1 from "../../../images/video.mp4";
-import videoTwo from "../../../images/video2.mp4";
 import { CiPlay1 } from "react-icons/ci";
-import imgofpdf from "../../../images/fcplss.svg";
-import offer from "../../../images/offer.svg";
-import pict from "../../../images/pict.svg";
 import gallerypic from "../../../images/pgpic.svg";
 import userContext from "../../../context/userDetails";
 import CustomNextArrow from "./../../../ViewCard/CustomNextArrow/CustomNextArrow";
@@ -37,8 +32,9 @@ import mgoogledrive from "../../../images/mgoogledrive.svg";
 import flogo from "../../../images/filta.svg";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-
+import dummyprofile from "../../../images/digitalphoto.png";
 import { Document, Page, pdfjs } from "react-pdf";
+import defaultlogo from "../../../images/filta.png";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -47,10 +43,14 @@ const Mobileprev = ({
   borderStyle,
   setCheckboxStates,
   checkboxStates,
+  profileImages,
+  coverPhoto,
+  logo,
+  watch,
+  showTbtn,
   formDatac,
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  // const socialProof = userData.card.socialProof || [];
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -67,9 +67,6 @@ const Mobileprev = ({
 
   const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
-  // const [token, setToken] = useState(localStorage.getItem("token"));
-
-  // const AuthorizationToken = `Bearer ${token}`;
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -94,7 +91,7 @@ const Mobileprev = ({
     };
 
     fetchUserDetails();
-  }, []); // Empty dependency array to call useEffect only once
+  }, []);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -236,7 +233,7 @@ const Mobileprev = ({
     if (count === 1) return "one-item";
     if (count === 2) return "two-items";
     if (count === 3) return "three-items";
-    return "two-items"; // Fallback for more than 3 items
+    return "two-items";
   };
 
   const cta = userData?.cta;
@@ -255,103 +252,178 @@ const Mobileprev = ({
       <div className="my-priviewcard">
         {/* Show live card preview */}
         <div className="mp-mobile-modifi">
-          <div className="mp-padding-whole-10-l-a">
+          <div
+            className="mp-padding-whole-10-l-a"
+            // style={{
+            //   background: userData?.card?.design?.card_background?.flat_color
+            // }}
+            style={{
+              background:
+                userData?.card?.design?.card_background?.gradient_color1 &&
+                userData?.card?.design?.card_background?.gradient_color2
+                  ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+                  : userData?.card?.design?.card_background?.flat_color,
+            }}
+          >
             {/* top profile section start */}
 
             <div className="top-profile-container-left-align">
-              <div className="mp-top-inner-content-left-a">
-                {/* <img src="" alt="" /> */}
-                <img
-                  src={`${uri}/card/${userData?.card?.coverimg}`}
-                  alt="cover img"
-                />
+              <div
+                className="mp-top-inner-content-left-a"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
+                {coverPhoto && (
+                  <img
+                    src={
+                      coverPhoto
+                        ? coverPhoto
+                        : `${uri}/card/${userData?.card?.coverimg}`
+                    }
+                    alt="cover img"
+                  />
+                )}
+                {userData?.card?.coverimg && (
+                  <img
+                    src={`${uri}/card/${userData?.card?.coverimg}`}
+                    alt="cover img"
+                  />
+                )}
               </div>
-              <div className="hr-btw-top-bottom-l-a"></div>
-              <div className="mp-bottom-inner-content-left-a">
+              <div
+                className="hr-btw-top-bottom-l-a"
+                style={{
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              ></div>
+              <div
+                className="mp-bottom-inner-content-left-a"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-info-user-left-card-padding">
                   <p className="mp-user-name-left-align-card">
-                    {userData?.card?.name}
+                    {watch.name || "Name"}
                   </p>
 
                   <p className="mp-grey-bottom-txt">
-                    {userData?.card?.jobtitle}
+                    {watch.jobtitle || "Job Title"}
                   </p>
                   <p className="mp-grey-bottom-txt">
-                    {userData?.card?.company}
+                    {watch.company || "Company"}
                   </p>
                   <p className="mp-grey-bottom-txt">
-                    {userData?.card?.location}
+                    {watch.location || "Location"}
                   </p>
                 </div>
               </div>
               <div className="profile-pic-container-left-align">
-                {/* <div className="mp-profile-pic-c-l-a"> */}
-
                 <div
                   className={`mp-profile-pic-c-l-a ${
-                    borderStyle ? "circle" : "square"
+                    borderStyle ? "square" : "circle"
                   }`}
                 >
-                  <img
-                    src={`${uri}/card/${userData?.card?.profileimg}`}
-                    alt="Profile-img"
-                  />
+                  {userData?.card?.profileimg ? (
+                    <img
+                      src={
+                        profileImages
+                          ? profileImages
+                          : `${uri}/card/${userData?.card?.profileimg}`
+                      }
+                      alt="Profile-img"
+                    />
+                  ) : (
+                    <img
+                      src={profileImages ? profileImages : dummyprofile}
+                      alt="Profile-img"
+                    />
+                  )}
                 </div>
                 <div className="mp-logo-profile-c-l-a">
-                  <img
-                    className="mp-l-size-flourish"
-                    src={`${uri}/card/${userData?.card?.logoimg}`}
-                    alt="logo img"
-                  />
+                  {userData?.card?.logoimg ? (
+                    <img
+                      className="mp-l-size-flourish"
+                      src={
+                        logo ? logo : `${uri}/card/${userData?.card?.logoimg}`
+                      }
+                      alt="logo img"
+                    />
+                  ) : (
+                    <img
+                      className="mp-l-size-flourish"
+                      src={logo ? logo : defaultlogo}
+                      alt="logo img"
+                    />
+                  )}
                 </div>
               </div>
             </div>
 
             {/* second clickable link section start */}
-            <div className="mp-grey-box-bg-left-align">
-              <div className="mp-clickable-link-section">
-                <div className="mp-sections-title">Clickable Links</div>
-                <div className="mp-social-icon-c-c-l">
-                  {userData?.socialLinks?.map((link) => (
-                    <div className="icon-container-box" key={link._id}>
-                      <div className="mp-a-tag">
-                        {/* Dynamic icon rendering */}
-                        <a
-                          className=" mp-padding-icon-container-box"
-                          href={generateHref(link.platform, link.url)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <div className="mp-under-icon-img">
-                            <img
-                              src={
-                                iconMap[link.platform] ||
-                                "https://via.placeholder.com/50"
-                              } // Placeholder for unknown platforms
-                              alt={link.platform}
-                            />
-                          </div>
-                        </a>
-                        {/* Clickable platform name */}
-                        <a
-                          href={generateHref(link.platform, link.url)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mp-icon-name-c-l"
-                        >
-                          {link.text}
-                        </a>
+
+            {userData?.socialLinks.length > 0 && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
+                <div className="mp-clickable-link-section">
+                  <div className="mp-sections-title">Clickable Links</div>
+                  <div className="mp-social-icon-c-c-l">
+                    {userData?.socialLinks?.map((link) => (
+                      <div className="icon-container-box" key={link._id}>
+                        <div className="mp-a-tag">
+                          {/* Dynamic icon rendering */}
+                          <a
+                            className=" mp-padding-icon-container-box"
+                            href={generateHref(link.platform, link.url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <div className="mp-under-icon-img">
+                              <img
+                                src={
+                                  iconMap[link.platform] ||
+                                  "https://via.placeholder.com/50"
+                                } // Placeholder for unknown platforms
+                                alt={link.platform}
+                              />
+                            </div>
+                          </a>
+                          {/* Clickable platform name */}
+                          <a
+                            href={generateHref(link.platform, link.url)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mp-icon-name-c-l"
+                          >
+                            {link.text}
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* third multimedia section start */}
             {userData?.multimedia[0]?.video_file?.length > 0 &&
               userData?.multimedia[0]?.youtube_url.length > 0 && (
-                <div className="mp-grey-box-bg-left-align">
+                <div
+                  className="mp-grey-box-bg-left-align"
+                  style={{
+                    background:
+                      userData?.card?.design?.card_color?.primary_color,
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
+                >
                   <div className="multimedia-section">
                     <div className="mp-sections-title mp-p-10-side-l-a">
                       Multimedia
@@ -398,7 +470,12 @@ const Mobileprev = ({
                     {userData?.multimedia[0]?.youtube_url.length > 0 &&
                       userData?.multimedia[0]?.video_file.length > 0 && (
                         <>
-                          <hr className="hr-line-left-align-card" />
+                          <hr
+                            className="hr-line-left-align-card"
+                            style={{
+                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                            }}
+                          />
                         </>
                       )}
 
@@ -445,8 +522,15 @@ const Mobileprev = ({
               )}
 
             {/* fourth section contact form start */}
-            {userDetails.data[0].loginemail && (
-              <div className="mp-grey-box-bg-left-align">
+
+            {userDetails.data[0]?.loginemail && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-contact-form-left-align">
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mp-sections-title">Contact Form</div>
@@ -461,7 +545,6 @@ const Mobileprev = ({
                           />
                         </div>
                       )}
-                      {/* {selectedFields.email && ( */}
 
                       <div className="input-field-contact-form-leftalign">
                         <input
@@ -474,7 +557,6 @@ const Mobileprev = ({
                         />
                       </div>
 
-                      {/* // )} */}
                       {checkboxStates.number && (
                         <div className="input-field-contact-form-leftalign">
                           <input
@@ -499,6 +581,10 @@ const Mobileprev = ({
                     <button
                       type="submit"
                       className="btn-white-submit-leftalign"
+                      style={{
+                        background:
+                          userData?.card?.design?.card_color?.secondary_color,
+                      }}
                     >
                       <span className="mp-btn-text-leftalign">
                         {loading ? "Loading..." : "Submit"}
@@ -511,26 +597,30 @@ const Mobileprev = ({
 
             {/* fifth section voice message start */}
             {userData?.voiceMessage?.length > 0 && (
-              <div className="mp-grey-box-bg-left-align">
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-voice-msg-box-l-a">
                   <div className="mp-sections-title">Voice Message</div>
                   <div className="audio-container" onClick={togglePlayback}>
                     <VoiceMessage />
-                    {/* <audio
-                  controls
-                  className="custom-audio"
-                  controlsList="nodownload noplaybackrate"
-                >
-                  <source src={sound} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio> */}
                   </div>
                 </div>
               </div>
             )}
             {/* sixeth section about start */}
             {userData?.about?.title && userData?.about?.description && (
-              <div className="mp-grey-box-bg-left-align">
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-about-section">
                   <div className="mp-sections-title">About</div>
                   <div className="mp-ui-ux-text">{userData?.about?.title}</div>
@@ -543,7 +633,13 @@ const Mobileprev = ({
 
             {/* seventh section document start */}
             {userData?.documents.length > 0 && (
-              <div className="mp-grey-box-bg-left-align">
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-document-section-box-l-a">
                   <div className="mp-sections-title">Document</div>
                   {userData?.documents?.length > 1 ? (
@@ -595,11 +691,6 @@ const Mobileprev = ({
                           />
                         </a>
                       </Document>
-                      {/* <img
-                      src={`${uri}/documents/${userData?.documents[0].document}`}
-                      className="mp-i-d-l-a-size"
-                      alt=""
-                    /> */}
                     </div>
                   )}
                   <p className="mp-d-l-a-name">Flourish Profile</p>
@@ -608,8 +699,16 @@ const Mobileprev = ({
             )}
 
             {/* eight section team member details start */}
-            {userData?.teamMember?.name.length > 0 && (
-              <div className="mp-grey-box-bg-left-align">
+            {userData?.teamMember?.name?.filter(
+              (item) => item.trim().length > 0
+            ).length > 0 && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-team-member-details-box-l-a">
                   <div className="mp-sections-title">Team Member Details </div>
                   {userData?.teamMember?.name?.map((teamMember, index) => (
@@ -638,7 +737,13 @@ const Mobileprev = ({
 
             {/* nine section address start */}
             {userData?.address?.title && userData?.address?.address && (
-              <div className="mp-grey-box-bg-left-align">
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-address-section-box-l-a">
                   <div className="mp-sections-title">Address</div>
                   <p className="mp-title-add">{userData?.address?.title}</p>
@@ -651,7 +756,13 @@ const Mobileprev = ({
 
             {/* ten section time sensitive offer start */}
             {userData?.timeoffer[0]?.image?.length > 0 && (
-              <div className="mp-grey-box-bg-left-align">
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-time-sensitive-offer-section-l-a">
                   <div className="mp-sections-title">Time sensitive offer</div>
 
@@ -682,8 +793,16 @@ const Mobileprev = ({
 
             {/* eleven section social proof start */}
 
-            {userData?.socialProof?.text?.length > 0 && (
-              <div className="mp-grey-box-bg-left-align">
+            {userData?.socialProof?.text?.filter(
+              (item) => item.trim().length > 0
+            ).length > 0 && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-social-proof-section-l-a">
                   <div className="mp-sections-title">Social Proof</div>
                   <div
@@ -724,9 +843,14 @@ const Mobileprev = ({
 
             {/* twelve section photos start */}
 
-
             {userData?.photos[0]?.image?.length > 0 && (
-              <div className="mp-grey-box-bg-left-align">
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
                 <div className="mp-photos-section-l-a">
                   <div className="mp-sections-title">Photos</div>
 
@@ -752,63 +876,138 @@ const Mobileprev = ({
                     </div>
                   )}
                 </div>
-
               </div>
             )}
 
             {/* thirteen section product gallery start */}
-            <div className="mp-grey-box-bg-left-align">
+            {userData?.productGallary?.length > 0 && 
+            <div
+              className="mp-grey-box-bg-left-align"
+              style={{
+                background: userData?.card?.design?.card_color?.primary_color,
+                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              }}
+            >
               <div className="mp-product-gallery-box-l-a">
                 <div className="mp-sections-title">Product gallery</div>
-                {galleryImages?.length > 1 ? (
+                {userData?.productGallary?.length > 1 ? (
                   <Slider {...sliderSettings}>
-                    {galleryImages?.map((img, index) => (
-                      <div className="img-offer-content" key={index}>
-                        <img src={img} alt="" className="mp-img-r-curve-l-a" />
-                      </div>
+                    {userData?.productGallary?.map((pdetail, index) => (
+                      <>
+                        <div className="img-offer-content" key={index}>
+                          <img
+                            src={`${uri}/photogallery/${pdetail?.image}`}
+                            alt=""
+                            className="mp-img-r-curve-l-a"
+                          />
+                        </div>
+                        <p className="mp-pic-title-p-g">{pdetail.title}</p>
+                        <p className="mp-pic-desc-p-g">{pdetail.description}</p>
+                        <p className="mp-price-p-g">Price : {pdetail.price}</p>
+                        <button
+                          type="submit"
+                          className="btn-white-submit-leftalign"
+                          style={{
+                            background:
+                              userData?.card?.design?.card_color
+                                ?.secondary_color,
+                          }}
+                        >
+                          <span className="mp-btn-text-leftalign">Submit</span>
+                        </button>
+                      </>
                     ))}
                   </Slider>
                 ) : (
-                  <div className="img-offer-content">
-                    <img
-                      src={galleryImages[0]}
-                      alt=""
-                      className="mp-img-r-curve-l-a"
-                    />
-                  </div>
+                  <>
+                    <div className="img-offer-content">
+                      <img
+                        src={`${uri}/photogallery/${userData?.productGallary[0]?.image}`}
+                        alt=""
+                        className="mp-img-r-curve-l-a"
+                      />
+                    </div>
+                    <p className="mp-pic-title-p-g">
+                      {userData?.productGallary[0]?.title}
+                    </p>
+                    <p className="mp-pic-desc-p-g">
+                      {userData?.productGallary[0]?.description}
+                    </p>
+                    <p className="mp-price-p-g">
+                      Price : {userData?.productGallary[0]?.price}
+                    </p>
+                    <button
+                      type="submit"
+                      className="btn-white-submit-leftalign"
+                      style={{
+                        background:
+                          userData?.card?.design?.card_color?.secondary_color,
+                      }}
+                    >
+                      <span className="mp-btn-text-leftalign">Submit</span>
+                    </button>
+                  </>
                 )}
-                <p className="mp-pic-title-p-g">New York</p>
+                {/* <p className="mp-pic-title-p-g">New York</p>
                 <p className="mp-pic-desc-p-g">
                   It is a long established fact that a reader will be distracted
                   by the readable content of a page when looking at its layout.
                 </p>
                 <p className="mp-price-p-g">Price : 500</p>
-                <button type="submit" className="btn-white-submit-leftalign">
+                <button type="submit" className="btn-white-submit-leftalign"
+                style={{
+                  background:userData?.card?.design?.card_color?.secondary_color
+                }}
+                >
                   <span className="mp-btn-text-leftalign">Submit</span>
-                </button>
+                </button> */}
               </div>
             </div>
-
+}
             {/* fourteen section two btn add start */}
 
-            <div className="mp-grey-box-bg-left-align">
+            <div
+              className="mp-grey-box-bg-left-align"
+              style={{
+                background: userData?.card?.design?.card_color?.primary_color,
+                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              }}
+            >
               <div className="btn-visit-translate-flex">
                 {cta?.btn_type && (
                   <button
                     className="btn-visit-translate"
+                    style={{
+                      background:
+                        userData?.card?.design?.card_color?.secondary_color,
+                    }}
                     onClick={handleButtonClick}
                   >
                     <span className="btn-visit-txt">{cta?.btn_text}</span>
                   </button>
                 )}
-                <button className="btn-visit-translate">
+                {showTbtn &&
+                <button
+                  className="btn-visit-translate"
+                  style={{
+                    background:
+                      userData?.card?.design?.card_color?.secondary_color,
+                  }}
+                >
                   <span className="btn-visit-txt">Translate</span>
                 </button>
+}
               </div>
             </div>
 
             {/* fifteen section copiright start */}
-            <div className="mp-grey-box-bg-left-align">
+            <div
+              className="mp-grey-box-bg-left-align"
+              style={{
+                background: userData?.card?.design?.card_color?.primary_color,
+                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              }}
+            >
               <div className="mp-copy-flex">
                 <p className="mp-copy-txt">
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -821,11 +1020,31 @@ const Mobileprev = ({
           </div>
         </div>
 
-        <div className="mp-grey-bottom-container">
+        <div
+          className="mp-grey-bottom-container"
+          style={{
+            background: userData?.card?.design?.card_color?.primary_color,
+            borderTop: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+          }}
+        >
           <div className="mp-grey-bottom-btn-container">
-            <button className="mp-btn-bottom-l-a">Share Card</button>
+            <button
+              className="mp-btn-bottom-l-a"
+              style={{
+                background: userData?.card?.design?.card_color?.secondary_color,
+              }}
+            >
+              Share Card
+            </button>
 
-            <button className="mp-btn-bottom-l-a">Save Contact</button>
+            <button
+              className="mp-btn-bottom-l-a"
+              style={{
+                background: userData?.card?.design?.card_color?.secondary_color,
+              }}
+            >
+              Save Contact
+            </button>
           </div>
         </div>
       </div>

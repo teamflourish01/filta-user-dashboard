@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import uploadimg from "../../images/uploadimg.png";
 import TwoButton from "./TwoButton";
 import userContext from "../../context/userDetails";
@@ -11,12 +11,15 @@ const BasicDetails = ({
   onCoverPhotoChange,
   onLogoChange,
   borderStyle,
-  setBorderStyle
+  setBorderStyle,
+  profileImages,
+  coverPhoto,
+  logo,
+  register,
+  handleSubmit,
+  error,
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  // const [borderStyle, setBorderStyle] = useState(
-  //   userData?.card?.style ? "circle" : "square"
-  // );
   const uri = process.env.REACT_APP_DEV_URL;
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
@@ -69,30 +72,17 @@ const BasicDetails = ({
     }
   };
 
-  //edit api
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({
-    values: {
-      name: userData?.card?.name,
-      jobtitle: userData?.card?.jobtitle || "",
-      company: userData?.card?.company || "",
-      location: userData?.card?.location || "",
-      bio: userData?.card?.bio || "",
-    },
-  });
   const onSubmit = async (data) => {
     try {
+      debugger;
       const formData = new FormData();
       formData.append("name", data.name);
       formData.append("jobtitle", data.jobtitle);
       formData.append("company", data.company);
       formData.append("location", data.location);
       formData.append("bio", data.bio);
-      formData.append("profileStyle", borderStyle);
+      formData.append("style", borderStyle);
+      console.log(borderStyle, "borderStyle bhhn");
 
       if (data.profileimg[0]) {
         formData.append("profileimg", data.profileimg[0]);
@@ -113,11 +103,15 @@ const BasicDetails = ({
 
       alert(response.data.msg || "Data updated successfully!");
       getUserData();
+      console.log(userData.card.style, "vddf");
     } catch (error) {
       console.error("Error updating data:", error);
       alert(error.response?.data?.error || "Failed to update data");
     }
   };
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <>
@@ -127,8 +121,8 @@ const BasicDetails = ({
           <div className="upload-section-container">
             <div className="upload-box">
               <p className="my-topheading">Profile Picture</p>
-              <div 
-              className={`upload-area ${borderStyle ? "circle" : "square"}`}
+              <div
+                className={`upload-area ${borderStyle ? " square" : "circle"}`}
               >
                 <input
                   type="file"
@@ -137,22 +131,23 @@ const BasicDetails = ({
                   {...register("profileimg")}
                   onChange={handleImageUpload}
                 />
-                {/* <label htmlFor="profile-upload"> */}
-                  {userData?.card?.profileimg ? (
-                    <img
-                      className="bsd-profile-img"
-                      // className={`upload-area ${borderStyle}`}
-                      src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="Profile-img"
-                    />
-                  ) : (
-                    <img
-                      className="upload-icon "
-                      src={uploadimg}
-                      alt="Upload Imag"
-                    />
-                  )}
-                {/* </label> */}
+                {userData?.card?.profileimg ? (
+                  <img
+                    className="bsd-profile-img"
+                    src={
+                      profileImages
+                        ? profileImages
+                        : `${uri}/card/${userData?.card?.profileimg}`
+                    }
+                    alt="Profile-img"
+                  />
+                ) : (
+                  <img
+                    className="upload-icon "
+                    src={profileImages ? profileImages : uploadimg}
+                    alt="Upload Imag"
+                  />
+                )}
               </div>
               <p className="my-small">(Use: 450x450 pixel)</p>
               <div className="style-options">
@@ -160,20 +155,20 @@ const BasicDetails = ({
                   Circle
                   <input
                     type="radio"
-                    name="profileStyle"
-                    value={true}
-                    checked={borderStyle} // Match with "circle"
-                    onChange={(e) => setBorderStyle(e.target.value)}
+                    name="style"
+                    value={false}
+                    checked={!borderStyle}
+                    onChange={() => setBorderStyle(false)}
                   />
                 </label>
                 <label>
                   Square
                   <input
                     type="radio"
-                    name="profileStyle"
-                    value={false}
-                    checked={!borderStyle} // Match with "square"
-                    onChange={(e) => setBorderStyle(e.target.value)}
+                    name="style"
+                    value={true}
+                    checked={borderStyle}
+                    onChange={() => setBorderStyle(true)}
                   />
                 </label>
               </div>
@@ -188,26 +183,24 @@ const BasicDetails = ({
                   {...register("coverimg")}
                   onChange={handleCoverPhotoUpload}
                 />
-                {/* <label htmlFor="cover-upload"> */}
-                  {/* <img
-                    className="upload-icon"
-                    src={uploadimg}
-                    src={`${uri}/card/${userData?.card?.coverimg}` || uploadimg}
-                    alt="upload img"
-                  /> */}
-                  {userData?.card?.coverimg ? (
-                    <img
-                      className="bsd-cover-img"
-                      src={`${uri}/card/${userData?.card?.coverimg}`}
-                      alt="Profile Imag"
-                    />
-                  ) : (
-                    <img
-                      className="upload-icon "
-                      src={uploadimg}
-                      alt="Upload Imag"
-                    />
-                  )}
+
+                {userData?.card?.coverimg ? (
+                  <img
+                    className="bsd-cover-img"
+                    src={
+                      coverPhoto
+                        ? coverPhoto
+                        : `${uri}/card/${userData?.card?.coverimg}`
+                    }
+                    alt="Profile Imag"
+                  />
+                ) : (
+                  <img
+                    className="upload-icon "
+                    src={coverPhoto ? coverPhoto : uploadimg}
+                    alt="Upload Imag"
+                  />
+                )}
                 {/* </label> */}
               </div>
 
@@ -219,34 +212,24 @@ const BasicDetails = ({
                 <input
                   type="file"
                   id="logo-upload"
-                  // onChange={onLogoChange}
                   accept="image/*"
                   {...register("logoimg")}
                   onChange={handleLogoUpload}
                 />
-                {/* <label htmlFor="logo-upload"> */}
-                  {/* <img
-                    className="upload-icon"
-                    src={uploadimg}
-                    src={`${uri}/card/${userData?.card?.logoimg}` || uploadimg}
-                    alt="upload img"
-                    accept="image/*"
-                    onChange={handleLogoUpload}
-                  /> */}
-                  {userData?.card?.logoimg ? (
-                    <img
-                      className="bsd-logo-img"
-                      src={`${uri}/card/${userData?.card?.logoimg}`}
-                      alt="Profile Imag"
-                    />
-                  ) : (
-                    <img
-                      className="upload-icon "
-                      src={uploadimg}
-                      alt="Upload Imag"
-                      
-                    />
-                  )}
+
+                {userData?.card?.logoimg ? (
+                  <img
+                    className="bsd-logo-img"
+                    src={logo ? logo : `${uri}/card/${userData?.card?.logoimg}`}
+                    alt="Profile Imag"
+                  />
+                ) : (
+                  <img
+                    className="upload-icon "
+                    src={logo ? logo : uploadimg}
+                    alt="Upload Imag"
+                  />
+                )}
                 {/* </label> */}
               </div>
 
@@ -260,7 +243,6 @@ const BasicDetails = ({
 
               <input
                 type="text"
-                // value={userData?.card?.name}
                 placeholder="Enter your name"
                 {...register("name", { required: "Name is required" })}
                 required
@@ -270,7 +252,6 @@ const BasicDetails = ({
               <label>Job Title</label>
               <input
                 type="text"
-                // value={userData?.card?.jobtitle}
                 placeholder="Enter your job title"
                 {...register("jobtitle", { required: "Job title is required" })}
                 required
@@ -281,7 +262,6 @@ const BasicDetails = ({
               <input
                 type="text"
                 placeholder="Enter your company"
-                // value={userData?.card?.company}
                 {...register("company", { required: "Company is required" })}
                 required
               />
@@ -291,7 +271,6 @@ const BasicDetails = ({
               <input
                 type="text"
                 placeholder="Enter your location"
-                // value={userData?.card?.location}
                 {...register("location", { required: "Location is required" })}
                 required
               />
@@ -301,7 +280,6 @@ const BasicDetails = ({
               <textarea
                 className="my-txtarea"
                 name="bio"
-                // value={formData.bio}
                 {...register("bio")}
                 onChange={handleInputChange}
                 placeholder="Enter your Bio"

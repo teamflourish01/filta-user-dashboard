@@ -6,12 +6,14 @@ import emailsignature from "../../images/emailsignature.svg";
 import virtualbackground from "../../images/virtualbackground.svg";
 import contact from "../../images/contact.svg";
 import myleads from "../../images/myleads.svg";
-import setting from "../../images/setting.svg";
+// import setting from "../../images/setting.svg";
 import { Link, useLocation } from "react-router-dom";
 import "../Hamburger/Hamburger.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import userContext from "../../context/userDetails";
+import dummyprofile from "../../images/digitalphoto.png";
+
 
 
 
@@ -49,11 +51,19 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
           </div>
 
           <div className="profile-section-ham">
+          {userData?.card?.profileimg ? (
             <img
               src={`${uri}/card/${userData?.card?.profileimg}`}
                       alt="Profile-img"
               className="profile-img-ham"
             />
+          ):(
+            <img
+            src={dummyprofile}
+                    alt="Profile-img"
+            className="profile-img-ham"
+          />
+          )}
             <div className="profile-info">
               <p>{userData?.card?.name}</p>
               <span>User</span>
@@ -137,17 +147,16 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
               <img src={virtualbackground} className="menu-icon" alt="" />
               <span>Virtual Background</span>
             </Link>
-            <Link
+            {/* <Link
               to="/contacts"
               className={`menu-item-ham ${
                 location.pathname.startsWith( "/contacts") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
-              {/* <FaUserFriends className="menu-icon" /> */}
               <img src={contact} className="menu-icon" alt="" />
               <span>Contacts</span>
-            </Link>
+            </Link> */}
             <Link
               to="/my-leads"
               className={`menu-item-ham ${
@@ -159,17 +168,16 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
               <img src={myleads} className="menu-icon" alt="" />
               <span>My Leads</span>
             </Link>
-            <Link
+            {/* <Link
               to="/settings"
               className={`menu-item-ham ${
                 location.pathname.startsWith( "/settings") ? "active" : ""
               }`}
               onClick={closeHamburgerMenu}
             >
-              {/* <FaCog className="menu-icon" /> */}
               <img src={setting} className="menu-icon" alt="" />
               <span>Settings</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       {/* </div> */}

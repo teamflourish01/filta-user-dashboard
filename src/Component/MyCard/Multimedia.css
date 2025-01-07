@@ -162,6 +162,7 @@
   color: #ffffff;
   padding: 5px 35px;
   background-color: #000000;
+  border: unset;
 }
 @media (max-width: 1350px) and (min-width: 1025px) {
   .mlt-addmorebtn::after {

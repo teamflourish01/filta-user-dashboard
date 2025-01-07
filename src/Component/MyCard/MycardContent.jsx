@@ -48,7 +48,7 @@ const ContentComponent = ({
   checkboxStates,
   setCheckboxStates,
   formDatac,
-  setFormDatac
+  setFormDatac,
 }) => {
   const [dragItems, setDragItems] = useState([
     { id: "drag-drop-first", component: "Clickable links" },
@@ -425,7 +425,7 @@ const ContentComponent = ({
                           Cancel
                         </button>
                         <button type="submit" className="my-save link-padd">
-                          {isAdding ? "Add Link" : "Edit Link"}
+                          Save
                         </button>
                       </div>
                     </form>
@@ -579,7 +579,6 @@ const ContentComponent = ({
               setCheckboxStates={setCheckboxStates}
               setFormDatac={setFormDatac}
               formDatac={formDatac}
-
             />
           </DropdownComponent>
         );
