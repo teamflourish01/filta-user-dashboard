@@ -3,6 +3,13 @@
     /* border: 1px solid black; */
     margin-bottom: 15px;
   }
+  .vm-infile{
+    width: 42px;
+    height: 42px;
+  }
+  .vm-vimg{
+    cursor: pointer;
+  }
   .voice-heading {
     padding-bottom: 12px;
     font-family: Poppins-SemiBold;
@@ -153,3 +160,8 @@
     background-color: #050505;
     border-radius: 50%;
   }
+
+.vm-record{
+  display: flex;
+}
+  
