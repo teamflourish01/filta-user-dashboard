@@ -50,6 +50,7 @@ const Mobileprev = ({
   watch,
   showTbtn,
   formDatac,
+  showTranslateBtn,
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
 
@@ -70,6 +71,8 @@ const Mobileprev = ({
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log(showTbtn, "showtbtn");
+
     const fetchUserDetails = async () => {
       try {
         const response = await fetch(`${uri}/email/gatemailmsg`, {
@@ -90,7 +93,6 @@ const Mobileprev = ({
         setError(err.message);
       }
     };
-
     fetchUserDetails();
   }, []);
 
@@ -331,7 +333,7 @@ const Mobileprev = ({
           <div className="profile-pic-container-left-align">
             <div
               className={`mp-profile-pic-c-l-a ${
-                borderStyle ? "circle" : "square"
+                borderStyle ? "square" : "circle"
               }`}
             >
               {userData?.card?.profileimg ? (
@@ -570,7 +572,6 @@ const Mobileprev = ({
         <div className="mp-mobile-modifi">
           <div
             className="mp-padding-whole-10-l-a"
-
             style={{
               background: userData?.card?.design?.card_background?.flat_color,
             }}
@@ -588,8 +589,8 @@ const Mobileprev = ({
           >
             {/* top profile section start */}
 
-
             <div className="profile-container">{renderDivBasedOnData()}</div>
+
 
             <div className="top-profile-container-left-align">
               <div
@@ -882,74 +883,57 @@ const Mobileprev = ({
 
             {/* fourth section contact form start */}
 
-            {userDetails.data[0]?.loginemail && (
-              <div
-                className="mp-grey-box-bg-left-align"
-                style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                }}
-              >
-                <div className="mp-contact-form-left-align">
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <div
-                      className="mp-sections-title"
-                      style={{
-                        color:
-                          userData?.card?.design?.font_style
-                            ?.primary_text_color,
-                      }}
-                    >
-                      Contact Form
-                    </div>
-                    <div className="mp-input-container-c-f">
-                      {checkboxStates.name && (
-                        <div className="mp-input-field-contact-form-leftalign">
-                          <input
-                            type="text"
-                            placeholder="Name"
-                            className="mp-input-field-single"
-                            {...register("name")}
-                            style={{
-                              color:
-                                userData?.card?.design?.font_style
-                                  ?.secondary_text_color,
-                              "--placeholder-color":
-                                userData?.card?.design?.font_style
-                                  ?.secondary_text_color,
-                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                            }}
-                          />
-                        </div>
-                      )}
-
-                      <div className="mp-input-field-contact-form-leftalign">
-                        <input
-                          type="text"
-                          placeholder="Email"
-                          className="mp-input-field-single"
-                          {...register("email", {
-                            required: "Email is required",
-                          })}
-                          style={{
-                            color:
-                              userData?.card?.design?.font_style
-                                ?.secondary_text_color,
-                            "--placeholder-color":
-                              userData?.card?.design?.font_style
-                                ?.secondary_text_color,
-                            border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                          }}
-                        />
+            {userDetails.data[0]?.loginemail ||
+              (formDatac.loginemail && (
+                <div
+                  className="mp-grey-box-bg-left-align"
+                  style={{
+                    background:
+                      userData?.card?.design?.card_color?.primary_color,
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
+                >
+                  <div className="mp-contact-form-left-align">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div
+                        className="mp-sections-title"
+                        style={{
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.primary_text_color,
+                        }}
+                      >
+                        Contact Form
                       </div>
+                      <div className="mp-input-container-c-f">
+                        {checkboxStates.name && (
+                          <div className="mp-input-field-contact-form-leftalign">
+                            <input
+                              type="text"
+                              placeholder="Name"
+                              className="mp-input-field-single"
+                              {...register("name")}
+                              style={{
+                                color:
+                                  userData?.card?.design?.font_style
+                                    ?.secondary_text_color,
+                                "--placeholder-color":
+                                  userData?.card?.design?.font_style
+                                    ?.secondary_text_color,
+                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              }}
+                            />
+                          </div>
+                        )}
 
-                      {checkboxStates.number && (
                         <div className="mp-input-field-contact-form-leftalign">
                           <input
                             type="text"
-                            placeholder="Mobile Number"
+                            placeholder="Email"
                             className="mp-input-field-single"
-                            {...register("number")}
+                            {...register("email", {
+                              required: "Email is required",
+                            })}
                             style={{
                               color:
                                 userData?.card?.design?.font_style
@@ -961,48 +945,66 @@ const Mobileprev = ({
                             }}
                           />
                         </div>
-                      )}
-                      {checkboxStates.message && (
-                        <div className="mp-input-field-contact-form-leftalign">
-                          <textarea
-                            type="text"
-                            placeholder="Message"
-                            className="mp-input-field-single mp-textarea-class"
-                            {...register("message")}
-                            style={{
-                              color:
-                                userData?.card?.design?.font_style
-                                  ?.secondary_text_color,
-                              "--placeholder-color":
-                                userData?.card?.design?.font_style
-                                  ?.secondary_text_color,
-                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                            }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                    <button
-                      type="submit"
-                      className="mp-btn-white-submit-leftalign"
-                      style={{
-                        background:
-                          userData?.card?.design?.card_color?.secondary_color,
 
-                        color:
-                          userData?.card?.design?.font_style
-                            ?.primary_text_color,
+                        {checkboxStates.number && (
+                          <div className="mp-input-field-contact-form-leftalign">
+                            <input
+                              type="text"
+                              placeholder="Mobile Number"
+                              className="mp-input-field-single"
+                              {...register("number")}
+                              style={{
+                                color:
+                                  userData?.card?.design?.font_style
+                                    ?.secondary_text_color,
+                                "--placeholder-color":
+                                  userData?.card?.design?.font_style
+                                    ?.secondary_text_color,
+                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              }}
+                            />
+                          </div>
+                        )}
+                        {checkboxStates.message && (
+                          <div className="mp-input-field-contact-form-leftalign">
+                            <textarea
+                              type="text"
+                              placeholder="Message"
+                              className="mp-input-field-single mp-textarea-class"
+                              {...register("message")}
+                              style={{
+                                color:
+                                  userData?.card?.design?.font_style
+                                    ?.secondary_text_color,
+                                "--placeholder-color":
+                                  userData?.card?.design?.font_style
+                                    ?.secondary_text_color,
+                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        type="submit"
+                        className="mp-btn-white-submit-leftalign"
+                        style={{
+                          background:
+                            userData?.card?.design?.card_color?.secondary_color,
 
-                      }}
-                    >
-                      <span className="mp-btn-text-leftalign">
-                        {loading ? "Loading..." : "Submit"}
-                      </span>
-                    </button>
-                  </form>
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.primary_text_color,
+                        }}
+                      >
+                        <span className="mp-btn-text-leftalign">
+                          {loading ? "Loading..." : "Submit"}
+                        </span>
+                      </button>
+                    </form>
+                  </div>
                 </div>
-              </div>
-            )}
+              ))}
 
             {/* fifth section voice message start */}
             {userData?.voiceMessage?.length > 0 && (
@@ -1162,7 +1164,6 @@ const Mobileprev = ({
             {userData?.teamMember?.name?.filter(
               (item) => item.trim().length > 0
             ).length > 0 && (
-
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
@@ -1337,13 +1338,11 @@ const Mobileprev = ({
 
             {/* eleven section social proof start */}
 
-
             {/* {userData?.socialProof?.text?.length > 0 && ( */}
 
             {userData?.socialProof?.text?.filter(
               (item) => item.trim().length > 0
             ).length > 0 && (
-
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
@@ -1461,90 +1460,92 @@ const Mobileprev = ({
 
             {/* thirteen section product gallery start */}
 
+            {userData?.productGallary?.length > 0 && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
+                <div className="mp-product-gallery-box-l-a">
+                  <div
+                    className="mp-sections-title"
+                    style={{
+                      color:
+                        userData?.card?.design?.font_style?.primary_text_color,
+                    }}
+                  >
+                    Product gallery
+                  </div>
+                  {/* {galleryImages?.length > 1 ? ( */}
 
-            {userData?.productGallary?.length > 0 && 
-
-            <div
-              className="mp-grey-box-bg-left-align"
-              style={{
-                background: userData?.card?.design?.card_color?.primary_color,
-                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-              }}
-            >
-              <div className="mp-product-gallery-box-l-a">
-
-                <div
-                  className="mp-sections-title"
-                  style={{
-                    color:
-                      userData?.card?.design?.font_style?.primary_text_color,
-                  }}
-                >
-                  Product gallery
-                </div>
-                {/* {galleryImages?.length > 1 ? ( */}
-
-                <div className="mp-sections-title">Product gallery</div>
-                {userData?.productGallary?.length > 1 ? (
-
-                  <Slider {...sliderSettings}>
-                    {userData?.productGallary?.map((pdetail, index) => (
-                      <>
-                        <div className="img-offer-content" key={index}>
-                          <img
-                            src={`${uri}/photogallery/${pdetail?.image}`}
-                            alt=""
-                            className="mp-img-r-curve-l-a"
-                          />
-                        </div>
-                        <p className="mp-pic-title-p-g">{pdetail.title}</p>
-                        <p className="mp-pic-desc-p-g">{pdetail.description}</p>
-                        <p className="mp-price-p-g">Price : {pdetail.price}</p>
-                        <button
-                          type="submit"
-                          className="btn-white-submit-leftalign"
-                          style={{
-                            background:
-                              userData?.card?.design?.card_color
-                                ?.secondary_color,
-                          }}
-                        >
-                          <span className="mp-btn-text-leftalign">Submit</span>
-                        </button>
-                      </>
-                    ))}
-                  </Slider>
-                ) : (
-                  <>
-                    <div className="img-offer-content">
-                      <img
-                        src={`${uri}/photogallery/${userData?.productGallary[0]?.image}`}
-                        alt=""
-                        className="mp-img-r-curve-l-a"
-                      />
-                    </div>
-                    <p className="mp-pic-title-p-g">
-                      {userData?.productGallary[0]?.title}
-                    </p>
-                    <p className="mp-pic-desc-p-g">
-                      {userData?.productGallary[0]?.description}
-                    </p>
-                    <p className="mp-price-p-g">
-                      Price : {userData?.productGallary[0]?.price}
-                    </p>
-                    <button
-                      type="submit"
-                      className="btn-white-submit-leftalign"
-                      style={{
-                        background:
-                          userData?.card?.design?.card_color?.secondary_color,
-                      }}
-                    >
-                      <span className="mp-btn-text-leftalign">Submit</span>
-                    </button>
-                  </>
-                )}
-                {/* <p className="mp-pic-title-p-g">New York</p>
+                  <div className="mp-sections-title">Product gallery</div>
+                  {userData?.productGallary?.length > 1 ? (
+                    <Slider {...sliderSettings}>
+                      {userData?.productGallary?.map((pdetail, index) => (
+                        <>
+                          <div className="img-offer-content" key={index}>
+                            <img
+                              src={`${uri}/photogallery/${pdetail?.image}`}
+                              alt=""
+                              className="mp-img-r-curve-l-a"
+                            />
+                          </div>
+                          <p className="mp-pic-title-p-g">{pdetail.title}</p>
+                          <p className="mp-pic-desc-p-g">
+                            {pdetail.description}
+                          </p>
+                          <p className="mp-price-p-g">
+                            Price : {pdetail.price}
+                          </p>
+                          <button
+                            type="submit"
+                            className="btn-white-submit-leftalign"
+                            style={{
+                              background:
+                                userData?.card?.design?.card_color
+                                  ?.secondary_color,
+                            }}
+                          >
+                            <span className="mp-btn-text-leftalign">
+                              Submit
+                            </span>
+                          </button>
+                        </>
+                      ))}
+                    </Slider>
+                  ) : (
+                    <>
+                      <div className="img-offer-content">
+                        <img
+                          src={`${uri}/photogallery/${userData?.productGallary[0]?.image}`}
+                          alt=""
+                          className="mp-img-r-curve-l-a"
+                        />
+                      </div>
+                      <p className="mp-pic-title-p-g">
+                        {userData?.productGallary[0]?.title}
+                      </p>
+                      <p className="mp-pic-desc-p-g">
+                        {userData?.productGallary[0]?.description}
+                      </p>
+                      <p className="mp-price-p-g">
+                        Price : {userData?.productGallary[0]?.price}
+                      </p>
+                      <button
+                        type="submit"
+                        className="btn-white-submit-leftalign"
+                        style={{
+                          background:
+                            userData?.card?.design?.card_color?.secondary_color,
+                        }}
+                      >
+                        <span className="mp-btn-text-leftalign">Submit</span>
+                      </button>
+                    </>
+                  )}
+                  {/* <p className="mp-pic-title-p-g">New York</p>
                 <p className="mp-pic-desc-p-g">
                   It is a long established fact that a reader will be distracted
                   by the readable content of a page when looking at its layout.
@@ -1562,54 +1563,54 @@ const Mobileprev = ({
                 >
                   <span className="mp-btn-text-leftalign">Submit</span>
                 </button> */}
+                </div>
               </div>
-            </div>
-}
+            )}
             {/* fourteen section two btn add start */}
+            {(cta?.btn_text != "" || showTranslateBtn) && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background: userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
+              >
+                <div className="btn-visit-translate-flex">
+                  {cta?.btn_type && cta?.btn_text != "" && (
+                    <button
+                      className="btn-visit-translate"
+                      style={{
+                        background:
+                          userData?.card?.design?.card_color?.secondary_color,
 
-            <div
-              className="mp-grey-box-bg-left-align"
-              style={{
-                background: userData?.card?.design?.card_color?.primary_color,
-                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-              }}
-            >
-              <div className="btn-visit-translate-flex">
-                {cta?.btn_type && (
-                  <button
-                    className="btn-visit-translate"
-                    style={{
-                      background:
-                        userData?.card?.design?.card_color?.secondary_color,
+                        color:
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                      }}
+                      onClick={handleButtonClick}
+                    >
+                      <span className="btn-visit-txt">{cta?.btn_text}</span>
+                    </button>
+                  )}
 
-                      color:
-                        userData?.card?.design?.font_style?.primary_text_color,
+                  {showTranslateBtn && (
+                    <button
+                      className="btn-visit-translate"
+                      style={{
+                        background:
+                          userData?.card?.design?.card_color?.secondary_color,
 
-                    }}
-                    onClick={handleButtonClick}
-                  >
-                    <span className="btn-visit-txt">{cta?.btn_text}</span>
-                  </button>
-                )}
-
-                {showTbtn &&
-
-                <button
-                  className="btn-visit-translate"
-                  style={{
-                    background:
-                      userData?.card?.design?.card_color?.secondary_color,
-
-                    color:
-                      userData?.card?.design?.font_style?.primary_text_color,
-
-                  }}
-                >
-                  <span className="btn-visit-txt">Translate</span>
-                </button>
-}
+                        color:
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                      }}
+                    >
+                      <span className="btn-visit-txt">Translate</span>
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* fifteen section copiright start */}
             <div
@@ -1657,7 +1658,6 @@ const Mobileprev = ({
                 background: userData?.card?.design?.card_color?.secondary_color,
 
                 color: userData?.card?.design?.font_style?.primary_text_color,
-
               }}
             >
               Share Card
@@ -1669,7 +1669,6 @@ const Mobileprev = ({
                 background: userData?.card?.design?.card_color?.secondary_color,
 
                 color: userData?.card?.design?.font_style?.primary_text_color,
-
               }}
             >
               Save Contact

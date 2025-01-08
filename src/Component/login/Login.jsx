@@ -31,6 +31,8 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
+      console.log(url,"url");
+      
       const response = await fetch(`${url}/user/signin`, {
         method: "post",
         headers: { "Content-Type": "application/json" },

@@ -405,7 +405,14 @@ input:checked + .slider-hide-m-l:before {
 .toggle-btn-m-l {
   /* padding: 5px 10px; */
 }
-
+.e-profile-my {
+  display: flex
+;
+  gap: 13px;
+  align-items: center;
+  padding: 13px 15px;
+  justify-content: space-between;
+}
 @media (max-width: 1350px) and (min-width: 1025px) {
   .my-menu {
     margin: 21px 7px 20px;
