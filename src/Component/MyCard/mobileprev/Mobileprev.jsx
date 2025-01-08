@@ -403,15 +403,15 @@ const Mobileprev = ({
             }}
           ></div>
           <div
-            className="bottom-inner-content-left-a-center"
+            className="mp-bottom-inner-content-left-a-center"
             style={{
               background: userData?.card?.design?.card_color?.primary_color,
               border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
             }}
           >
-            <div className="info-user-left-card-padding-center">
+            <div className="mp-info-user-left-card-padding-center">
               <div
-                className="user-name-left-align-card"
+                className="mp-user-name-left-align-card"
                 style={{
                   color: userData?.card?.design?.font_style?.primary_text_color,
                 }}
@@ -419,7 +419,7 @@ const Mobileprev = ({
                 {watch.name || "Name"}
               </div>
               <div
-                className="grey-bottom-txt"
+                className="mp-grey-bottom-txt"
                 style={{
                   color:
                     userData?.card?.design?.font_style?.secondary_text_color,
@@ -428,16 +428,17 @@ const Mobileprev = ({
                 {watch.jobtitle || "Job Title"}
               </div>
               <div
-                className="grey-bottom-txt"
+                className="mp-grey-bottom-txt "
                 style={{
                   color:
                     userData?.card?.design?.font_style?.secondary_text_color,
+                    textAlign:"center"
                 }}
               >
                 {watch.company || "Company"}
               </div>
               <div
-                className="grey-bottom-txt"
+                className="mp-grey-bottom-txt"
                 style={{
                   color:
                     userData?.card?.design?.font_style?.secondary_text_color,
@@ -514,12 +515,12 @@ const Mobileprev = ({
           <div
             className="info-user-left-card-padding-portrait"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              // background: userData?.card?.design?.card_color?.primary_color,
+              // border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
             }}
           >
             <div
-              className="user-name-left-align-card"
+              className="mp-user-name-left-align-card"
               style={{
                 color: userData?.card?.design?.font_style?.primary_text_color,
               }}
@@ -527,7 +528,7 @@ const Mobileprev = ({
               {watch.name || "Name"}
             </div>
             <div
-              className="grey-bottom-txt"
+              className="mp-grey-bottom-txt"
               style={{
                 color: userData?.card?.design?.font_style?.secondary_text_color,
               }}
@@ -535,7 +536,7 @@ const Mobileprev = ({
               {watch.jobtitle || "Job Title"}
             </div>
             <div
-              className="grey-bottom-txt"
+              className="mp-grey-bottom-txt"
               style={{
                 color: userData?.card?.design?.font_style?.secondary_text_color,
               }}
@@ -543,7 +544,7 @@ const Mobileprev = ({
               {watch.company || "Company"}
             </div>
             <div
-              className="grey-bottom-txt"
+              className="mp-grey-bottom-txt"
               style={{
                 color: userData?.card?.design?.font_style?.secondary_text_color,
               }}
@@ -562,7 +563,7 @@ const Mobileprev = ({
       );
     }
   };
-
+ 
   return (
     <>
       <div className="my-priviewcard">
