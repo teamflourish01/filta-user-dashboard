@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import html2canvas from "html2canvas";
 import { AiOutlineClose } from "react-icons/ai";
 import userContext from "../context/userDetails";
+import dummyprofile from "../images/digitalphoto.png";
+
 
 import "../styles/VirtualBackground.css";
 import vbfiltaqr from "../images/VirtualBackgroundimage/vbfiltaqr.svg";
@@ -270,12 +272,15 @@ const VirtualBackground = () => {
                           <div className="vb-flex-padding">
                             <div className="vb-preview-card-child">
                               <div className="vb-flex-preview-child">
-                                {fields.userPhoto && (
+                                {fields.userPhoto ? (
                                   <img
                                     src={`${uri}/card/${userData?.card?.profileimg}`}
                                     alt="profile-img"
                                     className="vb-profile-img vb-profile-photo"
                                   />
+                                ) : (
+                                  <img src={dummyprofile} alt="profile-img" className="vb-profile-img vb-profile-photo"/>
+
                                 )}
                                 {fields.name && (
                                   <p className="vb-n-500">
@@ -495,11 +500,17 @@ const VirtualBackground = () => {
         {/* right pannel */}
         <div className="vb-rightpannel">
           <div className="vb-user-name">
-            <img
-              src={`${uri}/card/${userData?.card?.profileimg}`}
-              alt="profile-img"
-              className="vb-profile-img"
-            />
+          {userData?.card?.profileimg ? (
+                    <img
+                      src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="profile-img"
+                      className="img-standard-profile"
+                    />
+                  ):
+                  (
+                    <img src={dummyprofile} alt="profile-img" className="img-standard-profile"/>
+
+                  )}
             <div className="vb-user-n-m">
               <p className="vb-name">{userData?.card?.name}</p>
               <p className="vb-gamil">{userData?.card?.email}</p>

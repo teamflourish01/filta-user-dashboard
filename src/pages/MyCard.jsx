@@ -37,8 +37,8 @@ const MyCard = () => {
   const [isClosing, setIsClosing] = useState(false);
   const [profileImagePreview, setProfileImagePreview] = useState();
   const [borderStyle, setBorderStyle] = useState(false);
-    const [showTranslateBtn, setshowTranslateBtn] = useState(true);
-  
+  const [showTranslateBtn, setshowTranslateBtn] = useState(false);
+
   const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
     name: "",
@@ -123,10 +123,8 @@ const MyCard = () => {
 
   const showTbtn = () => {
     setshowTranslateBtn(!showTranslateBtn);
-    console.log(showTranslateBtn, 'gbvdvf');
-    
+    console.log(showTranslateBtn, "gbvdvf");
   };
-  
 
   const {
     register,
@@ -251,10 +249,22 @@ const MyCard = () => {
                   {isFullScreen && !isClosing ? (
                     <div className="center-preview-in-btn">
                       <div className="e-profile">
-                        <img src={profileimg} alt="profile img" />
+                        {userData?.card?.profileimg ? (
+                          <img
+                            src={`${uri}/card/${userData?.card?.profileimg}`}
+                            alt="profile-img"
+                            className="img-standard-profile"
+                          />
+                        ) : (
+                          <img
+                            src={dummyprofile}
+                            alt="profile-img"
+                            className="img-standard-profile"
+                          />
+                        )}
                         <div className="e-sidediv">
-                          <p className="e-prfname">Ajay Gadhavi</p>
-                          <p className="e-prfemail">ajaygadhvi045@gmail.com</p>
+                          <p className="e-prfname">{userData?.card?.name}</p>
+                          <p className="e-prfemail">{userData?.card?.email}</p>
                         </div>
                       </div>
                       <hr className="hrline" />
@@ -348,32 +358,35 @@ const MyCard = () => {
 
         {/* Right Side */}
         <div className="my-rightside">
-          <div className="e-profile">
+          <div className="e-profile-my">
             <div className="profile-name-email-pic-m-l">
-            {/* <img src={profileimg} alt="profile img" /> */}
-            {userData?.card?.profileimg ? (
-              <img
-                src={`${uri}/card/${userData?.card?.profileimg}`}
-                alt="profile-img"
-              />
-            ) : (
-              <img src={dummyprofile} alt="profile-img" />
-            )}
-            <div className="e-sidediv">
-              <p className="e-prfname">{userData?.card?.name}</p>
-              <p className="e-prfemail">{userData?.card?.email}</p>
-            </div>
+              {/* <img src={profileimg} alt="profile img" /> */}
+              {userData?.card?.profileimg ? (
+                <img
+                  src={`${uri}/card/${userData?.card?.profileimg}`}
+                  alt="profile-img"
+                  className="img-standard-profile"
+                />
+              ) : (
+                <img
+                  src={dummyprofile}
+                  alt="profile-img"
+                  className="img-standard-profile"
+                />
+              )}
+              <div className="e-sidediv">
+                <p className="e-prfname">{userData?.card?.name}</p>
+                <p className="e-prfemail">{userData?.card?.email}</p>
+              </div>
             </div>
             <div className="multi-language-toggle">
-              <p className="multi-lang-txt">
-              Multiple Language
-              </p>
+              <p className="multi-lang-txt">Multiple Language</p>
               <div className="toggle-btn-m-l">
-                  <label className="switch-hide-m-l">
-                    <input type="checkbox" onChange={showTbtn}/>
-                    <span className="slider-hide-m-l round"></span>
-                  </label>
-                </div>
+                <label className="switch-hide-m-l">
+                  <input type="checkbox" onChange={showTbtn} />
+                  <span className="slider-hide-m-l round"></span>
+                </label>
+              </div>
             </div>
           </div>
           <hr className="hrline" />
@@ -408,6 +421,7 @@ const MyCard = () => {
                 logo={logo}
                 watch={watchedData}
                 showTbtn={showTbtn}
+                showTranslateBtn={showTranslateBtn}
               />
 
               <div className="my-prwbtn">

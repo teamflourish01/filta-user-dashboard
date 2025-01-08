@@ -17,7 +17,6 @@
   /* overflow-y: scroll; */
   scrollbar-width: none;
   height: 100%;
-
 }
 .standard-card-content {
   overflow-y: scroll;
@@ -27,7 +26,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.back-to-nfc{
+.back-to-nfc {
   white-space: nowrap;
 }
 .standard-l-n-f-c {
@@ -45,7 +44,6 @@
   border-radius: 10px;
   /* height: 826px; */
   height: 100%;
-
 }
 .how-it-r-n-f-c {
   font-family: Poppins-Medium;
@@ -150,7 +148,7 @@
   justify-content: center;
   flex-direction: column;
 }
-.bottom-content-scroll-standard{
+.bottom-content-scroll-standard {
   height: calc(100% - 80px);
   overflow-y: scroll;
   scrollbar-width: none;
@@ -298,13 +296,17 @@
   width: 25px;
   height: 30px;
 }
+.img-standard-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 
-@media (max-width: 1200px) and (min-width:1150px){
-  .flex-color-cotent{
+@media (max-width: 1200px) and (min-width: 1150px) {
+  .flex-color-cotent {
     gap: 20px !important;
   }
 }
-
 
 @media (max-width: 1150px) {
   .bg {
@@ -323,13 +325,12 @@
     align-items: flex-start;
     justify-content: flex-start;
   }
-  .front-side-text{
+  .front-side-text {
     text-align: left;
   }
-  .back-side-text{
+  .back-side-text {
     text-align: left;
   }
-  
 }
 @media (max-width: 768px) {
   .standard-l-n-f-c {

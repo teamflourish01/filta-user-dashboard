@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../StandardCustomizeDetail/StandardCustomizeDetail.css";
 import editPen from "../../images/pickup.svg";
 import axios from "axios";
@@ -15,8 +15,10 @@ const StandardCustomizeDetail = ({
   formData,
   setFormData,
 }) => {
-  const [selectedColor, setSelectedColor] = useState("black");
-  const { AuthorizationToken } = useContext(userContext);
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  
+  const [selectedColor, setSelectedColor] = useState(userData?.nfcStandard?.card_color);
+
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleInputChange = (e) => {
@@ -53,12 +55,16 @@ const StandardCustomizeDetail = ({
           },
         }
       );
-      console.log(response, "standardp");
+    
+      // console.log(response, "standardp");
       alert(`${response?.data?.message}`);
     } catch (error) {
       console.error("Error saving About Data:", error);
     }
   };
+  useEffect(()=>{
+    getUserData()
+  },[])
 
   return (
     <>
@@ -116,7 +122,7 @@ const StandardCustomizeDetail = ({
               <p className="customize-detial-field-name">Mobile Number</p>
               <span className="toggle-flex">
                 <input
-                  type="number"
+                  type="text"
                   className="cutomize-field-input"
                   name="phone"
                   value={formData.phone}

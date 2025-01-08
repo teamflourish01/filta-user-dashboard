@@ -15,55 +15,69 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { handlePayment } from "../../uttils/Payment";
 import userContext from "../../context/userDetails";
+import dummyprofile from "../../images/digitalphoto.png";
 
 const StandardPlan = () => {
   const navigate = useNavigate();
+  const uri = process.env.REACT_APP_DEV_URL;
+
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-
-
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [showFiltaLogo, setShowFiltaLogo] = useState(true);
-  const [showNfcIcon, setShowNfcIcon] = useState(true);
+  const [showNfcIcon, setShowNfcIcon] = useState(
+    userData?.nfcStandard?.hide_nfc || true
+  );
   const [showMobileNo, setShowMobileNo] = useState(true);
   const [showEmailId, setEmailId] = useState(true);
 
-  const [selectedColor, setSelectedColor] = useState("black");
+  const [selectedColor, setSelectedColor] = useState(
+    userData?.nfcStandard?.card_color || "black"
+  );
   const [accentColor, setAccentColor] = useState("#fff");
   const [formData, setFormData] = useState({
-    name: "",
-    additional: "",
-    email: "",
-    phone: "",
-    card_url:"",
-    card_color:"",
-    accent_color:"",
-    hide_nfc:""
+    name: userData?.nfcStandard?.name || "",
+    additional: userData?.nfcStandard?.additional || "",
+    email: userData?.nfcStandard?.email || "",
+    phone: userData?.nfcStandard?.phone || "",
+    card_url: userData?.nfcStandard?.card_url || "",
+    card_color: userData?.nfcStandard?.card_color || "",
+    accent_color: userData?.nfcStandard?.accent_color || "",
+    hide_nfc: userData?.nfcStandard?.hide_nfc || false,
   });
-    const [mobile, setMobile] = useState("");
-  
+  const [mobile, setMobile] = useState("");
 
-  const filterMobile = async() => {
+  const filterMobile = async () => {
     let arr = userData?.socialLinks?.filter((e) => e?.platform == "Call");
     setMobile(arr[0]?.url);
-    return arr[0]?.url
+    return arr[0]?.url;
   };
-
-
 
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
-    getUserData()
+    getUserData();
+
+    // if(userData?.nfcStandard?.name){
+    // setFormData({
+    //   name: userData?.nfcStandard?.name,
+    //   additional: userData?.nfcStandard.additional,
+    //   email: userData.nfcStandard.email,
+    //   phone: userData.nfcStandard.phone,
+    //   card_url: userData.nfcStandard.card_url,
+    //   card_color: userData.nfcStandard.card_color,
+    //   accent_color: userData.nfcStandard.accent_color,
+    //   hide_nfc: userData.nfcStandard.hide_nfc,
+    // })}
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const hideBackLine =
     (formData.email && formData.email && showEmailId) ||
-    (formData.mobileNumber && formData.mobileNumber && showMobileNo);
+    (formData.phone && formData.phone && showMobileNo);
 
   const hideNfc = () => {
     setShowNfcIcon(!showNfcIcon);
@@ -144,16 +158,26 @@ const StandardPlan = () => {
                 <div className="center-preview-in-btn">
                   <div className="top-profile-standard">
                     <div className="profile-pic-s">
-                      <img
-                        src={Sprofile}
-                        alt=""
-                        className="img-standard-profile"
-                      />
+                      {userData?.card?.profileimg ? (
+                        <img
+                          src={`${uri}/card/${userData?.card?.profileimg}`}
+                          alt=""
+                          className="img-standard-profile"
+                        />
+                      ) : (
+                        <img
+                          src={dummyprofile}
+                          alt="profile-img"
+                          className="img-standard-profile"
+                        />
+                      )}
                     </div>
                     <div className="profile-details-s">
-                      <p className="user-name-standard">Ajay Gadhavi</p>
+                      <p className="user-name-standard">
+                        {userData?.card?.name}
+                      </p>
                       <p className="user-email-standard">
-                        ajaygadhavi045@gmail.com
+                        {userData?.card?.email}
                       </p>
                     </div>
                   </div>
@@ -186,7 +210,9 @@ const StandardPlan = () => {
                         >
                           {formData.name}
                         </p>
-                        <p className="green-name-black-card">{formData.info}</p>
+                        <p className="green-name-black-card">
+                          {formData.additional}
+                        </p>
                       </div>
                     </div>
                     <div className="line-between-front-back"></div>
@@ -223,10 +249,10 @@ const StandardPlan = () => {
                               style={{ backgroundColor: accentColor }}
                             ></div>
                           )}
-                          {formData.email || formData.mobileNumber ? (
+                          {formData.email || formData.phone ? (
                             <div className="back-details-card">
                               {showEmailId && <p>{formData.email}</p>}
-                              {showMobileNo && <p>{formData.mobileNumber}</p>}
+                              {showMobileNo && <p>{formData.phone}</p>}
                             </div>
                           ) : null}
                         </div>
@@ -289,11 +315,23 @@ const StandardPlan = () => {
           <div className="right-standard-n-f-c-card">
             <div className="top-profile-standard">
               <div className="profile-pic-s">
-                <img src={Sprofile} alt="" className="img-standard-profile" />
+                {userData?.card?.profileimg ? (
+                  <img
+                    src={`${uri}/card/${userData?.card?.profileimg}`}
+                    alt=""
+                    className="img-standard-profile"
+                  />
+                ) : (
+                  <img
+                    src={dummyprofile}
+                    alt="profile-img"
+                    className="img-standard-profile"
+                  />
+                )}
               </div>
               <div className="profile-details-s">
-                <p className="user-name-standard">Ajay Gadhavi</p>
-                <p className="user-email-standard">ajaygadhavi045@gmail.com</p>
+                <p className="user-name-standard">{userData?.card?.name}</p>
+                <p className="user-email-standard">{userData?.card?.email}</p>
               </div>
             </div>
             <div className="bottom-content-scroll-standard">
@@ -326,7 +364,9 @@ const StandardPlan = () => {
                     >
                       {formData.name}
                     </p>
-                    <p className="green-name-black-card">{formData.info}</p>
+                    <p className="green-name-black-card">
+                      {formData.additional}
+                    </p>
                   </div>
                 </div>
                 <div className="line-between-front-back"></div>
@@ -361,10 +401,10 @@ const StandardPlan = () => {
                           style={{ backgroundColor: accentColor }}
                         ></div>
                       )}
-                      {formData.email || formData.mobileNumber ? (
+                      {formData.email || formData.phone ? (
                         <div className="back-details-card">
                           {showEmailId && <p>{formData.email}</p>}
-                          {showMobileNo && <p>{formData.mobileNumber}</p>}
+                          {showMobileNo && <p>{formData.phone}</p>}
                         </div>
                       ) : null}
                     </div>

@@ -6,6 +6,7 @@ import qrcode from "../images/qrcode.png";
 import html2canvas from "html2canvas";
 import { AiOutlineClose } from "react-icons/ai";
 import userContext from "../context/userDetails";
+import dummyprofile from "../images/digitalphoto.png";
 
 const EmailSignature = () => {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -127,10 +128,19 @@ const EmailSignature = () => {
             {isFullScreen && !isClosing ? (
               <div className="center-preview-in-btn">
                 <div className="e-profile">
-                  <img
-                    src={`${uri}/card/${userData?.card?.profileimg}`}
-                    alt="profile-img"
-                  />
+                  {userData?.card?.profileimg ? (
+                    <img
+                      src={`${uri}/card/${userData?.card?.profileimg}`}
+                      alt="profile-img"
+                      className="img-standard-profile"
+                    />
+                  ) : (
+                    <img
+                      src={dummyprofile}
+                      alt="profile-img"
+                      className="img-standard-profile"
+                    />
+                  )}
 
                   <div className="e-sidediv">
                     <p className="e-prfname">{userData?.card?.name}</p>
@@ -324,8 +334,19 @@ const EmailSignature = () => {
         </div>
         <div className="e-rightpanel">
           <div className="e-profile">
-            <img src={`${uri}/card/${userData?.card?.profileimg}`}
-              alt="profile-img" />
+            {userData?.card?.profileimg ? (
+              <img
+                src={`${uri}/card/${userData?.card?.profileimg}`}
+                alt="profile-img"
+                className="img-standard-profile"
+              />
+            ) : (
+              <img
+                src={dummyprofile}
+                alt="profile-img"
+                className="img-standard-profile"
+              />
+            )}
 
             <div className="e-sidediv">
               <p className="e-prfname">{userData?.card?.name}</p>
@@ -338,11 +359,17 @@ const EmailSignature = () => {
               <h3 className="e-cardheding">Email Signature Preview</h3>
               <div className="signature-card" ref={signatureRef}>
                 <div className="signature-info">
-                  {Photo && (
+                  {userData?.card?.profileimg ? (
                     <img
                       src={`${uri}/card/${userData?.card?.profileimg}`}
                       alt="profile-img"
-                      className="signature-image"
+                      className="img-standard-profile"
+                    />
+                  ) : (
+                    <img
+                      src={dummyprofile}
+                      alt="profile-img"
+                      className="img-standard-profile"
                     />
                   )}
                   <p className="e-cardname">
