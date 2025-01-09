@@ -36,6 +36,7 @@ import axios from "axios";
 import dummyprofile from "../../../images/digitalphoto.png";
 import { Document, Page, pdfjs } from "react-pdf";
 import defaultlogo from "../../../images/filta.png";
+import ShareCardModal from "../../ShareCardModal/ShareCardModal";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -53,6 +54,7 @@ const Mobileprev = ({
   showTranslateBtn,
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -565,7 +567,13 @@ const Mobileprev = ({
       );
     }
   };
- 
+  const handleShareButtonClick = () => {
+    setIsShareModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsShareModalOpen(false);
+  };
   return (
     <>
       <div className="my-priviewcard">
@@ -1566,6 +1574,8 @@ const Mobileprev = ({
 
                 color: userData?.card?.design?.font_style?.primary_text_color,
               }}
+              onClick={handleShareButtonClick}
+
             >
               Share Card
             </button>
@@ -1577,12 +1587,16 @@ const Mobileprev = ({
 
                 color: userData?.card?.design?.font_style?.primary_text_color,
               }}
+
             >
               Save Contact
             </button>
           </div>
         </div>
       </div>
+      {isShareModalOpen && (
+        <ShareCardModal onClose={handleCloseModal} />
+      )}
     </>
   );
 };
