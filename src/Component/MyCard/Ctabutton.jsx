@@ -5,7 +5,7 @@ import userContext from "../../context/userDetails";
 import userEvent from "@testing-library/user-event";
 
 const Ctabutton = () => {
-  const [selectedOption, setSelectedOption] = useState("Contact");
+  const [selectedOption, setSelectedOption] = useState("");
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [data, setData] = useState("");
   const [text, setText] = useState("");
@@ -40,24 +40,24 @@ const Ctabutton = () => {
       });
       data = await data.json();
       console.log(data);
-      getUserData()
+      getUserData();
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(()=>{
-    getUserData()
+  useEffect(() => {
+    getUserData();
     setCta({
-      btn_type:userData?.cta?.btn_type,
-      btn_text:userData?.cta?.btn_text,
-      mail:userData?.cta?.mail,
-      url:userData?.cta?.url,
-      mobile:userData?.cta?.mobile
-    })
-    setSelectedOption(userData?.cta?.btn_type)
-    setText(userData?.cta?.btn_text)
-    setData(userData?.cta?.mobile||userData?.cta?.mail||userData?.cat?.url)
-  },[])
+      btn_type: userData?.cta?.btn_type,
+      btn_text: userData?.cta?.btn_text,
+      mail: userData?.cta?.mail,
+      url: userData?.cta?.url,
+      mobile: userData?.cta?.mobile,
+    });
+    setSelectedOption(userData?.cta?.btn_type);
+    setText(userData?.cta?.btn_text);
+    setData(userData?.cta?.mobile || userData?.cta?.mail || userData?.cat?.url);
+  }, []);
   return (
     <>
       <div className="cta-container">
@@ -76,6 +76,7 @@ const Ctabutton = () => {
             value={selectedOption}
             onChange={handleOptionChange}
           >
+            <option value="">Choose Button Type</option>
             <option value="Contact">Contact Me</option>
             <option value="Mail">Mail Me</option>
             <option value="Visit">Visit My Website</option>
@@ -89,8 +90,10 @@ const Ctabutton = () => {
             type="text"
             id="cta-button-text"
             className="cta-mobileno"
-            onChange={(e) => {setCta({ ...cta, btn_text: e.target.value });
-          setText(e.target.value)}}
+            onChange={(e) => {
+              setCta({ ...cta, btn_text: e.target.value });
+              setText(e.target.value);
+            }}
             value={text}
             placeholder={
               selectedOption === "Mail"
