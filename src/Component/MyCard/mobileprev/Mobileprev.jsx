@@ -240,15 +240,37 @@ const Mobileprev = ({
   };
 
   const cta = userData?.cta;
-  const handleButtonClick = () => {
-    if (cta?.btn_type === "Mail") {
+  // Function to handle the button click
+const handleButtonClick = () => {
+  const cta = userData?.cta;
+
+  // Handle based on btn_type
+  if (cta?.btn_type === "Mail") {
+    // Redirect to mail
+    if (cta?.mail) {
       window.location.href = `mailto:${cta?.mail}`;
-    } else if (cta?.btn_type === "Contact") {
-      window.location.href = `tel:${cta?.mobile}`;
-    } else if (cta?.btn_type === "Visit") {
-      window.open(cta?.url, "_blank");
+    } else {
+      console.error("No email provided for Mail button type.");
     }
-  };
+  } else if (cta?.btn_type === "Contact") {
+    // Redirect to contact (mobile)
+    if (cta?.mobile) {
+      window.location.href = `tel:${cta?.mobile}`;
+    } else {
+      console.error("No mobile number provided for Contact button type.");
+    }
+  } else if (cta?.btn_type === "Visit") {
+    // Open website URL
+    if (cta?.url) {
+      window.open(cta?.url, "_blank");
+    } else {
+      console.error("No URL provided for Visit button type.");
+    }
+  } else {
+    console.error("Unknown button type.");
+  }
+};
+
   const renderDivBasedOnData = () => {
     if (userData?.card?.design?.layout === "left") {
       // Render the left-aligned layout
@@ -332,12 +354,18 @@ const Mobileprev = ({
           </div>
           <div className="profile-pic-container-left-align">
             <div
+              // className={`mp-profile-pic-c-l-a ${
+              //   borderStyle ? "square" : "circle"
+              // }`}
               className={`mp-profile-pic-c-l-a ${
                 borderStyle ? "square" : "circle"
               }`}
             >
               {userData?.card?.profileimg ? (
                 <img
+                style={{
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
                   src={
                     profileImages
                       ? profileImages
@@ -347,6 +375,9 @@ const Mobileprev = ({
                 />
               ) : (
                 <img
+                style={{
+                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
                 />
@@ -383,6 +414,7 @@ const Mobileprev = ({
           >
             {coverPhoto && (
               <img
+              
                 src={
                   coverPhoto
                     ? coverPhoto
@@ -453,7 +485,7 @@ const Mobileprev = ({
           <div className="profile-pic-container-left-align">
             <div
               className={`mp-profile-pic-c-l-a-center ${
-                borderStyle ? "circle" : "square"
+                borderStyle ? "square" : "circle"
               }`}
             >
               {userData?.card?.profileimg ? (
@@ -612,7 +644,9 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
+                    
                   >
                     Clickable Links
                   </div>
@@ -684,6 +718,7 @@ const Mobileprev = ({
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
+                            textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                       }}
                     >
                       Multimedia
@@ -747,6 +782,7 @@ const Mobileprev = ({
                             color:
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
+                                textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                           }}
                         >
                           YouTube Video
@@ -808,6 +844,7 @@ const Mobileprev = ({
                           color:
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
+                              textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                         }}
                       >
                         Contact Form
@@ -928,6 +965,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Voice Message
@@ -953,6 +991,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     About
@@ -995,6 +1034,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Document
@@ -1084,6 +1124,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Team Member Details{" "}
@@ -1171,6 +1212,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Address
@@ -1213,6 +1255,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Time sensitive offer
@@ -1263,6 +1306,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Social Proof
@@ -1335,6 +1379,7 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Photos
@@ -1381,13 +1426,12 @@ const Mobileprev = ({
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
+                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Product gallery
                   </div>
                   {/* {galleryImages?.length > 1 ? ( */}
-
-                  <div className="mp-sections-title">Product gallery</div>
                   {userData?.productGallary?.length > 1 ? (
                     <Slider {...sliderSettings}>
                       {userData?.productGallary?.map((pdetail, index) => (
@@ -1408,7 +1452,7 @@ const Mobileprev = ({
                           </p>
                           <button
                             type="submit"
-                            className="btn-white-submit-leftalign"
+                            className="mp-btn-white-submit-leftalign"
                             style={{
                               background:
                                 userData?.card?.design?.card_color
@@ -1431,25 +1475,38 @@ const Mobileprev = ({
                           className="mp-img-r-curve-l-a"
                         />
                       </div>
-                      <p className="mp-pic-title-p-g">
+                      <p className="mp-pic-title-p-g" style={{
+                     color: userData?.card?.design?.font_style?.primary_text_color,
+                  }}>
                         {userData?.productGallary[0]?.title}
                       </p>
-                      <p className="mp-pic-desc-p-g">
+                      <p className="mp-pic-desc-p-g" style={{
+                     color: userData?.card?.design?.font_style?.secondary_text_color,
+                  }}>
                         {userData?.productGallary[0]?.description}
                       </p>
-                      <p className="mp-price-p-g">
+                      <p className="mp-price-p-g" style={{
+                     color: userData?.card?.design?.font_style?.primary_text_color,
+                  }}>
                         Price : {userData?.productGallary[0]?.price}
                       </p>
+                      <a href={userData?.productGallary[0]?.button_link || "#"} // Dynamically set href, fallback to '#' if no link
+  target="_blank" // Optional: Opens link in a new tab
+  rel="noopener noreferrer" >
                       <button
                         type="submit"
-                        className="btn-white-submit-leftalign"
+                        className="mp-btn-white-submit-leftalign"
                         style={{
                           background:
                             userData?.card?.design?.card_color?.secondary_color,
+                            cursor:"pointer"
                         }}
                       >
-                        <span className="mp-btn-text-leftalign">Submit</span>
+                        <span className="mp-btn-text-leftalign" style={{
+                     color: userData?.card?.design?.font_style?.primary_text_color,
+                  }}> {userData?.productGallary[0]?.button_type}</span>
                       </button>
+                      </a>
                     </>
                   )}
                   {/* <p className="mp-pic-title-p-g">New York</p>
@@ -1493,10 +1550,11 @@ const Mobileprev = ({
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
+                            cursor:"pointer"
                       }}
                       onClick={handleButtonClick}
                     >
-                      <span className="btn-visit-txt">{cta?.btn_text}</span>
+                      <span className="btn-visit-txt" >{cta?.btn_text}</span>
                     </button>
                   )}
 
@@ -1510,6 +1568,7 @@ const Mobileprev = ({
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
+                            cursor:"pointer"
                       }}
                     >
                       <span className="btn-visit-txt">Translate</span>
