@@ -395,10 +395,12 @@ const Mobileprev = ({
               {userData?.card?.profileimg ? (
                 <img
                   style={{
+
                     border: `0.48px solid ${
                       colors.natClor ||
                       userData?.card?.design?.card_color?.neutral_color
                     }`,
+
                   }}
                   src={
                     profileImages
@@ -410,10 +412,12 @@ const Mobileprev = ({
               ) : (
                 <img
                   style={{
+
                     border: `0.48px solid ${
                       colors.natClor ||
                       userData?.card?.design?.card_color?.neutral_color
                     }`,
+
                   }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
@@ -472,7 +476,7 @@ const Mobileprev = ({
             )}
           </div>
           <div
-            className="hr-btw-top-bottom-l-a"
+            className="mp-hr-btw-top-bottom-l-a"
             style={{
               border: `0.48px solid ${
                 colors.natClor ||
@@ -517,8 +521,9 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt "
                 style={{
                   color:
-                    colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+
+                    userData?.card?.design?.font_style?.secondary_text_color,
+
                   textAlign: "center",
                 }}
               >
@@ -544,6 +549,9 @@ const Mobileprev = ({
             >
               {userData?.card?.profileimg ? (
                 <img
+                  style={{
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
                   src={
                     profileImages
                       ? profileImages
@@ -553,6 +561,9 @@ const Mobileprev = ({
                 />
               ) : (
                 <img
+                  style={{
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
                 />
@@ -605,7 +616,9 @@ const Mobileprev = ({
             style={
               {
                 // background: userData?.card?.design?.card_color?.primary_color,
+
                 // border: `0.48px solid ${colors.natClor || userData?.card?.design?.card_color?.neutral_color}`,
+
               }
             }
           >
@@ -670,27 +683,45 @@ const Mobileprev = ({
   };
   return (
     <>
+    
       <div className="my-priviewcard">
         {/* Show live card preview */}
         <div className="mp-mobile-modifi">
           <div
             className="mp-padding-whole-10-l-a"
+
             style={{
               background:
                 colors.flatColor ||
                 userData?.card?.design?.card_background?.flat_color,
             }}
+
             // style={{
-            //   background: userData?.card?.design?.card_background?.flat_color
+            //   background: userData?.card?.design?.card_background?.flat_color,
             // }}
+            style={{
+              background:
+                userData?.card?.design?.card_background?.gradient_color1 &&
+                userData?.card?.design?.card_background?.gradient_color2
+                  ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+                  : `linear-gradient(#000, #fff)`, // Default gradient
+            }}
             // style={{
             //   background:
-            //     userData?.card?.design?.card_background?.gradient_color1 &&
-            //     userData?.card?.design?.card_background?.gradient_color2
-            //       ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-            //       : userData?.card?.design?.card_background?.flat_color,
-
+            //     userData?.card?.design?.card_background?.type === "gradient"
+            //       ? userData?.card?.design?.card_background?.gradient_color1 &&
+            //         userData?.card?.design?.card_background?.gradient_color2
+            //         ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+            //         : `linear-gradient(#000, #fff)` // Default gradient fallback
+            //       : userData?.card?.design?.card_background?.type === "flat"
+            //       ? userData?.card?.design?.card_background?.flat_color || "transparent" // Fallback for flat color
+            //       : "transparent", // Default fallback if type is missing
             // }}
+            
+    
+            
+          
+            
           >
             {/* top profile section start */}
 
@@ -917,6 +948,7 @@ const Mobileprev = ({
 
             {/* fourth section contact form start */}
 
+
             {userDetails.data[0]?.loginemail && formDatac.loginemail && (
               <div
                 className="mp-grey-box-bg-left-align"
@@ -948,6 +980,7 @@ const Mobileprev = ({
                     </div>
                     <div className="mp-input-container-c-f">
                       {checkboxStates.name && (
+
                         <div className="mp-input-field-contact-form-leftalign">
                           <input
                             type="text"
@@ -1712,7 +1745,9 @@ const Mobileprev = ({
                           className="mp-btn-white-submit-leftalign"
                           style={{
                             background:
+
                               colors.secdClor ||
+
                               userData?.card?.design?.card_color
                                 ?.secondary_color,
                             cursor: "pointer",
@@ -1733,6 +1768,7 @@ const Mobileprev = ({
                       </a>
                     </>
                   )}
+
                   {/* <p className="mp-pic-title-p-g">New York</p>
                 <p className="mp-pic-desc-p-g">
                   It is a long established fact that a reader will be distracted
@@ -1751,6 +1787,7 @@ const Mobileprev = ({
                 >
                   <span className="mp-btn-text-leftalign">Submit</span>
                 </button> */}
+
                 </div>
               </div>
             )}
@@ -1892,6 +1929,7 @@ const Mobileprev = ({
             </button>
           </div>
         </div>
+        
       </div>
       {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
     </>

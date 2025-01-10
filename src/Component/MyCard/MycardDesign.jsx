@@ -39,14 +39,11 @@ const DesignComponent = ({
   };
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFont, setSelectedFont] = useState("Default");
-  const fonts = [
-    "poppins",
-    "poppins",
-    "poppins",
-    "poppins",
-    "poppins",
-    "poppins",
-  ];
+  const [fonts, setFonts] = useState([]);
+  const [selectedFontStyles, setSelectedFontStyles] = useState([]);
+  const [fontFmly, setFontfmly] = useState(
+    userData?.card?.design?.font_style?.font_family
+  );
 
   // const handleColorChange = (e) => {
   //   const { name, value } = e.target;
@@ -63,8 +60,15 @@ const DesignComponent = ({
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
-  const handleFontSelect = (font) => {
-    setSelectedFont(font);
+  const handleFontSelect = (selectedFontFamily) => {
+    setSelectedFont(selectedFontFamily);
+    const selectedFontStyles = fonts
+      .filter((font) => font.family === selectedFontFamily)
+      .map((font) => font.name);
+
+    console.log("Selected Font Styles:", selectedFontStyles);
+
+    setSelectedFontStyles(selectedFontStyles);
     setIsOpen(false);
   };
 
@@ -105,6 +109,9 @@ const DesignComponent = ({
       formData.append("design.theme_color", colors.themeColor);
       // Append the layout data to the form
       formData.append("design.layout", layout);
+      selectedFontStyles.forEach((font) => {
+        formData.append("design.font_style.font_family", font);
+      });
       const response = await axios.patch(`${uri}/card/editcard`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -119,6 +126,19 @@ const DesignComponent = ({
       alert(error.response?.data?.error || "Failed to update data");
     }
   };
+  useEffect(() => {
+    const fetchFonts = async () => {
+      const response = await fetch(`${uri}/font/getall`);
+      const data = await response.json();
+      console.log("fonts", data);
+
+      setFonts(data);
+    };
+    fetchFonts();
+  }, []);
+  const uniqueFontFamilies = [...new Set(fonts.map((font) => font.family))];
+  
+  // console.log("fontFmly style", fontFmly);
 
   useEffect(() => {
     setLayout(userData?.card?.design?.layout);
@@ -467,7 +487,7 @@ const DesignComponent = ({
                   <div
                     className={`drp-optionbox ${isOpen ? "open" : "closed"}`}
                   >
-                    {fonts.map((font) => (
+                    {uniqueFontFamilies.map((font) => (
                       <div
                         className="drp-option"
                         onClick={() => handleFontSelect(font)}
@@ -480,7 +500,7 @@ const DesignComponent = ({
               </div>
               <hr />
               <div className="di-txtclrbox">
-                <p>Choose Text Color</p>
+                <p style={{ fontFamily: fontFmly[2] }}>Choose Text Color</p>
                 <div className="di-choosebox">
                   <div className="thr-padding">
                     <div class="trd-color-container margin-botm">
