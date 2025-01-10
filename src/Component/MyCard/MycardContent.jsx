@@ -49,6 +49,8 @@ const ContentComponent = ({
   setCheckboxStates,
   formDatac,
   setFormDatac,
+  userDetails,
+  setUserDetails
 }) => {
   const [dragItems, setDragItems] = useState([
     { id: "drag-drop-first", component: "Clickable links" },
@@ -164,7 +166,7 @@ const ContentComponent = ({
       }));
       setSelectedPlatforms(selected);
     }
-  }, [userData]);
+  }, [userData, userDetails]);
   const getPlatformIcon = (platformName) => {
     switch (platformName) {
       case "Instagram":

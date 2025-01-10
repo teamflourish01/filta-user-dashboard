@@ -52,8 +52,17 @@ const Mobileprev = ({
   showTbtn,
   formDatac,
   showTranslateBtn,
+  colors,
+  setLayout,
+  setColors,
+  handleColorChangee,
+  handleLayoutChange,
+  layout
+  // userDetails,
+  // setUserDetails
 }) => {
-  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const { userData, AuthorizationToken, getUserData, userDetails } =
+    useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const uri = process.env.REACT_APP_DEV_URL;
@@ -69,34 +78,36 @@ const Mobileprev = ({
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const [userDetails, setUserDetails] = useState(null);
+  // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     console.log(showTbtn, "showtbtn");
+    setLayout(userData?.card?.design?.layout)
 
-    const fetchUserDetails = async () => {
-      try {
-        const response = await fetch(`${uri}/email/gatemailmsg`, {
-          method: "GET",
-          headers: {
-            Authorization: AuthorizationToken,
-          },
-        });
+    // const fetchUserDetails = async () => {
+    //   try {
+    //     const response = await fetch(`${uri}/email/gatemailmsg`, {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: AuthorizationToken,
+    //       },
+    //     });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
 
-        const data = await response.json();
-        setUserDetails(data);
-        console.log(data, "dataaaa");
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchUserDetails();
-  }, []);
+    //     const data = await response.json();
+    //     setUserDetails(data);
+    //     console.log(data, "dataaaaGet");
+    //   } catch (err) {
+    //     setError(err.message);
+    //   }
+    // };
+    // fetchUserDetails();
+    console.log(layout,'layyyy')
+  }, [userDetails]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -243,46 +254,51 @@ const Mobileprev = ({
 
   const cta = userData?.cta;
   // Function to handle the button click
-const handleButtonClick = () => {
-  const cta = userData?.cta;
+  const handleButtonClick = () => {
+    const cta = userData?.cta;
 
-  // Handle based on btn_type
-  if (cta?.btn_type === "Mail") {
-    // Redirect to mail
-    if (cta?.mail) {
-      window.location.href = `mailto:${cta?.mail}`;
+    // Handle based on btn_type
+    if (cta?.btn_type === "Mail") {
+      // Redirect to mail
+      if (cta?.mail) {
+        window.location.href = `mailto:${cta?.mail}`;
+      } else {
+        console.error("No email provided for Mail button type.");
+      }
+    } else if (cta?.btn_type === "Contact") {
+      // Redirect to contact (mobile)
+      if (cta?.mobile) {
+        window.location.href = `tel:${cta?.mobile}`;
+      } else {
+        console.error("No mobile number provided for Contact button type.");
+      }
+    } else if (cta?.btn_type === "Visit") {
+      // Open website URL
+      if (cta?.url) {
+        window.open(cta?.url, "_blank");
+      } else {
+        console.error("No URL provided for Visit button type.");
+      }
     } else {
-      console.error("No email provided for Mail button type.");
+      console.error("Unknown button type.");
     }
-  } else if (cta?.btn_type === "Contact") {
-    // Redirect to contact (mobile)
-    if (cta?.mobile) {
-      window.location.href = `tel:${cta?.mobile}`;
-    } else {
-      console.error("No mobile number provided for Contact button type.");
-    }
-  } else if (cta?.btn_type === "Visit") {
-    // Open website URL
-    if (cta?.url) {
-      window.open(cta?.url, "_blank");
-    } else {
-      console.error("No URL provided for Visit button type.");
-    }
-  } else {
-    console.error("Unknown button type.");
-  }
-};
+  };
 
   const renderDivBasedOnData = () => {
-    if (userData?.card?.design?.layout === "left") {
+    if ( layout === "left" ) {
       // Render the left-aligned layout
       return (
         <div className="top-profile-container-left-align">
           <div
             className="mp-top-inner-content-left-a"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             {coverPhoto && (
@@ -305,21 +321,31 @@ const handleButtonClick = () => {
           <div
             className="hr-btw-top-bottom-l-a"
             style={{
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           ></div>
           <div
             className="mp-bottom-inner-content-left-a"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             <div className="mp-info-user-left-card-padding">
               <p
                 className="mp-user-name-left-align-card"
                 style={{
-                  color: userData?.card?.design?.font_style?.primary_text_color,
+                  color:
+                    colors.prmTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.name || "Name"}
@@ -329,7 +355,8 @@ const handleButtonClick = () => {
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -338,7 +365,8 @@ const handleButtonClick = () => {
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.company || "Company"}
@@ -347,7 +375,8 @@ const handleButtonClick = () => {
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.location || "Location"}
@@ -365,9 +394,12 @@ const handleButtonClick = () => {
             >
               {userData?.card?.profileimg ? (
                 <img
-                style={{
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                }}
+                  style={{
+                    border: `0.48px solid ${
+                      colors.natClor ||
+                      userData?.card?.design?.card_color?.neutral_color
+                    }`,
+                  }}
                   src={
                     profileImages
                       ? profileImages
@@ -377,9 +409,12 @@ const handleButtonClick = () => {
                 />
               ) : (
                 <img
-                style={{
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                }}
+                  style={{
+                    border: `0.48px solid ${
+                      colors.natClor ||
+                      userData?.card?.design?.card_color?.neutral_color
+                    }`,
+                  }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
                 />
@@ -403,20 +438,24 @@ const handleButtonClick = () => {
           </div>
         </div>
       );
-    } else if (userData?.card?.design?.layout === "center") {
+    } else if (layout === "center" ) {
       // Render the center-aligned layout
       return (
         <div className="top-profile-container-left-align">
           <div
             className="mp-top-inner-content-left-a"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             {coverPhoto && (
               <img
-              
                 src={
                   coverPhoto
                     ? coverPhoto
@@ -435,21 +474,31 @@ const handleButtonClick = () => {
           <div
             className="hr-btw-top-bottom-l-a"
             style={{
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           ></div>
           <div
             className="mp-bottom-inner-content-left-a-center"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             <div className="mp-info-user-left-card-padding-center">
               <div
                 className="mp-user-name-left-align-card"
                 style={{
-                  color: userData?.card?.design?.font_style?.primary_text_color,
+                  color:
+                    colors.prmTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.name || "Name"}
@@ -458,7 +507,8 @@ const handleButtonClick = () => {
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -467,8 +517,9 @@ const handleButtonClick = () => {
                 className="mp-grey-bottom-txt "
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
-                    textAlign:"center"
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
+                  textAlign: "center",
                 }}
               >
                 {watch.company || "Company"}
@@ -477,7 +528,8 @@ const handleButtonClick = () => {
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.location || "Location"}
@@ -524,7 +576,7 @@ const handleButtonClick = () => {
           </div>
         </div>
       );
-    } else if (userData?.card?.design?.layout === "portrait") {
+    } else if (layout === "portrait" ) {
       // Render the portrait layout
       return (
         <div className="top-profile-container-left-align">
@@ -550,15 +602,19 @@ const handleButtonClick = () => {
           </div>
           <div
             className="info-user-left-card-padding-portrait"
-            style={{
-              // background: userData?.card?.design?.card_color?.primary_color,
-              // border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-            }}
+            style={
+              {
+                // background: userData?.card?.design?.card_color?.primary_color,
+                // border: `0.48px solid ${colors.natClor || userData?.card?.design?.card_color?.neutral_color}`,
+              }
+            }
           >
             <div
               className="mp-user-name-left-align-card"
               style={{
-                color: userData?.card?.design?.font_style?.primary_text_color,
+                color:
+                  colors.prmTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.name || "Name"}
@@ -566,7 +622,9 @@ const handleButtonClick = () => {
             <div
               className="mp-grey-bottom-txt"
               style={{
-                color: userData?.card?.design?.font_style?.secondary_text_color,
+                color:
+                  colors.secTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.jobtitle || "Job Title"}
@@ -574,7 +632,9 @@ const handleButtonClick = () => {
             <div
               className="mp-grey-bottom-txt"
               style={{
-                color: userData?.card?.design?.font_style?.secondary_text_color,
+                color:
+                  colors.secTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.company || "Company"}
@@ -582,7 +642,9 @@ const handleButtonClick = () => {
             <div
               className="mp-grey-bottom-txt"
               style={{
-                color: userData?.card?.design?.font_style?.secondary_text_color,
+                color:
+                  colors.secTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.location || "Location"}
@@ -614,7 +676,9 @@ const handleButtonClick = () => {
           <div
             className="mp-padding-whole-10-l-a"
             style={{
-              background: userData?.card?.design?.card_background?.flat_color,
+              background:
+                colors.flatColor ||
+                userData?.card?.design?.card_background?.flat_color,
             }}
             // style={{
             //   background: userData?.card?.design?.card_background?.flat_color
@@ -632,18 +696,19 @@ const handleButtonClick = () => {
 
             <div className="profile-container">{renderDivBasedOnData()}</div>
 
-
-           
-
-
             {/* second clickable link section start */}
 
             {userData?.socialLinks.length > 0 && (
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-clickable-link-section">
@@ -651,10 +716,13 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
-                    
                   >
                     Clickable Links
                   </div>
@@ -673,6 +741,7 @@ const handleButtonClick = () => {
                               className="mp-under-icon-img"
                               style={{
                                 background:
+                                  colors.secdClor ||
                                   userData?.card?.design?.card_color
                                     ?.secondary_color,
                               }}
@@ -715,8 +784,12 @@ const handleButtonClick = () => {
                   className="mp-grey-box-bg-left-align"
                   style={{
                     background:
+                      colors.prmColor ||
                       userData?.card?.design?.card_color?.primary_color,
-                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                    border: `0.48px solid ${
+                      colors.natClor ||
+                      userData?.card?.design?.card_color?.neutral_color
+                    }`,
                   }}
                 >
                   <div className="multimedia-section">
@@ -726,7 +799,10 @@ const handleButtonClick = () => {
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                        textAlign:
+                          userData?.card?.design?.layout === "center"
+                            ? "center"
+                            : "left", // Dynamically set text alignment
                       }}
                     >
                       Multimedia
@@ -776,7 +852,11 @@ const handleButtonClick = () => {
                           <hr
                             className="hr-line-left-align-card"
                             style={{
-                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
                             }}
                           />
                         </>
@@ -790,7 +870,10 @@ const handleButtonClick = () => {
                             color:
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
-                                textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                            textAlign:
+                              userData?.card?.design?.layout === "center"
+                                ? "center"
+                                : "left", // Dynamically set text alignment
                           }}
                         >
                           YouTube Video
@@ -834,58 +917,43 @@ const handleButtonClick = () => {
 
             {/* fourth section contact form start */}
 
-            {userDetails.data[0]?.loginemail ||
-              (formDatac.loginemail && (
-                <div
-                  className="mp-grey-box-bg-left-align"
-                  style={{
-                    background:
-                      userData?.card?.design?.card_color?.primary_color,
-                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                  }}
-                >
-                  <div className="mp-contact-form-left-align">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <div
-                        className="mp-sections-title"
-                        style={{
-                          color:
-                            userData?.card?.design?.font_style
-                              ?.primary_text_color,
-                              textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
-                        }}
-                      >
-                        Contact Form
-                      </div>
-                      <div className="mp-input-container-c-f">
-                        {checkboxStates.name && (
-                          <div className="mp-input-field-contact-form-leftalign">
-                            <input
-                              type="text"
-                              placeholder="Name"
-                              className="mp-input-field-single"
-                              {...register("name")}
-                              style={{
-                                color:
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                "--placeholder-color":
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                              }}
-                            />
-                          </div>
-                        )}
-
+            {userDetails.data[0]?.loginemail && formDatac.loginemail && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
+                }}
+              >
+                <div className="mp-contact-form-left-align">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div
+                      className="mp-sections-title"
+                      style={{
+                        color:
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                        textAlign:
+                          userData?.card?.design?.layout === "center"
+                            ? "center"
+                            : "left", // Dynamically set text alignment
+                      }}
+                    >
+                      Contact Form
+                    </div>
+                    <div className="mp-input-container-c-f">
+                      {checkboxStates.name && (
                         <div className="mp-input-field-contact-form-leftalign">
                           <input
                             type="text"
-                            placeholder="Email"
+                            placeholder="Name"
                             className="mp-input-field-single"
-                            {...register("email", {
-                              required: "Email is required",
-                            })}
+                            {...register("name")}
                             style={{
                               color:
                                 userData?.card?.design?.font_style
@@ -893,78 +961,120 @@ const handleButtonClick = () => {
                               "--placeholder-color":
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
-                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
                             }}
                           />
                         </div>
+                      )}
 
-                        {checkboxStates.number && (
-                          <div className="mp-input-field-contact-form-leftalign">
-                            <input
-                              type="text"
-                              placeholder="Mobile Number"
-                              className="mp-input-field-single"
-                              {...register("number")}
-                              style={{
-                                color:
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                "--placeholder-color":
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                              }}
-                            />
-                          </div>
-                        )}
-                        {checkboxStates.message && (
-                          <div className="mp-input-field-contact-form-leftalign">
-                            <textarea
-                              type="text"
-                              placeholder="Message"
-                              className="mp-input-field-single mp-textarea-class"
-                              {...register("message")}
-                              style={{
-                                color:
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                "--placeholder-color":
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                              }}
-                            />
-                          </div>
-                        )}
+                      <div className="mp-input-field-contact-form-leftalign">
+                        <input
+                          type="text"
+                          placeholder="Email"
+                          className="mp-input-field-single"
+                          {...register("email", {
+                            required: "Email is required",
+                          })}
+                          style={{
+                            color:
+                              userData?.card?.design?.font_style
+                                ?.secondary_text_color,
+                            "--placeholder-color":
+                              userData?.card?.design?.font_style
+                                ?.secondary_text_color,
+                            border: `0.48px solid ${
+                              colors.natClor ||
+                              userData?.card?.design?.card_color?.neutral_color
+                            }`,
+                          }}
+                        />
                       </div>
-                      <button
-                        type="submit"
-                        className="mp-btn-white-submit-leftalign"
-                        style={{
-                          background:
-                            userData?.card?.design?.card_color?.secondary_color,
 
-                          color:
-                            userData?.card?.design?.font_style
-                              ?.primary_text_color,
-                        }}
-                      >
-                        <span className="mp-btn-text-leftalign">
-                          {loading ? "Loading..." : "Submit"}
-                        </span>
-                      </button>
-                    </form>
-                  </div>
+                      {checkboxStates.number && (
+                        <div className="mp-input-field-contact-form-leftalign">
+                          <input
+                            type="text"
+                            placeholder="Mobile Number"
+                            className="mp-input-field-single"
+                            {...register("number")}
+                            style={{
+                              color:
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              "--placeholder-color":
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
+                            }}
+                          />
+                        </div>
+                      )}
+                      {checkboxStates.message && (
+                        <div className="mp-input-field-contact-form-leftalign">
+                          <textarea
+                            type="text"
+                            placeholder="Message"
+                            className="mp-input-field-single mp-textarea-class"
+                            {...register("message")}
+                            style={{
+                              color:
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              "--placeholder-color":
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="submit"
+                      className="mp-btn-white-submit-leftalign"
+                      style={{
+                        background:
+                          colors.secdClor ||
+                          userData?.card?.design?.card_color?.secondary_color,
+
+                        color:
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                      }}
+                    >
+                      <span className="mp-btn-text-leftalign">
+                        {loading ? "Loading..." : "Submit"}
+                      </span>
+                    </button>
+                  </form>
                 </div>
-              ))}
+              </div>
+            )}
 
             {/* fifth section voice message start */}
             {userData?.voiceMessage?.length > 0 && (
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-voice-msg-box-l-a">
@@ -972,8 +1082,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Voice Message
@@ -989,8 +1103,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-about-section">
@@ -998,8 +1117,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     About
@@ -1008,6 +1131,7 @@ const handleButtonClick = () => {
                     className="mp-ui-ux-text"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                     }}
                   >
@@ -1032,8 +1156,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-document-section-box-l-a">
@@ -1041,8 +1170,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Document
@@ -1122,8 +1255,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-team-member-details-box-l-a">
@@ -1131,8 +1269,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Team Member Details{" "}
@@ -1210,8 +1352,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-address-section-box-l-a">
@@ -1219,8 +1366,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Address
@@ -1229,6 +1380,7 @@ const handleButtonClick = () => {
                     className="mp-title-add"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                     }}
                   >
@@ -1253,8 +1405,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-time-sensitive-offer-section-l-a">
@@ -1262,8 +1419,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Time sensitive offer
@@ -1304,8 +1465,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-social-proof-section-l-a">
@@ -1313,8 +1479,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Social Proof
@@ -1377,8 +1547,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-photos-section-l-a">
@@ -1386,8 +1561,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Photos
@@ -1424,8 +1603,13 @@ const handleButtonClick = () => {
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-product-gallery-box-l-a">
@@ -1433,8 +1617,12 @@ const handleButtonClick = () => {
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Product gallery
@@ -1463,6 +1651,7 @@ const handleButtonClick = () => {
                             className="mp-btn-white-submit-leftalign"
                             style={{
                               background:
+                                colors.secdClor ||
                                 userData?.card?.design?.card_color
                                   ?.secondary_color,
                             }}
@@ -1483,37 +1672,64 @@ const handleButtonClick = () => {
                           className="mp-img-r-curve-l-a"
                         />
                       </div>
-                      <p className="mp-pic-title-p-g" style={{
-                     color: userData?.card?.design?.font_style?.primary_text_color,
-                  }}>
-                        {userData?.productGallary[0]?.title}
-                      </p>
-                      <p className="mp-pic-desc-p-g" style={{
-                     color: userData?.card?.design?.font_style?.secondary_text_color,
-                  }}>
-                        {userData?.productGallary[0]?.description}
-                      </p>
-                      <p className="mp-price-p-g" style={{
-                     color: userData?.card?.design?.font_style?.primary_text_color,
-                  }}>
-                        Price : {userData?.productGallary[0]?.price}
-                      </p>
-                      <a href={userData?.productGallary[0]?.button_link || "#"} // Dynamically set href, fallback to '#' if no link
-  target="_blank" // Optional: Opens link in a new tab
-  rel="noopener noreferrer" >
-                      <button
-                        type="submit"
-                        className="mp-btn-white-submit-leftalign"
+                      <p
+                        className="mp-pic-title-p-g"
                         style={{
-                          background:
-                            userData?.card?.design?.card_color?.secondary_color,
-                            cursor:"pointer"
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.primary_text_color,
                         }}
                       >
-                        <span className="mp-btn-text-leftalign" style={{
-                     color: userData?.card?.design?.font_style?.primary_text_color,
-                  }}> {userData?.productGallary[0]?.button_type}</span>
-                      </button>
+                        {userData?.productGallary[0]?.title}
+                      </p>
+                      <p
+                        className="mp-pic-desc-p-g"
+                        style={{
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.secondary_text_color,
+                        }}
+                      >
+                        {userData?.productGallary[0]?.description}
+                      </p>
+                      <p
+                        className="mp-price-p-g"
+                        style={{
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.primary_text_color,
+                        }}
+                      >
+                        Price : {userData?.productGallary[0]?.price}
+                      </p>
+                      <a
+                        href={userData?.productGallary[0]?.button_link || "#"} // Dynamically set href, fallback to '#' if no link
+                        target="_blank" // Optional: Opens link in a new tab
+                        rel="noopener noreferrer"
+                      >
+                        <button
+                          type="submit"
+                          className="mp-btn-white-submit-leftalign"
+                          style={{
+                            background:
+                              colors.secdClor ||
+                              userData?.card?.design?.card_color
+                                ?.secondary_color,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <span
+                            className="mp-btn-text-leftalign"
+                            style={{
+                              color:
+                                userData?.card?.design?.font_style
+                                  ?.primary_text_color,
+                            }}
+                          >
+                            {" "}
+                            {userData?.productGallary[0]?.button_type}
+                          </span>
+                        </button>
                       </a>
                     </>
                   )}
@@ -1530,7 +1746,7 @@ const handleButtonClick = () => {
                     background:
                       userData?.card?.design?.card_color?.secondary_color,
                     color:
-                      userData?.card?.design?.font_style?.primary_text_color,
+                      colors.prmTxtColor || userData?.card?.design?.font_style?.primary_text_color,
                   }}
                 >
                   <span className="mp-btn-text-leftalign">Submit</span>
@@ -1539,12 +1755,17 @@ const handleButtonClick = () => {
               </div>
             )}
             {/* fourteen section two btn add start */}
-            {(cta?.btn_text != "" || showTranslateBtn) && (
+            {(cta?.btn_text || showTranslateBtn) && (
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="btn-visit-translate-flex">
@@ -1553,16 +1774,17 @@ const handleButtonClick = () => {
                       className="btn-visit-translate"
                       style={{
                         background:
+                          colors.secdClor ||
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            cursor:"pointer"
+                        cursor: "pointer",
                       }}
                       onClick={handleButtonClick}
                     >
-                      <span className="btn-visit-txt" >{cta?.btn_text}</span>
+                      <span className="btn-visit-txt">{cta?.btn_text}</span>
                     </button>
                   )}
 
@@ -1576,7 +1798,7 @@ const handleButtonClick = () => {
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            cursor:"pointer"
+                        cursor: "pointer",
                       }}
                     >
                       <span className="btn-visit-txt">Translate</span>
@@ -1590,8 +1812,13 @@ const handleButtonClick = () => {
             <div
               className="mp-grey-box-bg-left-align"
               style={{
-                background: userData?.card?.design?.card_color?.primary_color,
-                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                background:
+                  colors.prmColor ||
+                  userData?.card?.design?.card_color?.primary_color,
+                border: `0.48px solid ${
+                  colors.natClor ||
+                  userData?.card?.design?.card_color?.neutral_color
+                }`,
               }}
             >
               <div className="mp-copy-flex">
@@ -1599,7 +1826,8 @@ const handleButtonClick = () => {
                   className="mp-copy-txt"
                   style={{
                     color:
-                      userData?.card?.design?.font_style?.secondary_text_color,
+                      colors.secTxtColor ||
+                      userData?.card?.design?.font_style?.primary_text_color,
                   }}
                 >
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -1608,6 +1836,7 @@ const handleButtonClick = () => {
                   className="mp-created-from-txt"
                   style={{
                     color:
+                      colors.prmTxtColor ||
                       userData?.card?.design?.font_style?.primary_text_color,
                   }}
                 >
@@ -1621,20 +1850,28 @@ const handleButtonClick = () => {
         <div
           className="mp-grey-bottom-container"
           style={{
-            background: userData?.card?.design?.card_color?.primary_color,
-            borderTop: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+            background:
+              colors.prmColor ||
+              userData?.card?.design?.card_color?.primary_color,
+            borderTop: `0.48px solid ${
+              colors.natClor ||
+              userData?.card?.design?.card_color?.neutral_color
+            }`,
           }}
         >
           <div className="mp-grey-bottom-btn-container">
             <button
               className="mp-btn-bottom-l-a"
               style={{
-                background: userData?.card?.design?.card_color?.secondary_color,
+                background:
+                  colors.secdClor ||
+                  userData?.card?.design?.card_color?.secondary_color,
 
-                color: userData?.card?.design?.font_style?.primary_text_color,
+                color:
+                  colors.prmTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
               onClick={handleShareButtonClick}
-
             >
               Share Card
             </button>
@@ -1642,20 +1879,21 @@ const handleButtonClick = () => {
             <button
               className="mp-btn-bottom-l-a"
               style={{
-                background: userData?.card?.design?.card_color?.secondary_color,
+                background:
+                  colors.secdClor ||
+                  userData?.card?.design?.card_color?.secondary_color,
 
-                color: userData?.card?.design?.font_style?.primary_text_color,
+                color:
+                  colors.prmTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
-
             >
               Save Contact
             </button>
           </div>
         </div>
       </div>
-      {isShareModalOpen && (
-        <ShareCardModal onClose={handleCloseModal} />
-      )}
+      {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
     </>
   );
 };

@@ -7,6 +7,7 @@ export const User = ({ children }) => {
   const url = process.env.REACT_APP_DEV_URL;
   const AuthorizationToken = `Bearer ${token}`;
   const [userData, setUserData] = useState(null);
+  const [userDetails, setUserDetails] = useState(null);
 
   //jwt token save.............
   const storeTokenLS = (serverToken) => {
@@ -37,7 +38,30 @@ export const User = ({ children }) => {
     }
   };
 
+
+  const getLoginEmail = async () =>{
+    try {
+      const response = await fetch(`${url}/email/gatemailmsg`, {
+        method: "GET",
+        headers: {
+          Authorization: AuthorizationToken,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setUserDetails(data);
+      console.log(data, "dataaaaGet");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(() => {
+    getLoginEmail();
     getUserData();
     setTimeout(() => {
       localStorage.removeItem("user");
@@ -46,7 +70,7 @@ export const User = ({ children }) => {
   }, [token]);
   return (
     <userContext.Provider
-      value={{ userData, storeTokenLS, token, getUserData, AuthorizationToken }}
+      value={{ userData, storeTokenLS, token, getUserData, AuthorizationToken,userDetails }}
     >
       {children}
     </userContext.Provider>

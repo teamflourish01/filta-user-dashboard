@@ -27,7 +27,8 @@ import { useForm } from "react-hook-form";
 import dummyprofile from "../images/digitalphoto.png";
 
 const MyCard = () => {
-  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const { userData, AuthorizationToken, getUserData, userDetails } =
+    useContext(userContext);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [profileImages, setProfileImage] = useState(null);
   const [coverPhoto, setCoverPhoto] = useState(null);
@@ -38,6 +39,17 @@ const MyCard = () => {
   const [profileImagePreview, setProfileImagePreview] = useState();
   const [borderStyle, setBorderStyle] = useState(false);
   const [showTranslateBtn, setshowTranslateBtn] = useState(false);
+   const [colors, setColors] = useState({
+      flatColor: userData?.card?.design?.card_background?.flat_color,
+      grdColor: userData?.card?.design?.card_background?.gradient_color1,
+      grdSecColor: userData?.card?.design?.card_background?.gradient_color2,
+      prmColor: userData?.card?.design?.card_color?.primary_color,
+      secdClor: userData?.card?.design?.card_color?.secondary_color,
+      natClor: userData?.card?.design?.card_color?.neutral_color,
+      prmTxtColor: userData?.card?.design?.font_style?.primary_text_color,
+      secTxtColor: userData?.card?.design?.font_style?.secondary_text_color,
+      themeColor: userData?.card?.design?.theme_color,
+    });
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [formData, setFormData] = useState({
@@ -50,6 +62,11 @@ const MyCard = () => {
   const [selectedFields, setSelectedFields] = useState({});
   const [selectedColor, setSelectedColor] = useState("#000000");
   const [qrlogo, setQrLogo] = useState(null);
+  const [layout, setLayout] = useState(
+    userData?.card?.design?.layout
+  );
+
+   
   //Qr code color change
   const handleColorChange = (color) => {
     setSelectedColor(color);
@@ -87,7 +104,6 @@ const MyCard = () => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -98,6 +114,14 @@ const MyCard = () => {
       setIsFullScreen(true);
       setIsClosing(false);
     }
+  };
+
+  const handleColorChangee = (e) => {
+    const { name, value } = e.target;
+    setColors((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleFormDataChange = (updatedData) => {
@@ -119,6 +143,10 @@ const MyCard = () => {
 
   const handleSelectedFieldsChange = (fields) => {
     setSelectedFields(fields);
+  };
+
+  const handleLayoutChange = (e) => {
+    setLayout(e.target.value);
   };
 
   const showTbtn = () => {
@@ -179,13 +207,24 @@ const MyCard = () => {
               setCheckboxStates={setCheckboxStates}
               formDatac={formDatac}
               setFormDatac={setFormDatac}
+              // userDetails={userDetails}
+              // setUserDetails={setUserDetails}
             />
           </>
         );
       case "Design":
         return (
           <>
-            <DesignComponent onFormDataChange={handleFormDataChange} />
+            <DesignComponent
+              onFormDataChange={handleFormDataChange}
+              layout={layout}
+              setLayout={setLayout}
+              handleColorChangee={handleColorChangee}
+              colors={colors}
+              setColors={setColors}
+              handleLayoutChange={handleLayoutChange}
+              
+            />
           </>
         );
       case "QR Code":
@@ -422,6 +461,15 @@ const MyCard = () => {
                 watch={watchedData}
                 showTbtn={showTbtn}
                 showTranslateBtn={showTranslateBtn}
+                layout={layout}
+                setLayout={setLayout}
+                handleColorChangee={handleColorChangee}
+                colors={colors}
+                setColors={setColors}
+                handleLayoutChange={handleLayoutChange}
+
+                // userDetails={userDetails}
+                // setUserDetails={setUserDetails}
               />
 
               <div className="my-prwbtn">
