@@ -52,8 +52,17 @@ const Mobileprev = ({
   showTbtn,
   formDatac,
   showTranslateBtn,
+  colors,
+  setLayout,
+  setColors,
+  handleColorChangee,
+  handleLayoutChange,
+  layout
+  // userDetails,
+  // setUserDetails
 }) => {
-  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+  const { userData, AuthorizationToken, getUserData, userDetails } =
+    useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const uri = process.env.REACT_APP_DEV_URL;
@@ -69,34 +78,36 @@ const Mobileprev = ({
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const [userDetails, setUserDetails] = useState(null);
+  // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     console.log(showTbtn, "showtbtn");
+    setLayout(userData?.card?.design?.layout)
 
-    const fetchUserDetails = async () => {
-      try {
-        const response = await fetch(`${uri}/email/gatemailmsg`, {
-          method: "GET",
-          headers: {
-            Authorization: AuthorizationToken,
-          },
-        });
+    // const fetchUserDetails = async () => {
+    //   try {
+    //     const response = await fetch(`${uri}/email/gatemailmsg`, {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: AuthorizationToken,
+    //       },
+    //     });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! status: ${response.status}`);
+    //     }
 
-        const data = await response.json();
-        setUserDetails(data);
-        console.log(data, "dataaaa");
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchUserDetails();
-  }, []);
+    //     const data = await response.json();
+    //     setUserDetails(data);
+    //     console.log(data, "dataaaaGet");
+    //   } catch (err) {
+    //     setError(err.message);
+    //   }
+    // };
+    // fetchUserDetails();
+    console.log(layout,'layyyy')
+  }, [userDetails]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -274,15 +285,20 @@ const Mobileprev = ({
   };
 
   const renderDivBasedOnData = () => {
-    if (userData?.card?.design?.layout === "left") {
+    if ( layout === "left" ) {
       // Render the left-aligned layout
       return (
         <div className="top-profile-container-left-align">
           <div
             className="mp-top-inner-content-left-a"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             {coverPhoto && (
@@ -305,21 +321,31 @@ const Mobileprev = ({
           <div
             className="hr-btw-top-bottom-l-a"
             style={{
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           ></div>
           <div
             className="mp-bottom-inner-content-left-a"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             <div className="mp-info-user-left-card-padding">
               <p
                 className="mp-user-name-left-align-card"
                 style={{
-                  color: userData?.card?.design?.font_style?.primary_text_color,
+                  color:
+                    colors.prmTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.name || "Name"}
@@ -329,7 +355,8 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -338,7 +365,8 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.company || "Company"}
@@ -347,7 +375,8 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.location || "Location"}
@@ -366,7 +395,12 @@ const Mobileprev = ({
               {userData?.card?.profileimg ? (
                 <img
                   style={{
-                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+
+                    border: `0.48px solid ${
+                      colors.natClor ||
+                      userData?.card?.design?.card_color?.neutral_color
+                    }`,
+
                   }}
                   src={
                     profileImages
@@ -378,7 +412,12 @@ const Mobileprev = ({
               ) : (
                 <img
                   style={{
-                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+
+                    border: `0.48px solid ${
+                      colors.natClor ||
+                      userData?.card?.design?.card_color?.neutral_color
+                    }`,
+
                   }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
@@ -403,15 +442,20 @@ const Mobileprev = ({
           </div>
         </div>
       );
-    } else if (userData?.card?.design?.layout === "center") {
+    } else if (layout === "center" ) {
       // Render the center-aligned layout
       return (
         <div className="top-profile-container-left-align">
           <div
             className="mp-top-inner-content-left-a"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             {coverPhoto && (
@@ -434,21 +478,31 @@ const Mobileprev = ({
           <div
             className="mp-hr-btw-top-bottom-l-a"
             style={{
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           ></div>
           <div
             className="mp-bottom-inner-content-left-a-center"
             style={{
-              background: userData?.card?.design?.card_color?.primary_color,
-              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              background:
+                colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
             }}
           >
             <div className="mp-info-user-left-card-padding-center">
               <div
                 className="mp-user-name-left-align-card"
                 style={{
-                  color: userData?.card?.design?.font_style?.primary_text_color,
+                  color:
+                    colors.prmTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.name || "Name"}
@@ -457,7 +511,8 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -466,7 +521,9 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt "
                 style={{
                   color:
+
                     userData?.card?.design?.font_style?.secondary_text_color,
+
                   textAlign: "center",
                 }}
               >
@@ -476,7 +533,8 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt"
                 style={{
                   color:
-                    userData?.card?.design?.font_style?.secondary_text_color,
+                    colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
                 }}
               >
                 {watch.location || "Location"}
@@ -529,7 +587,7 @@ const Mobileprev = ({
           </div>
         </div>
       );
-    } else if (userData?.card?.design?.layout === "portrait") {
+    } else if (layout === "portrait" ) {
       // Render the portrait layout
       return (
         <div className="top-profile-container-left-align">
@@ -558,14 +616,18 @@ const Mobileprev = ({
             style={
               {
                 // background: userData?.card?.design?.card_color?.primary_color,
-                // border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+
+                // border: `0.48px solid ${colors.natClor || userData?.card?.design?.card_color?.neutral_color}`,
+
               }
             }
           >
             <div
               className="mp-user-name-left-align-card"
               style={{
-                color: userData?.card?.design?.font_style?.primary_text_color,
+                color:
+                  colors.prmTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.name || "Name"}
@@ -573,7 +635,9 @@ const Mobileprev = ({
             <div
               className="mp-grey-bottom-txt"
               style={{
-                color: userData?.card?.design?.font_style?.secondary_text_color,
+                color:
+                  colors.secTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.jobtitle || "Job Title"}
@@ -581,7 +645,9 @@ const Mobileprev = ({
             <div
               className="mp-grey-bottom-txt"
               style={{
-                color: userData?.card?.design?.font_style?.secondary_text_color,
+                color:
+                  colors.secTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.company || "Company"}
@@ -589,7 +655,9 @@ const Mobileprev = ({
             <div
               className="mp-grey-bottom-txt"
               style={{
-                color: userData?.card?.design?.font_style?.secondary_text_color,
+                color:
+                  colors.secTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               {watch.location || "Location"}
@@ -621,6 +689,13 @@ const Mobileprev = ({
         <div className="mp-mobile-modifi">
           <div
             className="mp-padding-whole-10-l-a"
+
+            style={{
+              background:
+                colors.flatColor ||
+                userData?.card?.design?.card_background?.flat_color,
+            }}
+
             // style={{
             //   background: userData?.card?.design?.card_background?.flat_color,
             // }}
@@ -658,8 +733,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-clickable-link-section">
@@ -667,6 +747,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -691,6 +772,7 @@ const Mobileprev = ({
                               className="mp-under-icon-img"
                               style={{
                                 background:
+                                  colors.secdClor ||
                                   userData?.card?.design?.card_color
                                     ?.secondary_color,
                               }}
@@ -733,8 +815,12 @@ const Mobileprev = ({
                   className="mp-grey-box-bg-left-align"
                   style={{
                     background:
+                      colors.prmColor ||
                       userData?.card?.design?.card_color?.primary_color,
-                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                    border: `0.48px solid ${
+                      colors.natClor ||
+                      userData?.card?.design?.card_color?.neutral_color
+                    }`,
                   }}
                 >
                   <div className="multimedia-section">
@@ -797,7 +883,11 @@ const Mobileprev = ({
                           <hr
                             className="hr-line-left-align-card"
                             style={{
-                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
                             }}
                           />
                         </>
@@ -858,61 +948,45 @@ const Mobileprev = ({
 
             {/* fourth section contact form start */}
 
-            {userDetails.data[0]?.loginemail ||
-              (formDatac.loginemail && (
-                <div
-                  className="mp-grey-box-bg-left-align"
-                  style={{
-                    background:
-                      userData?.card?.design?.card_color?.primary_color,
-                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                  }}
-                >
-                  <div className="mp-contact-form-left-align">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <div
-                        className="mp-sections-title"
-                        style={{
-                          color:
-                            userData?.card?.design?.font_style
-                              ?.primary_text_color,
-                          textAlign:
-                            userData?.card?.design?.layout === "center"
-                              ? "center"
-                              : "left", // Dynamically set text alignment
-                        }}
-                      >
-                        Contact Form
-                      </div>
-                      <div className="mp-input-container-c-f">
-                        {checkboxStates.name && (
-                          <div className="mp-input-field-contact-form-leftalign">
-                            <input
-                              type="text"
-                              placeholder="Name"
-                              className="mp-input-field-single"
-                              {...register("name")}
-                              style={{
-                                color:
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                "--placeholder-color":
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                              }}
-                            />
-                          </div>
-                        )}
+
+            {userDetails.data[0]?.loginemail && formDatac.loginemail && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
+                }}
+              >
+                <div className="mp-contact-form-left-align">
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div
+                      className="mp-sections-title"
+                      style={{
+                        color:
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                        textAlign:
+                          userData?.card?.design?.layout === "center"
+                            ? "center"
+                            : "left", // Dynamically set text alignment
+                      }}
+                    >
+                      Contact Form
+                    </div>
+                    <div className="mp-input-container-c-f">
+                      {checkboxStates.name && (
 
                         <div className="mp-input-field-contact-form-leftalign">
                           <input
                             type="text"
-                            placeholder="Email"
+                            placeholder="Name"
                             className="mp-input-field-single"
-                            {...register("email", {
-                              required: "Email is required",
-                            })}
+                            {...register("name")}
                             style={{
                               color:
                                 userData?.card?.design?.font_style
@@ -920,78 +994,120 @@ const Mobileprev = ({
                               "--placeholder-color":
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
-                              border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
                             }}
                           />
                         </div>
+                      )}
 
-                        {checkboxStates.number && (
-                          <div className="mp-input-field-contact-form-leftalign">
-                            <input
-                              type="text"
-                              placeholder="Mobile Number"
-                              className="mp-input-field-single"
-                              {...register("number")}
-                              style={{
-                                color:
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                "--placeholder-color":
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                              }}
-                            />
-                          </div>
-                        )}
-                        {checkboxStates.message && (
-                          <div className="mp-input-field-contact-form-leftalign">
-                            <textarea
-                              type="text"
-                              placeholder="Message"
-                              className="mp-input-field-single mp-textarea-class"
-                              {...register("message")}
-                              style={{
-                                color:
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                "--placeholder-color":
-                                  userData?.card?.design?.font_style
-                                    ?.secondary_text_color,
-                                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                              }}
-                            />
-                          </div>
-                        )}
+                      <div className="mp-input-field-contact-form-leftalign">
+                        <input
+                          type="text"
+                          placeholder="Email"
+                          className="mp-input-field-single"
+                          {...register("email", {
+                            required: "Email is required",
+                          })}
+                          style={{
+                            color:
+                              userData?.card?.design?.font_style
+                                ?.secondary_text_color,
+                            "--placeholder-color":
+                              userData?.card?.design?.font_style
+                                ?.secondary_text_color,
+                            border: `0.48px solid ${
+                              colors.natClor ||
+                              userData?.card?.design?.card_color?.neutral_color
+                            }`,
+                          }}
+                        />
                       </div>
-                      <button
-                        type="submit"
-                        className="mp-btn-white-submit-leftalign"
-                        style={{
-                          background:
-                            userData?.card?.design?.card_color?.secondary_color,
 
-                          color:
-                            userData?.card?.design?.font_style
-                              ?.primary_text_color,
-                        }}
-                      >
-                        <span className="mp-btn-text-leftalign">
-                          {loading ? "Loading..." : "Submit"}
-                        </span>
-                      </button>
-                    </form>
-                  </div>
+                      {checkboxStates.number && (
+                        <div className="mp-input-field-contact-form-leftalign">
+                          <input
+                            type="text"
+                            placeholder="Mobile Number"
+                            className="mp-input-field-single"
+                            {...register("number")}
+                            style={{
+                              color:
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              "--placeholder-color":
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
+                            }}
+                          />
+                        </div>
+                      )}
+                      {checkboxStates.message && (
+                        <div className="mp-input-field-contact-form-leftalign">
+                          <textarea
+                            type="text"
+                            placeholder="Message"
+                            className="mp-input-field-single mp-textarea-class"
+                            {...register("message")}
+                            style={{
+                              color:
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              "--placeholder-color":
+                                userData?.card?.design?.font_style
+                                  ?.secondary_text_color,
+                              border: `0.48px solid ${
+                                colors.natClor ||
+                                userData?.card?.design?.card_color
+                                  ?.neutral_color
+                              }`,
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="submit"
+                      className="mp-btn-white-submit-leftalign"
+                      style={{
+                        background:
+                          colors.secdClor ||
+                          userData?.card?.design?.card_color?.secondary_color,
+
+                        color:
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                      }}
+                    >
+                      <span className="mp-btn-text-leftalign">
+                        {loading ? "Loading..." : "Submit"}
+                      </span>
+                    </button>
+                  </form>
                 </div>
-              ))}
+              </div>
+            )}
 
             {/* fifth section voice message start */}
             {userData?.voiceMessage?.length > 0 && (
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-voice-msg-box-l-a">
@@ -999,6 +1115,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1019,8 +1136,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-about-section">
@@ -1028,6 +1150,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1041,6 +1164,7 @@ const Mobileprev = ({
                     className="mp-ui-ux-text"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                     }}
                   >
@@ -1065,8 +1189,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-document-section-box-l-a">
@@ -1074,6 +1203,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1158,8 +1288,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-team-member-details-box-l-a">
@@ -1167,6 +1302,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1249,8 +1385,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-address-section-box-l-a">
@@ -1258,6 +1399,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1271,6 +1413,7 @@ const Mobileprev = ({
                     className="mp-title-add"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                     }}
                   >
@@ -1295,8 +1438,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-time-sensitive-offer-section-l-a">
@@ -1304,6 +1452,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1349,8 +1498,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-social-proof-section-l-a">
@@ -1358,6 +1512,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1425,8 +1580,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-photos-section-l-a">
@@ -1434,6 +1594,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1475,8 +1636,13 @@ const Mobileprev = ({
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="mp-product-gallery-box-l-a">
@@ -1484,6 +1650,7 @@ const Mobileprev = ({
                     className="mp-sections-title"
                     style={{
                       color:
+                        colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
                         userData?.card?.design?.layout === "center"
@@ -1517,6 +1684,7 @@ const Mobileprev = ({
                             className="mp-btn-white-submit-leftalign"
                             style={{
                               background:
+                                colors.secdClor ||
                                 userData?.card?.design?.card_color
                                   ?.secondary_color,
                             }}
@@ -1577,6 +1745,9 @@ const Mobileprev = ({
                           className="mp-btn-white-submit-leftalign"
                           style={{
                             background:
+
+                              colors.secdClor ||
+
                               userData?.card?.design?.card_color
                                 ?.secondary_color,
                             cursor: "pointer",
@@ -1597,16 +1768,41 @@ const Mobileprev = ({
                       </a>
                     </>
                   )}
+
+                  {/* <p className="mp-pic-title-p-g">New York</p>
+                <p className="mp-pic-desc-p-g">
+                  It is a long established fact that a reader will be distracted
+                  by the readable content of a page when looking at its layout.
+                </p>
+                <p className="mp-price-p-g">Price : 500</p>
+                <button
+                  type="submit"
+                  className="btn-white-submit-leftalign"
+                  style={{
+                    background:
+                      userData?.card?.design?.card_color?.secondary_color,
+                    color:
+                      colors.prmTxtColor || userData?.card?.design?.font_style?.primary_text_color,
+                  }}
+                >
+                  <span className="mp-btn-text-leftalign">Submit</span>
+                </button> */}
+
                 </div>
               </div>
             )}
             {/* fourteen section two btn add start */}
-            {(cta?.btn_text != "" || showTranslateBtn) && (
+            {(cta?.btn_text || showTranslateBtn) && (
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
-                  background: userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
                 }}
               >
                 <div className="btn-visit-translate-flex">
@@ -1615,6 +1811,7 @@ const Mobileprev = ({
                       className="btn-visit-translate"
                       style={{
                         background:
+                          colors.secdClor ||
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
@@ -1652,8 +1849,13 @@ const Mobileprev = ({
             <div
               className="mp-grey-box-bg-left-align"
               style={{
-                background: userData?.card?.design?.card_color?.primary_color,
-                border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                background:
+                  colors.prmColor ||
+                  userData?.card?.design?.card_color?.primary_color,
+                border: `0.48px solid ${
+                  colors.natClor ||
+                  userData?.card?.design?.card_color?.neutral_color
+                }`,
               }}
             >
               <div className="mp-copy-flex">
@@ -1661,7 +1863,8 @@ const Mobileprev = ({
                   className="mp-copy-txt"
                   style={{
                     color:
-                      userData?.card?.design?.font_style?.secondary_text_color,
+                      colors.secTxtColor ||
+                      userData?.card?.design?.font_style?.primary_text_color,
                   }}
                 >
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -1670,6 +1873,7 @@ const Mobileprev = ({
                   className="mp-created-from-txt"
                   style={{
                     color:
+                      colors.prmTxtColor ||
                       userData?.card?.design?.font_style?.primary_text_color,
                   }}
                 >
@@ -1683,17 +1887,26 @@ const Mobileprev = ({
         <div
           className="mp-grey-bottom-container"
           style={{
-            background: userData?.card?.design?.card_color?.primary_color,
-            borderTop: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+            background:
+              colors.prmColor ||
+              userData?.card?.design?.card_color?.primary_color,
+            borderTop: `0.48px solid ${
+              colors.natClor ||
+              userData?.card?.design?.card_color?.neutral_color
+            }`,
           }}
         >
           <div className="mp-grey-bottom-btn-container">
             <button
               className="mp-btn-bottom-l-a"
               style={{
-                background: userData?.card?.design?.card_color?.secondary_color,
+                background:
+                  colors.secdClor ||
+                  userData?.card?.design?.card_color?.secondary_color,
 
-                color: userData?.card?.design?.font_style?.primary_text_color,
+                color:
+                  colors.prmTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
               onClick={handleShareButtonClick}
             >
@@ -1703,9 +1916,13 @@ const Mobileprev = ({
             <button
               className="mp-btn-bottom-l-a"
               style={{
-                background: userData?.card?.design?.card_color?.secondary_color,
+                background:
+                  colors.secdClor ||
+                  userData?.card?.design?.card_color?.secondary_color,
 
-                color: userData?.card?.design?.font_style?.primary_text_color,
+                color:
+                  colors.prmTxtColor ||
+                  userData?.card?.design?.font_style?.primary_text_color,
               }}
             >
               Save Contact
