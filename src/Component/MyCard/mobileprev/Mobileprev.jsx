@@ -243,35 +243,35 @@ const Mobileprev = ({
 
   const cta = userData?.cta;
   // Function to handle the button click
-const handleButtonClick = () => {
-  const cta = userData?.cta;
+  const handleButtonClick = () => {
+    const cta = userData?.cta;
 
-  // Handle based on btn_type
-  if (cta?.btn_type === "Mail") {
-    // Redirect to mail
-    if (cta?.mail) {
-      window.location.href = `mailto:${cta?.mail}`;
+    // Handle based on btn_type
+    if (cta?.btn_type === "Mail") {
+      // Redirect to mail
+      if (cta?.mail) {
+        window.location.href = `mailto:${cta?.mail}`;
+      } else {
+        console.error("No email provided for Mail button type.");
+      }
+    } else if (cta?.btn_type === "Contact") {
+      // Redirect to contact (mobile)
+      if (cta?.mobile) {
+        window.location.href = `tel:${cta?.mobile}`;
+      } else {
+        console.error("No mobile number provided for Contact button type.");
+      }
+    } else if (cta?.btn_type === "Visit") {
+      // Open website URL
+      if (cta?.url) {
+        window.open(cta?.url, "_blank");
+      } else {
+        console.error("No URL provided for Visit button type.");
+      }
     } else {
-      console.error("No email provided for Mail button type.");
+      console.error("Unknown button type.");
     }
-  } else if (cta?.btn_type === "Contact") {
-    // Redirect to contact (mobile)
-    if (cta?.mobile) {
-      window.location.href = `tel:${cta?.mobile}`;
-    } else {
-      console.error("No mobile number provided for Contact button type.");
-    }
-  } else if (cta?.btn_type === "Visit") {
-    // Open website URL
-    if (cta?.url) {
-      window.open(cta?.url, "_blank");
-    } else {
-      console.error("No URL provided for Visit button type.");
-    }
-  } else {
-    console.error("Unknown button type.");
-  }
-};
+  };
 
   const renderDivBasedOnData = () => {
     if (userData?.card?.design?.layout === "left") {
@@ -365,9 +365,9 @@ const handleButtonClick = () => {
             >
               {userData?.card?.profileimg ? (
                 <img
-                style={{
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                }}
+                  style={{
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
                   src={
                     profileImages
                       ? profileImages
@@ -377,9 +377,9 @@ const handleButtonClick = () => {
                 />
               ) : (
                 <img
-                style={{
-                  border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-                }}
+                  style={{
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
                 />
@@ -416,7 +416,6 @@ const handleButtonClick = () => {
           >
             {coverPhoto && (
               <img
-              
                 src={
                   coverPhoto
                     ? coverPhoto
@@ -433,7 +432,7 @@ const handleButtonClick = () => {
             )}
           </div>
           <div
-            className="hr-btw-top-bottom-l-a"
+            className="mp-hr-btw-top-bottom-l-a"
             style={{
               border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
             }}
@@ -468,7 +467,7 @@ const handleButtonClick = () => {
                 style={{
                   color:
                     userData?.card?.design?.font_style?.secondary_text_color,
-                    textAlign:"center"
+                  textAlign: "center",
                 }}
               >
                 {watch.company || "Company"}
@@ -492,6 +491,9 @@ const handleButtonClick = () => {
             >
               {userData?.card?.profileimg ? (
                 <img
+                  style={{
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
                   src={
                     profileImages
                       ? profileImages
@@ -501,6 +503,9 @@ const handleButtonClick = () => {
                 />
               ) : (
                 <img
+                  style={{
+                    border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+                  }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
                 />
@@ -550,10 +555,12 @@ const handleButtonClick = () => {
           </div>
           <div
             className="info-user-left-card-padding-portrait"
-            style={{
-              // background: userData?.card?.design?.card_color?.primary_color,
-              // border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
-            }}
+            style={
+              {
+                // background: userData?.card?.design?.card_color?.primary_color,
+                // border: `0.48px solid ${userData?.card?.design?.card_color?.neutral_color}`,
+              }
+            }
           >
             <div
               className="mp-user-name-left-align-card"
@@ -608,33 +615,42 @@ const handleButtonClick = () => {
   };
   return (
     <>
+    
       <div className="my-priviewcard">
         {/* Show live card preview */}
         <div className="mp-mobile-modifi">
           <div
             className="mp-padding-whole-10-l-a"
+            // style={{
+            //   background: userData?.card?.design?.card_background?.flat_color,
+            // }}
             style={{
-              background: userData?.card?.design?.card_background?.flat_color,
+              background:
+                userData?.card?.design?.card_background?.gradient_color1 &&
+                userData?.card?.design?.card_background?.gradient_color2
+                  ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+                  : `linear-gradient(#000, #fff)`, // Default gradient
             }}
             // style={{
-            //   background: userData?.card?.design?.card_background?.flat_color
-            // }}
-            // style={{
             //   background:
-            //     userData?.card?.design?.card_background?.gradient_color1 &&
-            //     userData?.card?.design?.card_background?.gradient_color2
-            //       ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-            //       : userData?.card?.design?.card_background?.flat_color,
-
+            //     userData?.card?.design?.card_background?.type === "gradient"
+            //       ? userData?.card?.design?.card_background?.gradient_color1 &&
+            //         userData?.card?.design?.card_background?.gradient_color2
+            //         ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+            //         : `linear-gradient(#000, #fff)` // Default gradient fallback
+            //       : userData?.card?.design?.card_background?.type === "flat"
+            //       ? userData?.card?.design?.card_background?.flat_color || "transparent" // Fallback for flat color
+            //       : "transparent", // Default fallback if type is missing
             // }}
+            
+    
+            
+          
+            
           >
             {/* top profile section start */}
 
             <div className="profile-container">{renderDivBasedOnData()}</div>
-
-
-           
-
 
             {/* second clickable link section start */}
 
@@ -652,9 +668,11 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
-                    
                   >
                     Clickable Links
                   </div>
@@ -726,7 +744,10 @@ const handleButtonClick = () => {
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                        textAlign:
+                          userData?.card?.design?.layout === "center"
+                            ? "center"
+                            : "left", // Dynamically set text alignment
                       }}
                     >
                       Multimedia
@@ -790,7 +811,10 @@ const handleButtonClick = () => {
                             color:
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
-                                textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                            textAlign:
+                              userData?.card?.design?.layout === "center"
+                                ? "center"
+                                : "left", // Dynamically set text alignment
                           }}
                         >
                           YouTube Video
@@ -852,7 +876,10 @@ const handleButtonClick = () => {
                           color:
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
-                              textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                          textAlign:
+                            userData?.card?.design?.layout === "center"
+                              ? "center"
+                              : "left", // Dynamically set text alignment
                         }}
                       >
                         Contact Form
@@ -973,7 +1000,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Voice Message
@@ -999,7 +1029,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     About
@@ -1042,7 +1075,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Document
@@ -1132,7 +1168,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Team Member Details{" "}
@@ -1220,7 +1259,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Address
@@ -1263,7 +1305,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Time sensitive offer
@@ -1314,7 +1359,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Social Proof
@@ -1387,7 +1435,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Photos
@@ -1434,7 +1485,10 @@ const handleButtonClick = () => {
                     style={{
                       color:
                         userData?.card?.design?.font_style?.primary_text_color,
-                        textAlign: userData?.card?.design?.layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
                     }}
                   >
                     Product gallery
@@ -1483,58 +1537,66 @@ const handleButtonClick = () => {
                           className="mp-img-r-curve-l-a"
                         />
                       </div>
-                      <p className="mp-pic-title-p-g" style={{
-                     color: userData?.card?.design?.font_style?.primary_text_color,
-                  }}>
-                        {userData?.productGallary[0]?.title}
-                      </p>
-                      <p className="mp-pic-desc-p-g" style={{
-                     color: userData?.card?.design?.font_style?.secondary_text_color,
-                  }}>
-                        {userData?.productGallary[0]?.description}
-                      </p>
-                      <p className="mp-price-p-g" style={{
-                     color: userData?.card?.design?.font_style?.primary_text_color,
-                  }}>
-                        Price : {userData?.productGallary[0]?.price}
-                      </p>
-                      <a href={userData?.productGallary[0]?.button_link || "#"} // Dynamically set href, fallback to '#' if no link
-  target="_blank" // Optional: Opens link in a new tab
-  rel="noopener noreferrer" >
-                      <button
-                        type="submit"
-                        className="mp-btn-white-submit-leftalign"
+                      <p
+                        className="mp-pic-title-p-g"
                         style={{
-                          background:
-                            userData?.card?.design?.card_color?.secondary_color,
-                            cursor:"pointer"
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.primary_text_color,
                         }}
                       >
-                        <span className="mp-btn-text-leftalign" style={{
-                     color: userData?.card?.design?.font_style?.primary_text_color,
-                  }}> {userData?.productGallary[0]?.button_type}</span>
-                      </button>
+                        {userData?.productGallary[0]?.title}
+                      </p>
+                      <p
+                        className="mp-pic-desc-p-g"
+                        style={{
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.secondary_text_color,
+                        }}
+                      >
+                        {userData?.productGallary[0]?.description}
+                      </p>
+                      <p
+                        className="mp-price-p-g"
+                        style={{
+                          color:
+                            userData?.card?.design?.font_style
+                              ?.primary_text_color,
+                        }}
+                      >
+                        Price : {userData?.productGallary[0]?.price}
+                      </p>
+                      <a
+                        href={userData?.productGallary[0]?.button_link || "#"} // Dynamically set href, fallback to '#' if no link
+                        target="_blank" // Optional: Opens link in a new tab
+                        rel="noopener noreferrer"
+                      >
+                        <button
+                          type="submit"
+                          className="mp-btn-white-submit-leftalign"
+                          style={{
+                            background:
+                              userData?.card?.design?.card_color
+                                ?.secondary_color,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <span
+                            className="mp-btn-text-leftalign"
+                            style={{
+                              color:
+                                userData?.card?.design?.font_style
+                                  ?.primary_text_color,
+                            }}
+                          >
+                            {" "}
+                            {userData?.productGallary[0]?.button_type}
+                          </span>
+                        </button>
                       </a>
                     </>
                   )}
-                  {/* <p className="mp-pic-title-p-g">New York</p>
-                <p className="mp-pic-desc-p-g">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                </p>
-                <p className="mp-price-p-g">Price : 500</p>
-                <button
-                  type="submit"
-                  className="btn-white-submit-leftalign"
-                  style={{
-                    background:
-                      userData?.card?.design?.card_color?.secondary_color,
-                    color:
-                      userData?.card?.design?.font_style?.primary_text_color,
-                  }}
-                >
-                  <span className="mp-btn-text-leftalign">Submit</span>
-                </button> */}
                 </div>
               </div>
             )}
@@ -1558,11 +1620,11 @@ const handleButtonClick = () => {
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            cursor:"pointer"
+                        cursor: "pointer",
                       }}
                       onClick={handleButtonClick}
                     >
-                      <span className="btn-visit-txt" >{cta?.btn_text}</span>
+                      <span className="btn-visit-txt">{cta?.btn_text}</span>
                     </button>
                   )}
 
@@ -1576,7 +1638,7 @@ const handleButtonClick = () => {
                         color:
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            cursor:"pointer"
+                        cursor: "pointer",
                       }}
                     >
                       <span className="btn-visit-txt">Translate</span>
@@ -1634,7 +1696,6 @@ const handleButtonClick = () => {
                 color: userData?.card?.design?.font_style?.primary_text_color,
               }}
               onClick={handleShareButtonClick}
-
             >
               Share Card
             </button>
@@ -1646,16 +1707,14 @@ const handleButtonClick = () => {
 
                 color: userData?.card?.design?.font_style?.primary_text_color,
               }}
-
             >
               Save Contact
             </button>
           </div>
         </div>
+        
       </div>
-      {isShareModalOpen && (
-        <ShareCardModal onClose={handleCloseModal} />
-      )}
+      {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
     </>
   );
 };

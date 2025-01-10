@@ -92,10 +92,10 @@
   text-align: left;
   color: rgba(0, 0, 0, 0.5);
 }
-.hr-btw-top-bottom-l-a {
+.mp-hr-btw-top-bottom-l-a {
   border-top: 0.5px solid #00000033;
   margin: 3px 0;
-  width: 100.3%;
+  width: 100%;
 }
 .profile-pic-container-left-align {
   position: relative;
