@@ -702,13 +702,13 @@ const Mobileprev = ({
             // style={{
             //   background: userData?.card?.design?.card_background?.flat_color,
             // }}
-            style={{
-              background:
-                userData?.card?.design?.card_background?.gradient_color1 &&
-                userData?.card?.design?.card_background?.gradient_color2
-                  ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-                  : `linear-gradient(#000, #fff)`, // Default gradient
-            }}
+            // style={{
+            //   background:
+            //     userData?.card?.design?.card_background?.gradient_color1 &&
+            //     userData?.card?.design?.card_background?.gradient_color2
+            //       ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
+            //       : `linear-gradient(#000, #fff)`, // Default gradient
+            // }}
             // style={{
             //   background:
             //     userData?.card?.design?.card_background?.type === "gradient"
