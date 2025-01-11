@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../styles/EmailSignature.css";
 import profileimg from "../images/profileimg.png";
 import logoimg from "../images/filta.png";
@@ -24,7 +24,6 @@ const EmailSignature = () => {
   const [message, setMessage] = useState("");
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const signatureRef = useRef(null);
   const { userData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
 
@@ -50,33 +49,55 @@ const EmailSignature = () => {
     });
   };
   const handleCopyToClipboard = () => {
-    html2canvas(signatureRef.current).then((canvas) => {
-      // Convert the canvas to PNG Blob
-      canvas.toBlob((blob) => {
-        const item = new ClipboardItem({
-          "image/png": blob, // Copy the image as PNG
-        });
+    const element = document.querySelector(".signature-card");
+    if (element) {
+      html2canvas(element, { useCORS: true })
+        .then((canvas) => {
+          // Convert the canvas to PNG Blob
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const item = new ClipboardItem({
+                "image/png": blob, // Copy the image as PNG
+              });
 
-        // Write the clipboard item to the clipboard
-        navigator.clipboard
-          .write([item])
-          .then(() => {
-            setMessage("Signature copied as to clipboard!");
-          })
-          .catch(() => {
-            setMessage("Failed to copy signature.");
+              // Write the clipboard item to the clipboard
+              navigator.clipboard
+                .write([item])
+                .then(() => {
+                  setMessage("Signature copied to clipboard!");
+                })
+                .catch(() => {
+                  setMessage("Failed to copy signature.");
+                });
+            } else {
+              setMessage("Failed to generate image for clipboard.");
+            }
           });
-      });
-    });
+        })
+        .catch((error) => {
+          console.error("Error generating the image:", error);
+          setMessage("An error occurred while copying.");
+        });
+    } else {
+      console.error("Element with class 'signature-card' not found.");
+      setMessage("Signature element not found.");
+    }
   };
 
-  const handleDownloadSignature = () => {
-    html2canvas(signatureRef.current).then((canvas) => {
-      const link = document.createElement("a");
-      link.href = canvas.toDataURL("image/png");
-      link.download = "email-signature.png";
-      link.click();
-    });
+  const handleDownloadSignature = async () => {
+    const element = document.querySelector(".signature-card");
+    if (element) {
+      try {
+        const canvas = await html2canvas(element, { useCORS: true });
+        const dataURL = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "signature_card.png";
+        link.click();
+      } catch (error) {
+        console.error("Error generating the image:", error);
+      }
+    }
   };
   //Preview button Animation Function Start
   const handleFullscreen = () => {
@@ -151,7 +172,7 @@ const EmailSignature = () => {
                 <div className="e-rightmain">
                   <div className="email-preview">
                     <h3 className="e-cardheding">Email Signature Preview</h3>
-                    <div className="signature-card" ref={signatureRef}>
+                    <div className="signature-card">
                       <div className="signature-info">
                         {Photo && (
                           <img
@@ -357,7 +378,7 @@ const EmailSignature = () => {
           <div className="e-rightmain">
             <div className="email-preview">
               <h3 className="e-cardheding">Email Signature Preview</h3>
-              <div className="signature-card" ref={signatureRef}>
+              <div className="signature-card">
                 <div className="signature-info">
                   {userData?.card?.profileimg ? (
                     <img

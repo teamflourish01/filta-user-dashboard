@@ -3,12 +3,14 @@ import clrpiker from "../../images/desigin_clrpiker.png";
 import qrplus from "../../images/qr_plus.png";
 import axios from "axios";
 import userContext from "../../context/userDetails";
+import html2canvas from "html2canvas";
 
 const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
   const [logo, setLogo] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [qrPng, setQrPng] = useState(null);
   const ColorRef = useRef(null);
   const handleClrEdit = (ref) => {
     if (ref.current) {
@@ -20,12 +22,27 @@ const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
     setLogo(file);
     onLogoChange(file);
   };
+  const generateQrPng = async () => {
+    const element = document.querySelector(".qr-imgmain");
+    if (element) {
+      const canvas = await html2canvas(element, { useCORS: true });
+      const dataURL = canvas.toDataURL("image/png");
+      setQrPng(dataURL);
+      return dataURL;
+    }
+    return null;
+  };
   const handleSave = async () => {
     setLoading(true);
-
+    const dataURL = await generateQrPng();
     const formData = new FormData();
     formData.append("qrcolor", selectedColor);
     formData.append("qrimage", logo);
+    const blob = await (await fetch(dataURL)).blob();
+    formData.append("qrpng", blob, "qrcode.png");
+
+    console.log("FormData contains:", formData.get("qrcode"));
+    console.log("qrPng", qrPng);
 
     try {
       const response = await axios.post(`${uri}/qr/add`, formData, {
@@ -96,7 +113,9 @@ const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
                 </div>
               </div>
               <div className="di-buttons delpadding">
-                <button className="di-cancel">Cancel</button>
+                <button type="button" className="di-cancel">
+                  Cancel
+                </button>
                 <button
                   className="di-save"
                   onClick={handleSave}

@@ -4,7 +4,7 @@ import qrLogoImg from "../../images/qrlogoImg.png";
 import userContext from "../../context/userDetails";
 import html2canvas from "html2canvas";
 
-const QrcodeGen = ({ selectedColor, logo }) => {
+const QrcodeGen = ({ selectedColor, logo  }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [qrData, setQrData] = useState("");
   const [logoUrl, setLogoUrl] = useState(null);
@@ -14,7 +14,7 @@ const QrcodeGen = ({ selectedColor, logo }) => {
     const element = document.querySelector(".qr-imgmain");
     if (element) {
       try {
-        const canvas = await html2canvas(element, { useCORS: true, scale: 4 });
+        const canvas = await html2canvas(element, { useCORS: true });
         const dataURL = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = dataURL;
@@ -35,7 +35,11 @@ const QrcodeGen = ({ selectedColor, logo }) => {
       setLogoUrl(null);
     }
   }, [userData]);
-
+  const logoSrc = logo
+    ? logo // Use the logo prop if provided
+    : userData?.qrcode?.qrimage
+    ? `${uri}/qrcodelogo/${userData.qrcode.qrimage}` // Use logo from database if available
+    : qrLogoImg;
   return (
     <>
       <div className="qr-code-panel">
@@ -55,7 +59,7 @@ const QrcodeGen = ({ selectedColor, logo }) => {
               {/* Logo Overlay */}
               <img
                 className="qrlogo"
-                src={logoUrl || qrLogoImg}
+                src={logoSrcp}
                 alt="logo-img"
               />
             </div>
