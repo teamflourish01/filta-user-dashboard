@@ -64,6 +64,9 @@ const Mobileprev = ({
   const { userData, AuthorizationToken, getUserData, userDetails } =
     useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [fontFmly, setFontfmly] = useState(
+      userData?.card?.design?.font_style?.font_family
+    );
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
