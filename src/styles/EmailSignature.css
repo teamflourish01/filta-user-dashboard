@@ -237,16 +237,25 @@
   text-align: center;
 }
 
+.e-sig-card{
+border: 1px solid #ddd;
+  padding: 15px 25px;
+  border-radius: 8px;
+}
 .signature-card {
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  padding: 15px 25px;
-  border-radius: 8px;
+  
   /* margin-top: 20px; */
   justify-content: space-between;
   gap: 90px;
   /* height: 219px; */
+}
+.disclaimer-txt{
+  font-family: Poppins-Regular;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: left;
 }
 
 .signature-image {

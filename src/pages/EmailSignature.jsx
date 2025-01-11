@@ -17,8 +17,9 @@ const EmailSignature = () => {
     name: "",
     jobtitle: "",
     company: "",
-    phonenumber: "",
+    phoneNumber: "",
     location: "",
+    disclaimer: ""
   });
   console.log(formData, "formdata");
   const [message, setMessage] = useState("");
@@ -288,8 +289,8 @@ const EmailSignature = () => {
                     <input
                       type="text"
                       name="name"
-                      placeholder="Ajay Gadhavi"
-                      value={formData.name}
+                      placeholder= {userData?.card?.name}
+                      value={formData.name || userData?.card?.name}
                       onChange={handleInputChange}
                       required
                     />
@@ -299,8 +300,8 @@ const EmailSignature = () => {
                     <input
                       type="text"
                       name="jobtitle"
-                      placeholder="Ui / Ux Designer"
-                      value={formData.jobtitle}
+                      placeholder={userData?.card?.jobtitle}
+                      value={formData.jobtitle || userData?.card?.jobtitle}
                       onChange={handleInputChange}
                       required
                     />
@@ -312,8 +313,8 @@ const EmailSignature = () => {
                     <input
                       type="text"
                       name="company"
-                      placeholder="Flourish Creation PVT.LTD."
-                      value={formData.company}
+                      placeholder={userData?.card?.company}
+                      value={formData.company || userData?.card?.company}
                       onChange={handleInputChange}
                       required
                     />
@@ -322,9 +323,9 @@ const EmailSignature = () => {
                     <label>Phone number</label>
                     <input
                       type="text"
-                      name="phonenumber"
-                      placeholder="6353123096"
-                      value={formData.phonenumber}
+                      name="phoneNumber"
+                      placeholder={userData?.card?.phoneNumber}
+                      value={formData.phoneNumber || userData?.card?.phoneNumber}
                       onChange={handleInputChange}
                       required
                     />
@@ -335,15 +336,15 @@ const EmailSignature = () => {
                   <input
                     type="text"
                     name="location"
-                    placeholder="Ahmedabad, Gujarat, India"
-                    value={formData.location}
+                    placeholder={userData?.card?.location}
+                    value={formData.location || userData?.card?.location}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
                 <div className="e-fullwidth">
                   <label>Disclaimer</label>
-                  <textarea className="e-txtarea" />
+                  <textarea className="e-txtarea" name="disclaimer" onChange={handleInputChange}/>
                 </div>
               </div>
               <div className="e-buttons">
@@ -378,15 +379,21 @@ const EmailSignature = () => {
           <div className="e-rightmain">
             <div className="email-preview">
               <h3 className="e-cardheding">Email Signature Preview</h3>
+
+              
+
+              <div className="e-sig-card">
               <div className="signature-card">
+
                 <div className="signature-info">
-                  {userData?.card?.profileimg ? (
+                
+                  { Photo && userData?.card?.profileimg && (
                     <img
                       src={`${uri}/card/${userData?.card?.profileimg}`}
                       alt="profile-img"
                       className="img-standard-profile"
                     />
-                  ) : (
+                  )} {Photo && !userData?.card?.profileimg && (
                     <img
                       src={dummyprofile}
                       alt="profile-img"
@@ -403,7 +410,7 @@ const EmailSignature = () => {
                     {formData.company || userData?.card?.company}
                   </p>
                   <p className="e-cardno">
-                    {formData.phoneNumber || "6353123096"}
+                    {formData.phoneNumber || userData?.card?.phoneNumber}
                   </p>
                   <p className="e-cardlocation">
                     {formData.location || userData?.card?.location}
@@ -424,6 +431,9 @@ const EmailSignature = () => {
                     </>
                   )}
                 </div>
+                </div>
+                <p className="disclaimer-txt">{formData.disclaimer}</p>
+
               </div>
               <button className="add-to-email" onClick={handleCopyToClipboard}>
                 + Add to your email

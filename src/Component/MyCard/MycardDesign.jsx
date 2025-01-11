@@ -5,20 +5,27 @@ import { SlArrowDown } from "react-icons/sl";
 import TwoButton from "./TwoButton";
 import userContext from "../../context/userDetails";
 import axios from "axios";
-const DesignComponent = () => {
+const DesignComponent = ({
+  layout,
+  setLayout,
+  colors,
+  setColors,
+  handleColorChangee,
+  handleLayoutChange,
+}) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
-  const [colors, setColors] = useState({
-    flatColor: userData?.card?.design?.card_background?.flat_color,
-    grdColor: userData?.card?.design?.card_background?.gradient_color1,
-    grdSecColor: userData?.card?.design?.card_background?.gradient_color2,
-    prmColor: userData?.card?.design?.card_color?.primary_color,
-    secdClor: userData?.card?.design?.card_color?.secondary_color,
-    natClor: userData?.card?.design?.card_color?.neutral_color,
-    prmTxtColor: userData?.card?.design?.font_style?.primary_text_color,
-    secTxtColor: userData?.card?.design?.font_style?.secondary_text_color,
-    themeColor: userData?.card?.design?.theme_color,
-  });
+  // const [colors, setColors] = useState({
+  //   flatColor: userData?.card?.design?.card_background?.flat_color,
+  //   grdColor: userData?.card?.design?.card_background?.gradient_color1,
+  //   grdSecColor: userData?.card?.design?.card_background?.gradient_color2,
+  //   prmColor: userData?.card?.design?.card_color?.primary_color,
+  //   secdClor: userData?.card?.design?.card_color?.secondary_color,
+  //   natClor: userData?.card?.design?.card_color?.neutral_color,
+  //   prmTxtColor: userData?.card?.design?.font_style?.primary_text_color,
+  //   secTxtColor: userData?.card?.design?.font_style?.secondary_text_color,
+  //   themeColor: userData?.card?.design?.theme_color,
+  // });
   const refs = {
     flatColor: useRef(null),
     grdColor: useRef(null),
@@ -38,13 +45,13 @@ const DesignComponent = () => {
     userData?.card?.design?.font_style?.font_family
   );
 
-  const handleColorChange = (e) => {
-    const { name, value } = e.target;
-    setColors((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // const handleColorChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setColors((prev) => ({
+  //     ...prev,
+  //     [name]: value,
+  //   }));
+  // };
   const handleColorEdit = (name) => {
     if (refs[name]?.current) {
       refs[name].current.click();
@@ -65,13 +72,13 @@ const DesignComponent = () => {
     setIsOpen(false);
   };
 
-  const [layout, setLayout] = useState(
-    userData?.card?.design?.layout || "left"
-  );
+  // const [layout, setLayout] = useState(
+  //   userData?.card?.design?.layout || "left"
+  // );
   // Handle layout change
-  const handleLayoutChange = (e) => {
-    setLayout(e.target.value);
-  };
+  // const handleLayoutChange = (e) => {
+  //   setLayout(e.target.value);
+  // };
   // edit logic
 
   const onSubmit = async (e) => {
@@ -111,7 +118,7 @@ const DesignComponent = () => {
           Authorization: AuthorizationToken,
         },
       });
-
+      console.log(response, "sdfghjkjhvcvghjkj");
       alert(response.data.msg || "Data updated successfully!");
       getUserData();
     } catch (error) {
@@ -132,6 +139,21 @@ const DesignComponent = () => {
   const uniqueFontFamilies = [...new Set(fonts.map((font) => font.family))];
   
   // console.log("fontFmly style", fontFmly);
+
+  useEffect(() => {
+    setLayout(userData?.card?.design?.layout);
+    setColors({
+      flatColor: userData?.card?.design?.card_background?.flat_color,
+      grdColor: userData?.card?.design?.card_background?.gradient_color1,
+      grdSecColor: userData?.card?.design?.card_background?.gradient_color2,
+      prmColor: userData?.card?.design?.card_color?.primary_color,
+      secdClor: userData?.card?.design?.card_color?.secondary_color,
+      natClor: userData?.card?.design?.card_color?.neutral_color,
+      prmTxtColor: userData?.card?.design?.font_style?.primary_text_color,
+      secTxtColor: userData?.card?.design?.font_style?.secondary_text_color,
+      themeColor: userData?.card?.design?.theme_color,
+    });
+  }, []);
 
   return (
     <>
@@ -205,8 +227,11 @@ const DesignComponent = () => {
                       id="color-code"
                       name="flatColor"
                       placeholder="#000000"
-                      value={colors.flatColor}
-                      onChange={handleColorChange}
+                      value={
+                        colors.flatColor ||
+                        userData?.card?.design?.card_background?.flat_color
+                      }
+                      onChange={handleColorChangee}
                     />
 
                     <input
@@ -214,8 +239,11 @@ const DesignComponent = () => {
                       id="color-picker"
                       name="flatColor"
                       ref={refs.flatColor}
-                      value={colors.flatColor}
-                      onChange={handleColorChange}
+                      value={
+                        colors.flatColor
+                        // userData?.card?.design?.card_background?.flat_color
+                      }
+                      onChange={handleColorChangee}
                     />
                   </div>
 
@@ -237,7 +265,7 @@ const DesignComponent = () => {
                       name="grdColor"
                       placeholder="#000000"
                       value={colors.grdColor}
-                      onChange={handleColorChange}
+                      onChange={handleColorChangee}
                     />
                     <input
                       type="color"
@@ -245,7 +273,7 @@ const DesignComponent = () => {
                       name="grdColor"
                       ref={refs.grdColor}
                       value={colors.grdColor}
-                      onChange={handleColorChange}
+                      onChange={handleColorChangee}
                     />
                   </div>
 
@@ -269,7 +297,7 @@ const DesignComponent = () => {
                       name="grdSecColor"
                       placeholder="#000000"
                       value={colors.grdSecColor}
-                      onChange={handleColorChange}
+                      onChange={handleColorChangee}
                     />
 
                     <input
@@ -278,7 +306,7 @@ const DesignComponent = () => {
                       name="grdSecColor"
                       ref={refs.grdSecColor}
                       value={colors.grdSecColor}
-                      onChange={handleColorChange}
+                      onChange={handleColorChangee}
                     />
                   </div>
 
@@ -320,17 +348,21 @@ const DesignComponent = () => {
                             id="thr-color-code"
                             name="prmColor"
                             placeholder="#000000"
-                            value={colors.prmColor}
-                            onChange={handleColorChange}
+                            value={
+                              colors.prmColor 
+                            }
+                            onChange={handleColorChangee}
                           />
 
                           <input
                             type="color"
                             id="thr-color-picker"
                             name="prmColor"
-                            value={colors.prmColor}
+                            value={
+                              colors.prmColor 
+                            }
                             ref={refs.prmColor}
-                            onChange={handleColorChange}
+                            onChange={handleColorChangee}
                           />
                         </div>
                         <div
@@ -353,17 +385,21 @@ const DesignComponent = () => {
                             id="thr-color-code"
                             placeholder="#000000"
                             name="secdClor"
-                            value={colors.secdClor}
-                            onChange={handleColorChange}
+                            value={
+                              colors.secdClor 
+                            }
+                            onChange={handleColorChangee}
                           />
 
                           <input
                             type="color"
                             id="thr-color-picker"
                             name="secdClor"
-                            value={colors.secdClor}
+                            value={
+                              colors.secdClor 
+                            }
                             ref={refs.secdClor}
-                            onChange={handleColorChange}
+                            onChange={handleColorChangee}
                           />
                         </div>
                         <div
@@ -386,17 +422,21 @@ const DesignComponent = () => {
                             id="thr-color-code"
                             placeholder="#000000"
                             name="natClor"
-                            value={colors.natClor}
-                            onChange={handleColorChange}
+                            value={
+                              colors.natClor 
+                            }
+                            onChange={handleColorChangee}
                           />
 
                           <input
                             type="color"
                             id="thr-color-picker"
                             name="natClor"
-                            value={colors.natClor}
+                            value={
+                              colors.natClor 
+                            }
                             ref={refs.natClor}
-                            onChange={handleColorChange}
+                            onChange={handleColorChangee}
                           />
                         </div>
                         <div
@@ -475,17 +515,21 @@ const DesignComponent = () => {
                               id="thr-color-code"
                               placeholder="#000000"
                               name="prmTxtColor"
-                              value={colors.prmTxtColor}
-                              onChange={handleColorChange}
+                              value={
+                                colors.prmTxtColor 
+                              }
+                              onChange={handleColorChangee}
                             />
 
                             <input
                               type="color"
                               id="thr-color-picker"
                               name="prmTxtColor"
-                              value={colors.prmTxtColor}
+                              value={
+                                colors.prmTxtColor 
+                              }
                               ref={refs.prmTxtColor}
-                              onChange={handleColorChange}
+                              onChange={handleColorChangee}
                             />
                           </div>
                           <div
@@ -509,17 +553,21 @@ const DesignComponent = () => {
                               id="thr-color-code"
                               placeholder="#000000"
                               name="secTxtColor"
-                              value={colors.secTxtColor}
-                              onChange={handleColorChange}
+                              value={
+                                colors.secTxtColor 
+                              }
+                              onChange={handleColorChangee}
                             />
 
                             <input
                               type="color"
                               id="thr-color-picker"
                               name="secTxtColor"
-                              value={colors.secTxtColor}
+                              value={
+                                colors.secTxtColor
+                              }
                               ref={refs.secTxtColor}
-                              onChange={handleColorChange}
+                              onChange={handleColorChangee}
                             />
                           </div>
                           <div
@@ -574,7 +622,7 @@ const DesignComponent = () => {
                         placeholder="#000000"
                         name="themeColor"
                         value={colors.themeColor}
-                        onChange={handleColorChange}
+                        onChange={handleColorChangee}
                       />
 
                       <input
@@ -583,7 +631,7 @@ const DesignComponent = () => {
                         name="themeColor"
                         value={colors.themeColor}
                         ref={refs.themeColor}
-                        onChange={handleColorChange}
+                        onChange={handleColorChangee}
                       />
                     </div>
 
