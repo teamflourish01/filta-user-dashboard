@@ -131,7 +131,7 @@ const DesignComponent = () => {
   }, []);
   const uniqueFontFamilies = [...new Set(fonts.map((font) => font.family))];
   
-  // console.log("fontFmly style", fontFmly);
+  console.log("fontFmly style", fontFmly);
 
   return (
     <>
