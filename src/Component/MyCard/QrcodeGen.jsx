@@ -59,7 +59,7 @@ const QrcodeGen = ({ selectedColor, logo  }) => {
               {/* Logo Overlay */}
               <img
                 className="qrlogo"
-                src={logoSrcp}
+                src={logoSrc}
                 alt="logo-img"
               />
             </div>
