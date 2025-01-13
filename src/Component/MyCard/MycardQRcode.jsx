@@ -23,7 +23,7 @@ const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
     onLogoChange(file);
   };
   const generateQrPng = async () => {
-    const element = document.querySelector(".qr-imgmain");
+    const element = document.querySelector(".qr-imgdiv");
     if (element) {
       const canvas = await html2canvas(element, { useCORS: true });
       const dataURL = canvas.toDataURL("image/png");
