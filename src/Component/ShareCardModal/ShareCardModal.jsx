@@ -2,11 +2,17 @@ import React from "react";
 import { CgClose } from "react-icons/cg";
 import "../ShareCardModal/ShareCardModal.css";
 import scannerpic from "../../images/scannerpic.svg";
+import { IoShareOutline } from "react-icons/io5";
 
 const ShareCardModal = ({ onClose }) => {
+  const handleOutsideClick = (e) => {
+    if (e.target.classList.contains("modal-container-sharedCard")) {
+      onClose();
+    }
+  };
   return (
     <>
-      <div className="modal-container-sharedCard">
+      {/* <div className="modal-container-sharedCard" onClick={handleOutsideClick}> */}
         <div className="modal-content-sharedCard">
           <div className="close-btn-flex">
             <div className="share-card-title">Share Card</div>
@@ -28,8 +34,16 @@ const ShareCardModal = ({ onClose }) => {
             </div>
             <div className="or-bg-w">Or</div>
           </div>
+          <div className="btn-center-flex-share">
+            <div className="share-via-btn">
+              <p className="share-via-txt">Share Via</p>
+            </div>
+            <div className="share-arrow">
+              <IoShareOutline />
+            </div>
+          </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };
