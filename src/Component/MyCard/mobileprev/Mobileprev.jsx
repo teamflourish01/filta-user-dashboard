@@ -57,7 +57,7 @@ const Mobileprev = ({
   setColors,
   handleColorChangee,
   handleLayoutChange,
-  layout
+  layout,
   // userDetails,
   // setUserDetails
 }) => {
@@ -65,8 +65,8 @@ const Mobileprev = ({
     useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [fontFmly, setFontfmly] = useState(
-      userData?.card?.design?.font_style?.font_family
-    );
+    userData?.card?.design?.font_style?.font_family
+  );
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -86,7 +86,7 @@ const Mobileprev = ({
 
   useEffect(() => {
     console.log(showTbtn, "showtbtn");
-    setLayout(userData?.card?.design?.layout)
+    setLayout(userData?.card?.design?.layout);
 
     // const fetchUserDetails = async () => {
     //   try {
@@ -109,7 +109,7 @@ const Mobileprev = ({
     //   }
     // };
     // fetchUserDetails();
-    console.log(layout,'layyyy')
+    console.log(layout, "layyyy");
   }, [userDetails]);
 
   if (error) {
@@ -288,7 +288,7 @@ const Mobileprev = ({
   };
 
   const renderDivBasedOnData = () => {
-    if ( layout === "left" ) {
+    if (layout === "left") {
       // Render the left-aligned layout
       return (
         <div className="top-profile-container-left-align">
@@ -359,7 +359,7 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+                    userData?.card?.design?.font_style?.secondary_text_color,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -369,7 +369,7 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+                    userData?.card?.design?.font_style?.secondary_text_color,
                 }}
               >
                 {watch.company || "Company"}
@@ -379,7 +379,7 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+                    userData?.card?.design?.font_style?.secondary_text_color,
                 }}
               >
                 {watch.location || "Location"}
@@ -398,12 +398,10 @@ const Mobileprev = ({
               {userData?.card?.profileimg ? (
                 <img
                   style={{
-
                     border: `0.48px solid ${
                       colors.natClor ||
                       userData?.card?.design?.card_color?.neutral_color
                     }`,
-
                   }}
                   src={
                     profileImages
@@ -415,12 +413,10 @@ const Mobileprev = ({
               ) : (
                 <img
                   style={{
-
                     border: `0.48px solid ${
                       colors.natClor ||
                       userData?.card?.design?.card_color?.neutral_color
                     }`,
-
                   }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
@@ -445,7 +441,7 @@ const Mobileprev = ({
           </div>
         </div>
       );
-    } else if (layout === "center" ) {
+    } else if (layout === "center") {
       // Render the center-aligned layout
       return (
         <div className="top-profile-container-left-align">
@@ -515,7 +511,7 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+                    userData?.card?.design?.font_style?.secondary_text_color,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -524,7 +520,7 @@ const Mobileprev = ({
                 className="mp-grey-bottom-txt "
                 style={{
                   color:
-
+                    colors.secTxtColor ||
                     userData?.card?.design?.font_style?.secondary_text_color,
 
                   textAlign: "center",
@@ -537,7 +533,7 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+                    userData?.card?.design?.font_style?.secondary_text_color,
                 }}
               >
                 {watch.location || "Location"}
@@ -590,7 +586,7 @@ const Mobileprev = ({
           </div>
         </div>
       );
-    } else if (layout === "portrait" ) {
+    } else if (layout === "portrait") {
       // Render the portrait layout
       return (
         <div className="top-profile-container-left-align">
@@ -619,9 +615,7 @@ const Mobileprev = ({
             style={
               {
                 // background: userData?.card?.design?.card_color?.primary_color,
-
                 // border: `0.48px solid ${colors.natClor || userData?.card?.design?.card_color?.neutral_color}`,
-
               }
             }
           >
@@ -640,7 +634,7 @@ const Mobileprev = ({
               style={{
                 color:
                   colors.secTxtColor ||
-                  userData?.card?.design?.font_style?.primary_text_color,
+                  userData?.card?.design?.font_style?.secondary_text_color,
               }}
             >
               {watch.jobtitle || "Job Title"}
@@ -650,7 +644,7 @@ const Mobileprev = ({
               style={{
                 color:
                   colors.secTxtColor ||
-                  userData?.card?.design?.font_style?.primary_text_color,
+                  userData?.card?.design?.font_style?.secondary_text_color,
               }}
             >
               {watch.company || "Company"}
@@ -660,7 +654,7 @@ const Mobileprev = ({
               style={{
                 color:
                   colors.secTxtColor ||
-                  userData?.card?.design?.font_style?.primary_text_color,
+                  userData?.card?.design?.font_style?.secondary_text_color,
               }}
             >
               {watch.location || "Location"}
@@ -686,45 +680,23 @@ const Mobileprev = ({
   };
   return (
     <>
-    
       <div className="my-priviewcard">
         {/* Show live card preview */}
         <div className="mp-mobile-modifi">
           <div
             className="mp-padding-whole-10-l-a"
-
             style={{
               background:
                 colors.flatColor ||
                 userData?.card?.design?.card_background?.flat_color,
+              backgroundImage: `linear-gradient(${
+                colors.grdColor ||
+                userData?.card?.design?.card_background?.gradient_color1
+              }, ${
+                colors.grdSecColor ||
+                userData?.card?.design?.card_background?.gradient_color2
+              })`,
             }}
-
-            // style={{
-            //   background: userData?.card?.design?.card_background?.flat_color,
-            // }}
-            // style={{
-            //   background:
-            //     userData?.card?.design?.card_background?.gradient_color1 &&
-            //     userData?.card?.design?.card_background?.gradient_color2
-            //       ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-            //       : `linear-gradient(#000, #fff)`, // Default gradient
-            // }}
-            // style={{
-            //   background:
-            //     userData?.card?.design?.card_background?.type === "gradient"
-            //       ? userData?.card?.design?.card_background?.gradient_color1 &&
-            //         userData?.card?.design?.card_background?.gradient_color2
-            //         ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-            //         : `linear-gradient(#000, #fff)` // Default gradient fallback
-            //       : userData?.card?.design?.card_background?.type === "flat"
-            //       ? userData?.card?.design?.card_background?.flat_color || "transparent" // Fallback for flat color
-            //       : "transparent", // Default fallback if type is missing
-            // }}
-            
-    
-            
-          
-            
           >
             {/* top profile section start */}
 
@@ -752,10 +724,7 @@ const Mobileprev = ({
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        userData?.card?.design?.layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
                     }}
                   >
                     Clickable Links
@@ -797,6 +766,7 @@ const Mobileprev = ({
                             className="mp-icon-name-c-l"
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                             }}
@@ -831,12 +801,10 @@ const Mobileprev = ({
                       className="mp-sections-title mp-p-10-side-l-a"
                       style={{
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                        textAlign:
-                          userData?.card?.design?.layout === "center"
-                            ? "center"
-                            : "left", // Dynamically set text alignment
+                        textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
                       }}
                     >
                       Multimedia
@@ -902,10 +870,11 @@ const Mobileprev = ({
                           className="mp-youtube-video-title"
                           style={{
                             color:
+                              colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
                             textAlign:
-                              userData?.card?.design?.layout === "center"
+                              layout === "center"
                                 ? "center"
                                 : "left", // Dynamically set text alignment
                           }}
@@ -951,7 +920,6 @@ const Mobileprev = ({
 
             {/* fourth section contact form start */}
 
-
             {userDetails.data[0]?.loginemail && formDatac.loginemail && (
               <div
                 className="mp-grey-box-bg-left-align"
@@ -971,10 +939,11 @@ const Mobileprev = ({
                       className="mp-sections-title"
                       style={{
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                         textAlign:
-                          userData?.card?.design?.layout === "center"
+                          layout === "center"
                             ? "center"
                             : "left", // Dynamically set text alignment
                       }}
@@ -983,7 +952,6 @@ const Mobileprev = ({
                     </div>
                     <div className="mp-input-container-c-f">
                       {checkboxStates.name && (
-
                         <div className="mp-input-field-contact-form-leftalign">
                           <input
                             type="text"
@@ -992,9 +960,11 @@ const Mobileprev = ({
                             {...register("name")}
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               border: `0.48px solid ${
@@ -1017,9 +987,11 @@ const Mobileprev = ({
                           })}
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                             "--placeholder-color":
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                             border: `0.48px solid ${
@@ -1039,9 +1011,11 @@ const Mobileprev = ({
                             {...register("number")}
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               border: `0.48px solid ${
@@ -1062,9 +1036,11 @@ const Mobileprev = ({
                             {...register("message")}
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               border: `0.48px solid ${
@@ -1086,6 +1062,7 @@ const Mobileprev = ({
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                       }}
@@ -1121,7 +1098,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1156,7 +1133,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1177,6 +1154,7 @@ const Mobileprev = ({
                     className="mp-about-description"
                     style={{
                       color:
+                        colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
                     }}
@@ -1209,7 +1187,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1271,6 +1249,7 @@ const Mobileprev = ({
                     className="mp-d-l-a-name"
                     style={{
                       color:
+                        colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
                     }}
@@ -1308,7 +1287,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1321,6 +1300,7 @@ const Mobileprev = ({
                         className="mp-details-t-m-d-l-a-grey"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                         }}
@@ -1330,6 +1310,7 @@ const Mobileprev = ({
                           className="details-info-n"
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1341,6 +1322,7 @@ const Mobileprev = ({
                         className="mp-details-t-m-d-l-a-grey mp-p-9-d-b"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                         }}
@@ -1350,6 +1332,7 @@ const Mobileprev = ({
                           className="details-info-n "
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1361,6 +1344,7 @@ const Mobileprev = ({
                         className="mp-details-t-m-d-l-a-grey p-15-d-b"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                         }}
@@ -1370,6 +1354,7 @@ const Mobileprev = ({
                           className="details-info-n"
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1405,7 +1390,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1426,6 +1411,7 @@ const Mobileprev = ({
                     className="mp-address-lines-l-a"
                     style={{
                       color:
+                        colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
                     }}
@@ -1458,7 +1444,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1518,7 +1504,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1554,6 +1540,7 @@ const Mobileprev = ({
                           className="mp-counts--s-l"
                           style={{
                             color:
+                              colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
                           }}
@@ -1564,6 +1551,7 @@ const Mobileprev = ({
                           className="mp-s-l-title-name"
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1600,7 +1588,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1656,7 +1644,7 @@ const Mobileprev = ({
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                     }}
@@ -1712,6 +1700,7 @@ const Mobileprev = ({
                         className="mp-pic-title-p-g"
                         style={{
                           color:
+                            colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
                         }}
@@ -1722,6 +1711,7 @@ const Mobileprev = ({
                         className="mp-pic-desc-p-g"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                         }}
@@ -1732,6 +1722,7 @@ const Mobileprev = ({
                         className="mp-price-p-g"
                         style={{
                           color:
+                            colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
                         }}
@@ -1748,9 +1739,7 @@ const Mobileprev = ({
                           className="mp-btn-white-submit-leftalign"
                           style={{
                             background:
-
                               colors.secdClor ||
-
                               userData?.card?.design?.card_color
                                 ?.secondary_color,
                             cursor: "pointer",
@@ -1760,6 +1749,7 @@ const Mobileprev = ({
                             className="mp-btn-text-leftalign"
                             style={{
                               color:
+                                colors.prmTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.primary_text_color,
                             }}
@@ -1790,7 +1780,6 @@ const Mobileprev = ({
                 >
                   <span className="mp-btn-text-leftalign">Submit</span>
                 </button> */}
-
                 </div>
               </div>
             )}
@@ -1818,6 +1807,7 @@ const Mobileprev = ({
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                         cursor: "pointer",
@@ -1833,9 +1823,11 @@ const Mobileprev = ({
                       className="btn-visit-translate"
                       style={{
                         background:
+                          colors.secdClor ||
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                         cursor: "pointer",
@@ -1867,7 +1859,7 @@ const Mobileprev = ({
                   style={{
                     color:
                       colors.secTxtColor ||
-                      userData?.card?.design?.font_style?.primary_text_color,
+                      userData?.card?.design?.font_style?.secondary_text_color,
                   }}
                 >
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -1932,7 +1924,6 @@ const Mobileprev = ({
             </button>
           </div>
         </div>
-        
       </div>
       {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
     </>
