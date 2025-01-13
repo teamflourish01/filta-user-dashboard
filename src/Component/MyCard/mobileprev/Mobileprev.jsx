@@ -57,13 +57,14 @@ const Mobileprev = ({
   setColors,
   handleColorChangee,
   handleLayoutChange,
-  layout
+  layout,
   // userDetails,
   // setUserDetails
 }) => {
   const { userData, AuthorizationToken, getUserData, userDetails } =
     useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
   // const [fontFmly, setFontfmly] = useState(
   //     userData?.card?.design?.font_style?.font_family
   //   );
@@ -76,6 +77,7 @@ const regularFont = fontFamily ? fontFamily.find(font => font.includes('Regular'
 const semiboldFont = fontFamily ? fontFamily.find(font => font.includes('SemiBold')) : null;
 
 console.log(mediumFont);
+
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -95,7 +97,7 @@ console.log(mediumFont);
 
   useEffect(() => {
     console.log(showTbtn, "showtbtn");
-    setLayout(userData?.card?.design?.layout)
+    setLayout(userData?.card?.design?.layout);
 
     // const fetchUserDetails = async () => {
     //   try {
@@ -118,7 +120,7 @@ console.log(mediumFont);
     //   }
     // };
     // fetchUserDetails();
-    console.log(layout,'layyyy')
+    console.log(layout, "layyyy");
   }, [userDetails]);
 
   if (error) {
@@ -297,7 +299,7 @@ console.log(mediumFont);
   };
 
   const renderDivBasedOnData = () => {
-    if ( layout === "left" ) {
+    if (layout === "left") {
       // Render the left-aligned layout
       return (
         <div className="top-profile-container-left-align">
@@ -369,8 +371,10 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+
+                    userData?.card?.design?.font_style?.secondary_text_color,
                     fontFamily: regularFont
+
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -380,8 +384,10 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+
+                    userData?.card?.design?.font_style?.secondary_text_color,
                     fontFamily: regularFont
+
                 }}
               >
                 {watch.company || "Company"}
@@ -391,8 +397,10 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+
+                    userData?.card?.design?.font_style?.secondary_text_color,
                     fontFamily: regularFont
+
                 }}
               >
                 {watch.location || "Location"}
@@ -411,12 +419,10 @@ console.log(mediumFont);
               {userData?.card?.profileimg ? (
                 <img
                   style={{
-
                     border: `0.48px solid ${
                       colors.natClor ||
                       userData?.card?.design?.card_color?.neutral_color
                     }`,
-
                   }}
                   src={
                     profileImages
@@ -428,12 +434,10 @@ console.log(mediumFont);
               ) : (
                 <img
                   style={{
-
                     border: `0.48px solid ${
                       colors.natClor ||
                       userData?.card?.design?.card_color?.neutral_color
                     }`,
-
                   }}
                   src={profileImages ? profileImages : dummyprofile}
                   alt="Profile-img"
@@ -458,7 +462,7 @@ console.log(mediumFont);
           </div>
         </div>
       );
-    } else if (layout === "center" ) {
+    } else if (layout === "center") {
       // Render the center-aligned layout
       return (
         <div className="top-profile-container-left-align">
@@ -529,8 +533,10 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+
+                    userData?.card?.design?.font_style?.secondary_text_color,
                     fontFamily: regularFont
+
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -539,7 +545,7 @@ console.log(mediumFont);
                 className="mp-grey-bottom-txt "
                 style={{
                   color:
-
+                    colors.secTxtColor ||
                     userData?.card?.design?.font_style?.secondary_text_color,
 
                   textAlign: "center",
@@ -553,8 +559,10 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-                    userData?.card?.design?.font_style?.primary_text_color,
+
+                    userData?.card?.design?.font_style?.secondary_text_color,
                     fontFamily: regularFont
+
                 }}
               >
                 {watch.location || "Location"}
@@ -607,7 +615,7 @@ console.log(mediumFont);
           </div>
         </div>
       );
-    } else if (layout === "portrait" ) {
+    } else if (layout === "portrait") {
       // Render the portrait layout
       return (
         <div className="top-profile-container-left-align">
@@ -636,9 +644,7 @@ console.log(mediumFont);
             style={
               {
                 // background: userData?.card?.design?.card_color?.primary_color,
-
                 // border: `0.48px solid ${colors.natClor || userData?.card?.design?.card_color?.neutral_color}`,
-
               }
             }
           >
@@ -658,8 +664,10 @@ console.log(mediumFont);
               style={{
                 color:
                   colors.secTxtColor ||
-                  userData?.card?.design?.font_style?.primary_text_color,
+
+                  userData?.card?.design?.font_style?.secondary_text_color,
                   fontFamily: regularFont
+
               }}
             >
               {watch.jobtitle || "Job Title"}
@@ -669,8 +677,10 @@ console.log(mediumFont);
               style={{
                 color:
                   colors.secTxtColor ||
-                  userData?.card?.design?.font_style?.primary_text_color,
+
+                  userData?.card?.design?.font_style?.secondary_text_color,
                   fontFamily: regularFont
+
               }}
             >
               {watch.company || "Company"}
@@ -680,8 +690,10 @@ console.log(mediumFont);
               style={{
                 color:
                   colors.secTxtColor ||
-                  userData?.card?.design?.font_style?.primary_text_color,
+
+                  userData?.card?.design?.font_style?.secondary_text_color,
                   fontFamily: regularFont
+
               }}
             >
               {watch.location || "Location"}
@@ -707,45 +719,23 @@ console.log(mediumFont);
   };
   return (
     <>
-    
       <div className="my-priviewcard">
         {/* Show live card preview */}
         <div className="mp-mobile-modifi">
           <div
             className="mp-padding-whole-10-l-a"
-
             style={{
               background:
                 colors.flatColor ||
                 userData?.card?.design?.card_background?.flat_color,
+              backgroundImage: `linear-gradient(${
+                colors.grdColor ||
+                userData?.card?.design?.card_background?.gradient_color1
+              }, ${
+                colors.grdSecColor ||
+                userData?.card?.design?.card_background?.gradient_color2
+              })`,
             }}
-
-            // style={{
-            //   background: userData?.card?.design?.card_background?.flat_color,
-            // }}
-            // style={{
-            //   background:
-            //     userData?.card?.design?.card_background?.gradient_color1 &&
-            //     userData?.card?.design?.card_background?.gradient_color2
-            //       ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-            //       : `linear-gradient(#000, #fff)`, // Default gradient
-            // }}
-            // style={{
-            //   background:
-            //     userData?.card?.design?.card_background?.type === "gradient"
-            //       ? userData?.card?.design?.card_background?.gradient_color1 &&
-            //         userData?.card?.design?.card_background?.gradient_color2
-            //         ? `linear-gradient(${userData.card.design.card_background.gradient_color1}, ${userData.card.design.card_background.gradient_color2})`
-            //         : `linear-gradient(#000, #fff)` // Default gradient fallback
-            //       : userData?.card?.design?.card_background?.type === "flat"
-            //       ? userData?.card?.design?.card_background?.flat_color || "transparent" // Fallback for flat color
-            //       : "transparent", // Default fallback if type is missing
-            // }}
-            
-    
-            
-          
-            
           >
             {/* top profile section start */}
 
@@ -773,11 +763,13 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
+
                       textAlign:
                         userData?.card?.design?.layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
+
 
                     }}
                   >
@@ -820,6 +812,7 @@ console.log(mediumFont);
                             className="mp-icon-name-c-l"
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                                   fontFamily: regularFont
@@ -855,13 +848,16 @@ console.log(mediumFont);
                       className="mp-sections-title mp-p-10-side-l-a"
                       style={{
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
+
                         textAlign:
                           userData?.card?.design?.layout === "center"
                             ? "center"
                             : "left", // Dynamically set text alignment
                             fontFamily: boldFont
+
                       }}
                     >
                       Multimedia
@@ -927,10 +923,11 @@ console.log(mediumFont);
                           className="mp-youtube-video-title"
                           style={{
                             color:
+                              colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
                             textAlign:
-                              userData?.card?.design?.layout === "center"
+                              layout === "center"
                                 ? "center"
                                 : "left", // Dynamically set text alignment
                                 fontFamily:mediumFont
@@ -977,7 +974,6 @@ console.log(mediumFont);
 
             {/* fourth section contact form start */}
 
-
             {userDetails.data[0]?.loginemail && formDatac.loginemail && (
               <div
                 className="mp-grey-box-bg-left-align"
@@ -997,10 +993,11 @@ console.log(mediumFont);
                       className="mp-sections-title"
                       style={{
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                         textAlign:
-                          userData?.card?.design?.layout === "center"
+                          layout === "center"
                             ? "center"
                             : "left", // Dynamically set text alignment
                             fontFamily: boldFont
@@ -1010,7 +1007,6 @@ console.log(mediumFont);
                     </div>
                     <div className="mp-input-container-c-f">
                       {checkboxStates.name && (
-
                         <div className="mp-input-field-contact-form-leftalign">
                           <input
                             type="text"
@@ -1019,9 +1015,11 @@ console.log(mediumFont);
                             {...register("name")}
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               border: `0.48px solid ${
@@ -1044,9 +1042,11 @@ console.log(mediumFont);
                           })}
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                             "--placeholder-color":
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                             border: `0.48px solid ${
@@ -1066,9 +1066,11 @@ console.log(mediumFont);
                             {...register("number")}
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               border: `0.48px solid ${
@@ -1089,9 +1091,11 @@ console.log(mediumFont);
                             {...register("message")}
                             style={{
                               color:
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
+                                colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               border: `0.48px solid ${
@@ -1113,6 +1117,7 @@ console.log(mediumFont);
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                             fontFamily:semiboldFont
@@ -1149,7 +1154,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1185,7 +1190,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1208,6 +1213,7 @@ console.log(mediumFont);
                     className="mp-about-description"
                     style={{
                       color:
+                        colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
                           fontFamily:regularFont
@@ -1241,7 +1247,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1304,6 +1310,7 @@ console.log(mediumFont);
                     className="mp-d-l-a-name"
                     style={{
                       color:
+                        colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
                           fontFamily:regularFont
@@ -1342,7 +1349,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1356,6 +1363,7 @@ console.log(mediumFont);
                         className="mp-details-t-m-d-l-a-grey"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                               fontFamily:regularFont
@@ -1366,6 +1374,7 @@ console.log(mediumFont);
                           className="details-info-n"
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1377,6 +1386,7 @@ console.log(mediumFont);
                         className="mp-details-t-m-d-l-a-grey mp-p-9-d-b"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                               fontFamily:regularFont
@@ -1387,6 +1397,7 @@ console.log(mediumFont);
                           className="details-info-n "
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1398,6 +1409,7 @@ console.log(mediumFont);
                         className="mp-details-t-m-d-l-a-grey p-15-d-b"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                               fontFamily:regularFont
@@ -1408,6 +1420,7 @@ console.log(mediumFont);
                           className="details-info-n"
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                           }}
@@ -1443,7 +1456,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1466,6 +1479,7 @@ console.log(mediumFont);
                     className="mp-address-lines-l-a"
                     style={{
                       color:
+                        colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
                           fontFamily:regularFont
@@ -1499,7 +1513,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1560,7 +1574,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1597,6 +1611,7 @@ console.log(mediumFont);
                           className="mp-counts--s-l"
                           style={{
                             color:
+                              colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
                                 fontFamily:semiboldFont
@@ -1608,6 +1623,7 @@ console.log(mediumFont);
                           className="mp-s-l-title-name"
                           style={{
                             color:
+                              colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
                                 fontFamily:regularFont
@@ -1645,7 +1661,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1702,7 +1718,7 @@ console.log(mediumFont);
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
                       textAlign:
-                        userData?.card?.design?.layout === "center"
+                        layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
                           fontFamily: boldFont
@@ -1759,6 +1775,7 @@ console.log(mediumFont);
                         className="mp-pic-title-p-g"
                         style={{
                           color:
+                            colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
                         }}
@@ -1769,6 +1786,7 @@ console.log(mediumFont);
                         className="mp-pic-desc-p-g"
                         style={{
                           color:
+                            colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
                         }}
@@ -1779,6 +1797,7 @@ console.log(mediumFont);
                         className="mp-price-p-g"
                         style={{
                           color:
+                            colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
                         }}
@@ -1795,9 +1814,7 @@ console.log(mediumFont);
                           className="mp-btn-white-submit-leftalign"
                           style={{
                             background:
-
                               colors.secdClor ||
-
                               userData?.card?.design?.card_color
                                 ?.secondary_color,
                             cursor: "pointer",
@@ -1807,6 +1824,7 @@ console.log(mediumFont);
                             className="mp-btn-text-leftalign"
                             style={{
                               color:
+                                colors.prmTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.primary_text_color,
                             }}
@@ -1837,7 +1855,6 @@ console.log(mediumFont);
                 >
                   <span className="mp-btn-text-leftalign">Submit</span>
                 </button> */}
-
                 </div>
               </div>
             )}
@@ -1865,6 +1882,7 @@ console.log(mediumFont);
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                         cursor: "pointer",
@@ -1880,9 +1898,11 @@ console.log(mediumFont);
                       className="btn-visit-translate"
                       style={{
                         background:
+                          colors.secdClor ||
                           userData?.card?.design?.card_color?.secondary_color,
 
                         color:
+                          colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
                         cursor: "pointer",
@@ -1914,8 +1934,10 @@ console.log(mediumFont);
                   style={{
                     color:
                       colors.secTxtColor ||
-                      userData?.card?.design?.font_style?.primary_text_color,
+
+                      userData?.card?.design?.font_style?.secondary_text_color,
                       fontFamily:regularFont
+
                   }}
                 >
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -1983,7 +2005,6 @@ console.log(mediumFont);
             </button>
           </div>
         </div>
-        
       </div>
       {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
     </>
