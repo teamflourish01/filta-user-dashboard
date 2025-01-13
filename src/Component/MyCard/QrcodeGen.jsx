@@ -11,7 +11,7 @@ const QrcodeGen = ({ selectedColor, logo  }) => {
   const uri = process.env.REACT_APP_DEV_URL;
 
   const handleDownload = async () => {
-    const element = document.querySelector(".qr-imgmain");
+    const element = document.querySelector(".qr-imgdiv");
     if (element) {
       try {
         const canvas = await html2canvas(element, { useCORS: true });
@@ -36,9 +36,9 @@ const QrcodeGen = ({ selectedColor, logo  }) => {
     }
   }, [userData]);
   const logoSrc = logo
-    ? logo // Use the logo prop if provided
+    ? logo 
     : userData?.qrcode?.qrimage
-    ? `${uri}/qrcodelogo/${userData.qrcode.qrimage}` // Use logo from database if available
+    ? `${uri}/qrcodelogo/${userData.qrcode.qrimage}` 
     : qrLogoImg;
   return (
     <>
