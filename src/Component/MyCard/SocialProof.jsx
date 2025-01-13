@@ -27,11 +27,14 @@ const SocialProof = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let obj = {};
-    
-      obj = {
-        text: data?.map((e) => e?.text),
-        digit: data?.map((e) => e?.digit),
-      };
+      if(data.length<=0){
+        obj=proof
+      }else{
+        obj = {
+          text: data?.map((e) => e?.text),
+          digit: data?.map((e) => e?.digit),
+        };
+      }
     
     try {
       let res = await fetch(`${url}/social/add`, {

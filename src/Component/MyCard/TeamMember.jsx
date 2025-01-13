@@ -17,7 +17,6 @@ const TeamMember = () => {
 
   const handleChange = (e, index) => {
     let { name, value } = e.target;
-
     if (index !== undefined) {
       let updatedData = data?.map((item, i) => {
         return i === index ? { ...item, [name]: value } : item;
