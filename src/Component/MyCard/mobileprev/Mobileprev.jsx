@@ -64,9 +64,20 @@ const Mobileprev = ({
   const { userData, AuthorizationToken, getUserData, userDetails } =
     useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [fontFmly, setFontfmly] = useState(
-    userData?.card?.design?.font_style?.font_family
-  );
+
+  // const [fontFmly, setFontfmly] = useState(
+  //     userData?.card?.design?.font_style?.font_family
+  //   );
+// Extract bold font from fontFamily array
+const fontFamily = userData?.card?.design?.font_style?.font_family;
+// Find the bold font in the font family array
+const boldFont = fontFamily ? fontFamily.find(font => font.includes('Bold')) : null;
+const mediumFont = fontFamily ? fontFamily.find(font => font.includes('Medium')) : null;
+const regularFont = fontFamily ? fontFamily.find(font => font.includes('Regular')) : null;
+const semiboldFont = fontFamily ? fontFamily.find(font => font.includes('SemiBold')) : null;
+
+console.log(mediumFont);
+
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -349,6 +360,7 @@ const Mobileprev = ({
                   color:
                     colors.prmTxtColor ||
                     userData?.card?.design?.font_style?.primary_text_color,
+                    fontFamily: boldFont
                 }}
               >
                 {watch.name || "Name"}
@@ -359,7 +371,10 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
+
                     userData?.card?.design?.font_style?.secondary_text_color,
+                    fontFamily: regularFont
+
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -369,7 +384,10 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
+
                     userData?.card?.design?.font_style?.secondary_text_color,
+                    fontFamily: regularFont
+
                 }}
               >
                 {watch.company || "Company"}
@@ -379,7 +397,10 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
+
                     userData?.card?.design?.font_style?.secondary_text_color,
+                    fontFamily: regularFont
+
                 }}
               >
                 {watch.location || "Location"}
@@ -502,6 +523,7 @@ const Mobileprev = ({
                   color:
                     colors.prmTxtColor ||
                     userData?.card?.design?.font_style?.primary_text_color,
+                    fontFamily: boldFont
                 }}
               >
                 {watch.name || "Name"}
@@ -511,7 +533,10 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
+
                     userData?.card?.design?.font_style?.secondary_text_color,
+                    fontFamily: regularFont
+
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -524,6 +549,7 @@ const Mobileprev = ({
                     userData?.card?.design?.font_style?.secondary_text_color,
 
                   textAlign: "center",
+                  fontFamily: regularFont
                 }}
               >
                 {watch.company || "Company"}
@@ -533,7 +559,10 @@ const Mobileprev = ({
                 style={{
                   color:
                     colors.secTxtColor ||
+
                     userData?.card?.design?.font_style?.secondary_text_color,
+                    fontFamily: regularFont
+
                 }}
               >
                 {watch.location || "Location"}
@@ -625,6 +654,7 @@ const Mobileprev = ({
                 color:
                   colors.prmTxtColor ||
                   userData?.card?.design?.font_style?.primary_text_color,
+                  fontFamily: boldFont
               }}
             >
               {watch.name || "Name"}
@@ -634,7 +664,10 @@ const Mobileprev = ({
               style={{
                 color:
                   colors.secTxtColor ||
+
                   userData?.card?.design?.font_style?.secondary_text_color,
+                  fontFamily: regularFont
+
               }}
             >
               {watch.jobtitle || "Job Title"}
@@ -644,7 +677,10 @@ const Mobileprev = ({
               style={{
                 color:
                   colors.secTxtColor ||
+
                   userData?.card?.design?.font_style?.secondary_text_color,
+                  fontFamily: regularFont
+
               }}
             >
               {watch.company || "Company"}
@@ -654,7 +690,10 @@ const Mobileprev = ({
               style={{
                 color:
                   colors.secTxtColor ||
+
                   userData?.card?.design?.font_style?.secondary_text_color,
+                  fontFamily: regularFont
+
               }}
             >
               {watch.location || "Location"}
@@ -724,7 +763,14 @@ const Mobileprev = ({
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+
+                      textAlign:
+                        userData?.card?.design?.layout === "center"
+                          ? "center"
+                          : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
+
+
                     }}
                   >
                     Clickable Links
@@ -769,6 +815,7 @@ const Mobileprev = ({
                                 colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
+                                  fontFamily: regularFont
                             }}
                           >
                             {link.text}
@@ -804,7 +851,13 @@ const Mobileprev = ({
                           colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                        textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+
+                        textAlign:
+                          userData?.card?.design?.layout === "center"
+                            ? "center"
+                            : "left", // Dynamically set text alignment
+                            fontFamily: boldFont
+
                       }}
                     >
                       Multimedia
@@ -877,6 +930,7 @@ const Mobileprev = ({
                               layout === "center"
                                 ? "center"
                                 : "left", // Dynamically set text alignment
+                                fontFamily:mediumFont
                           }}
                         >
                           YouTube Video
@@ -946,6 +1000,7 @@ const Mobileprev = ({
                           layout === "center"
                             ? "center"
                             : "left", // Dynamically set text alignment
+                            fontFamily: boldFont
                       }}
                     >
                       Contact Form
@@ -1065,9 +1120,10 @@ const Mobileprev = ({
                           colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
+                            fontFamily:semiboldFont
                       }}
                     >
-                      <span className="mp-btn-text-leftalign">
+                      <span className="mp-btn-text-leftalign" style={{fontFamily:semiboldFont}}>
                         {loading ? "Loading..." : "Submit"}
                       </span>
                     </button>
@@ -1101,6 +1157,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Voice Message
@@ -1136,6 +1193,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     About
@@ -1146,6 +1204,7 @@ const Mobileprev = ({
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
+                        fontFamily:mediumFont
                     }}
                   >
                     {userData?.about?.title}
@@ -1157,6 +1216,7 @@ const Mobileprev = ({
                         colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
+                          fontFamily:regularFont
                     }}
                   >
                     {userData?.about?.description}
@@ -1190,6 +1250,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Document
@@ -1252,6 +1313,7 @@ const Mobileprev = ({
                         colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
+                          fontFamily:regularFont
                     }}
                   >
                     Flourish Profile
@@ -1290,6 +1352,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Team Member Details{" "}
@@ -1303,6 +1366,7 @@ const Mobileprev = ({
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
+                              fontFamily:regularFont
                         }}
                       >
                         Name :{" "}
@@ -1325,6 +1389,7 @@ const Mobileprev = ({
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
+                              fontFamily:regularFont
                         }}
                       >
                         Designation :{" "}
@@ -1347,6 +1412,7 @@ const Mobileprev = ({
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
+                              fontFamily:regularFont
                         }}
                       >
                         Number :{" "}
@@ -1393,6 +1459,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Address
@@ -1403,6 +1470,7 @@ const Mobileprev = ({
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
+                        fontFamily:mediumFont
                     }}
                   >
                     {userData?.address?.title}
@@ -1414,6 +1482,7 @@ const Mobileprev = ({
                         colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
+                          fontFamily:regularFont
                     }}
                   >
                     {userData?.address?.address}
@@ -1447,6 +1516,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Time sensitive offer
@@ -1507,6 +1577,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Social Proof
@@ -1543,6 +1614,7 @@ const Mobileprev = ({
                               colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
+                                fontFamily:semiboldFont
                           }}
                         >
                           {userData.socialProof?.digit[index]}+
@@ -1554,6 +1626,7 @@ const Mobileprev = ({
                               colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
+                                fontFamily:regularFont
                           }}
                         >
                           {item}
@@ -1591,6 +1664,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Photos
@@ -1647,6 +1721,7 @@ const Mobileprev = ({
                         layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
+                          fontFamily: boldFont
                     }}
                   >
                     Product gallery
@@ -1663,11 +1738,11 @@ const Mobileprev = ({
                               className="mp-img-r-curve-l-a"
                             />
                           </div>
-                          <p className="mp-pic-title-p-g">{pdetail.title}</p>
-                          <p className="mp-pic-desc-p-g">
+                          <p className="mp-pic-title-p-g" style={{fontFamily:mediumFont}}>{pdetail.title}</p>
+                          <p className="mp-pic-desc-p-g" style={{fontFamily:regularFont}}>
                             {pdetail.description}
                           </p>
-                          <p className="mp-price-p-g">
+                          <p className="mp-price-p-g" >
                             Price : {pdetail.price}
                           </p>
                           <button
@@ -1680,7 +1755,7 @@ const Mobileprev = ({
                                   ?.secondary_color,
                             }}
                           >
-                            <span className="mp-btn-text-leftalign">
+                            <span className="mp-btn-text-leftalign" style={{fontFamily:semiboldFont}}>
                               Submit
                             </span>
                           </button>
@@ -1814,7 +1889,7 @@ const Mobileprev = ({
                       }}
                       onClick={handleButtonClick}
                     >
-                      <span className="btn-visit-txt">{cta?.btn_text}</span>
+                      <span className="btn-visit-txt" style={{fontFamily:semiboldFont}}>{cta?.btn_text}</span>
                     </button>
                   )}
 
@@ -1833,7 +1908,7 @@ const Mobileprev = ({
                         cursor: "pointer",
                       }}
                     >
-                      <span className="btn-visit-txt">Translate</span>
+                      <span className="btn-visit-txt" style={{fontFamily:semiboldFont}}>Translate</span>
                     </button>
                   )}
                 </div>
@@ -1859,7 +1934,10 @@ const Mobileprev = ({
                   style={{
                     color:
                       colors.secTxtColor ||
+
                       userData?.card?.design?.font_style?.secondary_text_color,
+                      fontFamily:regularFont
+
                   }}
                 >
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -1870,6 +1948,7 @@ const Mobileprev = ({
                     color:
                       colors.prmTxtColor ||
                       userData?.card?.design?.font_style?.primary_text_color,
+                      fontFamily:mediumFont
                   }}
                 >
                   Created From : <img src={flogo} alt="" />
@@ -1902,6 +1981,7 @@ const Mobileprev = ({
                 color:
                   colors.prmTxtColor ||
                   userData?.card?.design?.font_style?.primary_text_color,
+                  fontFamily:semiboldFont
               }}
               onClick={handleShareButtonClick}
             >
@@ -1918,6 +1998,7 @@ const Mobileprev = ({
                 color:
                   colors.prmTxtColor ||
                   userData?.card?.design?.font_style?.primary_text_color,
+                  fontFamily:semiboldFont
               }}
             >
               Save Contact

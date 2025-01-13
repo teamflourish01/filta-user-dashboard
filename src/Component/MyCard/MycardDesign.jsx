@@ -137,7 +137,7 @@ const DesignComponent = ({
     fetchFonts();
   }, []);
   const uniqueFontFamilies = [...new Set(fonts.map((font) => font.family))];
-  
+
   console.log("fontFmly style", fontFmly);
 
   useEffect(() => {
@@ -348,9 +348,7 @@ const DesignComponent = ({
                             id="thr-color-code"
                             name="prmColor"
                             placeholder="#000000"
-                            value={
-                              colors.prmColor 
-                            }
+                            value={colors.prmColor}
                             onChange={handleColorChangee}
                           />
 
@@ -358,9 +356,7 @@ const DesignComponent = ({
                             type="color"
                             id="thr-color-picker"
                             name="prmColor"
-                            value={
-                              colors.prmColor 
-                            }
+                            value={colors.prmColor}
                             ref={refs.prmColor}
                             onChange={handleColorChangee}
                           />
@@ -385,9 +381,7 @@ const DesignComponent = ({
                             id="thr-color-code"
                             placeholder="#000000"
                             name="secdClor"
-                            value={
-                              colors.secdClor 
-                            }
+                            value={colors.secdClor}
                             onChange={handleColorChangee}
                           />
 
@@ -395,9 +389,7 @@ const DesignComponent = ({
                             type="color"
                             id="thr-color-picker"
                             name="secdClor"
-                            value={
-                              colors.secdClor 
-                            }
+                            value={colors.secdClor}
                             ref={refs.secdClor}
                             onChange={handleColorChangee}
                           />
@@ -422,9 +414,7 @@ const DesignComponent = ({
                             id="thr-color-code"
                             placeholder="#000000"
                             name="natClor"
-                            value={
-                              colors.natClor 
-                            }
+                            value={colors.natClor}
                             onChange={handleColorChangee}
                           />
 
@@ -432,9 +422,7 @@ const DesignComponent = ({
                             type="color"
                             id="thr-color-picker"
                             name="natClor"
-                            value={
-                              colors.natClor 
-                            }
+                            value={colors.natClor}
                             ref={refs.natClor}
                             onChange={handleColorChangee}
                           />
@@ -515,9 +503,7 @@ const DesignComponent = ({
                               id="thr-color-code"
                               placeholder="#000000"
                               name="prmTxtColor"
-                              value={
-                                colors.prmTxtColor 
-                              }
+                              value={colors.prmTxtColor}
                               onChange={handleColorChangee}
                             />
 
@@ -525,9 +511,7 @@ const DesignComponent = ({
                               type="color"
                               id="thr-color-picker"
                               name="prmTxtColor"
-                              value={
-                                colors.prmTxtColor 
-                              }
+                              value={colors.prmTxtColor}
                               ref={refs.prmTxtColor}
                               onChange={handleColorChangee}
                             />
@@ -553,9 +537,7 @@ const DesignComponent = ({
                               id="thr-color-code"
                               placeholder="#000000"
                               name="secTxtColor"
-                              value={
-                                colors.secTxtColor 
-                              }
+                              value={colors.secTxtColor}
                               onChange={handleColorChangee}
                             />
 
@@ -563,9 +545,7 @@ const DesignComponent = ({
                               type="color"
                               id="thr-color-picker"
                               name="secTxtColor"
-                              value={
-                                colors.secTxtColor
-                              }
+                              value={colors.secTxtColor}
                               ref={refs.secTxtColor}
                               onChange={handleColorChangee}
                             />
