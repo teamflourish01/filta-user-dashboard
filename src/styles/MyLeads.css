@@ -5,14 +5,14 @@
 }
 .div {
   padding-right: 25px;
-  height: 100%;
+  height: calc(100% - 4px);
 }
 .my-lead-container {
   width: 100%;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 10px;
   border: 5px solid rgba(239, 241, 243, 1);
-  height: calc(100% - 6px);
+  height: 100%;
   /* overflow-y: scroll;
   scrollbar-color: #ccc white;
   scrollbar-width: thin; */
@@ -383,7 +383,9 @@
 .lead-table {
   border: 10px solid #eff1f3;
   /* padding: 10px; */
-  height: 200px;
+  /* height: 200px; */
+  height: calc(100% - 400px);
+
   margin: 8px 25px;
   border-radius: 5px;
   background-color: #eff1f3;
@@ -391,11 +393,10 @@
 .bg-w-try {
   background-color: white;
   border-radius: 5px;
-  height: 200px;
+  /* height: 200px; */
+  height: calc(100% - 0px);
   overflow-y: scroll;
   scrollbar-width: thin;
-  
-
 }
 .p-40 {
   padding: 15px 0 15px 40px;
@@ -461,4 +462,56 @@
   .p-40 {
     padding: 15px 0 15px 15px;
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.pagination li {
+  margin: 0 5px;
+  cursor: pointer;
+  border: 1px solid #eff1f3;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.pagination li a {
+  text-decoration: none;
+  color: black;
+  padding: 5px 10px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.pagination li.active {
+  /* background-color: #ffffff; */
+}
+
+.pagination li.active a {
+  color: black;
+  background-color: #d4d7db;
+  font-weight: bold;
+}
+
+.pagination li a:hover {
+  background-color: #d4d7db;
+  border-radius: 5px;
+}
+
+.pagination li.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.pagination li.break a {
+  background-color: transparent;
+  border: none;
+  cursor: default;
 }
