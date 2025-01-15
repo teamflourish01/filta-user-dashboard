@@ -111,7 +111,11 @@ const Flip = () => {
         {/* <--- Top Front Card ---> */}
         <div className="front">
           <div className="flip-front-logo-c">
-            <img src={`${uri}/card/${userData?.card?.logoimg}`} alt="" className="user-logo-f-f" />
+            <img
+              src={`${uri}/card/${userData?.card?.logoimg}`}
+              alt=""
+              className="user-logo-f-f"
+            />
           </div>
           <div className="hr-line-l1-flip"></div>
           <div className="user-card-name-mobile-flip">
@@ -151,10 +155,19 @@ const Flip = () => {
           >
             {/* <div className="card white-card visible"> */}
             <div className="user-profile-flip-content">
-              <img src={UserProfile} alt="" className="user-pic-flip-b" />
+              <img
+                className="user-pic-flip-b"
+                src={`${uri}/card/${userData?.card?.profileimg}`}
+                alt="Profile-img"
+              />
+              {/* <img src={UserProfile} alt="" className="user-pic-flip-b" /> */}
             </div>
             <div className="user-logo-flip-circle">
-              <img src={`${uri}/card/${userData?.card?.logoimg}`} alt="" className="user-logo-img-flip-size"/>
+              <img
+                src={`${uri}/card/${userData?.card?.logoimg}`}
+                alt=""
+                className="user-logo-img-flip-size"
+              />
             </div>
             <div className="user-detail-flip-content">
               <div className="dashed-border-content">

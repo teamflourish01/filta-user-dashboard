@@ -347,10 +347,10 @@ const EmailSignature = () => {
                   <textarea className="e-txtarea" name="disclaimer" onChange={handleInputChange}/>
                 </div>
               </div>
-              <div className="e-buttons">
+              {/* <div className="e-buttons">
                 <button className="e-cancel">Cancel</button>
                 <button className="e-save">Save</button>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>

@@ -5,12 +5,12 @@ padding: 172px 0;
 }
 .req-outer-white-color{
   overflow-y: scroll;
-    height: 90vh;
+    height: 100%;
     scrollbar-width: thin;
     scrollbar-color: #aeaeae white;
     background: white;
     overflow-y: scroll;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 

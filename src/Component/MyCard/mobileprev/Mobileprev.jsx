@@ -1742,7 +1742,7 @@ console.log(mediumFont);
                           <p className="mp-pic-desc-p-g" style={{fontFamily:regularFont}}>
                             {pdetail.description}
                           </p>
-                          <p className="mp-price-p-g" >
+                          <p className="mp-price-p-g" style={{fontFamily:mediumFont}}>
                             Price : {pdetail.price}
                           </p>
                           <button
@@ -1778,6 +1778,8 @@ console.log(mediumFont);
                             colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
+                              fontFamily:mediumFont
+                              
                         }}
                       >
                         {userData?.productGallary[0]?.title}
@@ -1789,6 +1791,7 @@ console.log(mediumFont);
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
+                              fontFamily:regularFont
                         }}
                       >
                         {userData?.productGallary[0]?.description}
@@ -1800,6 +1803,7 @@ console.log(mediumFont);
                             colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
+                              fontFamily:mediumFont
                         }}
                       >
                         Price : {userData?.productGallary[0]?.price}
@@ -1827,6 +1831,7 @@ console.log(mediumFont);
                                 colors.prmTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.primary_text_color,
+                                  fontFamily:semiboldFont
                             }}
                           >
                             {" "}

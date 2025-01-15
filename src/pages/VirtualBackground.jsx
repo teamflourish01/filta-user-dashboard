@@ -4,7 +4,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import userContext from "../context/userDetails";
 import dummyprofile from "../images/digitalphoto.png";
 
-
 import "../styles/VirtualBackground.css";
 import vbfiltaqr from "../images/VirtualBackgroundimage/vbfiltaqr.svg";
 import indoor1 from "../images/VirtualBackgroundimage/indoor/img1.jpg";
@@ -111,6 +110,7 @@ const VirtualBackground = () => {
   const uri = process.env.REACT_APP_DEV_URL;
 
   const [selectedCategory, setSelectedCategory] = useState("All");
+  
 
   // Filter images based on selected category
   const filteredImages =
@@ -141,20 +141,24 @@ const VirtualBackground = () => {
       [field]: !prevFields[field],
     }));
   };
-  // const ImageSelectorPreview = ({ filteredImages, fields }) => {
-  // State to store the selected image
-  const [selectedImage, setSelectedImage] = useState(true);
-  // Set the first image as the default selected image
-  // useEffect(() => {
-  //   if (filteredImages.length > 0) {
-  //     setSelectedImage(filteredImages[0]);
-  //   }
-  // }, [filteredImages]);
+  
 
-  // Function to handle image selection
-  const handleImageSelect = (image) => {
-    setSelectedImage(image);
-  };
+// State to track selected image
+const [selectedImage, setSelectedImage] = useState(
+  images.find((image) => image.id === 4) // Default to id: 4
+);
+
+// Function to handle image selection
+const handleImageSelect = (image) => {
+  setSelectedImage(image);
+};
+  // // State to store the selected image
+  // const [selectedImage, setSelectedImage] = useState(true);
+
+  // // Function to handle image selection
+  // const handleImageSelect = (image) => {
+  //   setSelectedImage(image);
+  // };
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -200,6 +204,8 @@ const VirtualBackground = () => {
     }
   };
   //Preview button Animation Function End
+  
+
   return (
     <>
       <div className="VirtualBackground-container">
@@ -279,8 +285,11 @@ const VirtualBackground = () => {
                                     className="vb-profile-img vb-profile-photo"
                                   />
                                 ) : (
-                                  <img src={dummyprofile} alt="profile-img" className="vb-profile-img vb-profile-photo"/>
-
+                                  <img
+                                    src={dummyprofile}
+                                    alt="profile-img"
+                                    className="vb-profile-img vb-profile-photo"
+                                  />
                                 )}
                                 {fields.name && (
                                   <p className="vb-n-500">
@@ -455,22 +464,7 @@ const VirtualBackground = () => {
                     </div>
                   ))}
                 </div>
-                {/* <div className="vb-img-display-grid">
-              <div className="bv-img-select">
-                {filteredImages.map((image) => (
-                  <div
-                    key={image.id}
-                    style={{ borderRadius: "10px", overflow: "hidden" }}
-                  >
-                    <img
-                      src={image.src}
-                      alt={`Imag ${image.id}`}
-                      className="vb-all-img"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div> */}
+
                 <div className="vb-width">
                   <div className="vb-img-display-grid">
                     <div className="bv-img-select">
@@ -500,17 +494,19 @@ const VirtualBackground = () => {
         {/* right pannel */}
         <div className="vb-rightpannel">
           <div className="vb-user-name">
-          {userData?.card?.profileimg ? (
-                    <img
-                      src={`${uri}/card/${userData?.card?.profileimg}`}
-                      alt="profile-img"
-                      className="img-standard-profile"
-                    />
-                  ):
-                  (
-                    <img src={dummyprofile} alt="profile-img" className="img-standard-profile"/>
-
-                  )}
+            {userData?.card?.profileimg ? (
+              <img
+                src={`${uri}/card/${userData?.card?.profileimg}`}
+                alt="profile-img"
+                className="img-standard-profile"
+              />
+            ) : (
+              <img
+                src={dummyprofile}
+                alt="profile-img"
+                className="img-standard-profile"
+              />
+            )}
             <div className="vb-user-n-m">
               <p className="vb-name">{userData?.card?.name}</p>
               <p className="vb-gamil">{userData?.card?.email}</p>
