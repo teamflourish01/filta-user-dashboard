@@ -16,6 +16,7 @@ import dummyprofile from "../../images/digitalphoto.png";
 const Sidebar = () => {
   
   // const [activeItem, setActiveItem] = useState(" ");
+  // const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { userData } = useContext(userContext);
@@ -50,7 +51,7 @@ const Sidebar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
+ 
   return (
     <div className="sidebar"
     onMouseEnter={() => document.querySelector(".nav-title").classList.add("hovered")}
@@ -94,12 +95,16 @@ const Sidebar = () => {
         {isProfileMenuOpen && (
           <div className="profile-dropdown-menu">
             <ul>
+            <Link className="sb-link" to="/request-feature" onClick={closeProfileMenu}>
               <li>
-                <Link to="/request-feature">Request a feature</Link>
+                Request a feature
               </li>
+              </Link>
+              <Link className="sb-link" onClick={handleLogOut}>
               <li>
-                <Link onClick={handleLogOut}>Logout</Link>
+                Logout
               </li>
+              </Link>
             </ul>
           </div>
         )}

@@ -121,15 +121,21 @@ const Navbar = () => {
       {isOpen && (
         <div className="dropdown-menu">
           <ul>
-            <li onClick={closeMenu}>
-              <Link to="/subscription">Subscription</Link>
+          <Link className="linka" to="/subscription" onClick={closeMenu}>
+            <li >
+               Subscription
             </li>
-            <li onClick={closeMenu}>
-              <Link to="/support">Support</Link>
+            </Link>
+            <Link className="linka" to="/support" onClick={closeMenu}>
+            <li >
+             Support
             </li>
-            <li onClick={closeMenu}>
-              <Link to="/rate-us">Rate Us & Feedback</Link>
+            </Link>
+            <Link className="linka" to="/rate-us" onClick={closeMenu}>
+            <li >
+              Rate Us & Feedback
             </li>
+            </Link>
           </ul>
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PremiumPlanDetails from "../PremiumPlanDetails/PremiumPlanDetails";
 import Sprofile from "../../images/profile.svg";
 // import scanner from "../../images/scanner.svg";
@@ -18,9 +18,12 @@ import theme2 from "../../images/NFC-Theme/theme2.svg";
 import theme3 from "../../images/NFC-Theme/theme3.svg";
 import theme4 from "../../images/NFC-Theme/theme4.svg";
 import theme5 from "../../images/NFC-Theme/theme5.svg";
+import userContext from "../../context/userDetails";
 
 const PremiumPlan = () => {
   const navigate = useNavigate();
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const [selectedCard, setSelectedCard] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -39,10 +42,24 @@ const PremiumPlan = () => {
   const [logoHeight, setLogoHeight] = useState();
   const [selectedLayout, setSelectedLayout] = useState("layout1");
   const [formData, setFormData] = useState({
-    name: "",
-    info: "",
-    email: "",
-    mobileNumber: "",
+    cardLayout:userData?.nfcPremium?.cardLayout || "layout1",
+    logo:userData?.nfcPremium?.logo || "",
+    logoMaxWidth:userData?.nfcPremium?.logoMaxWidth || "",
+    logoMaxHeight:userData?.nfcPremium?.logoWidth || "",
+    name: userData?.nfcPremium?.name || "",
+    additional:userData?.nfcPremium?.additional || "",
+    email:userData?.nfcPremium?.email || "",
+    mobile:userData?.nfcPremium?.mobile || "",
+    card_url:userData?.nfcPremium?.card_url || "",
+    cardBackgroundColor:userData?.nfcPremium?.cardBackgroundColor || "",
+    accentColor:userData?.nfcPremium?.accentColor || "",
+    cardTheme:userData?.nfcPremium?.cardTheme || "",
+    font:userData?.nfcPremium?.font || "",
+    primaryTextColor:userData?.nfcPremium?.primaryTextColor || "",
+    secondaryTextColor:userData?.nfcPremium?.secondaryTextColor || "",
+    qrCodeColor:userData?.nfcPremium?.qrCodeColor || "",
+    hideNfc:userData?.nfcPremium?.hideNfc || true,
+    hideFilta:userData?.nfcPremium?.hideFilta || true,
   });
 
   useEffect(() => {
@@ -53,7 +70,7 @@ const PremiumPlan = () => {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [getUserData]);
 
   const imageUrls = [theme1, theme2, theme3, theme4, theme5];
 
@@ -150,7 +167,7 @@ const PremiumPlan = () => {
                       NFC card live preview
                     </div>
                     <div className="layout-preview">
-                      {selectedLayout === "layout1" && (
+                      {formData.cardLayout === "layout1" && (
                         <Layout1
                           cardColor={cardColor}
                           logoWidth={logoWidth}
@@ -174,7 +191,7 @@ const PremiumPlan = () => {
                           }
                         />
                       )}
-                      {selectedLayout === "layout2" && (
+                      {formData.cardLayout === "layout2" && (
                         <Layout2
                           cardColor={cardColor}
                           logoWidth={logoWidth}
@@ -197,7 +214,7 @@ const PremiumPlan = () => {
                           }
                         />
                       )}
-                      {selectedLayout === "layout3" && (
+                      {formData.cardLayout === "layout3" && (
                         <Layout3
                           cardColor={cardColor}
                           logoWidth={logoWidth}
@@ -308,7 +325,7 @@ const PremiumPlan = () => {
                   NFC card live preview
                 </div>
                 <div className="layout-preview">
-                  {selectedLayout === "layout1" && (
+                  {formData.cardLayout === "layout1" && (
                     <Layout1
                       cardColor={cardColor}
                       logoWidth={logoWidth}
@@ -328,7 +345,7 @@ const PremiumPlan = () => {
                       }
                     />
                   )}
-                  {selectedLayout === "layout2" && (
+                  {formData.cardLayout === "layout2" && (
                     <Layout2
                       cardColor={cardColor}
                       logoWidth={logoWidth}
@@ -347,7 +364,7 @@ const PremiumPlan = () => {
                       }
                     />
                   )}
-                  {selectedLayout === "layout3" && (
+                  {formData.cardLayout === "layout3" && (
                     <Layout3
                       cardColor={cardColor}
                       logoWidth={logoWidth}

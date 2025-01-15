@@ -240,6 +240,7 @@ p {
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  object-fit: cover;
 }
 .vb-user-n-m p {
   margin: 0;

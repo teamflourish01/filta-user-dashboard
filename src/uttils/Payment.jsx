@@ -16,7 +16,7 @@ export const loadRazorpay = async () => {
   };
   const createOrder = async (amount) => {
     try {
-      let data = await fetch(`http://localhost:8080/payment/create-order`, {
+      let data = await fetch(`http://192.168.1.18:8080/payment/create-order`, {
         method: "POST",
         body: JSON.stringify({ amount: amount, currency: "INR" }),
         headers: {
@@ -52,7 +52,7 @@ export const loadRazorpay = async () => {
          // Send payment details to backend for verification
          console.log(response,"res");
          const verificationResponse = await fetch(
-           "http://localhost:8080/payment/verify",
+           "http://192.168.1.18:8080/payment/verify",
            {
              method: "POST",
              headers: {

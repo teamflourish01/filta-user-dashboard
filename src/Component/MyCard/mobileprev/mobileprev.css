@@ -133,6 +133,7 @@
 }
 .circle img {
   border-radius: 50%; /* Makes the image circular */
+  object-fit: cover;
 }
 
 .mp-logo-profile-c-l-a {

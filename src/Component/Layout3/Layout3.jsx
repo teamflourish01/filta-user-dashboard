@@ -19,7 +19,7 @@ const Layout3 = ({
   selectedFile,
   formData,
   selectedImage,
-  useBackgroundColor
+  useBackgroundColor,
 }) => {
   return (
     <div>
@@ -30,10 +30,10 @@ const Layout3 = ({
           // style={{ backgroundColor: cardColor }}
           style={{
             background: useBackgroundColor
-              ? cardColor 
+              ? formData.cardBackgroundColor
               : selectedImage
-              ? `url(${selectedImage}) center / cover no-repeat` 
-              : cardColor,
+              ? `url(${selectedImage}) center / cover no-repeat`
+              : formData.cardBackgroundColor,
           }}
         >
           {showNfcIcon && (
@@ -63,10 +63,10 @@ const Layout3 = ({
           // style={{ backgroundColor: cardColor }}
           style={{
             background: useBackgroundColor
-              ? cardColor 
+              ? formData.cardBackgroundColor
               : selectedImage
-              ? `url(${selectedImage}) center / cover no-repeat` 
-              : cardColor,
+              ? `url(${selectedImage}) center / cover no-repeat`
+              : formData.cardBackgroundColor,
           }}
         >
           {showFiltaLogo && (
@@ -80,24 +80,27 @@ const Layout3 = ({
           <div className="scanner-container-premium">
             <div
               className="lay1-email-user l1-user-designation"
-              style={{ color: secondaryTextColor }}
+              style={{ color: formData.secondaryTextColor }}
             >
-              <p className="l1-user-name" style={{ color: primaryTextColor }}>
+              <p
+                className="l1-user-name"
+                style={{ color: formData.primaryTextColor }}
+              >
                 {formData.name}
               </p>
               <p
                 className="l1-user-designation lay1-mobile-user"
-                style={{ color: secondaryTextColor }}
+                style={{ color: formData.secondaryTextColor }}
               >
-                {formData.info}
+                {formData.additional}
               </p>
-              {showEmailId && <p> {formData.email }</p>}
+              {showEmailId && <p> {formData.email}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
-                  style={{ color: secondaryTextColor }}
+                  style={{ color: formData.secondaryTextColor }}
                 >
-                  {formData.mobileNumber}
+                  {formData.mobile}
                 </p>
               )}
             </div>
