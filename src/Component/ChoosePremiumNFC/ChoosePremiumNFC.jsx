@@ -106,7 +106,7 @@ const ChoosePremiumNFC = () => {
               type="button"
               className="create-now-btn"
               onClick={() =>{
-                if(userData?.premium){
+                if(!userData?.premium){
                   return  handlePayment({
                     amount: 1399,
                     name: userData?.card?.name,

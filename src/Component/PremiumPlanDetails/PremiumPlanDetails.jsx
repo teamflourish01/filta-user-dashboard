@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "../PremiumPlanDetails/PremiumPlanDetails.css";
 import editPen from "../../images/pickup.svg";
 import { SlArrowDown } from "react-icons/sl";
@@ -50,6 +50,7 @@ const PremiumPlanDetails = ({
   const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
   const [qrCodeColor, setQrCodeColor] = useState("#000000");
+  const [logoUrl,setLogoUrl]=useState(`${uri}/nfcpremium/${formData?.logo}`)
   // const [selectedCard, setSelectedCard] = useState(0);
 
   const cardColorRef = useRef(null);
@@ -65,7 +66,7 @@ const PremiumPlanDetails = ({
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-      logo: selectedFile,
+
     }));
   };
 
@@ -80,22 +81,26 @@ const PremiumPlanDetails = ({
   const handleClearLogo = () => {
     setSelectedFile(null);
   };
-  let objUrl={}
-  const handleFileChange = (e) => {
+  const handleFileChange = (e,setter,setterUrl) => {
+
     const file = e.target.files[0];
     if (file) {
+      setter(file);
       const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedFile(reader.result);
+      reader.onloadend = () => {
+        
+        setterUrl(reader.result)
+      
         // setFormData((prevFormData) => ({
         //   ...prevFormData,
         //   logo: reader.result, // Save the file URL as logo
         // }));
-        console.log(reader.result, "result");
-        reader.readAsDataURL(file);
-      };
-      e.target.value = null;
+        
+      }
+      // e.target.value = null;
+      reader.readAsDataURL(file);
     }
+    e.target.value=null
   };
 
   const handleEditClick = (ref) => {
@@ -152,6 +157,8 @@ const PremiumPlanDetails = ({
 
   const handleSave = async (e) => {
     e.preventDefault();
+
+    
     let newData = new FormData();
     Object.keys(formData).forEach((key) => {
       newData.append(key, formData[key]);
@@ -169,12 +176,15 @@ const PremiumPlanDetails = ({
         }
       );
 
-      // console.log(response, "standardp");
-      alert(`${response?.data?.message}`);
+      console.log(response, "standardp");
+      alert(`${response?.data?.msg}`);
     } catch (error) {
       console.error("Error saving About Data:", error);
     }
   };
+  useEffect(()=>{
+    getUserData()
+  },[])
 
   return (
     <>
@@ -230,7 +240,7 @@ const PremiumPlanDetails = ({
                   <p className="Premium-customize-your-title">Add Logo</p>
                   <div className="add-logo-c">
                     {/* Display selected file preview if available */}
-                    {selectedFile ? (
+                    {selectedFile || userData?.nfcPremium?.logo ? (
                       <>
                         <div onClick={handleLogoClick}>
                           <input
@@ -239,13 +249,13 @@ const PremiumPlanDetails = ({
                             name="logo"
                             style={{ display: "none" }}
                             onChange={(e) => {
-                              handleFileChange(e);
+                              handleFileChange(e,setSelectedFile,setLogoUrl)
                               handleInputChange(e);
                             }}
                             accept="image/*" // Limit file types to images
                           />
                           <img
-                            src={selectedFile}
+                            src={`${uri}/nfcpremium/${userData?.nfcPremium?.logo}`}
                             alt="Selected logo"
                             className="selected-logo-preview"
                           />
@@ -261,11 +271,12 @@ const PremiumPlanDetails = ({
                           <input
                             type="file"
                             ref={fileInputRef}
+                            
                             name="logo"
                             style={{ display: "none" }}
                             // onChange={handleFileChange}
                             onChange={(e) => {
-                              handleFileChange(e);
+                              handleFileChange(e,setSelectedFile,setLogoUrl)
                               handleInputChange(e);
                             }}
                             accept="image/*" // Limit file types to images
@@ -273,6 +284,7 @@ const PremiumPlanDetails = ({
                           <p className="plus-icon">
                             <FaPlus />
                           </p>
+                          
                           <div className="add-logo-txt">Add Logo</div>
                         </div>
                       </>
@@ -337,7 +349,7 @@ const PremiumPlanDetails = ({
                   type="text"
                   className="Premium-cutomize-field-input"
                   name="name"
-                  value={formData.name}
+                  value={formData.name || userData?.nfcPremium?.name}
                   onChange={handleInputChange}
                 />
               </div>
