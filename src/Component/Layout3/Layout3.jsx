@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../Layout3/Layout3.css";
 import logol1 from "../../images/flogo.png";
 import nfc from "../../images/lay1nfc.svg";
 import filta from "../../images/lay1filta.svg";
 import scanner from "../../images/scanner.svg";
+import userContext from "../../context/userDetails";
 
 const Layout3 = ({
   cardColor,
@@ -20,7 +21,12 @@ const Layout3 = ({
   formData,
   selectedImage,
   useBackgroundColor,
+  logoUrl,
+  setLogoUrl
 }) => {
+  const { userData } = useContext(userContext);
+  const uri = process.env.REACT_APP_DEV_URL;
+
   return (
     <div>
       <div className="front-premium-card">
@@ -30,10 +36,10 @@ const Layout3 = ({
           // style={{ backgroundColor: cardColor }}
           style={{
             background: useBackgroundColor
-              ? formData.cardBackgroundColor
+              ? formData.cardBackgroundColor || userData?.nfcPremium?.cardBackgroundColor
               : selectedImage
               ? `url(${selectedImage}) center / cover no-repeat`
-              : formData.cardBackgroundColor,
+              : formData.cardBackgroundColor || userData?.nfcPremium?.cardBackgroundColor,
           }}
         >
           {showNfcIcon && (
@@ -44,7 +50,7 @@ const Layout3 = ({
           <div className="layout-1-front">
             <div className="layout-1-logo-c">
               <img
-                src={selectedFile}
+                src={selectedFile ? logoUrl : `${uri}/nfcpremium/${userData?.nfcPremium?.logo}`}
                 alt=""
                 className="layout-1-logo-size"
                 style={{
@@ -63,10 +69,10 @@ const Layout3 = ({
           // style={{ backgroundColor: cardColor }}
           style={{
             background: useBackgroundColor
-              ? formData.cardBackgroundColor
+              ? formData.cardBackgroundColor || userData?.nfcPremium?.cardBackgroundColor
               : selectedImage
               ? `url(${selectedImage}) center / cover no-repeat`
-              : formData.cardBackgroundColor,
+              : formData.cardBackgroundColor || userData?.nfcPremium?.cardBackgroundColor,
           }}
         >
           {showFiltaLogo && (
@@ -80,27 +86,27 @@ const Layout3 = ({
           <div className="scanner-container-premium">
             <div
               className="lay1-email-user l1-user-designation"
-              style={{ color: formData.secondaryTextColor }}
+              style={{ color: formData.secondaryTextColor || userData?.nfcPremium?.secondaryTextColor}}
             >
               <p
                 className="l1-user-name"
-                style={{ color: formData.primaryTextColor }}
+                style={{ color: formData.primaryTextColor || userData?.nfcPremium?.primaryTextColor}}
               >
-                {formData.name}
+                {formData.name || userData?.nfcPremium?.name}
               </p>
               <p
                 className="l1-user-designation lay1-mobile-user"
-                style={{ color: formData.secondaryTextColor }}
+                style={{ color: formData.secondaryTextColor || userData?.nfcPremium?.secondaryTextColor }}
               >
-                {formData.additional}
+                {formData.additional || userData?.nfcPremium?.additional}
               </p>
-              {showEmailId && <p> {formData.email}</p>}
+              {showEmailId && <p> {formData.email || userData?.nfcPremium?.email}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
-                  style={{ color: formData.secondaryTextColor }}
+                  style={{ color: formData.secondaryTextColor || userData?.nfcPremium?.secondaryTextColor}}
                 >
-                  {formData.mobile}
+                  {formData.mobile || userData?.nfcPremium?.mobile}
                 </p>
               )}
             </div>

@@ -84,19 +84,19 @@ const MyLeads = () => {
     const formattedLeads = (userData?.myLeads || []).map((lead) => {
       const formatDateTime = (dateTime) => {
         if (!dateTime) return "N/A";
-        const formattedDate = new Date(dateTime).toLocaleDateString("en-GB"); // dd-mm-yyyy format
+        const formattedDate = new Date(dateTime).toLocaleDateString("en-GB"); 
         const formattedTime = new Date(dateTime).toLocaleTimeString("en-US", {
           hour: "2-digit",
           minute: "2-digit",
           hour12: false, // 24-hour format
         });
-        return `${formattedDate} ${formattedTime}`; // Combine date and time
+        return `${formattedDate} ${formattedTime}`; 
       };
   
       return {
         ...lead,
-        createdAt: formatDateTime(lead?.createdAt), // Format createdAt
-        updatedAt: formatDateTime(lead?.updatedAt), // Format updatedAt
+        createdAt: formatDateTime(lead?.createdAt), 
+        updatedAt: formatDateTime(lead?.updatedAt), 
       };
     });
   
@@ -108,16 +108,9 @@ const MyLeads = () => {
     // Export as Excel file
     XLSX.writeFile(workbook, "Leads.xlsx");
   };
-  
-  // const handleExportToExcel = () => {
-  //   const worksheet = XLSX.utils.json_to_sheet(userData?.myLeads || []);
-  //   const workbook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
-  //   XLSX.writeFile(workbook, "Leads.xlsx");
-  // };
 
   const handlePageClick = (event) => {
-    setCurrentPage(event.selected); // Update current page index
+    setCurrentPage(event.selected); 
   };
 
   const startIndex = currentPage * leadsPerPage;
