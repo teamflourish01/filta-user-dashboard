@@ -23,6 +23,7 @@ const ChoosePremiumNFC = () => {
   const handleSuccess = () => {
     navigate("/nfc-card/premium-plan");
   };
+
   useEffect(() => {
     
     getUserData()
@@ -104,15 +105,21 @@ const ChoosePremiumNFC = () => {
             <button
               type="button"
               className="create-now-btn"
-              onClick={() =>
-                handlePayment({
-                  amount: 1399,
-                  name: userData?.card?.name,
-                  email: userData?.email,
-                  mobile: filterMobile(),
-                  onSuccess: handleSuccess,
-                  userId: userData?._id
-                })
+              onClick={() =>{
+                if(userData?.premium){
+                  return  handlePayment({
+                    amount: 1399,
+                    name: userData?.card?.name,
+                    email: userData?.email,
+                    mobile: filterMobile(),
+                    onSuccess: handleSuccess,
+                    userId: userData?._id
+                  })
+                }else{
+                 return  handleSuccess()
+                }
+              }
+               
               }
             >
               Buy Now

@@ -4,11 +4,11 @@ import logol1 from "../../images/flogo.png";
 import nfc from "../../images/lay1nfc.svg";
 import filta from "../../images/lay1filta.svg";
 import scanner from "../../images/scanner.svg";
-import theme1 from '../../images/NFC-Theme/theme1.svg';
-import theme2 from '../../images/NFC-Theme/theme2.svg';
-import theme3 from '../../images/NFC-Theme/theme3.svg';
-import theme4 from '../../images/NFC-Theme/theme4.svg';
-import theme5 from '../../images/NFC-Theme/theme5.svg';
+import theme1 from "../../images/NFC-Theme/theme1.svg";
+import theme2 from "../../images/NFC-Theme/theme2.svg";
+import theme3 from "../../images/NFC-Theme/theme3.svg";
+import theme4 from "../../images/NFC-Theme/theme4.svg";
+import theme5 from "../../images/NFC-Theme/theme5.svg";
 
 const Layout1 = ({
   cardColor,
@@ -26,12 +26,13 @@ const Layout1 = ({
   hideMobileNo,
   selectedCard,
   selectedImage,
-  useBackgroundColor
+  useBackgroundColor,
 }) => {
-  const hasLogoOrUserDetails = selectedFile && (formData.name || formData.info);
+  const hasLogoOrUserDetails =
+    selectedFile && (formData.name || formData.additional);
   const hideBackLine =
     (formData.email && formData.email && showEmailId) ||
-    (formData.mobileNumber && formData.mobileNumber && showMobileNo);
+    (formData.mobile && formData.mobile && showMobileNo);
 
   return (
     <div>
@@ -41,10 +42,10 @@ const Layout1 = ({
           className="front-side-card-design-premium"
           style={{
             background: useBackgroundColor
-              ? cardColor 
+              ? formData.cardBackgroundColor
               : selectedImage
-              ? `url(${selectedImage}) center / cover no-repeat` 
-              : cardColor,
+              ? `url(${selectedImage}) center / cover no-repeat`
+              : formData.cardBackgroundColor,
           }}
         >
           {showNfcIcon && (
@@ -66,7 +67,7 @@ const Layout1 = ({
           {hasLogoOrUserDetails && (
             <div
               className="hr-line-l1"
-              style={{ background: accentColorPremium }}
+              style={{ background: formData.accentColor }}
             ></div>
           )}
 
@@ -81,19 +82,22 @@ const Layout1 = ({
               {formData.info}
             </p>
           </div> */}
-          {formData.name || formData.info ? (
+          {formData.name || formData.additional ? (
             <div className="layout1-user-n-d">
               {formData.name && (
-                <p className="l1-user-name" style={{ color: primaryTextColor }}>
+                <p
+                  className="l1-user-name"
+                  style={{ color: formData.primaryTextColor }}
+                >
                   {formData?.name}
                 </p>
               )}
-              {formData.info && (
+              {formData.additional && (
                 <p
                   className="l1-user-designation lay1-mobile-user"
-                  style={{ color: secondaryTextColor }}
+                  style={{ color: formData.secondaryTextColor }}
                 >
-                  {formData.info || "information"}
+                  {formData.additional || "information"}
                 </p>
               )}
             </div>
@@ -108,10 +112,10 @@ const Layout1 = ({
           className="back-side-card-design-premium"
           style={{
             background: useBackgroundColor
-              ? cardColor 
+              ? formData.cardBackgroundColor
               : selectedImage
-              ? `url(${selectedImage}) center / cover no-repeat` 
-              : cardColor,
+              ? `url(${selectedImage}) center / cover no-repeat`
+              : formData.cardBackgroundColor,
           }}
         >
           {showFiltaLogo && (
@@ -126,21 +130,21 @@ const Layout1 = ({
             {hideBackLine && (
               <div
                 className="hr-line-l1-horizontal"
-                style={{ background: accentColorPremium }}
+                style={{ background: formData.accentColor }}
               ></div>
             )}
 
             <div
               className="lay1-email-user l1-user-designation"
-              style={{ color: secondaryTextColor }}
+              style={{ color: formData.secondaryTextColor }}
             >
               {showEmailId && <p> {formData.email}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
-                  style={{ color: secondaryTextColor }}
+                  style={{ color: formData.secondaryTextColor }}
                 >
-                  {formData.mobileNumber}
+                  {formData.mobile}
                 </p>
               )}
             </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "../PremiumPlanDetails/PremiumPlanDetails.css";
 import editPen from "../../images/pickup.svg";
 import { SlArrowDown } from "react-icons/sl";
@@ -6,12 +6,13 @@ import { FaPlus } from "react-icons/fa6";
 import "../StandardCustomizeDetail/StandardCustomizeDetail.css";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
-import theme1 from '../../images/NFC-Theme/theme1.svg';
-import theme2 from '../../images/NFC-Theme/theme2.svg';
-import theme3 from '../../images/NFC-Theme/theme3.svg';
-import theme4 from '../../images/NFC-Theme/theme4.svg';
-import theme5 from '../../images/NFC-Theme/theme5.svg';
-
+import theme1 from "../../images/NFC-Theme/theme1.svg";
+import theme2 from "../../images/NFC-Theme/theme2.svg";
+import theme3 from "../../images/NFC-Theme/theme3.svg";
+import theme4 from "../../images/NFC-Theme/theme4.svg";
+import theme5 from "../../images/NFC-Theme/theme5.svg";
+import axios from "axios";
+import userContext from "../../context/userDetails";
 
 const PremiumPlanDetails = ({
   cardColor,
@@ -40,8 +41,11 @@ const PremiumPlanDetails = ({
   setSelectedCard,
   imageUrls,
   useBackgroundColor,
-  setUseBackgroundColor
+  setUseBackgroundColor,
 }) => {
+  const uri = process.env.REACT_APP_DEV_URL;
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
@@ -61,6 +65,7 @@ const PremiumPlanDetails = ({
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
+      logo: selectedFile,
     }));
   };
 
@@ -75,17 +80,21 @@ const PremiumPlanDetails = ({
   const handleClearLogo = () => {
     setSelectedFile(null);
   };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  let objUrl={}
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         setSelectedFile(reader.result);
+        // setFormData((prevFormData) => ({
+        //   ...prevFormData,
+        //   logo: reader.result, // Save the file URL as logo
+        // }));
+        console.log(reader.result, "result");
+        reader.readAsDataURL(file);
       };
-      reader.readAsDataURL(file);
-
-      event.target.value = null;
+      e.target.value = null;
     }
   };
 
@@ -138,10 +147,35 @@ const PremiumPlanDetails = ({
   };
   const handleCardClick = (index) => {
     setSelectedCard(index);
-    console.log(useBackgroundColor, 'nn');
-    
+    console.log(useBackgroundColor, "nn");
   };
-  
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    let newData = new FormData();
+    Object.keys(formData).forEach((key) => {
+      newData.append(key, formData[key]);
+    });
+    newData.append("logo",selectedFile)
+    try {
+      const response = await axios.post(
+        `${uri}/nfcpremium/add`,
+        newData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: AuthorizationToken,
+          },
+        }
+      );
+
+      // console.log(response, "standardp");
+      alert(`${response?.data?.message}`);
+    } catch (error) {
+      console.error("Error saving About Data:", error);
+    }
+  };
+
   return (
     <>
       <>
@@ -154,30 +188,38 @@ const PremiumPlanDetails = ({
                   <p className="align-txt">Layout 1</p>
                   <input
                     type="radio"
-                    name="card-layout"
+                    name="cardLayout"
                     value="layout1"
-                    checked={selectedLayout === "layout1"} // Default checked
-                    onChange={handleLayoutChange}
+                    checked={formData.cardLayout === "layout1"} // Default checked
+                    // onChange={handleLayoutChange}
+                    onChange={(e) => {
+                      handleInputChange(e);
+                    }}
                   />
                 </label>
                 <label className="radio-container-premium">
                   <p className="align-txt">Layout 2</p>
                   <input
                     type="radio"
-                    name="card-layout"
+                    name="cardLayout"
                     value="layout2"
-                    checked={selectedLayout === "layout2"}
-                    onChange={handleLayoutChange}
+                    checked={formData.cardLayout === "layout2"}
+                    onChange={(e) => {
+                      handleInputChange(e);
+                    }}
                   />
                 </label>
                 <label className="radio-container-premium">
                   <p className="align-txt">Layout 3 </p>
                   <input
                     type="radio"
-                    name="card-layout"
+                    name="cardLayout"
                     value="layout3"
-                    checked={selectedLayout === "layout3"}
-                    onChange={handleLayoutChange}
+                    checked={formData.cardLayout === "layout3"}
+                    // onChange={handleLayoutChange}
+                    onChange={(e) => {
+                      handleInputChange(e);
+                    }}
                   />
                 </label>
               </div>
@@ -194,8 +236,12 @@ const PremiumPlanDetails = ({
                           <input
                             type="file"
                             ref={fileInputRef}
+                            name="logo"
                             style={{ display: "none" }}
-                            onChange={handleFileChange}
+                            onChange={(e) => {
+                              handleFileChange(e);
+                              handleInputChange(e);
+                            }}
                             accept="image/*" // Limit file types to images
                           />
                           <img
@@ -215,8 +261,13 @@ const PremiumPlanDetails = ({
                           <input
                             type="file"
                             ref={fileInputRef}
+                            name="logo"
                             style={{ display: "none" }}
-                            onChange={handleFileChange}
+                            // onChange={handleFileChange}
+                            onChange={(e) => {
+                              handleFileChange(e);
+                              handleInputChange(e);
+                            }}
                             accept="image/*" // Limit file types to images
                           />
                           <p className="plus-icon">
@@ -297,8 +348,8 @@ const PremiumPlanDetails = ({
                 <input
                   type="text"
                   className="Premium-cutomize-field-input"
-                  name="info"
-                  value={formData.info}
+                  name="additional"
+                  value={formData.additional}
                   onChange={handleInputChange}
                 />
               </div>
@@ -333,8 +384,8 @@ const PremiumPlanDetails = ({
                   <input
                     type="text"
                     className="cutomize-field-input"
-                    name="mobileNumber"
-                    value={formData.mobileNumber}
+                    name="mobile"
+                    value={formData.mobile}
                     onChange={handleInputChange}
                   />
                   <div className="toggle-btn-standard">
@@ -354,7 +405,13 @@ const PremiumPlanDetails = ({
             <div className="s-c-d-inner-bg p-20 p-15-i">
               <p className="Premium-customize-your-title">Custom URL </p>
               <p className="url-title">URL</p>
-              <input type="text" className="cutomize-field-input" />
+              <input
+                type="text"
+                name="card_url"
+                value={formData.card_url}
+                className="cutomize-field-input"
+                onChange={handleInputChange}
+              />
             </div>
             {/* ----- Choose Card Color ----- */}
             <div className="p-c-d-inner-bg p-20">
@@ -370,32 +427,38 @@ const PremiumPlanDetails = ({
                       <div className="center-choose-color">
                         <input
                           type="text"
+                          name="cardBackgroundColor"
                           className="Premium-color-selector"
                           placeholder="#000000"
-                          value={cardColor}
+                          value={formData.cardBackgroundColor}
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
                             setCardColor(e.target.value);
                             setUseBackgroundColor(false); // Switch to color mode
+                            handleInputChange(e);
                           }}
                         />
                         <input
                           className="color-hide color-box"
                           type="color"
+                          name="cardBackgroundColor"
                           ref={cardColorRef}
-                          value={cardColor}
+                          // value={cardColor}
+                          value={formData.cardBackgroundColor}
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
                             setCardColor(e.target.value);
                             setUseBackgroundColor(true); // Switch to color mode
+                            handleInputChange(e);
                           }}
                         />
                       </div>
                       <div
                         className="edit-color"
                         onClick={() => handleEditClick(cardColorRef)}
+                        onChange={(e) => handleInputChange(e)}
                       >
                         <img src={editPen} alt="Edit" />
                       </div>
@@ -410,26 +473,33 @@ const PremiumPlanDetails = ({
                       <div className="center-choose-color">
                         <input
                           type="text"
+                          name="accentColor"
                           className="Premium-color-selector"
                           placeholder="#000000"
-                          value={accentColorPremium}
-                          onChange={(e) =>
-                            setAccentColorPremium(e.target.value)
-                          }
+                          // value={accentColorPremium}
+                          value={formData.accentColor}
+                          onChange={(e) => {
+                            setAccentColorPremium(e.target.value);
+                            handleInputChange(e);
+                          }}
                         />
                         <input
                           className="color-hide color-box"
+                          name="accentColor"
                           type="color"
                           ref={accentColorPremiumRef}
-                          value={accentColorPremium}
-                          onChange={(e) =>
-                            setAccentColorPremium(e.target.value)
-                          }
+                          // value={accentColorPremium}
+                          value={formData.accentColor}
+                          onChange={(e) => {
+                            setAccentColorPremium(e.target.value);
+                            handleInputChange(e);
+                          }}
                         />
                       </div>
                       <div
                         className="edit-color"
                         onClick={() => handleEditClick(accentColorPremiumRef)}
+                        onChange={(e) => handleInputChange(e)}
                       >
                         <img src={editPen} alt="Edit" />
                       </div>
@@ -512,22 +582,33 @@ const PremiumPlanDetails = ({
                       <div className="center-choose-color">
                         <input
                           type="text"
+                          name="primaryTextColor"
                           className="Premium-color-selector"
                           placeholder="#000000"
-                          value={primaryTextColor}
-                          onChange={(e) => setPrimaryTextColor(e.target.value)}
+                          // value={primaryTextColor}
+                          value={formData.primaryTextColor}
+                          onChange={(e) => {
+                            setPrimaryTextColor(e.target.value);
+                            handleInputChange(e);
+                          }}
                         />
                         <input
                           className="color-hide color-box"
                           type="color"
+                          name="primaryTextColor"
                           ref={primaryTextColorRef}
-                          value={primaryTextColor}
-                          onChange={(e) => setPrimaryTextColor(e.target.value)}
+                          // value={primaryTextColor}
+                          value={formData.primaryTextColor}
+                          onChange={(e) => {
+                            setPrimaryTextColor(e.target.value);
+                            handleInputChange(e);
+                          }}
                         />
                       </div>
                       <div
                         className="edit-color"
                         onClick={() => handleEditClick(primaryTextColorRef)}
+                        onChange={(e) => handleInputChange(e)}
                       >
                         <img src={editPen} alt="Edit" />
                       </div>
@@ -542,26 +623,33 @@ const PremiumPlanDetails = ({
                       <div className="center-choose-color">
                         <input
                           type="text"
+                          name="secondaryTextColor"
                           className="Premium-color-selector"
                           placeholder="#000000"
-                          value={secondaryTextColor}
-                          onChange={(e) =>
-                            setSecondaryTextColor(e.target.value)
-                          }
+                          // value={secondaryTextColor}
+                          value={formData.secondaryTextColor}
+                          onChange={(e) => {
+                            setSecondaryTextColor(e.target.value);
+                            handleInputChange(e);
+                          }}
                         />
                         <input
                           className="color-hide color-box"
                           type="color"
+                          name="secondaryTextColor"
                           ref={secondaryTextColorRef}
-                          value={secondaryTextColor}
-                          onChange={(e) =>
-                            setSecondaryTextColor(e.target.value)
-                          }
+                          // value={secondaryTextColor}
+                          value={formData.secondaryTextColor}
+                          onChange={(e) => {
+                            setSecondaryTextColor(e.target.value);
+                            handleInputChange(e);
+                          }}
                         />
                       </div>
                       <div
                         className="edit-color"
                         onClick={() => handleEditClick(secondaryTextColorRef)}
+                        onChange={(e) => handleInputChange(e)}
                       >
                         <img src={editPen} alt="Edit" />
                       </div>
@@ -578,22 +666,33 @@ const PremiumPlanDetails = ({
                 <div className="center-choose-color">
                   <input
                     type="text"
+                    name="qrCodeColor"
                     className="Premium-color-selector"
                     placeholder="#000000"
-                    value={qrCodeColor}
-                    onChange={(e) => setQrCodeColor(e.target.value)}
+                    // value={qrCodeColor}
+                    value={formData.qrCodeColor}
+                    onChange={(e) => {
+                      setQrCodeColor(e.target.value);
+                      handleInputChange(e);
+                    }}
                   />
                   <input
                     className="color-hide color-box"
                     type="color"
+                    name="qrCodeColor"
                     ref={qrCodeColorRef}
-                    value={qrCodeColor}
-                    onChange={(e) => setQrCodeColor(e.target.value)}
+                    // value={qrCodeColor}
+                    value={formData.qrCodeColor}
+                    onChange={(e) => {
+                      setQrCodeColor(e.target.value);
+                      handleInputChange(e);
+                    }}
                   />
                 </div>
                 <div
                   className="edit-color"
                   onClick={() => handleEditClick(qrCodeColorRef)}
+                  onChange={(e) => handleInputChange(e)}
                 >
                   <img src={editPen} alt="Edit" />
                 </div>
@@ -607,7 +706,14 @@ const PremiumPlanDetails = ({
                   <div className="hide-title">Hide NFC Icon</div>
                   <div className="toggle-btn">
                     <label className="switch-hide">
-                      <input type="checkbox" onChange={hideNfc} />
+                      <input
+                        type="checkbox"
+                        name="hideNfc"
+                        onChange={(e) => {
+                          hideNfc();
+                          handleInputChange(!e.target.checked);
+                        }}
+                      />
                       <span className="slider-hide round"></span>
                     </label>
                   </div>
@@ -630,7 +736,11 @@ const PremiumPlanDetails = ({
               <button type="button" className="close-white-btn">
                 Cancel
               </button>
-              <button type="button" className="save-blk-btn">
+              <button
+                type="button"
+                className="save-blk-btn"
+                onClick={handleSave}
+              >
                 Save
               </button>
             </div>
