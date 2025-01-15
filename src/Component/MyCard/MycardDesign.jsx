@@ -45,13 +45,7 @@ const DesignComponent = ({
     userData?.card?.design?.font_style?.font_family
   );
 
-  // const handleColorChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setColors((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
+ 
   const handleColorEdit = (name) => {
     if (refs[name]?.current) {
       refs[name].current.click();
@@ -71,15 +65,9 @@ const DesignComponent = ({
     setSelectedFontStyles(selectedFontStyles);
     setIsOpen(false);
   };
+  
 
-  // const [layout, setLayout] = useState(
-  //   userData?.card?.design?.layout || "left"
-  // );
-  // Handle layout change
-  // const handleLayoutChange = (e) => {
-  //   setLayout(e.target.value);
-  // };
-  // edit logic
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
