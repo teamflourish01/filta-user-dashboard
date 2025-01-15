@@ -42,6 +42,9 @@ const PremiumPlanDetails = ({
   imageUrls,
   useBackgroundColor,
   setUseBackgroundColor,
+  logoUrl,
+  setLogoUrl,
+  showNfcIcon
 }) => {
   const uri = process.env.REACT_APP_DEV_URL;
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
@@ -50,7 +53,7 @@ const PremiumPlanDetails = ({
   const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
   const [qrCodeColor, setQrCodeColor] = useState("#000000");
-  const [logoUrl,setLogoUrl]=useState(`${uri}/nfcpremium/${formData?.logo}`)
+  // const [logoUrl,setLogoUrl]=useState(`${uri}/nfcpremium/${formData?.logo}`)
   // const [selectedCard, setSelectedCard] = useState(0);
 
   const cardColorRef = useRef(null);
@@ -66,7 +69,7 @@ const PremiumPlanDetails = ({
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-
+      hideNfc:showNfcIcon
     }));
   };
 
@@ -81,26 +84,23 @@ const PremiumPlanDetails = ({
   const handleClearLogo = () => {
     setSelectedFile(null);
   };
-  const handleFileChange = (e,setter,setterUrl) => {
-
+  const handleFileChange = (e, setter, setterUrl) => {
     const file = e.target.files[0];
     if (file) {
       setter(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        
-        setterUrl(reader.result)
-      
+        setterUrl(reader.result);
+
         // setFormData((prevFormData) => ({
         //   ...prevFormData,
         //   logo: reader.result, // Save the file URL as logo
         // }));
-        
-      }
+      };
       // e.target.value = null;
       reader.readAsDataURL(file);
     }
-    e.target.value=null
+    e.target.value = null;
   };
 
   const handleEditClick = (ref) => {
@@ -137,6 +137,7 @@ const PremiumPlanDetails = ({
       percentage - 10
     }%, #e0e0e0 ${percentage - 4}%)`;
     setter(value);
+    console.log(e.target.value, "slider");
   };
 
   const handleLayoutChange = (e) => {
@@ -158,23 +159,18 @@ const PremiumPlanDetails = ({
   const handleSave = async (e) => {
     e.preventDefault();
 
-    
     let newData = new FormData();
     Object.keys(formData).forEach((key) => {
       newData.append(key, formData[key]);
     });
-    newData.append("logo",selectedFile)
+    newData.append("logo", selectedFile);
     try {
-      const response = await axios.post(
-        `${uri}/nfcpremium/add`,
-        newData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: AuthorizationToken,
-          },
-        }
-      );
+      const response = await axios.post(`${uri}/nfcpremium/add`, newData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: AuthorizationToken,
+        },
+      });
 
       console.log(response, "standardp");
       alert(`${response?.data?.msg}`);
@@ -182,9 +178,10 @@ const PremiumPlanDetails = ({
       console.error("Error saving About Data:", error);
     }
   };
-  useEffect(()=>{
-    getUserData()
-  },[])
+  useEffect(() => {
+    getUserData();
+    // setFormData()
+  }, []);
 
   return (
     <>
@@ -249,13 +246,17 @@ const PremiumPlanDetails = ({
                             name="logo"
                             style={{ display: "none" }}
                             onChange={(e) => {
-                              handleFileChange(e,setSelectedFile,setLogoUrl)
+                              handleFileChange(e, setSelectedFile, setLogoUrl);
                               handleInputChange(e);
                             }}
                             accept="image/*" // Limit file types to images
                           />
                           <img
-                            src={`${uri}/nfcpremium/${userData?.nfcPremium?.logo}`}
+                            src={
+                              selectedFile
+                                ? logoUrl
+                                : `${uri}/nfcpremium/${userData?.nfcPremium?.logo}`
+                            }
                             alt="Selected logo"
                             className="selected-logo-preview"
                           />
@@ -271,12 +272,11 @@ const PremiumPlanDetails = ({
                           <input
                             type="file"
                             ref={fileInputRef}
-                            
                             name="logo"
                             style={{ display: "none" }}
                             // onChange={handleFileChange}
                             onChange={(e) => {
-                              handleFileChange(e,setSelectedFile,setLogoUrl)
+                              handleFileChange(e, setSelectedFile, setLogoUrl);
                               handleInputChange(e);
                             }}
                             accept="image/*" // Limit file types to images
@@ -284,8 +284,9 @@ const PremiumPlanDetails = ({
                           <p className="plus-icon">
                             <FaPlus />
                           </p>
-                          
+
                           <div className="add-logo-txt">Add Logo</div>
+                          <img src={logoUrl} alt="" />
                         </div>
                       </>
                     )}
@@ -306,11 +307,15 @@ const PremiumPlanDetails = ({
                           type="range"
                           min="20"
                           max="200"
+                          name="logoMaxWidth"
                           value={logoWidth || 20}
-                          onChange={(e) => handleSliderChange(e, setLogoWidth)}
+                          onChange={(e) => {
+                            handleSliderChange(e, setLogoWidth);
+                            handleInputChange(e);
+                          }}
                           style={{ width: "100%" }}
                           className="custom-slider"
-                          disabled={!selectedFile} // Disable if no logo is selected
+                          // disabled={!selectedFile} // Disable if no logo is selected
                         />
                       </div>
                     </label>
@@ -325,11 +330,15 @@ const PremiumPlanDetails = ({
                           type="range"
                           min="20"
                           max="200"
+                          name="logoMaxHeight"
                           value={logoHeight || 20} // Ensure value starts at min
-                          onChange={(e) => handleSliderChange(e, setLogoHeight)}
+                          onChange={(e) => {
+                            handleSliderChange(e, setLogoHeight);
+                            handleInputChange(e);
+                          }}
                           style={{ width: "100%" }}
                           className="custom-slider"
-                          disabled={!selectedFile} // Disable if no logo is selected
+                          // disabled={selectedFile} // Disable if no logo is selected
                         />
                       </div>
                     </label>
@@ -361,7 +370,9 @@ const PremiumPlanDetails = ({
                   type="text"
                   className="Premium-cutomize-field-input"
                   name="additional"
-                  value={formData.additional}
+                  value={
+                    formData.additional || userData?.nfcPremium?.additional
+                  }
                   onChange={handleInputChange}
                 />
               </div>
@@ -372,7 +383,7 @@ const PremiumPlanDetails = ({
                     type="text"
                     className="cutomize-field-input"
                     name="email"
-                    value={formData.email}
+                    value={formData.email || userData?.nfcPremium?.email}
                     onChange={handleInputChange}
                   />
                   <div className="toggle-btn-standard">
@@ -397,7 +408,7 @@ const PremiumPlanDetails = ({
                     type="text"
                     className="cutomize-field-input"
                     name="mobile"
-                    value={formData.mobile}
+                    value={formData.mobile || userData?.nfcPremium?.mobile}
                     onChange={handleInputChange}
                   />
                   <div className="toggle-btn-standard">
@@ -420,7 +431,7 @@ const PremiumPlanDetails = ({
               <input
                 type="text"
                 name="card_url"
-                value={formData.card_url}
+                value={formData.card_url || userData?.nfcPremium?.card_url}
                 className="cutomize-field-input"
                 onChange={handleInputChange}
               />
@@ -442,7 +453,10 @@ const PremiumPlanDetails = ({
                           name="cardBackgroundColor"
                           className="Premium-color-selector"
                           placeholder="#000000"
-                          value={formData.cardBackgroundColor}
+                          value={
+                            formData.cardBackgroundColor ||
+                            userData?.nfcPremium?.cardBackgroundColor
+                          }
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
@@ -457,7 +471,10 @@ const PremiumPlanDetails = ({
                           name="cardBackgroundColor"
                           ref={cardColorRef}
                           // value={cardColor}
-                          value={formData.cardBackgroundColor}
+                          value={
+                            formData.cardBackgroundColor ||
+                            userData?.nfcPremium?.cardBackgroundColor
+                          }
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
@@ -489,7 +506,10 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           // value={accentColorPremium}
-                          value={formData.accentColor}
+                          value={
+                            formData.accentColor ||
+                            userData?.nfcPremium?.accentColor
+                          }
                           onChange={(e) => {
                             setAccentColorPremium(e.target.value);
                             handleInputChange(e);
@@ -501,7 +521,10 @@ const PremiumPlanDetails = ({
                           type="color"
                           ref={accentColorPremiumRef}
                           // value={accentColorPremium}
-                          value={formData.accentColor}
+                          value={
+                            formData.accentColor ||
+                            userData?.nfcPremium?.accentColor
+                          }
                           onChange={(e) => {
                             setAccentColorPremium(e.target.value);
                             handleInputChange(e);
@@ -598,7 +621,10 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           // value={primaryTextColor}
-                          value={formData.primaryTextColor}
+                          value={
+                            formData.primaryTextColor ||
+                            userData?.nfcPremium?.primaryTextColor
+                          }
                           onChange={(e) => {
                             setPrimaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -610,7 +636,10 @@ const PremiumPlanDetails = ({
                           name="primaryTextColor"
                           ref={primaryTextColorRef}
                           // value={primaryTextColor}
-                          value={formData.primaryTextColor}
+                          value={
+                            formData.primaryTextColor ||
+                            userData?.nfcPremium?.primaryTextColor
+                          }
                           onChange={(e) => {
                             setPrimaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -639,7 +668,10 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           // value={secondaryTextColor}
-                          value={formData.secondaryTextColor}
+                          value={
+                            formData.secondaryTextColor ||
+                            userData?.nfcPremium?.secondaryTextColor
+                          }
                           onChange={(e) => {
                             setSecondaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -651,7 +683,10 @@ const PremiumPlanDetails = ({
                           name="secondaryTextColor"
                           ref={secondaryTextColorRef}
                           // value={secondaryTextColor}
-                          value={formData.secondaryTextColor}
+                          value={
+                            formData.secondaryTextColor ||
+                            userData?.nfcPremium?.secondaryTextColor
+                          }
                           onChange={(e) => {
                             setSecondaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -723,8 +758,9 @@ const PremiumPlanDetails = ({
                         name="hideNfc"
                         onChange={(e) => {
                           hideNfc();
-                          handleInputChange(!e.target.checked);
+                          // handleInputChange(e,showNfcIcon);
                         }}
+                        checked={showNfcIcon === false}
                       />
                       <span className="slider-hide round"></span>
                     </label>

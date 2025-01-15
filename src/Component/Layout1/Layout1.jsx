@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./Layout1.css";
 import logol1 from "../../images/flogo.png";
 import nfc from "../../images/lay1nfc.svg";
@@ -9,6 +9,7 @@ import theme2 from "../../images/NFC-Theme/theme2.svg";
 import theme3 from "../../images/NFC-Theme/theme3.svg";
 import theme4 from "../../images/NFC-Theme/theme4.svg";
 import theme5 from "../../images/NFC-Theme/theme5.svg";
+import userContext from "../../context/userDetails";
 
 const Layout1 = ({
   cardColor,
@@ -27,12 +28,26 @@ const Layout1 = ({
   selectedCard,
   selectedImage,
   useBackgroundColor,
+  logoUrl,
+  setLogoUrl,
 }) => {
+  const { userData } = useContext(userContext);
+
+  const uri = process.env.REACT_APP_DEV_URL;
+
   const hasLogoOrUserDetails =
-    selectedFile && (formData.name || formData.additional);
+    selectedFile || userData?.nfcPremium?.logo &&
+    ((formData.name ||
+      userData?.nfcPremium?.name) ||
+      (formData.additional ||
+      userData?.nfcPremium?.additional));
   const hideBackLine =
-    (formData.email && formData.email && showEmailId) ||
-    (formData.mobile && formData.mobile && showMobileNo);
+    ((formData.email || userData?.nfcPremium?.email) &&
+      (formData.email || userData?.nfcPremium?.email) &&
+      showEmailId) ||
+    ((formData.mobile || userData?.nfcPremium?.mobile) &&
+      (formData.mobile || userData?.nfcPremium?.mobile) &&
+      showMobileNo);
 
   return (
     <div>
@@ -42,10 +57,12 @@ const Layout1 = ({
           className="front-side-card-design-premium"
           style={{
             background: useBackgroundColor
-              ? formData.cardBackgroundColor
+              ? formData.cardBackgroundColor ||
+                userData?.nfcPremium?.cardBackgroundColor
               : selectedImage
               ? `url(${selectedImage}) center / cover no-repeat`
-              : formData.cardBackgroundColor,
+              : formData.cardBackgroundColor ||
+                userData?.nfcPremium?.cardBackgroundColor,
           }}
         >
           {showNfcIcon && (
@@ -55,19 +72,26 @@ const Layout1 = ({
           )}
           <div className="layout-1-logo-c">
             <img
-              src={selectedFile}
+              src={
+                selectedFile
+                  ? logoUrl
+                  : `${uri}/nfcpremium/${userData?.nfcPremium?.logo}`
+              }
               alt=""
               className="layout-1-logo-size"
               style={{
-                width: `${logoWidth - 20}px`,
-                height: `${logoHeight - 20}px`,
+                width: `${logoWidth - 20}px` || `${userData?.nfcPremium?.logoMaxWidth}`,
+                height: `${logoHeight - 20}px` || `${userData?.nfcPremium?.logoMaxHeight}`,
               }}
             />
           </div>
           {hasLogoOrUserDetails && (
             <div
               className="hr-line-l1"
-              style={{ background: formData.accentColor }}
+              style={{
+                background:
+                  formData.accentColor || userData?.nfcPremium?.accentColor,
+              }}
             ></div>
           )}
 
@@ -82,29 +106,43 @@ const Layout1 = ({
               {formData.info}
             </p>
           </div> */}
-          {formData.name || formData.additional ? (
+          {formData.name ||
+          userData?.nfcPremium?.name ||
+          formData.additional ||
+          userData?.nfcPremium?.additional ? (
             <div className="layout1-user-n-d">
-              {formData.name && (
-                <p
-                  className="l1-user-name"
-                  style={{ color: formData.primaryTextColor }}
-                >
-                  {formData?.name}
-                </p>
-              )}
-              {formData.additional && (
-                <p
-                  className="l1-user-designation lay1-mobile-user"
-                  style={{ color: formData.secondaryTextColor }}
-                >
-                  {formData.additional || "information"}
-                </p>
-              )}
+              {
+                ((formData.name ||userData?.nfcPremium?.name)  && (
+                  <p
+                    className="l1-user-name"
+                    style={{
+                      color:
+                        formData.primaryTextColor ||
+                        userData?.nfcPremium?.primaryTextColor,
+                    }}
+                  >
+                    {formData?.name || userData?.nfcPremium?.name}
+                  </p>
+                ))}
+              {
+                ((formData.additional ||userData?.nfcPremium?.additional) && (
+                  <p
+                    className="l1-user-designation lay1-mobile-user"
+                    style={{
+                      color:
+                        formData.secondaryTextColor ||
+                        userData?.nfcPremium?.secondaryTextColor,
+                    }}
+                  >
+                    {formData.additional || userData?.nfcPremium?.additional}
+                  </p>
+                ))}
             </div>
           ) : null}
 
           <div className="layout-1-front"></div>
         </div>
+        {/* </div> */}
       </div>
       <div className="back-premium-card">
         <p className="back-side-text-lay">Back Side</p>
@@ -112,10 +150,12 @@ const Layout1 = ({
           className="back-side-card-design-premium"
           style={{
             background: useBackgroundColor
-              ? formData.cardBackgroundColor
+              ? formData.cardBackgroundColor ||
+                userData?.nfcPremium?.cardBackgroundColor
               : selectedImage
               ? `url(${selectedImage}) center / cover no-repeat`
-              : formData.cardBackgroundColor,
+              : formData.cardBackgroundColor ||
+                userData?.nfcPremium?.cardBackgroundColor,
           }}
         >
           {showFiltaLogo && (
@@ -130,21 +170,34 @@ const Layout1 = ({
             {hideBackLine && (
               <div
                 className="hr-line-l1-horizontal"
-                style={{ background: formData.accentColor }}
+                style={{
+                  background:
+                    formData.accentColor || userData?.nfcPremium?.accentColor,
+                }}
               ></div>
             )}
 
             <div
               className="lay1-email-user l1-user-designation"
-              style={{ color: formData.secondaryTextColor }}
+              style={{
+                color:
+                  formData.secondaryTextColor ||
+                  userData?.nfcPremium?.secondaryTextColor,
+              }}
             >
-              {showEmailId && <p> {formData.email}</p>}
+              {showEmailId && (
+                <p> {formData.email || userData?.nfcPremium?.email}</p>
+              )}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l1-user-designation"
-                  style={{ color: formData.secondaryTextColor }}
+                  style={{
+                    color:
+                      formData.secondaryTextColor ||
+                      userData?.nfcPremium?.secondaryTextColor,
+                  }}
                 >
-                  {formData.mobile}
+                  {formData.mobile || userData?.nfcPremium?.mobile}
                 </p>
               )}
             </div>
