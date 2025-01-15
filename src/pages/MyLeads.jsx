@@ -1,70 +1,136 @@
 import React, { useContext, useState, useEffect } from "react";
+import * as XLSX from "xlsx";
 import { FiSearch } from "react-icons/fi";
 import { PiArrowLineDownBold } from "react-icons/pi";
 import { IoEyeOutline } from "react-icons/io5";
 import "../styles/MyLeads.css";
 import LeadDetails from "../Component/LeadDetails/LeadDetails";
 import userContext from "../context/userDetails";
+import ReactPaginate from "react-paginate";
 
 const MyLeads = () => {
   const { userData } = useContext(userContext);
+  const [searchQuery, setSearchQuery] = useState(""); // New state for search
+  const [filteredLeads, setFilteredLeads] = useState([]); // New state for filtered leads
   const [selectedLead, setSelectedLead] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [todayLeadsCount, setTodayLeadsCount] = useState(0);
   const [thisMonthLeadsCount, setThisMonthLeadsCount] = useState(0);
   const [lastMonthLeadsCount, setLastMonthLeadsCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0); // Current page index
+  const leadsPerPage = 10; // Number of records per page
 
-  const currentDate = new Date().toLocaleDateString(); // Get current date as a string
+  const currentDate = new Date().toLocaleDateString();
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
-
-  // Calculate last month and year
   const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
   const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
   useEffect(() => {
-    // Filter leads based on today's date
     const todaysLeads = userData?.myLeads?.filter((lead) => {
-      const leadDate = new Date(lead?.createdAt).toLocaleDateString(); // Assuming createdAt is the date field in lead
+      const leadDate = new Date(lead?.createdAt).toLocaleDateString();
       return leadDate === currentDate;
     });
-
-    setTodayLeadsCount(todaysLeads?.length || 0); // Set the count of today's leads
+    setTodayLeadsCount(todaysLeads?.length || 0);
   }, [userData, currentDate]);
 
   useEffect(() => {
-    // Filter leads based on this month and year
     const thisMonthLeads = userData?.myLeads?.filter((lead) => {
       const leadDate = new Date(lead?.createdAt);
-      return leadDate.getMonth() === currentMonth && leadDate.getFullYear() === currentYear;
+      return (
+        leadDate.getMonth() === currentMonth &&
+        leadDate.getFullYear() === currentYear
+      );
     });
-
-    setThisMonthLeadsCount(thisMonthLeads?.length || 0); // Set the count of this month's leads
+    setThisMonthLeadsCount(thisMonthLeads?.length || 0);
   }, [userData, currentMonth, currentYear]);
 
   useEffect(() => {
-    // Filter leads based on last month and year
     const lastMonthLeads = userData?.myLeads?.filter((lead) => {
       const leadDate = new Date(lead?.createdAt);
-      return leadDate.getMonth() === lastMonth && leadDate.getFullYear() === lastMonthYear;
+      return (
+        leadDate.getMonth() === lastMonth &&
+        leadDate.getFullYear() === lastMonthYear
+      );
     });
-
-    setLastMonthLeadsCount(lastMonthLeads?.length || 0); // Set the count of last month's leads
+    setLastMonthLeadsCount(lastMonthLeads?.length || 0);
   }, [userData, lastMonth, lastMonthYear]);
 
-  const handleOpenModal = () => {
+  useEffect(() => {
+    if (!searchQuery) {
+      setFilteredLeads(userData?.myLeads || []); // Show all leads when search query is empty
+    } else {
+      const matches = userData?.myLeads?.filter((lead) =>
+        lead?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      const nonMatches = userData?.myLeads?.filter(
+        (lead) => !lead?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredLeads([...matches, ...nonMatches]); // Move matches to the top
+    }
+  }, [searchQuery, userData]);
+
+  const handleOpenModal = (lead) => {
     setIsModalOpen(true);
+    setSelectedLead(lead)
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setSelectedLead(null);
   };
+  const handleExportToExcel = () => {
+    // Preprocess leads to format createdAt and updatedAt
+    const formattedLeads = (userData?.myLeads || []).map((lead) => {
+      const formatDateTime = (dateTime) => {
+        if (!dateTime) return "N/A";
+        const formattedDate = new Date(dateTime).toLocaleDateString("en-GB"); // dd-mm-yyyy format
+        const formattedTime = new Date(dateTime).toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false, // 24-hour format
+        });
+        return `${formattedDate} ${formattedTime}`; // Combine date and time
+      };
+  
+      return {
+        ...lead,
+        createdAt: formatDateTime(lead?.createdAt), // Format createdAt
+        updatedAt: formatDateTime(lead?.updatedAt), // Format updatedAt
+      };
+    });
+  
+    // Create worksheet and workbook
+    const worksheet = XLSX.utils.json_to_sheet(formattedLeads);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
+  
+    // Export as Excel file
+    XLSX.writeFile(workbook, "Leads.xlsx");
+  };
+  
+  // const handleExportToExcel = () => {
+  //   const worksheet = XLSX.utils.json_to_sheet(userData?.myLeads || []);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Leads");
+  //   XLSX.writeFile(workbook, "Leads.xlsx");
+  // };
+
+  const handlePageClick = (event) => {
+    setCurrentPage(event.selected); // Update current page index
+  };
+
+  const startIndex = currentPage * leadsPerPage;
+  const currentLeads = filteredLeads.slice(
+    startIndex,
+    startIndex + leadsPerPage
+  ); // Leads for the current page
 
   return (
     <>
       <div className="div">
         <div className="my-lead-container">
-          {/* -----Search-Section----- */}
+          {/* Search Section */}
           <div className="search-section">
             <div className="search-bar">
               <span className="search-icon-lead">
@@ -72,11 +138,17 @@ const MyLeads = () => {
               </span>
               <input
                 type="text"
-                placeholder="Search with name , email, phone, etc"
+                placeholder="Search with name, email, phone, etc"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)} // Update search query on input change
               />
             </div>
             <div className="right-export-btn-r">
-              <button type="submit" className="export-button">
+              <button
+                type="submit"
+                className="export-button"
+                onClick={handleExportToExcel}
+              >
                 <div className="down-arrow">
                   <PiArrowLineDownBold />
                 </div>
@@ -84,7 +156,7 @@ const MyLeads = () => {
               </button>
             </div>
           </div>
-          {/* ----- Lead Card ----- */}
+          {/* Lead Cards */}
           <div className="lead-card-section">
             <div className="lead-card">
               <div className="child-lead-card">
@@ -112,8 +184,7 @@ const MyLeads = () => {
             </div>
           </div>
           <p className="leads-title">Leads</p>
-          {/* ----- Leads ----- */}
-
+          {/* Leads Table */}
           <div className="lead-table">
             <div className="bg-w-try">
               <table className="try-lead">
@@ -127,28 +198,58 @@ const MyLeads = () => {
                     <th className="try-th">Status</th>
                   </tr>
                 </thead>
+
                 <tbody>
-                  {userData?.myLeads?.map((lead, index) => (
-                    <tr className="tr-try" key={index}>
-                      <td className="td-try p-40">{lead?.name}</td>
-                      <td className="td-try p-top-21">{lead?.email}</td>
-                      <td className="td-try p-top-21">{lead?.number}</td>
-                      <td className="td-try p-top-21">{lead?.createdAt}</td>
-                      <td className="td-try p-top-21">
-                        <div className="eye-bg-leads" onClick={() => handleOpenModal(lead)}>
-                          <IoEyeOutline />
-                        </div>
-                      </td>
-                      <td className="td-try p-top-21"></td>
-                    </tr>
-                  ))}
+                  {/* {filteredLeads?.map((lead, index) => { */}
+                  {currentLeads?.map((lead, index) => {
+                    // Format the createdAt field
+                    const formattedDate = lead?.createdAt
+                      ? new Date(lead.createdAt).toLocaleDateString("en-GB") // dd-mm-yyyy format
+                      : "N/A";
+                    const formattedTime = lead?.createdAt
+                      ? new Date(lead.createdAt).toLocaleTimeString("en-US", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false, // Use 24-hour format
+                        })
+                      : "N/A";
+
+                    return (
+                      <tr className="tr-try" key={index}>
+                        <td className="td-try p-40">{lead?.name}</td>
+                        <td className="td-try p-top-21">{lead?.email}</td>
+                        <td className="td-try p-top-21">{lead?.number}</td>
+                        <td className="td-try p-top-21">
+                          {formattedDate} {formattedTime}
+                        </td>
+                        <td className="td-try p-top-21">
+                          <div
+                            className="eye-bg-leads"
+                            onClick={() => handleOpenModal(lead)}
+                          >
+                            <IoEyeOutline />
+                          </div>
+                        </td>
+                        <td className="td-try p-top-21"></td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
           </div>
+          <ReactPaginate
+            previousLabel={"←"}
+            nextLabel={"→"}
+            breakLabel={"..."}
+            pageCount={Math.ceil(filteredLeads.length / leadsPerPage)}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            activeClassName={"active"}
+          />
         </div>
       </div>
-      <LeadDetails isOpen={isModalOpen} onClose={handleCloseModal} />
+      <LeadDetails isOpen={isModalOpen} onClose={handleCloseModal} selectedLead={selectedLead} />
     </>
   );
 };
