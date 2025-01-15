@@ -61,23 +61,35 @@ const Mobileprev = ({
   // userDetails,
   // setUserDetails
 }) => {
-  const { userData, AuthorizationToken, getUserData, userDetails } =
-    useContext(userContext);
+  const {
+    userData,
+    AuthorizationToken,
+    getUserData,
+    userDetails,
+    getLoginEmail,
+  } = useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   // const [fontFmly, setFontfmly] = useState(
   //     userData?.card?.design?.font_style?.font_family
   //   );
-// Extract bold font from fontFamily array
-const fontFamily = userData?.card?.design?.font_style?.font_family;
-// Find the bold font in the font family array
-const boldFont = fontFamily ? fontFamily.find(font => font.includes('Bold')) : null;
-const mediumFont = fontFamily ? fontFamily.find(font => font.includes('Medium')) : null;
-const regularFont = fontFamily ? fontFamily.find(font => font.includes('Regular')) : null;
-const semiboldFont = fontFamily ? fontFamily.find(font => font.includes('SemiBold')) : null;
+  // Extract bold font from fontFamily array
+  const fontFamily = userData?.card?.design?.font_style?.font_family;
+  // Find the bold font in the font family array
+  const boldFont = fontFamily
+    ? fontFamily.find((font) => font.includes("Bold"))
+    : null;
+  const mediumFont = fontFamily
+    ? fontFamily.find((font) => font.includes("Medium"))
+    : null;
+  const regularFont = fontFamily
+    ? fontFamily.find((font) => font.includes("Regular"))
+    : null;
+  const semiboldFont = fontFamily
+    ? fontFamily.find((font) => font.includes("SemiBold"))
+    : null;
 
-console.log(mediumFont);
-
+  console.log(mediumFont);
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -360,7 +372,7 @@ console.log(mediumFont);
                   color:
                     colors.prmTxtColor ||
                     userData?.card?.design?.font_style?.primary_text_color,
-                    fontFamily: boldFont
+                  fontFamily: boldFont,
                 }}
               >
                 {watch.name || "Name"}
@@ -371,10 +383,8 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-
                     userData?.card?.design?.font_style?.secondary_text_color,
-                    fontFamily: regularFont
-
+                  fontFamily: regularFont,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -384,10 +394,8 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-
                     userData?.card?.design?.font_style?.secondary_text_color,
-                    fontFamily: regularFont
-
+                  fontFamily: regularFont,
                 }}
               >
                 {watch.company || "Company"}
@@ -397,10 +405,8 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-
                     userData?.card?.design?.font_style?.secondary_text_color,
-                    fontFamily: regularFont
-
+                  fontFamily: regularFont,
                 }}
               >
                 {watch.location || "Location"}
@@ -523,7 +529,7 @@ console.log(mediumFont);
                   color:
                     colors.prmTxtColor ||
                     userData?.card?.design?.font_style?.primary_text_color,
-                    fontFamily: boldFont
+                  fontFamily: boldFont,
                 }}
               >
                 {watch.name || "Name"}
@@ -533,10 +539,8 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-
                     userData?.card?.design?.font_style?.secondary_text_color,
-                    fontFamily: regularFont
-
+                  fontFamily: regularFont,
                 }}
               >
                 {watch.jobtitle || "Job Title"}
@@ -549,7 +553,7 @@ console.log(mediumFont);
                     userData?.card?.design?.font_style?.secondary_text_color,
 
                   textAlign: "center",
-                  fontFamily: regularFont
+                  fontFamily: regularFont,
                 }}
               >
                 {watch.company || "Company"}
@@ -559,10 +563,8 @@ console.log(mediumFont);
                 style={{
                   color:
                     colors.secTxtColor ||
-
                     userData?.card?.design?.font_style?.secondary_text_color,
-                    fontFamily: regularFont
-
+                  fontFamily: regularFont,
                 }}
               >
                 {watch.location || "Location"}
@@ -654,7 +656,7 @@ console.log(mediumFont);
                 color:
                   colors.prmTxtColor ||
                   userData?.card?.design?.font_style?.primary_text_color,
-                  fontFamily: boldFont
+                fontFamily: boldFont,
               }}
             >
               {watch.name || "Name"}
@@ -664,10 +666,8 @@ console.log(mediumFont);
               style={{
                 color:
                   colors.secTxtColor ||
-
                   userData?.card?.design?.font_style?.secondary_text_color,
-                  fontFamily: regularFont
-
+                fontFamily: regularFont,
               }}
             >
               {watch.jobtitle || "Job Title"}
@@ -677,10 +677,8 @@ console.log(mediumFont);
               style={{
                 color:
                   colors.secTxtColor ||
-
                   userData?.card?.design?.font_style?.secondary_text_color,
-                  fontFamily: regularFont
-
+                fontFamily: regularFont,
               }}
             >
               {watch.company || "Company"}
@@ -690,10 +688,8 @@ console.log(mediumFont);
               style={{
                 color:
                   colors.secTxtColor ||
-
                   userData?.card?.design?.font_style?.secondary_text_color,
-                  fontFamily: regularFont
-
+                fontFamily: regularFont,
               }}
             >
               {watch.location || "Location"}
@@ -768,9 +764,7 @@ console.log(mediumFont);
                         userData?.card?.design?.layout === "center"
                           ? "center"
                           : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
-
-
+                      fontFamily: boldFont,
                     }}
                   >
                     Clickable Links
@@ -815,7 +809,7 @@ console.log(mediumFont);
                                 colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
-                                  fontFamily: regularFont
+                              fontFamily: regularFont,
                             }}
                           >
                             {link.text}
@@ -856,8 +850,7 @@ console.log(mediumFont);
                           userData?.card?.design?.layout === "center"
                             ? "center"
                             : "left", // Dynamically set text alignment
-                            fontFamily: boldFont
-
+                        fontFamily: boldFont,
                       }}
                     >
                       Multimedia
@@ -926,11 +919,8 @@ console.log(mediumFont);
                               colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
-                            textAlign:
-                              layout === "center"
-                                ? "center"
-                                : "left", // Dynamically set text alignment
-                                fontFamily:mediumFont
+                            textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                            fontFamily: mediumFont,
                           }}
                         >
                           YouTube Video
@@ -939,9 +929,11 @@ console.log(mediumFont);
                         {userData?.multimedia[0]?.youtube_url.length === 1 ? (
                           // Display single video
                           <div className="single-video">
+                            
                             <iframe
                               className="fullscreen-video v-h"
                               src={userData?.multimedia[0]?.youtube_url[0]}
+                              // src="https://www.youtube.com/watch?v=fWCxWHsczWg"
                               frameBorder="0"
                             ></iframe>
                           </div>
@@ -974,7 +966,7 @@ console.log(mediumFont);
 
             {/* fourth section contact form start */}
 
-            {userDetails.data[0]?.loginemail && formDatac.loginemail && (
+            {(userDetails?.data[0]?.loginemail || formDatac?.loginemail) && (
               <div
                 className="mp-grey-box-bg-left-align"
                 style={{
@@ -996,11 +988,8 @@ console.log(mediumFont);
                           colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                        textAlign:
-                          layout === "center"
-                            ? "center"
-                            : "left", // Dynamically set text alignment
-                            fontFamily: boldFont
+                        textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                        fontFamily: boldFont,
                       }}
                     >
                       Contact Form
@@ -1120,10 +1109,13 @@ console.log(mediumFont);
                           colors.prmTxtColor ||
                           userData?.card?.design?.font_style
                             ?.primary_text_color,
-                            fontFamily:semiboldFont
+                        fontFamily: semiboldFont,
                       }}
                     >
-                      <span className="mp-btn-text-leftalign" style={{fontFamily:semiboldFont}}>
+                      <span
+                        className="mp-btn-text-leftalign"
+                        style={{ fontFamily: semiboldFont }}
+                      >
                         {loading ? "Loading..." : "Submit"}
                       </span>
                     </button>
@@ -1153,11 +1145,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Voice Message
@@ -1189,11 +1178,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     About
@@ -1204,7 +1190,7 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        fontFamily:mediumFont
+                      fontFamily: mediumFont,
                     }}
                   >
                     {userData?.about?.title}
@@ -1216,7 +1202,7 @@ console.log(mediumFont);
                         colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
-                          fontFamily:regularFont
+                      fontFamily: regularFont,
                     }}
                   >
                     {userData?.about?.description}
@@ -1246,11 +1232,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Document
@@ -1313,7 +1296,7 @@ console.log(mediumFont);
                         colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
-                          fontFamily:regularFont
+                      fontFamily: regularFont,
                     }}
                   >
                     Flourish Profile
@@ -1348,11 +1331,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Team Member Details{" "}
@@ -1366,7 +1346,7 @@ console.log(mediumFont);
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
-                              fontFamily:regularFont
+                          fontFamily: regularFont,
                         }}
                       >
                         Name :{" "}
@@ -1389,7 +1369,7 @@ console.log(mediumFont);
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
-                              fontFamily:regularFont
+                          fontFamily: regularFont,
                         }}
                       >
                         Designation :{" "}
@@ -1412,7 +1392,7 @@ console.log(mediumFont);
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
-                              fontFamily:regularFont
+                          fontFamily: regularFont,
                         }}
                       >
                         Number :{" "}
@@ -1455,11 +1435,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Address
@@ -1470,7 +1447,7 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                        fontFamily:mediumFont
+                      fontFamily: mediumFont,
                     }}
                   >
                     {userData?.address?.title}
@@ -1482,7 +1459,7 @@ console.log(mediumFont);
                         colors.secTxtColor ||
                         userData?.card?.design?.font_style
                           ?.secondary_text_color,
-                          fontFamily:regularFont
+                      fontFamily: regularFont,
                     }}
                   >
                     {userData?.address?.address}
@@ -1512,11 +1489,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Time sensitive offer
@@ -1573,11 +1547,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Social Proof
@@ -1614,7 +1585,7 @@ console.log(mediumFont);
                               colors.prmTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.primary_text_color,
-                                fontFamily:semiboldFont
+                            fontFamily: semiboldFont,
                           }}
                         >
                           {userData.socialProof?.digit[index]}+
@@ -1626,7 +1597,7 @@ console.log(mediumFont);
                               colors.secTxtColor ||
                               userData?.card?.design?.font_style
                                 ?.secondary_text_color,
-                                fontFamily:regularFont
+                            fontFamily: regularFont,
                           }}
                         >
                           {item}
@@ -1660,11 +1631,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Photos
@@ -1717,11 +1685,8 @@ console.log(mediumFont);
                       color:
                         colors.prmTxtColor ||
                         userData?.card?.design?.font_style?.primary_text_color,
-                      textAlign:
-                        layout === "center"
-                          ? "center"
-                          : "left", // Dynamically set text alignment
-                          fontFamily: boldFont
+                      textAlign: layout === "center" ? "center" : "left", // Dynamically set text alignment
+                      fontFamily: boldFont,
                     }}
                   >
                     Product gallery
@@ -1738,11 +1703,19 @@ console.log(mediumFont);
                               className="mp-img-r-curve-l-a"
                             />
                           </div>
-                          <p className="mp-pic-title-p-g" style={{fontFamily:mediumFont}}>{pdetail.title}</p>
-                          <p className="mp-pic-desc-p-g" style={{fontFamily:regularFont}}>
+                          <p
+                            className="mp-pic-title-p-g"
+                            style={{ fontFamily: mediumFont }}
+                          >
+                            {pdetail.title}
+                          </p>
+                          <p
+                            className="mp-pic-desc-p-g"
+                            style={{ fontFamily: regularFont }}
+                          >
                             {pdetail.description}
                           </p>
-                          <p className="mp-price-p-g" >
+                          <p className="mp-price-p-g">
                             Price : {pdetail.price}
                           </p>
                           <button
@@ -1755,7 +1728,10 @@ console.log(mediumFont);
                                   ?.secondary_color,
                             }}
                           >
-                            <span className="mp-btn-text-leftalign" style={{fontFamily:semiboldFont}}>
+                            <span
+                              className="mp-btn-text-leftalign"
+                              style={{ fontFamily: semiboldFont }}
+                            >
                               Submit
                             </span>
                           </button>
@@ -1889,7 +1865,12 @@ console.log(mediumFont);
                       }}
                       onClick={handleButtonClick}
                     >
-                      <span className="btn-visit-txt" style={{fontFamily:semiboldFont}}>{cta?.btn_text}</span>
+                      <span
+                        className="btn-visit-txt"
+                        style={{ fontFamily: semiboldFont }}
+                      >
+                        {cta?.btn_text}
+                      </span>
                     </button>
                   )}
 
@@ -1908,7 +1889,12 @@ console.log(mediumFont);
                         cursor: "pointer",
                       }}
                     >
-                      <span className="btn-visit-txt" style={{fontFamily:semiboldFont}}>Translate</span>
+                      <span
+                        className="btn-visit-txt"
+                        style={{ fontFamily: semiboldFont }}
+                      >
+                        Translate
+                      </span>
                     </button>
                   )}
                 </div>
@@ -1934,10 +1920,8 @@ console.log(mediumFont);
                   style={{
                     color:
                       colors.secTxtColor ||
-
                       userData?.card?.design?.font_style?.secondary_text_color,
-                      fontFamily:regularFont
-
+                    fontFamily: regularFont,
                   }}
                 >
                   © 2025 ajay gadhavi. All Rights Reserved.
@@ -1948,7 +1932,7 @@ console.log(mediumFont);
                     color:
                       colors.prmTxtColor ||
                       userData?.card?.design?.font_style?.primary_text_color,
-                      fontFamily:mediumFont
+                    fontFamily: mediumFont,
                   }}
                 >
                   Created From : <img src={flogo} alt="" />
@@ -1981,7 +1965,7 @@ console.log(mediumFont);
                 color:
                   colors.prmTxtColor ||
                   userData?.card?.design?.font_style?.primary_text_color,
-                  fontFamily:semiboldFont
+                fontFamily: semiboldFont,
               }}
               onClick={handleShareButtonClick}
             >
@@ -1998,7 +1982,7 @@ console.log(mediumFont);
                 color:
                   colors.prmTxtColor ||
                   userData?.card?.design?.font_style?.primary_text_color,
-                  fontFamily:semiboldFont
+                fontFamily: semiboldFont,
               }}
             >
               Save Contact
