@@ -231,7 +231,7 @@ const StandardCustomizeDetail = ({
                   <label className="switch-hide">
                     <input type="checkbox" name="hide_nfc" 
                     onChange={(e) => {hideNfc()
-                      handleInputChange({ target: { name: "hide_email", value: e.target.checked } });
+                      handleInputChange({ target: { name: "hide_nfc", value: e.target.checked } });
                     }} />
                     <span className="slider-hide round"></span>
                   </label>

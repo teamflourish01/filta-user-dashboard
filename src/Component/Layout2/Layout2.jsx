@@ -19,7 +19,7 @@ const Layout2 = ({
   formData,
   selectedFile,
   selectedImage,
-  useBackgroundColor
+  useBackgroundColor,
 }) => {
   return (
     <div>
@@ -30,10 +30,10 @@ const Layout2 = ({
           // style={{ backgroundColor: cardColor }}
           style={{
             background: useBackgroundColor
-              ? cardColor 
+              ? formData.cardBackgroundColor
               : selectedImage
-              ? `url(${selectedImage}) center / cover no-repeat` 
-              : cardColor,
+              ? `url(${selectedImage}) center / cover no-repeat`
+              : formData.cardBackgroundColor,
           }}
         >
           <div className="layout-2-logo-flex">
@@ -55,14 +55,17 @@ const Layout2 = ({
             )}
           </div>
           <div className="lay-2-user-detail m-135">
-            <p className="l2-user-name" style={{ color: primaryTextColor }}>
+            <p
+              className="l2-user-name"
+              style={{ color: formData.primaryTextColor }}
+            >
               {formData.name}
             </p>
             <p
               className="l2-user-designation lay1-mobile-user"
-              style={{ color: secondaryTextColor }}
+              style={{ color: formData.secondaryTextColor }}
             >
-              {formData.info }
+              {formData.additional}
             </p>
           </div>
         </div>
@@ -74,10 +77,10 @@ const Layout2 = ({
           // style={{ backgroundColor: cardColor }}
           style={{
             background: useBackgroundColor
-              ? cardColor 
+              ? formData.cardBackgroundColor
               : selectedImage
-              ? `url(${selectedImage}) center / cover no-repeat` 
-              : cardColor,
+              ? `url(${selectedImage}) center / cover no-repeat`
+              : formData.cardBackgroundColor,
           }}
         >
           <div className="layout-2-logo-flex">
@@ -94,15 +97,15 @@ const Layout2 = ({
           <div className="padding-100-l2">
             <div
               className="lay1-email-user l2-user-designation"
-              style={{ color: secondaryTextColor }}
+              style={{ color: formData.secondaryTextColor }}
             >
               {showEmailId && <p> {formData.email}</p>}
               {showMobileNo && (
                 <p
                   className="lay1-mobile-user l2-user-designation"
-                  style={{ color: secondaryTextColor }}
+                  style={{ color: formData.secondaryTextColor }}
                 >
-                  {formData.mobileNumber}
+                  {formData.mobile}
                 </p>
               )}
             </div>
