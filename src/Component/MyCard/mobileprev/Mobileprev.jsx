@@ -242,7 +242,9 @@ const Mobileprev = ({
       reset();
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("Failed to send email. Please try again.");
+      alert(
+        error.response.data.message || "Failed to send email. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -914,12 +916,11 @@ const Mobileprev = ({
                         {userData?.multimedia[0]?.youtube_url.length === 1 ? (
                           // Display single video
                           <div className="single-video">
-                            
                             <iframe
                               className="fullscreen-video v-h"
                               src={userData?.multimedia[0]?.youtube_url[0]}
                               // src="https://www.youtube.com/watch?v=fWCxWHsczWg"
-                              frameBorder="0"
+                              frameBorder="0"        
                             ></iframe>
                           </div>
                         ) : (
@@ -1701,8 +1702,10 @@ const Mobileprev = ({
                             {pdetail.description}
                           </p>
 
-                          <p className="mp-price-p-g" style={{fontFamily:mediumFont}}>
-
+                          <p
+                            className="mp-price-p-g"
+                            style={{ fontFamily: mediumFont }}
+                          >
                             Price : {pdetail.price}
                           </p>
                           <button
@@ -1741,8 +1744,7 @@ const Mobileprev = ({
                             colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
-                              fontFamily:mediumFont
-                              
+                          fontFamily: mediumFont,
                         }}
                       >
                         {userData?.productGallary[0]?.title}
@@ -1754,7 +1756,7 @@ const Mobileprev = ({
                             colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
-                              fontFamily:regularFont
+                          fontFamily: regularFont,
                         }}
                       >
                         {userData?.productGallary[0]?.description}
@@ -1766,7 +1768,7 @@ const Mobileprev = ({
                             colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
-                              fontFamily:mediumFont
+                          fontFamily: mediumFont,
                         }}
                       >
                         Price : {userData?.productGallary[0]?.price}
@@ -1794,7 +1796,7 @@ const Mobileprev = ({
                                 colors.prmTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.primary_text_color,
-                                  fontFamily:semiboldFont
+                              fontFamily: semiboldFont,
                             }}
                           >
                             {" "}
