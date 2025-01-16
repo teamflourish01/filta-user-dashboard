@@ -199,6 +199,7 @@
     width: 100%;
     max-width: 280px;
     min-width: 200px;
+    object-fit: cover;
 }
 
 /* second section clickable-link css */
@@ -678,7 +679,7 @@ text-align: left;
 .btn-visit-translate-flex {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
   gap: 7px;
   margin: 10px 7.85px;
 }
@@ -688,7 +689,7 @@ text-align: left;
   padding: 8px 7.85px;
   border-radius: 5px;
 }
-.btn-visit-txt {
+.mp-btn-visit-txt {
   font-family: Poppins-Medium;
   font-size: 16px;
   line-height: 24px;

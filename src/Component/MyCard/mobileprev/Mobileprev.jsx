@@ -89,7 +89,7 @@ const Mobileprev = ({
     ? fontFamily.find((font) => font.includes("SemiBold"))
     : null;
 
-  console.log(mediumFont);
+  // console.log(mediumFont);
 
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
@@ -108,31 +108,8 @@ const Mobileprev = ({
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log(showTbtn, "showtbtn");
+    // console.log(showTbtn, "showtbtn");
     setLayout(userData?.card?.design?.layout);
-
-    // const fetchUserDetails = async () => {
-    //   try {
-    //     const response = await fetch(`${uri}/email/gatemailmsg`, {
-    //       method: "GET",
-    //       headers: {
-    //         Authorization: AuthorizationToken,
-    //       },
-    //     });
-
-    //     if (!response.ok) {
-    //       throw new Error(`HTTP error! status: ${response.status}`);
-    //     }
-
-    //     const data = await response.json();
-    //     setUserDetails(data);
-    //     console.log(data, "dataaaaGet");
-    //   } catch (err) {
-    //     setError(err.message);
-    //   }
-    // };
-    // fetchUserDetails();
-    console.log(layout, "layyyy");
   }, [userDetails]);
 
   if (error) {
@@ -634,11 +611,19 @@ const Mobileprev = ({
           </div>
           <div className="profile-pic-container-left-align">
             <div className="logo-profile-c-l-a-portrait">
-              <img
-                src={logo ? logo : defaultlogo}
-                alt="logo img"
-                className="l-size-flourish"
-              />
+            {userData?.card?.logoimg ? (
+                <img
+                  className="mp-l-size-flourish"
+                  src={logo ? logo : `${uri}/card/${userData?.card?.logoimg}`}
+                  alt="logo img"
+                />
+              ) : (
+                <img
+                  className="mp-l-size-flourish"
+                  src={logo ? logo : defaultlogo}
+                  alt="logo img"
+                />
+              )}
             </div>
           </div>
           <div
