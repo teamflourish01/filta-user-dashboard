@@ -3,6 +3,7 @@
   height: 530px;
   border-radius: 10px 10px 46px 10px;
   opacity: 0px;
+  object-fit: cover;
 }
 .logo-profile-c-l-a-portrait {
     width: 92px;

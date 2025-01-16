@@ -1,13 +1,13 @@
-.profile-pic-c-l-a-center {
+/* .profile-pic-c-l-a-center {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   position: absolute;
   bottom: 163px;
   left: 190px;
-  /* outline: 2px solid white; */
-}
-.logo-profile-c-l-a-center {
+  outline: 2px solid white;
+} */
+/* .logo-profile-c-l-a-center {
   width: 60px;
   height: 60px;
   border-radius: 50px;
@@ -19,7 +19,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 4px 0px #00000033;
-}
+} */
 .bottom-inner-content-left-a-center {
   max-width: 530px;
   min-width: 200px;
