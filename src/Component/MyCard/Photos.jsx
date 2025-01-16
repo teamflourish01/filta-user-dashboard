@@ -37,7 +37,7 @@ const Photos = () => {
       getUserData();
     } catch (error) {
       console.error("Delete Error:", error.response?.data || error.message);
-      alert("Failed to delete photo.");
+      alert(error.response.data.msg ||"Failed to delete photo.");
     }
   };
   const handleSubmit = async (e) => {

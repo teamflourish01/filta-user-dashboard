@@ -12,6 +12,7 @@ const MultimediaComponent = () => {
   const [youtubeUrls, setYoutubeUrls] = useState([""]);
   const [deletedUrls, setDeletedUrls] = useState([]);
   const [deletedVideos, setDeletedVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -39,13 +40,20 @@ const MultimediaComponent = () => {
     setDocFiles((prev) => prev.filter((_, i) => i !== index));
   };
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const formData = new FormData();
     docFiles.forEach((doc) => {
       formData.append("video_file", doc.file);
     });
+    // const processedYoutubeUrls = youtubeUrls
+    //   .filter((url) => url.trim() !== "")
+    //   .map((url) => {
+    //     const parts = url.split("=");
+    //     return parts.length > 1 ? parts[1] : "";
+    //   });
     const filteredYoutubeUrls = youtubeUrls.filter((url) => url.trim() !== "");
-    formData.append("youtube_url", JSON.stringify(filteredYoutubeUrls));
+    formData.append("youtube_url", JSON.stringify(filteredYoutubeUrls));    
     formData.append("deleted_urls", JSON.stringify(deletedUrls));
     formData.append("deleted_videos", JSON.stringify(deletedVideos));
     try {
@@ -64,7 +72,9 @@ const MultimediaComponent = () => {
       getUserData();
     } catch (error) {
       console.error("Upload Error:", error.response?.data || error.message);
-      alert("Failed to Multimedia Upload.");
+      alert(error.response.data.msg || "Failed to Multimedia Upload.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -148,8 +158,8 @@ const MultimediaComponent = () => {
                 >
                   Cancel
                 </button>
-                <button type="submit" className="mlt-save">
-                  Save
+                <button type="submit" className="mlt-save" disabled={loading}>
+                  {loading ? "Loading..." : "Submit"}
                 </button>
               </div>
             </div>

@@ -298,7 +298,7 @@ const ProductGallery = () => {
       getUserData();
     } catch (error) {
       console.error("Error deleting gallery item:", error);
-      alert("Failed to delete gallery item.");
+      alert(error.response.data.message || "Failed to delete gallery item.");
     }
   };
   return (
