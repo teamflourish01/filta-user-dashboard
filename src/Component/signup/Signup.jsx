@@ -159,11 +159,9 @@ function Signup({ onSignupSuccess, digitalCardData }) {
 
                 {!otpSent ? (
                   <>
-                    <div className="continue-with">
+                    <div className="continue-with" onClick={handleGoogleLogin}>
                       <img src={google} alt="" srcset="" />
-                      <p className="login-google" onClick={handleGoogleLogin}>
-                        Continue with Google
-                      </p>
+                      <p className="login-google">Continue with Google</p>
                     </div>
                     <div className="divider">
                       <span className="line"></span>
