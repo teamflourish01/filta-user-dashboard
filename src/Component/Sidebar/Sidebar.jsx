@@ -36,13 +36,16 @@ const Sidebar = () => {
   const closeProfileMenu = () => {
     setIsProfileMenuOpen(false);
   };
-  const handleLogOut = () => {
-    localStorage.removeItem("token");
-    // navigate("/login");
-    window.location.reload();
-    logout({
-      returnTo: window.location.origin,
-    });
+  const handleLogOut = async() => {
+    try {      
+      localStorage.removeItem("token");      
+      await logout({
+        returnTo: window.location.origin,
+      });      
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("logout error")
+    }
   };
 
   useEffect(() => {

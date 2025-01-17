@@ -4,11 +4,14 @@ import qrLogoImg from "../../images/qrlogoImg.png";
 import userContext from "../../context/userDetails";
 import html2canvas from "html2canvas";
 
-const QrcodeGen = ({ selectedColor, logo  }) => {
-  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  const [qrData, setQrData] = useState("");
+const QrcodeGen = ({ selectedColor, logo }) => {
+  const { userData } = useContext(userContext);
+  const [qrData, setQrData] = useState(
+    `https://192.168.1.15:3000/card/${userData?.username}`
+  );
   const [logoUrl, setLogoUrl] = useState(null);
   const uri = process.env.REACT_APP_DEV_URL;
+  console.log("qrData URL", qrData);
 
   const handleDownload = async () => {
     const element = document.querySelector(".qr-imgdiv");
@@ -26,9 +29,6 @@ const QrcodeGen = ({ selectedColor, logo  }) => {
     }
   };
   useEffect(() => {
-    setQrData("http://192.168.1.12:3000/left-align");
-  }, []);
-  useEffect(() => {
     if (userData?.qrcode?.qrimage) {
       setLogoUrl(`${uri}/qrcodelogo/${userData.qrcode.qrimage}`);
     } else {
@@ -36,9 +36,9 @@ const QrcodeGen = ({ selectedColor, logo  }) => {
     }
   }, [userData]);
   const logoSrc = logo
-    ? logo 
+    ? logo
     : userData?.qrcode?.qrimage
-    ? `${uri}/qrcodelogo/${userData.qrcode.qrimage}` 
+    ? `${uri}/qrcodelogo/${userData.qrcode.qrimage}`
     : qrLogoImg;
   return (
     <>
@@ -57,11 +57,7 @@ const QrcodeGen = ({ selectedColor, logo  }) => {
                 level="H"
               />
               {/* Logo Overlay */}
-              <img
-                className="qrlogo"
-                src={logoSrc}
-                alt="logo-img"
-              />
+              <img className="qrlogo" src={logoSrc} alt="logo-img" />
             </div>
           ) : (
             <p>No QR Code Generated Yet</p>

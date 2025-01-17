@@ -186,6 +186,7 @@
     line-height: 28px;
     text-align: justify;
     color: #718096;
+    cursor: pointer;
 }
 .continue-padding{
   margin: 15px 0;

@@ -75,10 +75,8 @@ function Login() {
           const userInfo = userInfoResponse.data;
           console.log("Google User Info:", userInfo);
 
-          
           const { email } = userInfo;
 
-          
           const backendResponse = await axios.post(`${url}/user/googlesignin`, {
             email,
           });
@@ -180,18 +178,18 @@ function Login() {
                 <span className="line"></span>
               </div>
               {/* <Glogin /> */}
-              <div className="continues-with">
+              <div className="continues-with" onClick={handleGoogleLogin}>
                 <img src={google} alt="" srcset="" />
-                <p className="login-google" onClick={handleGoogleLogin}>Continue with Google</p>
+                <p className="login-google">Continue with Google</p>
               </div>
-              <div className="continues-with continue-padding">
+              {/* <div className="continues-with continue-padding">
                 <img src={facebook} alt="" srcset="" />
                 <p className="login-google">Continue with Facebook</p>
               </div>
               <div className="continues-with">
                 <img src={lock} alt="" srcset="" />
                 <p className="login-google">Continue with SSO</p>
-              </div>
+              </div> */}
               <div className="new-to-filta">
                 <p className="text-center">
                   <span className="new-text">New to filta ? </span>
