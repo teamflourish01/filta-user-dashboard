@@ -12,15 +12,16 @@ import "./Sidebar.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import userContext from "../../context/userDetails";
 import dummyprofile from "../../images/digitalphoto.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Sidebar = () => {
-  
   // const [activeItem, setActiveItem] = useState(" ");
   // const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { userData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
+  const { logout } = useAuth0();
 
   // const handleMenuClick = (item) => {
   //   setActiveItem(item);
@@ -37,8 +38,11 @@ const Sidebar = () => {
   };
   const handleLogOut = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    // navigate("/login");
     window.location.reload();
+    logout({
+      returnTo: window.location.origin,
+    });
   };
 
   useEffect(() => {
@@ -51,14 +55,19 @@ const Sidebar = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
- 
+
   return (
-    <div className="sidebar"
-    onMouseEnter={() => document.querySelector(".nav-title").classList.add("hovered")}
-    onMouseLeave={() => document.querySelector(".nav-title").classList.remove("hovered")}
+    <div
+      className="sidebar"
+      onMouseEnter={() =>
+        document.querySelector(".nav-title").classList.add("hovered")
+      }
+      onMouseLeave={() =>
+        document.querySelector(".nav-title").classList.remove("hovered")
+      }
     >
       <div className="profile-section-mobile-pic">
-      {userData?.card?.profileimg ? (
+        {userData?.card?.profileimg ? (
           <img
             src={`${uri}/card/${userData?.card?.profileimg}`}
             alt="Profile Imag"
@@ -95,15 +104,15 @@ const Sidebar = () => {
         {isProfileMenuOpen && (
           <div className="profile-dropdown-menu">
             <ul>
-            <Link className="sb-link" to="/request-feature" onClick={closeProfileMenu}>
-              <li>
-                Request a feature
-              </li>
+              <Link
+                className="sb-link"
+                to="/request-feature"
+                onClick={closeProfileMenu}
+              >
+                <li>Request a feature</li>
               </Link>
               <Link className="sb-link" onClick={handleLogOut}>
-              <li>
-                Logout
-              </li>
+                <li>Logout</li>
               </Link>
             </ul>
           </div>

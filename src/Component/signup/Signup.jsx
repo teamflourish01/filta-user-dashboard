@@ -7,11 +7,11 @@ import axios from "axios";
 import digitalphoto from "../../images/digitalphoto.png";
 import emailicon from "../../images/email.svg";
 import digitalphone from "../../images/phonecolor.svg";
-
 import "../signup/signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userDetails";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { useGoogleLogin } from "@react-oauth/google";
 function Signup({ onSignupSuccess, digitalCardData }) {
   const [showPassword, setShowPassword] = useState(false);
   const [signupData, setSignupData] = useState({
@@ -24,6 +24,7 @@ function Signup({ onSignupSuccess, digitalCardData }) {
   const uri = process.env.REACT_APP_DEV_URL;
   const { storeTokenLS } = useContext(userContext);
   const navigate = useNavigate();
+  const { loginWithRedirect } = useAuth0();
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -81,7 +82,59 @@ function Signup({ onSignupSuccess, digitalCardData }) {
       setLoading(false);
     }
   };
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        // Get user info from Google
+        if (tokenResponse?.access_token) {
+          const { access_token } = tokenResponse;
 
+          const userInfoResponse = await axios.get(
+            "https://www.googleapis.com/oauth2/v2/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          );
+
+          const userInfo = userInfoResponse.data;
+          console.log("Google User Info:", userInfo);
+
+          // Extract email from Google response
+          const { email } = userInfo;
+
+          // DB Save email to backend
+          const backendResponse = await axios.post(`${uri}/user/googlesignup`, {
+            email,
+          });
+
+          if (backendResponse.status === 201) {
+            const token = backendResponse.data.token;
+            storeTokenLS(token);
+            onSignupSuccess(token);
+
+            alert("Login Successful");
+            navigate("/my-card/");
+          } else {
+            alert(backendResponse.data.message || "User alredy exist");
+          }
+        } else {
+          throw new Error("No access token found in response");
+        }
+      } catch (error) {
+        console.error("Error during Google login:", error);
+        alert(
+          error.response.data.message ||
+            "Failed to login with Google. Please try again."
+        );
+      }
+    },
+    onError: (error) => {
+      console.error("Google Login Error:", error);
+      alert("Failed to login with Google. Please try again.");
+    },
+  });
   return (
     <div className="sign-scontainer">
       <div className="signup-with-prev">
@@ -108,7 +161,9 @@ function Signup({ onSignupSuccess, digitalCardData }) {
                   <>
                     <div className="continue-with">
                       <img src={google} alt="" srcset="" />
-                      <p className="login-google">Continue with Google</p>
+                      <p className="login-google" onClick={handleGoogleLogin}>
+                        Continue with Google
+                      </p>
                     </div>
                     <div className="divider">
                       <span className="line"></span>
@@ -185,31 +240,10 @@ function Signup({ onSignupSuccess, digitalCardData }) {
                     </button>
                   </>
                 )}
-
-                {/* <Link>
-                  <button
-                    type="submit"
-                    onClick={handleSignup}
-                    className="btn-signup"
-                    disabled={loading}
-                  >
-                    {loading ? "Processing..." : "Continue"}
-                  </button>
-                </Link> */}
               </div>
             </div>
           </div>
         </div>
-        {/* <div className="signup-card-pre">
-          <div className="card-for-preview">
-            <p className="text-preview">{digitalCardData?.name || "N/A"} </p>
-            <p className="text-preview"> {digitalCardData?.company}</p>
-            <p className="text-preview"> {digitalCardData?.email}</p>
-            <p className="text-preview">{digitalCardData?.jobtitle} </p>
-            <p className="text-preview">{digitalCardData?.location}</p>
-            <p className="text-preview"> {digitalCardData?.phoneNumber}</p>
-          </div>
-        </div> */}
         <div className="card-preview-flex">
           <div className="card-for-preview">
             <div className="card-digital-prev-flex">
