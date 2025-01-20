@@ -65,13 +65,8 @@ const Mobileprev = ({
   // setUserDetails
 }) => {
   const [userData, setUserData] = useState(null);
-  const {
-    
-    AuthorizationToken,
-    getUserData,
-    userDetails,
-    getLoginEmail,
-  } = useContext(userContext);
+  const { AuthorizationToken, getUserData, userDetails, getLoginEmail } =
+    useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [layout, setLayout] = useState(null);
   const { username } = useParams();
@@ -93,8 +88,7 @@ const Mobileprev = ({
     : null;
 
   // console.log(mediumFont);
-  
-  
+
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
   const {
@@ -107,41 +101,29 @@ const Mobileprev = ({
   const audioRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [dragItems, setDragItems] = useState(() => {
-    // Fetch data from userdata (passed as prop)
-    const initialData = userData?.shuffle?.shuffle;
-  
-    // Log the fetched data to check if it's coming correctly
-    console.log("Fetched drag items from userData:", initialData);
-  
-    // Return the fetched data or an empty array if no valid data
-    return initialData && Array.isArray(initialData) ? initialData : [];
-  });
+  const [dragItems, setDragItems] = useState([]);
 
   // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    setDragItems(userData?.shuffle?.shuffle);
+  }, [userDetails]);
 
-  // useEffect(() => {
-  //   console.log(showTbtn, "showtbtn");
-  //   setLayout(userData?.card?.design?.layout);
-  // }, [userDetails]);
-  useEffect(()=>{
+  useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`${uri}/user/${username}`);
         setUserData(response.data.user);
-        console.log("response left-align",response);
-        console.log("userData left-align",userData);
-        
+        console.log("response left-align", response);
+        console.log("userData left-align", userData);
       } catch (error) {
-        console.log(error);   
-        
+        console.log(error);
       }
     };
 
     fetchUserData();
-  },[username])
+  }, [username]);
 
   useEffect(() => {
     if (userData?.card?.design?.layout) {
@@ -1970,7 +1952,8 @@ const Mobileprev = ({
 
           <div className="profile-container">{renderDivBasedOnData()}</div>
 
-          {dragItems?.length>0 && dragItems.map((item) => (
+          {dragItems?.length > 0 &&
+            dragItems.map((item) => (
               <div key={item.id} className={item.id}>
                 {renderComponent(item.component)}
               </div>
@@ -2015,7 +1998,6 @@ const Mobileprev = ({
             </div>
           </div>
         </div>
-        
 
         <div
           className="grey-bottom-container"
