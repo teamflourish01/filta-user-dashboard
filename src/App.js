@@ -28,6 +28,7 @@ import SignupFlow from "./Component/Auth/SignupFlow";
 import LeftAlign from "./ViewCard/LeftAlign/LeftAlign";
 import CenterAlign from "./ViewCard/CenterAlign/CenterAlign";
 import Portrait from "./ViewCard/Portrait/Portrait";
+// import ParentComponent from "./Component/MyCard/parent/ParentComponent";
 
 // Layout for Authentication Pages
 const AuthLayout = ({ children }) => {
@@ -89,6 +90,7 @@ function App() {
                 <Sidebar />
                 <div className="main-content">
                   <Routes>
+                    {/* <Route path="/parent" element={<ParentComponent/>}/> */}
                     <Route path="/my-card" element={<MyCardmain />} />
                     <Route path="my-card/edit" element={<MyCard />} />
                     <Route path="/nfc-card" element={<NFCCard />} />

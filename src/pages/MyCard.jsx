@@ -329,7 +329,31 @@ const MyCard = () => {
                       ) : (
                         <div className="my-priviewMain">
                           <p className="clp">Card live preview</p>
-                          <div className="my-priviewcard"></div>
+                          <div className="my-priviewcard">
+                            <Mobileprev 
+                            selectedFields={selectedFields}
+                            borderStyle={borderStyle}
+                            checkboxStates={checkboxStates}
+                            setCheckboxStates={setCheckboxStates}
+                            formDatac={formDatac}
+                            setFormDatac={setFormDatac}
+                            // profileImagePreview={profileImagePreview}
+                            // setProfileImagePreview={setProfileImagePreview}
+                            profileImages={profileImages}
+                            coverPhoto={coverPhoto}
+                            onLogoChange={setLogo}
+                            logo={logo}
+                            watch={watchedData}
+                            showTbtn={showTbtn}
+                            showTranslateBtn={showTranslateBtn}
+                            layout={layout}
+                            setLayout={setLayout}
+                            handleColorChangee={handleColorChangee}
+                            colors={colors}
+                            setColors={setColors}
+                            handleLayoutChange={handleLayoutChange}
+                            />
+                            </div>
                           <div className="my-prwbtn">
                             <span>Share your card</span>
                             <img src={sharebtn} alt="sharebtn" />

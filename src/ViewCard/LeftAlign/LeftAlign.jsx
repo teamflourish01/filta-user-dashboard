@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 // import "../../MyCard/mobileprev/mobileprev.css";
-import "./../../../src/Component/MyCard/mobileprev/mobileprev.css"
+import "./../../../src/Component/MyCard/mobileprev/mobileprev.css";
 import "../LeftAlign/LeftAlign.css";
 import Slider from "react-slick";
 import "../CenterAlign/CenterAlign.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CiPlay1 } from "react-icons/ci";
-import gallerypic from "./../../images/pgpic.svg"
+import gallerypic from "./../../images/pgpic.svg";
 import userContext from "../../context/userDetails";
 import CustomNextArrow from "../CustomNextArrow/CustomNextArrow";
 import CustomPrevArrow from "../CustomNextArrow/CustomPrevArrow";
@@ -27,7 +27,7 @@ import memail from "./../../images/memail.svg";
 import mcontact from "./../../images/mcontact.svg";
 import mwhatsapp from "./../../images/mwhatsapp.svg";
 import mlocation from "./../../images/mlocation.svg";
-// import mgoogleplay from "../../../images/mgoogleplay.svg"
+import mgoogleplay from "./../../images/mgooglepay.svg";
 import mphonepay from "./../../images/mphonepay.svg";
 import mpaytm from "./../../images/mpaytm.svg";
 import mreview from "./../../images/mreview.svg";
@@ -40,10 +40,6 @@ import { Document, Page, pdfjs } from "react-pdf";
 import defaultlogo from "./../../images/filta.png";
 import ShareCardModal from "../../Component/ShareCardModal/ShareCardModal";
 import { useParams } from "react-router-dom";
-
-
-
-
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -80,10 +76,6 @@ const Mobileprev = ({
   const [layout, setLayout] = useState(null);
   const { username } = useParams();
 
-
-  // const [fontFmly, setFontfmly] = useState(
-  //     userData?.card?.design?.font_style?.font_family
-  //   );
   // Extract bold font from fontFamily array
   const fontFamily = userData?.card?.design?.font_style?.font_family;
   // Find the bold font in the font family array
@@ -115,9 +107,20 @@ const Mobileprev = ({
   const audioRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
+  const [dragItems, setDragItems] = useState(() => {
+    // Fetch data from userdata (passed as prop)
+    const initialData = userData?.shuffle?.shuffle;
+  
+    // Log the fetched data to check if it's coming correctly
+    console.log("Fetched drag items from userData:", initialData);
+  
+    // Return the fetched data or an empty array if no valid data
+    return initialData && Array.isArray(initialData) ? initialData : [];
+  });
 
   // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
+
 
   // useEffect(() => {
   //   console.log(showTbtn, "showtbtn");
@@ -139,6 +142,7 @@ const Mobileprev = ({
 
     fetchUserData();
   },[username])
+
   useEffect(() => {
     if (userData?.card?.design?.layout) {
       setLayout(userData.card.design.layout);
@@ -211,7 +215,7 @@ const Mobileprev = ({
     Contact: mcontact,
     WhatsApp: mwhatsapp,
     Address: mlocation,
-    // "Google Pay": mgooglepay,
+    "Google Pay": mgoogleplay,
     "Phone Pay": mphonepay,
     Paytm: mpaytm,
     Review: mreview,
@@ -412,7 +416,6 @@ const Mobileprev = ({
               >
                 {/* {watch?.company || "Company"} */}
                 {userData?.card?.company}
-                
               </p>
               <p
                 className="grey-bottom-txt"
@@ -729,7 +732,7 @@ const Mobileprev = ({
       );
     }
   };
-  
+
   const handleShareButtonClick = () => {
     setIsShareModalOpen(true);
   };
@@ -737,30 +740,12 @@ const Mobileprev = ({
   const handleCloseModal = () => {
     setIsShareModalOpen(false);
   };
-  return (
-    <>
-      <div className="left-align-main-div">
-        {/* Show live card preview */}
-        {/* <div className="mobile-modifi"> */}
-          <div
-            className="padding-whole-10-l-a"
-            style={{
-              background:
-                // colors.flatColor ||
-                userData?.card?.design?.card_background?.flat_color,
-              backgroundImage: `linear-gradient(${
-                // colors.grdColor ||
-                userData?.card?.design?.card_background?.gradient_color1
-              }, ${
-                // colors.grdSecColor ||
-                userData?.card?.design?.card_background?.gradient_color2
-              })`,
-            }}
-          >
-            {/* top profile section start */}
 
-            <div className="profile-container">{renderDivBasedOnData()}</div>
-
+  const renderComponent = (component) => {
+    switch (component) {
+      case "Clickable links":
+        return (
+          <div>
             {/* second clickable link section start */}
             {userData?.socialLinks.length > 0 && (
               <div
@@ -844,7 +829,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Multimedia":
+        return (
+          <div>
             {/* third multimedia section start */}
             {userData?.multimedia[0]?.video_file?.length > 0 &&
               userData?.multimedia[0]?.youtube_url.length > 0 && (
@@ -952,7 +941,6 @@ const Mobileprev = ({
                         {userData?.multimedia[0]?.youtube_url.length === 1 ? (
                           // Display single video
                           <div className="single-video">
-                            
                             <iframe
                               className="fullscreen-video v-h"
                               src={userData?.multimedia[0]?.youtube_url[0]}
@@ -986,7 +974,11 @@ const Mobileprev = ({
                   </div>
                 </div>
               )}
-
+          </div>
+        );
+      case "Contact Form":
+        return (
+          <div>
             {/* fourth section contact form start */}
             {(userDetails?.data[0]?.loginemail || formDatac?.loginemail) && (
               <div
@@ -1145,8 +1137,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-            
-
+          </div>
+        );
+      case "voice message":
+        return (
+          <div>
             {/* fifth section voice message start */}
             {userData?.voiceMessage?.length > 0 && (
               <div
@@ -1180,7 +1175,82 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
+          </div>
+        );
+      case "CTA Button":
+        return (
+          <div>
+            {/* fourteen section two btn add start */}
+            {(cta?.btn_text || showTranslateBtn) && (
+              <div
+                className="grey-box-bg-left-align"
+                style={{
+                  background:
+                    // colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    // colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
+                }}
+              >
+                <div className="btn-visit-translate-flex">
+                  {cta?.btn_type && cta?.btn_text != "" && (
+                    <button
+                      className="btn-visit-translate"
+                      style={{
+                        background:
+                          // colors.secdClor ||
+                          userData?.card?.design?.card_color?.secondary_color,
 
+                        color:
+                          // colors.prmTxtColor ||
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                        cursor: "pointer",
+                      }}
+                      onClick={handleButtonClick}
+                    >
+                      <span
+                        className="btn-visit-txt"
+                        style={{ fontFamily: semiboldFont }}
+                      >
+                        {cta?.btn_text}
+                      </span>
+                    </button>
+                  )}
+
+                  {showTranslateBtn && (
+                    <button
+                      className="btn-visit-translate"
+                      style={{
+                        background:
+                          // colors.secdClor ||
+                          userData?.card?.design?.card_color?.secondary_color,
+
+                        color:
+                          // colors.prmTxtColor ||
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                        cursor: "pointer",
+                      }}
+                    >
+                      <span
+                        className="btn-visit-txt"
+                        style={{ fontFamily: semiboldFont }}
+                      >
+                        Translate
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      case "About (introduction of company)":
+        return (
+          <div>
             {/* sixeth section about start */}
             {userData?.about?.title && userData?.about?.description && (
               <div
@@ -1234,7 +1304,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Documents":
+        return (
+          <div>
             {/* seventh section document start */}
             {userData?.documents.length > 0 && (
               <div
@@ -1328,9 +1402,12 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Team member details":
+        return (
+          <div>
             {/* eight section team member details start */}
-            {/* {userData?.teamMember?.name.length > 0 && ( */}
             {userData?.teamMember?.name?.filter(
               (item) => item.trim().length > 0
             ).length > 0 && (
@@ -1435,7 +1512,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Address":
+        return (
+          <div>
             {/* nine section address start */}
             {userData?.address?.title && userData?.address?.address && (
               <div
@@ -1489,7 +1570,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Time sensitive offer/ slider form":
+        return (
+          <div>
             {/* ten section time sensitive offer start */}
             {userData?.timeoffer[0]?.image?.length > 0 && (
               <div
@@ -1542,9 +1627,14 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Automated":
+        return <div></div>;
+      case "Social Proof":
+        return (
+          <div>
             {/* eleven section social proof start */}
-            {/* {userData?.socialProof?.text?.length > 0 && ( */}
             {userData?.socialProof?.text?.filter(
               (item) => item.trim().length > 0
             ).length > 0 && (
@@ -1628,7 +1718,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Photos":
+        return (
+          <div>
             {/* twelve section photos start */}
             {userData?.photos[0]?.image?.length > 0 && (
               <div
@@ -1681,7 +1775,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Product Gallery":
+        return (
+          <div>
             {/* thirteen section product gallery start */}
             {userData?.productGallary?.length > 0 && (
               <div
@@ -1734,8 +1832,10 @@ const Mobileprev = ({
                             {pdetail.description}
                           </p>
 
-                          <p className="price-p-g" style={{fontFamily:mediumFont}}>
-
+                          <p
+                            className="price-p-g"
+                            style={{ fontFamily: mediumFont }}
+                          >
                             Price : {pdetail.price}
                           </p>
                           <button
@@ -1774,8 +1874,7 @@ const Mobileprev = ({
                             // colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
-                              fontFamily:mediumFont
-                              
+                          fontFamily: mediumFont,
                         }}
                       >
                         {userData?.productGallary[0]?.title}
@@ -1787,7 +1886,7 @@ const Mobileprev = ({
                             // colors.secTxtColor ||
                             userData?.card?.design?.font_style
                               ?.secondary_text_color,
-                              fontFamily:regularFont
+                          fontFamily: regularFont,
                         }}
                       >
                         {userData?.productGallary[0]?.description}
@@ -1799,7 +1898,7 @@ const Mobileprev = ({
                             // colors.prmTxtColor ||
                             userData?.card?.design?.font_style
                               ?.primary_text_color,
-                              fontFamily:mediumFont
+                          fontFamily: mediumFont,
                         }}
                       >
                         Price : {userData?.productGallary[0]?.price}
@@ -1827,7 +1926,7 @@ const Mobileprev = ({
                                 // colors.prmTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.primary_text_color,
-                                  fontFamily:semiboldFont
+                              fontFamily: semiboldFont,
                             }}
                           >
                             {" "}
@@ -1837,137 +1936,86 @@ const Mobileprev = ({
                       </a>
                     </>
                   )}
-
-                  {/* <p className="pic-title-p-g">New York</p>
-                <p className="pic-desc-p-g">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                </p>
-                <p className="price-p-g">Price : 500</p>
-                <button
-                  type="submit"
-                  className="btn-white-submit-leftalign"
-                  style={{
-                    background:
-                      userData?.card?.design?.card_color?.secondary_color,
-                    color:
-                      colors.prmTxtColor || userData?.card?.design?.font_style?.primary_text_color,
-                  }}
-                >
-                  <span className="btn-text-leftalign">Submit</span>
-                </button> */}
                 </div>
               </div>
             )}
+          </div>
+        );
 
-            {/* fourteen section two btn add start */}
-            {(cta?.btn_text || showTranslateBtn) && (
-              <div
-                className="grey-box-bg-left-align"
+      // Add the remaining cases
+      default:
+        return null;
+    }
+  };
+  return (
+    <>
+      <div className="left-align-main-div">
+        {/* Show live card preview */}
+        <div
+          className="padding-whole-10-l-a"
+          style={{
+            background:
+              // colors.flatColor ||
+              userData?.card?.design?.card_background?.flat_color,
+            backgroundImage: `linear-gradient(${
+              // colors.grdColor ||
+              userData?.card?.design?.card_background?.gradient_color1
+            }, ${
+              // colors.grdSecColor ||
+              userData?.card?.design?.card_background?.gradient_color2
+            })`,
+          }}
+        >
+          {/* top profile section start */}
+
+          <div className="profile-container">{renderDivBasedOnData()}</div>
+
+          {dragItems?.length>0 && dragItems.map((item) => (
+              <div key={item.id} className={item.id}>
+                {renderComponent(item.component)}
+              </div>
+            ))}
+
+          {/* fifteen section copiright start */}
+          <div
+            className="grey-box-bg-left-align"
+            style={{
+              background:
+                // colors.prmColor ||
+                userData?.card?.design?.card_color?.primary_color,
+              border: `0.48px solid ${
+                // colors.natClor ||
+                userData?.card?.design?.card_color?.neutral_color
+              }`,
+            }}
+          >
+            <div className="copy-flex">
+              <p
+                className="copy-txt"
                 style={{
-                  background:
-                    // colors.prmColor ||
-                    userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${
-                    // colors.natClor ||
-                    userData?.card?.design?.card_color?.neutral_color
-                  }`,
+                  color:
+                    // colors.secTxtColor ||
+                    userData?.card?.design?.font_style?.secondary_text_color,
+                  fontFamily: regularFont,
                 }}
               >
-                <div className="btn-visit-translate-flex">
-                  {cta?.btn_type && cta?.btn_text != "" && (
-                    <button
-                      className="btn-visit-translate"
-                      style={{
-                        background:
-                          // colors.secdClor ||
-                          userData?.card?.design?.card_color?.secondary_color,
-
-                        color:
-                          // colors.prmTxtColor ||
-                          userData?.card?.design?.font_style
-                            ?.primary_text_color,
-                        cursor: "pointer",
-                      }}
-                      onClick={handleButtonClick}
-                    >
-                      <span
-                        className="btn-visit-txt"
-                        style={{ fontFamily: semiboldFont }}
-                      >
-                        {cta?.btn_text}
-                      </span>
-                    </button>
-                  )}
-
-                  {showTranslateBtn && (
-                    <button
-                      className="btn-visit-translate"
-                      style={{
-                        background:
-                          // colors.secdClor ||
-                          userData?.card?.design?.card_color?.secondary_color,
-
-                        color:
-                          // colors.prmTxtColor ||
-                          userData?.card?.design?.font_style
-                            ?.primary_text_color,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span
-                        className="btn-visit-txt"
-                        style={{ fontFamily: semiboldFont }}
-                      >
-                        Translate
-                      </span>
-                    </button>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* fifteen section copiright start */}
-            <div
-              className="grey-box-bg-left-align"
-              style={{
-                background:
-                  // colors.prmColor ||
-                  userData?.card?.design?.card_color?.primary_color,
-                border: `0.48px solid ${
-                  // colors.natClor ||
-                  userData?.card?.design?.card_color?.neutral_color
-                }`,
-              }}
-            >
-              <div className="copy-flex">
-                <p
-                  className="copy-txt"
-                  style={{
-                    color:
-                      // colors.secTxtColor ||
-                      userData?.card?.design?.font_style?.secondary_text_color,
-                    fontFamily: regularFont,
-                  }}
-                >
-                  © 2025 ajay gadhavi. All Rights Reserved.
-                </p>
-                <p
-                  className="created-from-txt"
-                  style={{
-                    color:
-                      // colors.prmTxtColor ||
-                      userData?.card?.design?.font_style?.primary_text_color,
-                    fontFamily: mediumFont,
-                  }}
-                >
-                  Created From : <img src={flogo} alt="" />
-                </p>
-              </div>
+                © 2025 ajay gadhavi. All Rights Reserved.
+              </p>
+              <p
+                className="created-from-txt"
+                style={{
+                  color:
+                    // colors.prmTxtColor ||
+                    userData?.card?.design?.font_style?.primary_text_color,
+                  fontFamily: mediumFont,
+                }}
+              >
+                Created From : <img src={flogo} alt="" />
+              </p>
             </div>
-
           </div>
-        {/* </div> */}
+        </div>
+        
 
         <div
           className="grey-bottom-container"

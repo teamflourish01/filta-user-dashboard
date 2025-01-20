@@ -25,7 +25,7 @@ import memail from "../../../images/memail.svg";
 import mcontact from "../../../images/mcontact.svg";
 import mwhatsapp from "../../../images/mwhatsapp.svg";
 import mlocation from "../../../images/mlocation.svg";
-// import mgoogleplay from "../../../images/mgoogleplay.svg"
+import mgoogleplay from "../../../images/mgooglepay.svg";
 import mphonepay from "../../../images/mphonepay.svg";
 import mpaytm from "../../../images/mpaytm.svg";
 import mreview from "../../../images/mreview.svg";
@@ -73,6 +73,16 @@ const Mobileprev = ({
   // const [fontFmly, setFontfmly] = useState(
   //     userData?.card?.design?.font_style?.font_family
   //   );
+
+  // const [dragItems, setDragItems] = useState(() => {
+  //   const savedItems = localStorage.getItem("dragItems");
+  //   return savedItems ? JSON.parse(savedItems) : [];
+  // });
+  const [dragItems, setDragItems] = useState(() => {
+    // Fetch data from userdata (passed as prop)
+    const initialData = userData?.shuffle?.shuffle;
+    return initialData && Array.isArray(initialData) ? initialData : []; // Default to an empty array if no valid data
+  });
   // Extract bold font from fontFamily array
   const fontFamily = userData?.card?.design?.font_style?.font_family;
   // Find the bold font in the font family array
@@ -178,7 +188,7 @@ const Mobileprev = ({
     Contact: mcontact,
     WhatsApp: mwhatsapp,
     Address: mlocation,
-    // "Google Pay": mgooglepay,
+    "Google Pay": mgoogleplay,
     "Phone Pay": mphonepay,
     Paytm: mpaytm,
     Review: mreview,
@@ -199,8 +209,10 @@ const Mobileprev = ({
         return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
           url
         )}`; // Google Maps for addresses
-      // case "Google Pay":
-      //   return `https://pay.google.com/gp/w/u/0/home/activity?p=${encodeURIComponent(url)}`;
+      case "Google Pay":
+        return `https://pay.google.com/gp/w/u/0/home/activity?p=${encodeURIComponent(
+          url
+        )}`;
       // // Google Pay URL link
       case "Phone Pay":
         return `https://www.phonepe.com/${url}`; // Assuming PhonePe has URL handling
@@ -242,9 +254,7 @@ const Mobileprev = ({
       reset();
     } catch (error) {
       console.error("Error sending email:", error);
-      alert(
-        error.response.data.message || "Failed to send email. Please try again."
-      );
+      alert("Failed to send email. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -613,7 +623,7 @@ const Mobileprev = ({
           </div>
           <div className="profile-pic-container-left-align">
             <div className="logo-profile-c-l-a-portrait">
-            {userData?.card?.logoimg ? (
+              {userData?.card?.logoimg ? (
                 <img
                   className="mp-l-size-flourish"
                   src={logo ? logo : `${uri}/card/${userData?.card?.logoimg}`}
@@ -700,30 +710,11 @@ const Mobileprev = ({
   const handleCloseModal = () => {
     setIsShareModalOpen(false);
   };
-  return (
-    <>
-      <div className="my-priviewcard">
-        {/* Show live card preview */}
-        <div className="mp-mobile-modifi">
-          <div
-            className="mp-padding-whole-10-l-a"
-            style={{
-              background:
-                colors.flatColor ||
-                userData?.card?.design?.card_background?.flat_color,
-              backgroundImage: `linear-gradient(${
-                colors.grdColor ||
-                userData?.card?.design?.card_background?.gradient_color1
-              }, ${
-                colors.grdSecColor ||
-                userData?.card?.design?.card_background?.gradient_color2
-              })`,
-            }}
-          >
-            {/* top profile section start */}
-
-            <div className="profile-container">{renderDivBasedOnData()}</div>
-
+  const renderComponent = (component) => {
+    switch (component) {
+      case "Clickable links":
+        return (
+          <div>
             {/* second clickable link section start */}
 
             {userData?.socialLinks.length > 0 && (
@@ -808,7 +799,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Multimedia":
+        return (
+          <div>
             {/* third multimedia section start */}
             {userData?.multimedia[0]?.video_file?.length > 0 &&
               userData?.multimedia[0]?.youtube_url.length > 0 && (
@@ -920,7 +915,7 @@ const Mobileprev = ({
                               className="fullscreen-video v-h"
                               src={userData?.multimedia[0]?.youtube_url[0]}
                               // src="https://www.youtube.com/watch?v=fWCxWHsczWg"
-                              frameBorder="0"        
+                              frameBorder="0"
                             ></iframe>
                           </div>
                         ) : (
@@ -949,7 +944,11 @@ const Mobileprev = ({
                   </div>
                 </div>
               )}
-
+          </div>
+        );
+      case "Contact Form":
+        return (
+          <div>
             {/* fourth section contact form start */}
 
             {(userDetails?.data[0]?.loginemail || formDatac?.loginemail) && (
@@ -1109,7 +1108,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "voice message":
+        return (
+          <div>
             {/* fifth section voice message start */}
             {userData?.voiceMessage?.length > 0 && (
               <div
@@ -1143,6 +1146,82 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
+          </div>
+        );
+      case "CTA Button":
+        return (
+          <div>
+            {/* fourteen section two btn add start */}
+            {(cta?.btn_text || showTranslateBtn) && (
+              <div
+                className="mp-grey-box-bg-left-align"
+                style={{
+                  background:
+                    colors.prmColor ||
+                    userData?.card?.design?.card_color?.primary_color,
+                  border: `0.48px solid ${
+                    colors.natClor ||
+                    userData?.card?.design?.card_color?.neutral_color
+                  }`,
+                }}
+              >
+                <div className="btn-visit-translate-flex">
+                  {cta?.btn_type && cta?.btn_text != "" && (
+                    <button
+                      className="btn-visit-translate"
+                      style={{
+                        background:
+                          colors.secdClor ||
+                          userData?.card?.design?.card_color?.secondary_color,
+
+                        color:
+                          colors.prmTxtColor ||
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                        cursor: "pointer",
+                      }}
+                      onClick={handleButtonClick}
+                    >
+                      <span
+                        className="btn-visit-txt"
+                        style={{ fontFamily: semiboldFont }}
+                      >
+                        {cta?.btn_text}
+                      </span>
+                    </button>
+                  )}
+
+                  {showTranslateBtn && (
+                    <button
+                      className="btn-visit-translate"
+                      style={{
+                        background:
+                          colors.secdClor ||
+                          userData?.card?.design?.card_color?.secondary_color,
+
+                        color:
+                          colors.prmTxtColor ||
+                          userData?.card?.design?.font_style
+                            ?.primary_text_color,
+                        cursor: "pointer",
+                      }}
+                    >
+                      <span
+                        className="btn-visit-txt"
+                        style={{ fontFamily: semiboldFont }}
+                      >
+                        Translate
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      case "About (introduction of company)":
+        return (
+          <div>
             {/* sixeth section about start */}
             {userData?.about?.title && userData?.about?.description && (
               <div
@@ -1196,7 +1275,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Documents":
+        return (
+          <div>
             {/* seventh section document start */}
             {userData?.documents.length > 0 && (
               <div
@@ -1290,11 +1373,12 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Team member details":
+        return (
+          <div>
             {/* eight section team member details start */}
-
-            {/* {userData?.teamMember?.name.length > 0 && ( */}
-
             {userData?.teamMember?.name?.filter(
               (item) => item.trim().length > 0
             ).length > 0 && (
@@ -1399,7 +1483,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Address":
+        return (
+          <div>
             {/* nine section address start */}
             {userData?.address?.title && userData?.address?.address && (
               <div
@@ -1453,7 +1541,11 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Time sensitive offer/ slider form":
+        return (
+          <div>
             {/* ten section time sensitive offer start */}
             {userData?.timeoffer[0]?.image?.length > 0 && (
               <div
@@ -1506,11 +1598,14 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Automated":
+        return <div></div>;
+      case "Social Proof":
+        return (
+          <div>
             {/* eleven section social proof start */}
-
-            {/* {userData?.socialProof?.text?.length > 0 && ( */}
-
             {userData?.socialProof?.text?.filter(
               (item) => item.trim().length > 0
             ).length > 0 && (
@@ -1594,9 +1689,12 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Photos":
+        return (
+          <div>
             {/* twelve section photos start */}
-
             {userData?.photos[0]?.image?.length > 0 && (
               <div
                 className="mp-grey-box-bg-left-align"
@@ -1648,9 +1746,12 @@ const Mobileprev = ({
                 </div>
               </div>
             )}
-
+          </div>
+        );
+      case "Product Gallery":
+        return (
+          <div>
             {/* thirteen section product gallery start */}
-
             {userData?.productGallary?.length > 0 && (
               <div
                 className="mp-grey-box-bg-left-align"
@@ -1806,94 +1907,47 @@ const Mobileprev = ({
                       </a>
                     </>
                   )}
-
-                  {/* <p className="mp-pic-title-p-g">New York</p>
-                <p className="mp-pic-desc-p-g">
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                </p>
-                <p className="mp-price-p-g">Price : 500</p>
-                <button
-                  type="submit"
-                  className="btn-white-submit-leftalign"
-                  style={{
-                    background:
-                      userData?.card?.design?.card_color?.secondary_color,
-                    color:
-                      colors.prmTxtColor || userData?.card?.design?.font_style?.primary_text_color,
-                  }}
-                >
-                  <span className="mp-btn-text-leftalign">Submit</span>
-                </button> */}
                 </div>
               </div>
             )}
-            {/* fourteen section two btn add start */}
-            {(cta?.btn_text || showTranslateBtn) && (
-              <div
-                className="mp-grey-box-bg-left-align"
-                style={{
-                  background:
-                    colors.prmColor ||
-                    userData?.card?.design?.card_color?.primary_color,
-                  border: `0.48px solid ${
-                    colors.natClor ||
-                    userData?.card?.design?.card_color?.neutral_color
-                  }`,
-                }}
-              >
-                <div className="btn-visit-translate-flex">
-                  {cta?.btn_type && cta?.btn_text != "" && (
-                    <button
-                      className="btn-visit-translate"
-                      style={{
-                        background:
-                          colors.secdClor ||
-                          userData?.card?.design?.card_color?.secondary_color,
+          </div>
+        );
 
-                        color:
-                          colors.prmTxtColor ||
-                          userData?.card?.design?.font_style
-                            ?.primary_text_color,
-                        cursor: "pointer",
-                      }}
-                      onClick={handleButtonClick}
-                    >
-                      <span
-                        className="btn-visit-txt"
-                        style={{ fontFamily: semiboldFont }}
-                      >
-                        {cta?.btn_text}
-                      </span>
-                    </button>
-                  )}
+      // Add the remaining cases
+      default:
+        return null;
+    }
+  };
 
-                  {showTranslateBtn && (
-                    <button
-                      className="btn-visit-translate"
-                      style={{
-                        background:
-                          colors.secdClor ||
-                          userData?.card?.design?.card_color?.secondary_color,
+  return (
+    <>
+      <div className="my-priviewcard">
+        {/* Show live card preview */}
+        <div className="mp-mobile-modifi">
+          <div
+            className="mp-padding-whole-10-l-a"
+            style={{
+              background:
+                colors.flatColor ||
+                userData?.card?.design?.card_background?.flat_color,
+              backgroundImage: `linear-gradient(${
+                colors.grdColor ||
+                userData?.card?.design?.card_background?.gradient_color1
+              }, ${
+                colors.grdSecColor ||
+                userData?.card?.design?.card_background?.gradient_color2
+              })`,
+            }}
+          >
+            {/* top profile section start */}
 
-                        color:
-                          colors.prmTxtColor ||
-                          userData?.card?.design?.font_style
-                            ?.primary_text_color,
-                        cursor: "pointer",
-                      }}
-                    >
-                      <span
-                        className="btn-visit-txt"
-                        style={{ fontFamily: semiboldFont }}
-                      >
-                        Translate
-                      </span>
-                    </button>
-                  )}
-                </div>
+            <div className="profile-container">{renderDivBasedOnData()}</div>
+
+            {dragItems.map((item) => (
+              <div key={item.id} className={item.id}>
+                {renderComponent(item.component)}
               </div>
-            )}
+            ))}
 
             {/* fifteen section copiright start */}
             <div
@@ -1935,7 +1989,7 @@ const Mobileprev = ({
             </div>
           </div>
         </div>
-
+        {/* two button sacecontact and share */}
         <div
           className="mp-grey-bottom-container"
           style={{

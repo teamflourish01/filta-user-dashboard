@@ -123,6 +123,7 @@
   position: absolute;
   bottom: 169px;
   left: 69px;
+  object-fit: cover;
   /* /* outline: 2px solid white;  */
 }
 
