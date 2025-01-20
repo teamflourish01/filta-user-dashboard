@@ -78,11 +78,7 @@ const Mobileprev = ({
   //   const savedItems = localStorage.getItem("dragItems");
   //   return savedItems ? JSON.parse(savedItems) : [];
   // });
-  const [dragItems, setDragItems] = useState(() => {
-    // Fetch data from userdata (passed as prop)
-    const initialData = userData?.shuffle?.shuffle;
-    return initialData && Array.isArray(initialData) ? initialData : []; // Default to an empty array if no valid data
-  });
+  const [dragItems, setDragItems] = useState([]);
   // Extract bold font from fontFamily array
   const fontFamily = userData?.card?.design?.font_style?.font_family;
   // Find the bold font in the font family array
@@ -120,6 +116,7 @@ const Mobileprev = ({
   useEffect(() => {
     // console.log(showTbtn, "showtbtn");
     setLayout(userData?.card?.design?.layout);
+    setDragItems(userData?.shuffle?.shuffle)
   }, [userDetails]);
 
   if (error) {
@@ -1943,7 +1940,7 @@ const Mobileprev = ({
 
             <div className="profile-container">{renderDivBasedOnData()}</div>
 
-            {dragItems.map((item) => (
+            {dragItems?.map((item) => (
               <div key={item.id} className={item.id}>
                 {renderComponent(item.component)}
               </div>
