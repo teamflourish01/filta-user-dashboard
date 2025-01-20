@@ -7,6 +7,8 @@ import facebook from "../../images/facebook.png";
 import lock from "../../images/lock.png";
 import { Link, useNavigate } from "react-router-dom";
 import userContext from "../../context/userDetails";
+import axios from "axios";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,8 +33,8 @@ function Login() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      console.log(url,"url");
-      
+      console.log(url, "url");
+
       const response = await fetch(`${url}/user/signin`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
@@ -54,6 +56,55 @@ function Login() {
       setIsLoading(false);
     }
   };
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        // Get user info from Google
+        if (tokenResponse?.access_token) {
+          const { access_token } = tokenResponse;
+
+          const userInfoResponse = await axios.get(
+            "https://www.googleapis.com/oauth2/v2/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${access_token}`,
+              },
+            }
+          );
+
+          const userInfo = userInfoResponse.data;
+          console.log("Google User Info:", userInfo);
+
+          const { email } = userInfo;
+
+          const backendResponse = await axios.post(`${url}/user/googlesignin`, {
+            email,
+          });
+
+          if (backendResponse.status === 200) {
+            const token = backendResponse.data.token;
+            storeTokenLS(token);
+            alert(backendResponse.data.message || "Login Successful");
+            navigate("/my-card/");
+          } else {
+            alert(backendResponse.data.message || "User Not Found");
+          }
+        } else {
+          throw new Error("No access token found in response");
+        }
+      } catch (error) {
+        console.error("Error during Google login:", error);
+        alert(
+          error.response.data.message ||
+            "Failed to login with Google. Please try again."
+        );
+      }
+    },
+    onError: (error) => {
+      console.error("Google Login Error:", error);
+      alert("Failed to login with Google. Please try again.");
+    },
+  });
   return (
     <>
       <div className="login-container">
@@ -127,18 +178,18 @@ function Login() {
                 <span className="line"></span>
               </div>
               {/* <Glogin /> */}
-              <div className="continues-with">
+              <div className="continues-with" onClick={handleGoogleLogin}>
                 <img src={google} alt="" srcset="" />
                 <p className="login-google">Continue with Google</p>
               </div>
-              <div className="continues-with continue-padding">
+              {/* <div className="continues-with continue-padding">
                 <img src={facebook} alt="" srcset="" />
                 <p className="login-google">Continue with Facebook</p>
               </div>
               <div className="continues-with">
                 <img src={lock} alt="" srcset="" />
                 <p className="login-google">Continue with SSO</p>
-              </div>
+              </div> */}
               <div className="new-to-filta">
                 <p className="text-center">
                   <span className="new-text">New to filta ? </span>

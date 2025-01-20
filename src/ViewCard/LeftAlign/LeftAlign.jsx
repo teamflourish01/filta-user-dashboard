@@ -39,6 +39,7 @@ import dummyprofile from "./../../images/digitalphoto.png";
 import { Document, Page, pdfjs } from "react-pdf";
 import defaultlogo from "./../../images/filta.png";
 import ShareCardModal from "../../Component/ShareCardModal/ShareCardModal";
+import { useParams } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -63,8 +64,9 @@ const Mobileprev = ({
   // userDetails,
   // setUserDetails
 }) => {
+  const [userData, setUserData] = useState(null);
   const {
-    userData,
+    
     AuthorizationToken,
     getUserData,
     userDetails,
@@ -72,6 +74,7 @@ const Mobileprev = ({
   } = useContext(userContext);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [layout, setLayout] = useState(null);
+  const { username } = useParams();
 
   // Extract bold font from fontFamily array
   const fontFamily = userData?.card?.design?.font_style?.font_family;
@@ -90,7 +93,8 @@ const Mobileprev = ({
     : null;
 
   // console.log(mediumFont);
-
+  
+  
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
   const {
@@ -117,6 +121,28 @@ const Mobileprev = ({
   // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
 
+
+  // useEffect(() => {
+  //   console.log(showTbtn, "showtbtn");
+  //   setLayout(userData?.card?.design?.layout);
+  // }, [userDetails]);
+  useEffect(()=>{
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${uri}/user/${username}`);
+        setUserData(response.data.user);
+        console.log("response left-align",response);
+        console.log("userData left-align",userData);
+        
+      } catch (error) {
+        console.log(error);   
+        
+      }
+    };
+
+    fetchUserData();
+  },[username])
+
   useEffect(() => {
     if (userData?.card?.design?.layout) {
       setLayout(userData.card.design.layout);
@@ -127,9 +153,9 @@ const Mobileprev = ({
     return <div>Error: {error}</div>;
   }
 
-  if (!userDetails) {
-    return <div>Loading...</div>;
-  }
+  // if (!userDetails) {
+  //   return <div>Loading...</div>;
+  // }
 
   const togglePlayback = () => {
     const audio = audioRef.current;

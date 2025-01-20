@@ -74,7 +74,7 @@ function App() {
         />
 
         {/* View Card Routes*/}
-        <Route path="/left-align" element={<LeftAlign />} />
+        <Route path="/card/:username" element={<LeftAlign />} />
         <Route path="/center-align" element={<CenterAlign />} />
         <Route path="/portrait" element={<Portrait />} />
 

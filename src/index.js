@@ -4,13 +4,25 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { User } from "./context/userDetails";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <User>
-      <App />
-    </User>
+    {/* <Auth0Provider
+    domain="dev-jsd0a64f3hdbhuk2.us.auth0.com"
+    clientId="MJLLW8UZlvJ714A8gjmdMQPV6OLJn3pv"
+    redirectUri={window.location.origin}
+  > */}
+      <GoogleOAuthProvider
+      clientId="970941117362-5llk95jqea8a5343ej8bstehsg1llgt0.apps.googleusercontent.com"
+    >
+      <User>
+        <App />
+      </User>
+      </GoogleOAuthProvider>
+    {/* </Auth0Provider> */}
   </React.StrictMode>
 );
 

@@ -39,7 +39,7 @@ const ShareCardModal = ({ onClose }) => {
               Copy Link and Share it with anyone.
             </p>
             <div className="flex-input-copy">
-              <input type="text" name="name" />
+              <input type="text" name="name" value={`http://192.168.1.15:3000/card/${userData?.username}`} readOnly/>
               <button className="copy-btn">Copy</button>
             </div>
             <div className="or-bg-w">Or</div>
