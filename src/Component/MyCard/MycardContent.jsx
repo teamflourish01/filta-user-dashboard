@@ -50,47 +50,107 @@ const ContentComponent = ({
   formDatac,
   setFormDatac,
   userDetails,
-  setUserDetails
+  setUserDetails,
 }) => {
-  const [dragItems, setDragItems] = useState([
-    { id: "drag-drop-first", component: "Clickable links" },
-    { id: "drag-drop-secound", component: "Multimedia" },
-    { id: "drag-drop-third", component: "Contact Form" },
-    { id: "drag-drop-four", component: "voice message" },
-    { id: "drag-drop-five", component: "CTA Button" },
-    { id: "drag-drop-six", component: "About (introduction of company)" },
-
-    { id: "drag-drop-seven", component: "Documents" },
-    { id: "drag-drop-eight", component: "Team member details" },
-    { id: "drag-drop-thirtys", component: "Address" },
-    { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
-    { id: "drag-drop-ten", component: "Automated" },
-    { id: "drag-drop-eleven", component: "Social Proof" },
-    { id: "drag-drop-twelv", component: "Photos" },
-    { id: "drag-drop-thirty", component: "Product Gallery" },
-  ]);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [draggedItem, setDraggedItem] = useState(null);
-
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [platformLinks, setPlatformLinks] = useState({});
-  const [draggedItemIndex, setDraggedItemIndex] = useState(null);
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [isAdding, setIsAdding] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
+  const [dragItems, setDragItems] = useState([
+    //     { id: "drag-drop-first", component: "Clickable links" },
+    // { id: "drag-drop-secound", component: "Multimedia" },
+    // { id: "drag-drop-third", component: "Contact Form" },
+    // { id: "drag-drop-four", component: "voice message" },
+    // { id: "drag-drop-five", component: "CTA Button" },
+    // { id: "drag-drop-six", component: "About (introduction of company)" },
+    // { id: "drag-drop-seven", component: "Documents" },
+    // { id: "drag-drop-eight", component: "Team member details" },
+    // { id: "drag-drop-thirtys", component: "Address" },
+    // { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
+    // { id: "drag-drop-ten", component: "Automated" },
+    // { id: "drag-drop-eleven", component: "Social Proof" },
+    // { id: "drag-drop-twelv", component: "Photos" },
+    // { id: "drag-drop-thirty", component: "Product Gallery" },
+  ]);
+  // Fetch data on mount
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      try {
+        // Check if userdata is available and contains shuffle data
+        const initialData = userData?.shuffle?.shuffle;
 
+        if (initialData && Array.isArray(initialData)) {
+          console.log("Loaded drag items from userdata:", initialData);
+          setDragItems(initialData); // Use data from userdata
+        } else {
+          console.log("No shuffle data found in userdata.");
+        }
+      } catch (error) {
+        console.error("Error fetching drag items:", error);
+      }
+    };
+
+    fetchInitialData();
+  }, [userData]);
+  const handleDragStart = (e, index) => {
+    e.dataTransfer.setData("index", index); // Store the index of the dragged item
+    e.target.style.opacity = "0.5"; // Visual feedback
+    console.log(`Started dragging: ${dragItems[index]?.component}`);
+  };
+  const handleDragEnd = (e) => {
+    e.target.style.opacity = "1"; // Reset visual feedback
+    console.log("Drag ended");
+  };
+  const handleDrop = async (e, index) => {
+    e.preventDefault();
+    const draggedIndex = e.dataTransfer.getData("index"); // Retrieve dragged item's index
+    const updatedItems = [...dragItems];
+
+    // Swap the positions of the dragged item and the target item
+    const draggedItem = updatedItems.splice(draggedIndex, 1)[0];
+    updatedItems.splice(index, 0, draggedItem);
+
+    setDragItems(updatedItems);
+
+    console.log("Updated drag items:", updatedItems);
+
+    // Save updated order to backend
+    try {
+      const response = await fetch(`${uri}/shuffle/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: AuthorizationToken,
+        },
+        body: JSON.stringify({
+          shuffle: updatedItems,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to save shuffle data: ${response.status}`);
+      }
+
+      console.log("Shuffle data saved to backend");
+    } catch (error) {
+      console.error("Error saving shuffle data:", error);
+    }
+  };
+  const handleDragOver = (e) => {
+    e.preventDefault(); // Allow the drop event
+  };
   const toggleModal = () => {
     setIsModalVisible((prev) => !prev);
     setIsAdding(true);
   };
-
   const handlePlatformSelect = (platform) => {
     const uniquePlatform = { ...platform, id: Date.now(), isLocal: true };
     setSelectedPlatforms((prev) => [...prev, uniquePlatform]);
     toggleModal();
   };
-
   const handleLinkChange = (platformId, field, value) => {
     setPlatformLinks((prev) => ({
       ...prev,
@@ -100,7 +160,6 @@ const ContentComponent = ({
       },
     }));
   };
-
   const handleDeleteLink = async (linkId) => {
     const platformToDelete = selectedPlatforms.find(
       (platform) => platform.id === linkId
@@ -147,7 +206,6 @@ const ContentComponent = ({
       }
     }
   };
-
   useEffect(() => {
     if (userData && userData.socialLinks) {
       const initialLinks = {};
@@ -301,34 +359,9 @@ const ContentComponent = ({
 
     handleButtonClick(platform.name, title, url, platformId);
   };
-
-  const handleDragStart = (e, index) => {
-    e.dataTransfer.setData("index", index); // Store the index of the dragged item
-    e.target.style.opacity = "0.5"; // Visual feedback
-  };
-  const handleDragEnd = (e) => {
-    e.target.style.opacity = "1"; // Reset visual feedback
-  };
-  const handleDrop = (e, index) => {
-    e.preventDefault();
-    const draggedIndex = e.dataTransfer.getData("index"); // Retrieve dragged item's index
-    const updatedItems = [...dragItems];
-
-    // Swap the positions of the dragged item and the target item
-    const draggedItem = updatedItems.splice(draggedIndex, 1)[0];
-    updatedItems.splice(index, 0, draggedItem);
-
-    setDragItems(updatedItems);
-  };
-
   const toggleDropdown = (index) => {
     setActiveDropdown(activeDropdown === index ? null : index); // Close if the same dropdown is clicked again
   };
-
-  const handleDragOver = (e) => {
-    e.preventDefault(); // Allow the drop event
-  };
-
   const renderComponent = (component) => {
     switch (component) {
       case "Clickable links":
