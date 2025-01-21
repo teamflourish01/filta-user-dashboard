@@ -54,6 +54,7 @@
   text-align: center;
   color: #5aba47;
   padding: 15px 0 25px;
+  cursor: pointer;
 }
 .copy-link-text {
   font-family: Poppins-Regular;
