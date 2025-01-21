@@ -12,6 +12,7 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import { CgClose } from "react-icons/cg";
 import userContext from "../../context/userDetails";
 import dummyprofile from "../../images/digitalphoto.png";
+import { googleLogout } from "@react-oauth/google";
 
 const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
   const location = useLocation();
@@ -40,6 +41,7 @@ const Hamburger = ({ isMenuOpen, closeHamburgerMenu, menuRef }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   const handleLogOut = () => {
+    googleLogout();
     localStorage.removeItem("token");
     navigate("/login");
     window.location.reload();

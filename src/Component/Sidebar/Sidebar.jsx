@@ -12,7 +12,7 @@ import "./Sidebar.css";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import userContext from "../../context/userDetails";
 import dummyprofile from "../../images/digitalphoto.png";
-import { useAuth0 } from "@auth0/auth0-react";
+import { googleLogout } from "@react-oauth/google";
 
 const Sidebar = () => {
   // const [activeItem, setActiveItem] = useState(" ");
@@ -21,7 +21,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { userData } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
-  const { logout } = useAuth0();
+  
 
   // const handleMenuClick = (item) => {
   //   setActiveItem(item);
@@ -36,16 +36,11 @@ const Sidebar = () => {
   const closeProfileMenu = () => {
     setIsProfileMenuOpen(false);
   };
-  const handleLogOut = async() => {
-    try {      
-      localStorage.removeItem("token");      
-      await logout({
-        returnTo: window.location.origin,
-      });      
-    } catch (error) {
-      console.error("Error during logout:", error);
-      alert("logout error")
-    }
+  const handleLogOut = async () => {
+    googleLogout();
+    localStorage.removeItem("token");
+    navigate("/login");
+    window.location.reload();
   };
 
   useEffect(() => {
