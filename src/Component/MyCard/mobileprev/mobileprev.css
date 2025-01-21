@@ -423,6 +423,7 @@
   margin: 15px 0;
   border: none;
   height: 43.16px;
+  cursor: pointer;
 }
 .mp-btn-text-leftalign {
   font-family: Poppins-SemiBold;
@@ -661,6 +662,7 @@ text-align: left;
   justify-content: center;
   align-items: center;
   gap: 15px;
+
 }
 .mp-btn-bottom-l-a {
   /* width: 144px;  */
@@ -674,6 +676,8 @@ text-align: left;
   border: unset;
   padding: 7px 15.64px;
   white-space: nowrap;
+  cursor: pointer;
+
 }
 
 /* fourteen section css start */

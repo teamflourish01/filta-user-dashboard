@@ -1918,7 +1918,7 @@ const Mobileprev = ({
 
   return (
     <>
-      <div className="my-priviewcard">
+      <div className="my-priviewcard" >
         {/* Show live card preview */}
         <div className="mp-mobile-modifi">
           <div
@@ -1986,6 +1986,8 @@ const Mobileprev = ({
             </div>
           </div>
         </div>
+        {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} isShareModalOpen={isShareModalOpen} />}
+
         {/* two button sacecontact and share */}
         <div
           className="mp-grey-bottom-container"
@@ -2034,8 +2036,8 @@ const Mobileprev = ({
             </button>
           </div>
         </div>
+
       </div>
-      {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
     </>
   );
 };
