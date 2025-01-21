@@ -78,7 +78,23 @@ const Mobileprev = ({
   //   const savedItems = localStorage.getItem("dragItems");
   //   return savedItems ? JSON.parse(savedItems) : [];
   // });
-  const [dragItems, setDragItems] = useState([]);
+  const defaultDragItems = [
+    { id: "drag-drop-first", component: "Clickable links" },
+    { id: "drag-drop-secound", component: "Multimedia" },
+    { id: "drag-drop-third", component: "Contact Form" },
+    { id: "drag-drop-four", component: "Voice message" },
+    { id: "drag-drop-five", component: "CTA Button" },
+    { id: "drag-drop-six", component: "About (introduction of company)" },
+    { id: "drag-drop-seven", component: "Documents" },
+    { id: "drag-drop-eight", component: "Team member details" },
+    { id: "drag-drop-thirtys", component: "Address" },
+    { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
+    { id: "drag-drop-ten", component: "Automated" },
+    { id: "drag-drop-eleven", component: "Social Proof" },
+    { id: "drag-drop-twelv", component: "Photos" },
+    { id: "drag-drop-thirty", component: "Product Gallery" },
+  ];
+  const [dragItems, setDragItems] = useState(defaultDragItems);
   // Extract bold font from fontFamily array
   const fontFamily = userData?.card?.design?.font_style?.font_family;
   // Find the bold font in the font family array
@@ -112,12 +128,19 @@ const Mobileprev = ({
 
   // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
-
+  
   useEffect(() => {
     // console.log(showTbtn, "showtbtn");
     setLayout(userData?.card?.design?.layout);
-    setDragItems(userData?.shuffle?.shuffle)
-  }, [userDetails]);
+    const shuffleData = userData?.shuffle?.shuffle;
+    if (shuffleData && Array.isArray(shuffleData) && shuffleData.length > 0) {
+      setDragItems(shuffleData);
+    } else {
+      console.log("No shuffle data found. Using default drag items.");
+      setDragItems(defaultDragItems); 
+    }
+
+  }, [userData]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -910,7 +933,7 @@ const Mobileprev = ({
                           <div className="single-video">
                             <iframe
                               className="fullscreen-video v-h"
-                              src={userData?.multimedia[0]?.youtube_url[0]}
+                              src={`https://www.youtube.com/embed/${userData?.multimedia[0]?.youtube_url[0]}`}
                               // src="https://www.youtube.com/watch?v=fWCxWHsczWg"
                               frameBorder="0"
                             ></iframe>
@@ -926,7 +949,7 @@ const Mobileprev = ({
                                     className="mp-video-slide-youtube"
                                   >
                                     <iframe
-                                      src={youtubeVideos}
+                                      src={`https://www.youtube.com/embed/${youtubeVideos}`}
                                       frameBorder="0"
                                       className="v-h"
                                     ></iframe>

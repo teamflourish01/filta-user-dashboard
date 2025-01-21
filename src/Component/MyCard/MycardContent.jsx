@@ -60,20 +60,20 @@ const ContentComponent = ({
   const [isAdding, setIsAdding] = useState(false);
   const uri = process.env.REACT_APP_DEV_URL;
   const [dragItems, setDragItems] = useState([
-    //     { id: "drag-drop-first", component: "Clickable links" },
-    // { id: "drag-drop-secound", component: "Multimedia" },
-    // { id: "drag-drop-third", component: "Contact Form" },
-    // { id: "drag-drop-four", component: "voice message" },
-    // { id: "drag-drop-five", component: "CTA Button" },
-    // { id: "drag-drop-six", component: "About (introduction of company)" },
-    // { id: "drag-drop-seven", component: "Documents" },
-    // { id: "drag-drop-eight", component: "Team member details" },
-    // { id: "drag-drop-thirtys", component: "Address" },
-    // { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
-    // { id: "drag-drop-ten", component: "Automated" },
-    // { id: "drag-drop-eleven", component: "Social Proof" },
-    // { id: "drag-drop-twelv", component: "Photos" },
-    // { id: "drag-drop-thirty", component: "Product Gallery" },
+    { id: "drag-drop-first", component: "Clickable links" },
+    { id: "drag-drop-secound", component: "Multimedia" },
+    { id: "drag-drop-third", component: "Contact Form" },
+    { id: "drag-drop-four", component: "voice message" },
+    { id: "drag-drop-five", component: "CTA Button" },
+    { id: "drag-drop-six", component: "About (introduction of company)" },
+    { id: "drag-drop-seven", component: "Documents" },
+    { id: "drag-drop-eight", component: "Team member details" },
+    { id: "drag-drop-thirtys", component: "Address" },
+    { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
+    { id: "drag-drop-ten", component: "Automated" },
+    { id: "drag-drop-eleven", component: "Social Proof" },
+    { id: "drag-drop-twelv", component: "Photos" },
+    { id: "drag-drop-thirty", component: "Product Gallery" },
   ]);
   // Fetch data on mount
   useEffect(() => {
