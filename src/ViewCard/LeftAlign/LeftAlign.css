@@ -586,7 +586,7 @@
   border: unset;
   padding: 7px 20px;
   white-space: nowrap;
-
+  cursor: pointer;
 }
 
 

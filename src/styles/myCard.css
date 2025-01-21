@@ -277,6 +277,7 @@
 .my-priviewcard {
   width: 280px;
   height: 550px;
+  position: relative;
   /* border: 2px solid #eff1f3; */
   margin: 0 auto;
   border-radius: 25px;
@@ -327,7 +328,7 @@
 .my-priviewMain {
   overflow-y: scroll;
   scrollbar-width: thin;
-  height: calc(100% - 72px);
+  height: calc(100% - 80px);
   /* height: calc(90vh - 110px); */
   scrollbar-color: #ccc white;
 }

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { CgClose } from "react-icons/cg";
-import "../ShareCardModal/ShareCardModal.css";
+import "../ShareModalLeft/ShareModalLeft.css";
 import scannerpic from "../../images/scannerpic.svg";
 import { IoShareOutline } from "react-icons/io5";
 import userContext from "../../context/userDetails";
 import gsap from "gsap";
 
-const ShareCardModal = ({ onClose, isShareModalOpen }) => {
+const ShareModalLeft = ({ onClose, isShareModalOpen }) => {
   const {
     userData,
     AuthorizationToken,
@@ -75,7 +75,7 @@ const ShareCardModal = ({ onClose, isShareModalOpen }) => {
   useEffect(() => {
     if (isShareModalOpen) {
       gsap.to(modalRef.current, {
-        height: "535px",
+        height: "665px",
         duration: 1,
         ease: "power3.out",
       });
@@ -92,49 +92,51 @@ const ShareCardModal = ({ onClose, isShareModalOpen }) => {
     <>
       {/* <div className="modal-po-re"> */}
       <div
-        className={`modal-content-sharedCard ${
+        className={`modal-content-sharedCard-l ${
           isShareModalOpen ? "active" : ""
         }`}
         ref={modalRef}
       >
-        <div className="close-btn-flex">
-          <div className="share-card-title">Share Card</div>
-          <div className="close-btn-animation">
+        <div className="close-btn-flex-l">
+          <div className="share-card-title-l">Share Card</div>
+          <div className="close-btn-animation-l">
             <CgClose onClick={onClose} />
           </div>
         </div>
-        <div className="scan-download-qr">
-          <p className="scan-qr-code-title">Scan QR Code</p>
+        <div className="scan-download-qr-l">
+          <p className="scan-qr-code-title-l">Scan QR Code</p>
           <img
             style={{ width: "262px", height: "260px" }}
             src={`${uri}/qrcodelogo/${userData?.qrcode?.qrpng}`}
             alt=""
           />
+          {/* <div className="scanner-download-s-c">Download QR Code</div> */}
           <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-          <div className="scanner-download-s-c" onClick={downloadQRCode}>
+
+          <div className="scanner-download-s-c-l" onClick={downloadQRCode}>
             Download QR Code
-          </div>{" "}
+          </div>
         </div>
-        <div className="copy-link-flex-s-c">
-          <p className="copy-link-text">Copy Link and Share it with anyone.</p>
-          <div className="flex-input-copy">
+        <div className="copy-link-flex-s-c-l">
+          <p className="copy-link-text-l">Copy Link and Share it with anyone.</p>
+          <div className="flex-input-copy-l">
             <input
               type="text"
               name="name"
               value={`${uri}/card/${userData?.username}`}
               readOnly
             />
-            <button className="copy-btn" onClick={copyToClipboard}>
+            <button className="copy-btn-l" onClick={copyToClipboard}>
               Copy
             </button>
           </div>
-          <div className="or-bg-w">Or</div>
+          <div className="or-bg-w-l">Or</div>
         </div>
-        <div className="btn-center-flex-share">
-          <div className="share-via-btn">
-            <p className="share-via-txt">Share Via</p>
+        <div className="btn-center-flex-share-l">
+          <div className="share-via-btn-l">
+            <p className="share-via-txt-l">Share Via</p>
           </div>
-          <div className="share-arrow">
+          <div className="share-arrow-l">
             <IoShareOutline />
           </div>
         </div>
@@ -144,4 +146,4 @@ const ShareCardModal = ({ onClose, isShareModalOpen }) => {
   );
 };
 
-export default ShareCardModal;
+export default ShareModalLeft;

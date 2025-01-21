@@ -40,10 +40,11 @@ import { Document, Page, pdfjs } from "react-pdf";
 import defaultlogo from "./../../images/filta.png";
 import ShareCardModal from "../../Component/ShareCardModal/ShareCardModal";
 import { useParams } from "react-router-dom";
+import ShareModalLeft from "../../Component/ShareModalLeft/ShareModalLeft";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-const Mobileprev = ({
+const LeftAlign = ({
   selectedFields,
   borderStyle,
   setCheckboxStates,
@@ -2047,9 +2048,9 @@ const Mobileprev = ({
           </div>
         </div>
       </div>
-      {isShareModalOpen && <ShareCardModal onClose={handleCloseModal} />}
+      {isShareModalOpen && <ShareModalLeft onClose={handleCloseModal} isShareModalOpen={isShareModalOpen}/>}
     </>
   );
 };
 
-export default Mobileprev;
+export default LeftAlign;

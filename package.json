@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
+    "gsap": "^3.12.7",
     "html2canvas": "^1.4.1",
     "pdfjs-dist": "^4.9.155",
     "qrcode.react": "^4.2.0",
