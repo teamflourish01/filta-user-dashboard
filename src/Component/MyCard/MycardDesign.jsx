@@ -45,7 +45,6 @@ const DesignComponent = ({
     userData?.card?.design?.font_style?.font_family
   );
 
- 
   const handleColorEdit = (name) => {
     if (refs[name]?.current) {
       refs[name].current.click();
@@ -65,9 +64,6 @@ const DesignComponent = ({
     setSelectedFontStyles(selectedFontStyles);
     setIsOpen(false);
   };
-  
-
-
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -119,7 +115,6 @@ const DesignComponent = ({
       const response = await fetch(`${uri}/font/getall`);
       const data = await response.json();
       console.log("fonts", data);
-
       setFonts(data);
     };
     fetchFonts();

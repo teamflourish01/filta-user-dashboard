@@ -26,6 +26,7 @@ const Layout1 = ({
   selectedFile,
   hideMobileNo,
   selectedCard,
+  setSelectedCard,
   selectedImage,
   useBackgroundColor,
   logoUrl,
@@ -49,6 +50,11 @@ const Layout1 = ({
       (formData.mobile || userData?.nfcPremium?.mobile) &&
       showMobileNo);
 
+      useEffect(()=>{
+        console.log(+(logoWidth),"logoWidth layout 1");
+        console.log(+(logoHeight),"logoHeight layout 1");
+       
+      },[])
   return (
     <div>
       <div className="front-premium-card">
@@ -65,25 +71,27 @@ const Layout1 = ({
                 userData?.nfcPremium?.cardBackgroundColor,
           }}
         >
-          {showNfcIcon && (
+          {!showNfcIcon && (
             <div className="nfc-container">
               <img src={nfc} alt="" className="nfc-lay-1-icon-size" />
             </div>
           )}
           <div className="layout-1-logo-c">
-            <img
+           { (userData?.nfcPremium?.logo || logoUrl) && <img
               src={
                 selectedFile
                   ? logoUrl
                   : `${uri}/nfcpremium/${userData?.nfcPremium?.logo}`
+                  
+                  
               }
               alt=""
               className="layout-1-logo-size"
               style={{
-                width: `${logoWidth - 20}px` || `${userData?.nfcPremium?.logoMaxWidth}`,
-                height: `${logoHeight - 20}px` || `${userData?.nfcPremium?.logoMaxHeight}`,
+                width: `${logoWidth }px` || `${+(userData?.nfcPremium?.logoMaxWidth)}`,
+                height: `${logoHeight}px` || `${+(userData?.nfcPremium?.logoMaxHeight)}`,
               }}
-            />
+            />}
           </div>
           {hasLogoOrUserDetails && (
             <div
@@ -158,7 +166,7 @@ const Layout1 = ({
                 userData?.nfcPremium?.cardBackgroundColor,
           }}
         >
-          {showFiltaLogo && (
+          {!showFiltaLogo && (
             <div className="nfc-container">
               <img src={filta} alt="" className="nfc-lay-1-icon-size" />
             </div>

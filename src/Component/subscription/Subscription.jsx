@@ -27,16 +27,21 @@ const Subscription = () => {
       const today = new Date();
       // Add one month to the current date
       const nextMonth = new Date(today.setMonth(today.getMonth() + 1));
+      console.log(nextMonth.toISOString().split("T")[0],"monthly");
+
       return nextMonth.toISOString().split("T")[0];
     }else{
       const today = new Date();
       const futureDate = new Date(today.setFullYear(today.getFullYear() + 1));
+      console.log(futureDate.toISOString().split("T")[0],"yearly");
+      
       return futureDate.toISOString().split("T")[0]; 
     }
   }
   const handleSuccess=async()=>{
   try {
     let data=await fetch(`${uri}/user/edituser`,{
+      method:"PATCH",
       body:JSON.stringify({"planExpired":generateExpiry()}),
       headers:{
         "Content-Type": "application/json",
@@ -45,7 +50,7 @@ const Subscription = () => {
     })
     data=await data.json()
     console.log(data,"expiry");
-    
+    alert(data.message)
   } catch (error) {
     console.log(error);
     
@@ -94,7 +99,7 @@ const Subscription = () => {
                   className="plan-button"
                   onClick={() =>
                     handlePayment({
-                      price:price*100,
+                      amount:+(price)*100,
                       name: userData?.card?.name,
                       email: userData?.email,
                       mobile: filterMobile(),

@@ -30,26 +30,42 @@ const PremiumPlan = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [cardColor, setCardColor] = useState(userData?.nfcPremium?.cardBackgroundColor );
-  const [primaryTextColor, setPrimaryTextColor] = useState(userData?.nfcPremium?.primaryTextColor);
-  const [secondaryTextColor, setSecondaryTextColor] = useState(userData?.nfcPremium?.secondaryTextColor);
-  const [accentColorPremium, setAccentColorPremium] = useState(userData?.nfcPremium?.accentColor);
+  const [cardColor, setCardColor] = useState(
+    userData?.nfcPremium?.cardBackgroundColor
+  );
+  const [primaryTextColor, setPrimaryTextColor] = useState(
+    userData?.nfcPremium?.primaryTextColor
+  );
+  const [secondaryTextColor, setSecondaryTextColor] = useState(
+    userData?.nfcPremium?.secondaryTextColor
+  );
+  const [accentColorPremium, setAccentColorPremium] = useState(
+    userData?.nfcPremium?.accentColor
+  );
   const [showMobileNo, setShowMobileNo] = useState(true);
   const [showEmailId, setEmailId] = useState(true);
-  const [showFiltaLogo, setShowFiltaLogo] = useState(true);
-  const [showNfcIcon, setShowNfcIcon] = useState(userData?.nfcPremium?.hideNfc);
+  const [showFiltaLogo, setShowFiltaLogo] = useState(
+    userData?.nfcPremium?.hideFilta 
+  );
+  const [showNfcIcon, setShowNfcIcon] = useState(
+    userData?.nfcPremium?.hideNfc || false
+  );
   const [selectedFile, setSelectedFile] = useState(null);
   const [useBackgroundColor, setUseBackgroundColor] = useState(false);
-  const [logoWidth, setLogoWidth] = useState();
-  const [logoHeight, setLogoHeight] = useState();
+  const [logoWidth, setLogoWidth] = useState(
+    +userData?.nfcPremium?.logoMaxWidth || 20
+  );
+  const [logoHeight, setLogoHeight] = useState(
+    +userData?.nfcPremium?.logoMaxHeight || 20
+  );
   const [selectedLayout, setSelectedLayout] = useState("layout1");
   const [logoUrl, setLogoUrl] = useState("");
 
   const [formData, setFormData] = useState({
     cardLayout: userData?.nfcPremium?.cardLayout || "layout1",
     logo: userData?.nfcPremium?.logo || "",
-    logoMaxWidth: +(userData?.nfcPremium?.logoMaxWidth) || 20,
-    logoMaxHeight: +(userData?.nfcPremium?.logoMaxHeight) || 20,
+    logoMaxWidth: userData?.nfcPremium?.logoMaxWidth || logoWidth,
+    logoMaxHeight: userData?.nfcPremium?.logoMaxHeight || logoHeight,
     name: userData?.nfcPremium?.name || "",
     additional: userData?.nfcPremium?.additional || "",
     email: userData?.nfcPremium?.email || "",
@@ -57,25 +73,30 @@ const PremiumPlan = () => {
     card_url: userData?.nfcPremium?.card_url || "",
     cardBackgroundColor: userData?.nfcPremium?.cardBackgroundColor || "",
     accentColor: userData?.nfcPremium?.accentColor || "",
-    cardTheme: userData?.nfcPremium?.cardTheme || "",
+    cardTheme:"",
     font: userData?.nfcPremium?.font || "",
     primaryTextColor: userData?.nfcPremium?.primaryTextColor || "",
     secondaryTextColor: userData?.nfcPremium?.secondaryTextColor || "",
     qrCodeColor: userData?.nfcPremium?.qrCodeColor || "",
-    hideNfc: userData?.nfcPremium?.hideNfc || true,
-    hideFilta: userData?.nfcPremium?.hideFilta || true,
+    hideNfc: userData?.nfcPremium?.hideNfc || false,
+    hideFilta: userData?.nfcPremium?.hideFilta,
   });
 
   useEffect(() => {
-    console.log(useBackgroundColor, "effect");
+    if (userData?.nfcPremium?.cardTheme){
+      setSelectedCard(userData?.nfcPremium?.cardTheme)
+    }
+    if (userData?.nfcPremium) {
+      setLogoWidth(+userData?.nfcPremium?.logoMaxWidth || 20);
+      setLogoHeight(+userData?.nfcPremium?.logoMaxHeight || 20);
+    }
 
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-    
-  }, [getUserData]);
+  }, [userData]);
 
   const imageUrls = [theme1, theme2, theme3, theme4, theme5];
 
@@ -85,12 +106,16 @@ const PremiumPlan = () => {
   const hideEmailId = () => {
     setEmailId(!showEmailId);
   };
+
   const hideNfc = () => {
+    setFormData({ ...formData, hideNfc: !showNfcIcon });
     setShowNfcIcon(!showNfcIcon);
   };
 
   const logoHide = () => {
-    setShowFiltaLogo(!showFiltaLogo);
+
+    setFormData({ ...formData, hideFilta: !showFiltaLogo });
+    setShowFiltaLogo(prev=>!prev);
   };
 
   //Preview button Animation Function Start

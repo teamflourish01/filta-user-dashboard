@@ -56,7 +56,7 @@ const Layout2 = ({
                 }}
               />
             </div>
-            {showNfcIcon && (
+            {!showNfcIcon && (
               <div className="nfc-container">
                 <img src={nfc} alt="" className="nfc-lay-1-icon-size" />
               </div>
@@ -92,7 +92,7 @@ const Layout2 = ({
           }}
         >
           <div className="layout-2-logo-flex">
-            {showFiltaLogo && (
+            {!showFiltaLogo && (
               <div className="nfc-container">
                 <img src={filta} alt="" className="nfc-lay-1-icon-size" />
               </div>

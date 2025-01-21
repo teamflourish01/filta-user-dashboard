@@ -44,15 +44,16 @@ const PremiumPlanDetails = ({
   setUseBackgroundColor,
   logoUrl,
   setLogoUrl,
-  showNfcIcon
+  showNfcIcon,
+  showFiltaLogo,
 }) => {
   const uri = process.env.REACT_APP_DEV_URL;
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
   const [qrCodeColor, setQrCodeColor] = useState("#000000");
+
   // const [logoUrl,setLogoUrl]=useState(`${uri}/nfcpremium/${formData?.logo}`)
   // const [selectedCard, setSelectedCard] = useState(0);
 
@@ -63,13 +64,13 @@ const PremiumPlanDetails = ({
   const qrCodeColorRef = useRef(null);
   const accentColorPremiumRef = useRef(null);
   const fileInputRef = useRef(null);
+  const [font, setFont] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-      hideNfc:showNfcIcon
     }));
   };
 
@@ -81,8 +82,23 @@ const PremiumPlanDetails = ({
     }
   };
 
-  const handleClearLogo = () => {
+  const handleClearLogo = async () => {
     setSelectedFile(null);
+    try {
+      let deletedImage = await fetch(`${uri}/nfcpremium/deleteimage`, {
+        method: "PATCH",
+        body: JSON.stringify({ logo: "" }),
+        headers: {
+          Authorization: AuthorizationToken,
+          "Content-Type": "application/json",
+        },
+      });
+      deletedImage = await deletedImage.json();
+      console.log(deletedImage, "deletedImage");
+      alert(deletedImage?.msg);
+    } catch (error) {
+      alert(error.msg);
+    }
   };
   const handleFileChange = (e, setter, setterUrl) => {
     const file = e.target.files[0];
@@ -109,23 +125,26 @@ const PremiumPlanDetails = ({
     }
   };
 
-  const font = [
-    "Default (Poppins)",
-    "Raleway",
-    "Lato",
-    "Montserrat",
-    "Jost",
-    "Playfair",
-    "Josefin Sans",
-    "PT Sarif",
-  ];
+  // const font = [
+  //   "Default (Poppins)",
+  //   "Raleway",
+  //   "Lato",
+  //   "Montserrat",
+  //   "Jost",
+  //   "Playfair",
+  //   "Josefin Sans",
+  //   "PT Sarif",
+  // ];
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleFontSelect = (font) => {
-    setSelectedFont(font);
+  const handleFontSelect = (selected) => {
+    let newFont=font.filter((e)=>e.family==selected).map(e=>e.name)
+    console.log(newFont,"selected");
+    setSelectedFont(selected);
+    
     setIsOpen(false);
   };
 
@@ -151,19 +170,29 @@ const PremiumPlanDetails = ({
   const handleHeightChange = (e) => {
     setLogoHeight(e.target.value);
   };
+
   const handleCardClick = (index) => {
     setSelectedCard(index);
-    console.log(useBackgroundColor, "nn");
+    setFormData({ ...formData, cardTheme: index });
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-
+    debugger;
     let newData = new FormData();
+
     Object.keys(formData).forEach((key) => {
       newData.append(key, formData[key]);
     });
-    newData.append("logo", selectedFile);
+    if (selectedFile) {
+      newData.append("logo", selectedFile);
+    }
+    if(selectedFont){
+      
+    }
+    // if(selectedCard){
+    //   newData.append("cardTheme",selectedCard)
+    // }
     try {
       const response = await axios.post(`${uri}/nfcpremium/add`, newData, {
         headers: {
@@ -171,17 +200,31 @@ const PremiumPlanDetails = ({
           Authorization: AuthorizationToken,
         },
       });
-
       console.log(response, "standardp");
       alert(`${response?.data?.msg}`);
     } catch (error) {
       console.error("Error saving About Data:", error);
     }
   };
+  let uniqueFonts = [];
   useEffect(() => {
-    getUserData();
+    const fetchFonts = async () => {
+      try {
+        let data = await fetch(`${uri}/font/getall`);
+        data = await data.json();
+        console.log(data.data, "fonts");
+        setFont(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFonts();
+
     // setFormData()
-  }, []);
+  }, [userData]);
+
+  uniqueFonts = [...new Set(font.map((e) => e.family))];
+  console.log(uniqueFonts, "uniqueFonts");
 
   return (
     <>
@@ -460,8 +503,9 @@ const PremiumPlanDetails = ({
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
+                            setFormData({ ...formData, cardTheme: "" });
                             setCardColor(e.target.value);
-                            setUseBackgroundColor(false); // Switch to color mode
+                            setUseBackgroundColor(true); // Switch to color mode
                             handleInputChange(e);
                           }}
                         />
@@ -478,6 +522,8 @@ const PremiumPlanDetails = ({
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
+                            setFormData({ ...formData, cardTheme: "" });
+
                             setCardColor(e.target.value);
                             setUseBackgroundColor(true); // Switch to color mode
                             handleInputChange(e);
@@ -587,7 +633,7 @@ const PremiumPlanDetails = ({
                 </div>
 
                 <div className={`time-dropdown ${isOpen ? "open" : "closed"}`}>
-                  {font.map((font) => (
+                  {uniqueFonts?.map((font) => (
                     <div
                       key={font}
                       // className="time-option"
@@ -756,11 +802,11 @@ const PremiumPlanDetails = ({
                       <input
                         type="checkbox"
                         name="hideNfc"
-                        onChange={(e) => {
-                          hideNfc();
+                        onChange={
+                          (e) => hideNfc()
                           // handleInputChange(e,showNfcIcon);
-                        }}
-                        checked={showNfcIcon === false}
+                        }
+                        checked={showNfcIcon === true}
                       />
                       <span className="slider-hide round"></span>
                     </label>
@@ -773,7 +819,12 @@ const PremiumPlanDetails = ({
                   <div className="hide-title">Hide Filta Logo</div>
                   <div className="toggle-btn">
                     <label className="switch-hide">
-                      <input type="checkbox" onChange={logoHide} />
+                      <input
+                        type="checkbox"
+                        name="hideFilta"
+                        onChange={(e) => logoHide()}
+                        checked={formData?.hideFilta == true}
+                      />
                       <span className="slider-hide round"></span>
                     </label>
                   </div>

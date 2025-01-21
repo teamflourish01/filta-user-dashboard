@@ -50,7 +50,7 @@ export const handlePayment = async ({
 
   const options = {
     key: "rzp_test_rMaoQVF8tWJMAb", // Replace with your Razorpay API Key
-    amount: amount, // Amount in paise (e.g., 50000 for ₹500)
+    amount: amount*100, // Amount in paise (e.g., 50000 for ₹500)
     currency: "INR",
     name: "Filta",
     description: "Test Transaction",
