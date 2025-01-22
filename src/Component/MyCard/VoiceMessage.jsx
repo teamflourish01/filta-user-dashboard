@@ -2,12 +2,15 @@ import React, { useContext, useState, useRef } from "react";
 import "./VoiceMessage.css";
 import voiceImg from "../../images/voice_image.png";
 import uplodImg from "../../images/uploadimg.png";
-import playImg from "../../images/play.svg";
+import { IoMdPause } from "react-icons/io";
+import { FaPlay } from "react-icons/fa";
 import waveImg from "../../images/Waveform.png";
 import dltImg from "../../images/voice_dlt.png";
 import TwoButton from "./TwoButton";
 import userContext from "../../context/userDetails";
 import { AiOutlineAudioMuted } from "react-icons/ai";
+import { GoUnmute } from "react-icons/go";
+import { GoMute } from "react-icons/go";
 import axios from "axios";
 
 const VoiceMessage = ({ onPassToMobile }) => {
@@ -16,6 +19,9 @@ const VoiceMessage = ({ onPassToMobile }) => {
   const [audioRecords, setAudioRecords] = useState([]); // For recorded audio
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
+  const [muted, setMuted] = useState(false);
+  const [play, setPlay] = useState(false);
+  const [audio, setAudio] = useState(null);
   const audioChunksRef = useRef([]);
   const uri = process.env.REACT_APP_DEV_URL;
 
@@ -100,6 +106,28 @@ const VoiceMessage = ({ onPassToMobile }) => {
     setAudioRecords(audioRecords.filter((audio) => audio !== audioFile));
   };
 
+  const handlePlayPause = (audioFile) => {
+    if (play && audio) {
+      audio.pause();
+      setPlay(false);
+    } else {
+      const newAudio = new Audio(URL.createObjectURL(audioFile));
+      setAudio(newAudio);
+      newAudio.play();
+      newAudio.onended = () => {
+        setPlay(false);
+      };
+      setPlay(true);
+    }
+  };
+
+  const handleMuteUnmute = () => {
+    if (audio) {
+      audio.muted = !muted;
+      setMuted(!muted); // Toggle mute state
+    }
+  };
+
   return (
     <div className="vm-margin">
       <span className="mlt-title">Info : </span>
@@ -137,29 +165,29 @@ const VoiceMessage = ({ onPassToMobile }) => {
           <div className="vm-msgbox">
             {audioRecords.map((audioFile, index) => (
               <div key={index} className="vm-record">
-                <div className="vm-plyimgbox">
-                <div className="vm-plyimgbox">
-                  <img src={playImg} alt="ply-img" />
+                <div className="vm-plyimgbox" onClick={() => handlePlayPause(audioFile)}>
+                  {play ? (
+                    <IoMdPause style={{ color: "white" }} />
+                  ) : (
+                    <FaPlay style={{ color: "white" }} />
+                  )}
                 </div>
-                <img src={waveImg} alt="wave-img" />
-                  <audio controls>
-                    <source src={URL.createObjectURL(audioFile)} type="audio/wav" />
-                    Your browser does not support the audio element.
-                  </audio>
+                <div className="wave-audio-file">
+                  <img src={waveImg} alt="wave-img" />
                 </div>
-                <img src={waveImg} alt="Waveform" />
-                <button
-                  onClick={() => handleDeleteAudio(audioFile)}
-                  className="delete-audio"
-                >
-                  Delete
-                </button>
-                <button
-                  onClick={() => onPassToMobile(URL.createObjectURL(audioFile))}
-                  className="pass-to-mobile"
-                >
-                  Pass to Mobile Preview
-                </button>
+                <div className="audio-time">
+                  <p>0:05</p>
+                </div>
+                <div className="mute-unmute-audio">
+                  <button onClick={handleMuteUnmute}>
+                    {muted ? <GoMute /> : <GoUnmute />}
+                  </button>
+                </div>
+                <div className="delete-audio">
+                  <button onClick={() => handleDeleteAudio(audioFile)}>
+                    <img src={dltImg} alt="" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
