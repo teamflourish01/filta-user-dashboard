@@ -15,6 +15,7 @@ const ShareCardModal = ({ onClose, isShareModalOpen }) => {
     getLoginEmail,
   } = useContext(userContext);
   const uri = process.env.REACT_APP_DEV_URL;
+  const furi= process.env.REACT_APP_FRNT_URL;
 
   const modalRef = useRef(null); // Reference to modal element
   const canvasRef = useRef(null); // Reference for the canvas
@@ -60,7 +61,7 @@ const ShareCardModal = ({ onClose, isShareModalOpen }) => {
 
   // Copy link to clipboard
   const copyToClipboard = () => {
-    const inputValue = `${uri}/card/${userData?.username}`;
+    const inputValue = `${furi}/card/${userData?.username}`;
     navigator.clipboard
       ?.writeText(inputValue)
       .then(() => {
@@ -121,7 +122,7 @@ const ShareCardModal = ({ onClose, isShareModalOpen }) => {
             <input
               type="text"
               name="name"
-              value={`${uri}/card/${userData?.username}`}
+              value={`${furi}/card/${userData?.username}`}
               readOnly
             />
             <button className="copy-btn" onClick={copyToClipboard}>

@@ -460,6 +460,7 @@ const DesignComponent = ({
                   >
                     {uniqueFontFamilies.map((font) => (
                       <div
+                      key={font}
                         className="drp-option"
                         onClick={() => handleFontSelect(font)}
                       >

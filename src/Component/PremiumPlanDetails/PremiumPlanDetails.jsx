@@ -64,8 +64,8 @@ const PremiumPlanDetails = ({
   const qrCodeColorRef = useRef(null);
   const accentColorPremiumRef = useRef(null);
   const fileInputRef = useRef(null);
-  const [font, setFont] = useState([]);
-
+  const [font, setFont] = useState([]);  
+  const [selectedFontStyles, setSelectedFontStyles] = useState([]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -140,10 +140,14 @@ const PremiumPlanDetails = ({
     setIsOpen((prev) => !prev);
   };
 
-  const handleFontSelect = (selected) => {
-    let newFont=font.filter((e)=>e.family==selected).map(e=>e.name)
-    console.log(newFont,"selected");
-    setSelectedFont(selected);
+  const handleFontSelect = (selectedFontFamily) => {
+    setSelectedFont(selectedFontFamily);
+    const selectedFontStyles = font
+      .filter((font) => font.family === selectedFontFamily)
+      .map((font) => font.name);
+    console.log("Selected Font Styles:", selectedFontStyles);
+
+    setSelectedFontStyles(selectedFontStyles);
     
     setIsOpen(false);
   };
@@ -178,7 +182,7 @@ const PremiumPlanDetails = ({
 
   const handleSave = async (e) => {
     e.preventDefault();
-    debugger;
+    // debugger;
     let newData = new FormData();
 
     Object.keys(formData).forEach((key) => {
@@ -187,12 +191,15 @@ const PremiumPlanDetails = ({
     if (selectedFile) {
       newData.append("logo", selectedFile);
     }
-    if(selectedFont){
+    // if(selectedFont){
       
-    }
+    // }
     // if(selectedCard){
     //   newData.append("cardTheme",selectedCard)
     // }
+    selectedFontStyles.forEach((font) => {
+      newData.append("font", font);
+    });
     try {
       const response = await axios.post(`${uri}/nfcpremium/add`, newData, {
         headers: {
@@ -202,8 +209,10 @@ const PremiumPlanDetails = ({
       });
       console.log(response, "standardp");
       alert(`${response?.data?.msg}`);
+      getUserData();
     } catch (error) {
-      console.error("Error saving About Data:", error);
+      console.error("Error saving NFC Data:", error);
+      alert(error.response?.data?.error || "Failed to NFC data");
     }
   };
   let uniqueFonts = [];
@@ -211,8 +220,7 @@ const PremiumPlanDetails = ({
     const fetchFonts = async () => {
       try {
         let data = await fetch(`${uri}/font/getall`);
-        data = await data.json();
-        console.log(data.data, "fonts");
+        data = await data.json();        
         setFont(data);
       } catch (error) {
         console.log(error);
@@ -224,7 +232,7 @@ const PremiumPlanDetails = ({
   }, [userData]);
 
   uniqueFonts = [...new Set(font.map((e) => e.family))];
-  console.log(uniqueFonts, "uniqueFonts");
+  
 
   return (
     <>
