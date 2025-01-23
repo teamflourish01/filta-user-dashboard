@@ -109,7 +109,7 @@ const LeftAlign = ({
 
   useEffect(() => {
     setDragItems(userData?.shuffle?.shuffle);
-  }, [userDetails]);
+  }, [userData]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -926,7 +926,7 @@ const LeftAlign = ({
                           <div className="single-video">
                             <iframe
                               className="fullscreen-video v-h"
-                              src={userData?.multimedia[0]?.youtube_url[0]}
+                              src={`https://www.youtube.com/embed/${userData?.multimedia[0]?.youtube_url[0]}`}
                               // src="https://www.youtube.com/watch?v=fWCxWHsczWg"
                               frameBorder="0"
                             ></iframe>
@@ -942,7 +942,7 @@ const LeftAlign = ({
                                     className="video-slide-youtube"
                                   >
                                     <iframe
-                                      src={youtubeVideos}
+                                      src={`https://www.youtube.com/embed/${youtubeVideos}`}
                                       frameBorder="0"
                                       className="v-h"
                                     ></iframe>
@@ -2048,7 +2048,7 @@ const LeftAlign = ({
           </div>
         </div>
       </div>
-      {isShareModalOpen && <ShareModalLeft onClose={handleCloseModal} isShareModalOpen={isShareModalOpen}/>}
+      {isShareModalOpen && <ShareModalLeft onClose={handleCloseModal} isShareModalOpen={isShareModalOpen} userData={userData}/>}
     </>
   );
 };
