@@ -14,10 +14,17 @@ const StandardCustomizeDetail = ({
   setAccentColor,
   formData,
   setFormData,
+  showNfcIcon,
+  showEmailId,
+  showMobileNo,
+  selectedColor,
+  setSelectedColor
 }) => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  
-  const [selectedColor, setSelectedColor] = useState(userData?.nfcStandard?.card_color);
+
+  // const [selectedColor, setSelectedColor] = useState(
+  //   userData?.nfcStandard?.card_color
+  // );
 
   const uri = process.env.REACT_APP_DEV_URL;
 
@@ -26,7 +33,6 @@ const StandardCustomizeDetail = ({
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
-      
     }));
   };
 
@@ -55,16 +61,16 @@ const StandardCustomizeDetail = ({
           },
         }
       );
-    
-      // console.log(response, "standardp");
-      alert(`${response?.data?.message}`);
+
+      getUserData();
+      alert(`${response?.data?.msg}`);
     } catch (error) {
       console.error("Error saving About Data:", error);
     }
   };
-  useEffect(()=>{
-    getUserData()
-  },[])
+  // useEffect(()=>{
+  //   getUserData()
+  // },[])
 
   return (
     <>
@@ -111,7 +117,7 @@ const StandardCustomizeDetail = ({
                     <input
                       type="checkbox"
                       onChange={hideEmailId}
-                      defaultChecked
+                      checked={showEmailId}
                     />
                     <span className="slider-hide-standard round"></span>
                   </label>
@@ -133,7 +139,7 @@ const StandardCustomizeDetail = ({
                     <input
                       type="checkbox"
                       onChange={hideMobileNo}
-                      defaultChecked
+                      checked={showMobileNo}
                     />
                     <span className="slider-hide-standard round"></span>
                   </label>
@@ -181,7 +187,8 @@ const StandardCustomizeDetail = ({
                   type="radio"
                   name="card_color"
                   value="white"
-                  onChange={(e) => {handleColorChangeLocal("white")
+                  onChange={(e) => {
+                    handleColorChangeLocal("white");
                     handleInputChange(e);
                   }}
                 />
@@ -194,21 +201,23 @@ const StandardCustomizeDetail = ({
               <div className="center-choose-color">
                 <input
                   type="text"
-                  name='accent_color'
+                  name="accent_color"
                   className="Standard-color-selector"
-                  placeholder="#000000"
+                  // placeholder="#000000"
                   value={accentColor}
-                  onChange={(e) => {setAccentColor(e.target.value)
+                  onChange={(e) => {
+                    setAccentColor(e.target.value);
                     handleInputChange(e);
                   }}
                 />
                 <input
                   className="color-hide color-box"
                   type="color"
-                  name='accent_color'
+                  name="accent_color"
                   ref={accentColorRef}
                   value={accentColor}
-                  onChange={(e) => {setAccentColor(e.target.value)
+                  onChange={(e) => {
+                    setAccentColor(e.target.value);
                     handleInputChange(e);
                   }}
                 />
@@ -216,7 +225,7 @@ const StandardCustomizeDetail = ({
               <div
                 className="edit-color"
                 onClick={() => handleEditClick(accentColorRef)}
-                onChange={(e) =>  handleInputChange(e)}
+                onChange={(e) => handleInputChange(e)}
               >
                 <img src={editPen} alt="Edit" />
               </div>
@@ -229,10 +238,12 @@ const StandardCustomizeDetail = ({
                 <div className="hide-title">Hide NFC Icon</div>
                 <div className="toggle-btn">
                   <label className="switch-hide">
-                    <input type="checkbox" name="hide_nfc" 
-                    onChange={(e) => {hideNfc()
-                      handleInputChange({ target: { name: "hide_nfc", value: e.target.checked } });
-                    }} />
+                    <input
+                      type="checkbox"
+                      name="hide_nfc"
+                      onChange={hideNfc}
+                      checked={showNfcIcon === true}
+                    />
                     <span className="slider-hide round"></span>
                   </label>
                 </div>
@@ -244,8 +255,7 @@ const StandardCustomizeDetail = ({
                 <div className="hide-title">Hide Filta Logo</div>
                 <div className="toggle-btn">
                   <label className="switch-hide">
-                    <input type="checkbox"  onChange={logoHide
-                    } />
+                    <input type="checkbox" onChange={logoHide} />
                     <span className="slider-hide round"></span>
                   </label>
                 </div>

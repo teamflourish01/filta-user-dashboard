@@ -456,7 +456,10 @@ input[type="color"] {
 .drp-option:hover {
   background: #ffffffb2;
 }
-
+.drp-lock{
+  display: flex;
+  justify-content: space-between;
+}
 /* Theme Box*/
 .thm-theme {
   display: flex;

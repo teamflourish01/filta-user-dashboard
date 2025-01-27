@@ -20,7 +20,8 @@ const PremiumPlanDetails = ({
   primaryTextColor,
   setPrimaryTextColor,
   secondaryTextColor,
-  setSecondaryTextColor,
+  setSecondaryTextColor,  
+  setQrCodeColor,
   accentColorPremium,
   setAccentColorPremium,
   logoWidth,
@@ -52,11 +53,7 @@ const PremiumPlanDetails = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedFont, setSelectedFont] = useState("Default (Poppins)");
   const [themeColor, setThemeColor] = useState("#000000");
-  const [qrCodeColor, setQrCodeColor] = useState("#000000");
-
-  // const [logoUrl,setLogoUrl]=useState(`${uri}/nfcpremium/${formData?.logo}`)
-  // const [selectedCard, setSelectedCard] = useState(0);
-
+  
   const cardColorRef = useRef(null);
   const primaryTextColorRef = useRef(null);
   const secondaryTextColorRef = useRef(null);
@@ -64,10 +61,10 @@ const PremiumPlanDetails = ({
   const qrCodeColorRef = useRef(null);
   const accentColorPremiumRef = useRef(null);
   const fileInputRef = useRef(null);
-  const [font, setFont] = useState([]);  
+  const [font, setFont] = useState([]);
   const [selectedFontStyles, setSelectedFontStyles] = useState([]);
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target;    
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -125,17 +122,6 @@ const PremiumPlanDetails = ({
     }
   };
 
-  // const font = [
-  //   "Default (Poppins)",
-  //   "Raleway",
-  //   "Lato",
-  //   "Montserrat",
-  //   "Jost",
-  //   "Playfair",
-  //   "Josefin Sans",
-  //   "PT Sarif",
-  // ];
-
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
   };
@@ -148,7 +134,7 @@ const PremiumPlanDetails = ({
     console.log("Selected Font Styles:", selectedFontStyles);
 
     setSelectedFontStyles(selectedFontStyles);
-    
+
     setIsOpen(false);
   };
 
@@ -191,9 +177,7 @@ const PremiumPlanDetails = ({
     if (selectedFile) {
       newData.append("logo", selectedFile);
     }
-    // if(selectedFont){
-      
-    // }
+
     // if(selectedCard){
     //   newData.append("cardTheme",selectedCard)
     // }
@@ -220,7 +204,7 @@ const PremiumPlanDetails = ({
     const fetchFonts = async () => {
       try {
         let data = await fetch(`${uri}/font/getall`);
-        data = await data.json();        
+        data = await data.json();
         setFont(data);
       } catch (error) {
         console.log(error);
@@ -230,10 +214,7 @@ const PremiumPlanDetails = ({
 
     // setFormData()
   }, [userData]);
-
-  uniqueFonts = [...new Set(font.map((e) => e.family))];
-  
-
+  uniqueFonts = [...new Set(font.map((e) => e.family))];  
   return (
     <>
       <>
@@ -409,7 +390,7 @@ const PremiumPlanDetails = ({
                   type="text"
                   className="Premium-cutomize-field-input"
                   name="name"
-                  value={formData.name || userData?.nfcPremium?.name}
+                  value={formData.name}
                   onChange={handleInputChange}
                 />
               </div>
@@ -421,9 +402,7 @@ const PremiumPlanDetails = ({
                   type="text"
                   className="Premium-cutomize-field-input"
                   name="additional"
-                  value={
-                    formData.additional || userData?.nfcPremium?.additional
-                  }
+                  value={formData.additional}
                   onChange={handleInputChange}
                 />
               </div>
@@ -434,7 +413,7 @@ const PremiumPlanDetails = ({
                     type="text"
                     className="cutomize-field-input"
                     name="email"
-                    value={formData.email || userData?.nfcPremium?.email}
+                    value={formData.email}
                     onChange={handleInputChange}
                   />
                   <div className="toggle-btn-standard">
@@ -443,7 +422,8 @@ const PremiumPlanDetails = ({
                         type="checkbox"
                         className="Premium-cutomize-field-input"
                         onChange={hideEmailId}
-                        defaultChecked
+                        checked={formData?.hideEmail == true}
+                        
                       />
                       <span className="slider-hide-standard round"></span>
                     </label>
@@ -459,7 +439,7 @@ const PremiumPlanDetails = ({
                     type="text"
                     className="cutomize-field-input"
                     name="mobile"
-                    value={formData.mobile || userData?.nfcPremium?.mobile}
+                    value={formData.mobile}
                     onChange={handleInputChange}
                   />
                   <div className="toggle-btn-standard">
@@ -468,7 +448,8 @@ const PremiumPlanDetails = ({
                         type="checkbox"
                         className="Premium-cutomize-field-input"
                         onChange={hideMobileNo}
-                        defaultChecked
+                        checked={formData?.hideNumber == true}
+                        
                       />
                       <span className="slider-hide-standard round"></span>
                     </label>
@@ -482,7 +463,7 @@ const PremiumPlanDetails = ({
               <input
                 type="text"
                 name="card_url"
-                value={formData.card_url || userData?.nfcPremium?.card_url}
+                value={formData.card_url}
                 className="cutomize-field-input"
                 onChange={handleInputChange}
               />
@@ -504,10 +485,7 @@ const PremiumPlanDetails = ({
                           name="cardBackgroundColor"
                           className="Premium-color-selector"
                           placeholder="#000000"
-                          value={
-                            formData.cardBackgroundColor ||
-                            userData?.nfcPremium?.cardBackgroundColor
-                          }
+                          value={formData.cardBackgroundColor}
                           // onChange={(e) => setCardColor(e.target.value)}
                           onChange={(e) => {
                             setSelectedCard(null);
@@ -560,10 +538,7 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           // value={accentColorPremium}
-                          value={
-                            formData.accentColor ||
-                            userData?.nfcPremium?.accentColor
-                          }
+                          value={formData.accentColor}
                           onChange={(e) => {
                             setAccentColorPremium(e.target.value);
                             handleInputChange(e);
@@ -575,10 +550,7 @@ const PremiumPlanDetails = ({
                           type="color"
                           ref={accentColorPremiumRef}
                           // value={accentColorPremium}
-                          value={
-                            formData.accentColor ||
-                            userData?.nfcPremium?.accentColor
-                          }
+                          value={formData.accentColor}
                           onChange={(e) => {
                             setAccentColorPremium(e.target.value);
                             handleInputChange(e);
@@ -675,10 +647,7 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           // value={primaryTextColor}
-                          value={
-                            formData.primaryTextColor ||
-                            userData?.nfcPremium?.primaryTextColor
-                          }
+                          value={formData.primaryTextColor}
                           onChange={(e) => {
                             setPrimaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -690,10 +659,7 @@ const PremiumPlanDetails = ({
                           name="primaryTextColor"
                           ref={primaryTextColorRef}
                           // value={primaryTextColor}
-                          value={
-                            formData.primaryTextColor ||
-                            userData?.nfcPremium?.primaryTextColor
-                          }
+                          value={formData.primaryTextColor}
                           onChange={(e) => {
                             setPrimaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -722,10 +688,7 @@ const PremiumPlanDetails = ({
                           className="Premium-color-selector"
                           placeholder="#000000"
                           // value={secondaryTextColor}
-                          value={
-                            formData.secondaryTextColor ||
-                            userData?.nfcPremium?.secondaryTextColor
-                          }
+                          value={formData.secondaryTextColor}
                           onChange={(e) => {
                             setSecondaryTextColor(e.target.value);
                             handleInputChange(e);
@@ -737,10 +700,7 @@ const PremiumPlanDetails = ({
                           name="secondaryTextColor"
                           ref={secondaryTextColorRef}
                           // value={secondaryTextColor}
-                          value={
-                            formData.secondaryTextColor ||
-                            userData?.nfcPremium?.secondaryTextColor
-                          }
+                          value={formData.secondaryTextColor}
                           onChange={(e) => {
                             setSecondaryTextColor(e.target.value);
                             handleInputChange(e);
