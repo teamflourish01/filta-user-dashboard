@@ -26,25 +26,22 @@ const StandardPlan = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [showFiltaLogo, setShowFiltaLogo] = useState(true);
-  const [showNfcIcon, setShowNfcIcon] = useState(
-    userData?.nfcStandard?.hide_nfc || true
-  );
+  const [showNfcIcon, setShowNfcIcon] = useState(false);
   const [showMobileNo, setShowMobileNo] = useState(true);
   const [showEmailId, setEmailId] = useState(true);
-
-  const [selectedColor, setSelectedColor] = useState(
-    userData?.nfcStandard?.card_color || "black"
-  );
-  const [accentColor, setAccentColor] = useState("#fff");
+  const [selectedColor, setSelectedColor] = useState("black");
+  const [accentColor, setAccentColor] = useState("#000000");
   const [formData, setFormData] = useState({
-    name: userData?.nfcStandard?.name || "",
-    additional: userData?.nfcStandard?.additional || "",
-    email: userData?.nfcStandard?.email || "",
-    phone: userData?.nfcStandard?.phone || "",
-    card_url: userData?.nfcStandard?.card_url || "",
-    card_color: userData?.nfcStandard?.card_color || "",
-    accent_color: userData?.nfcStandard?.accent_color || "",
-    hide_nfc: userData?.nfcStandard?.hide_nfc || false,
+    name: "",
+    additional: "",
+    email: "",
+    phone: "",
+    card_url: "",
+    card_color: "",
+    accent_color: "#000000",
+    hide_nfc: false,
+    show_email: true,
+    show_phone: true,
   });
   const [mobile, setMobile] = useState("");
 
@@ -58,38 +55,55 @@ const StandardPlan = () => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
     };
-    getUserData();
+    // getUserData();
 
-    // if(userData?.nfcStandard?.name){
-    // setFormData({
-    //   name: userData?.nfcStandard?.name,
-    //   additional: userData?.nfcStandard.additional,
-    //   email: userData.nfcStandard.email,
-    //   phone: userData.nfcStandard.phone,
-    //   card_url: userData.nfcStandard.card_url,
-    //   card_color: userData.nfcStandard.card_color,
-    //   accent_color: userData.nfcStandard.accent_color,
-    //   hide_nfc: userData.nfcStandard.hide_nfc,
-    // })}
+    if (userData?.nfcStandard) {
+      const initialEmail = userData?.nfcStandard?.show_email ?? true;
+      const initialNumber = userData?.nfcStandard?.show_phone ?? true;
+      setFormData({
+        name: userData?.nfcStandard?.name || "",
+        additional: userData?.nfcStandard?.additional || "",
+        email: userData?.nfcStandard?.email || "",
+        phone: userData?.nfcStandard?.phone || "",
+        card_url: userData?.nfcStandard?.card_url || "",
+        card_color: userData?.nfcStandard?.card_color || "",
+        accent_color: userData?.nfcStandard?.accent_color || "#000000",
+        hide_nfc: userData?.nfcStandard?.hide_nfc || false,
+        show_email: initialEmail,
+        show_phone: initialNumber,
+      });
+      setShowNfcIcon(userData?.nfcStandard?.hide_nfc || false);
+      setEmailId(initialEmail);
+      setShowMobileNo(initialNumber);
+    }
+    if (userData?.nfcStandard?.card_color) {
+      setSelectedColor(userData.nfcStandard.card_color);
+    }
+    if (userData?.nfcStandard?.accent_color) {
+      setAccentColor(userData.nfcStandard.accent_color||"#000000");
+    }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [userData]);
 
   const hideBackLine =
     (formData.email && formData.email && showEmailId) ||
     (formData.phone && formData.phone && showMobileNo);
 
   const hideNfc = () => {
-    setShowNfcIcon(!showNfcIcon);
+    setFormData((prev) => ({ ...prev, hide_nfc: !prev.hide_nfc }));
+    setShowNfcIcon((prev) => !prev);
   };
   const logoHide = () => {
     setShowFiltaLogo(!showFiltaLogo);
   };
   const hideMobileNo = () => {
-    setShowMobileNo(!showMobileNo);
+    setShowMobileNo((prev) => !prev);
+    setFormData((prev) => ({ ...prev, show_phone: !prev.show_phone }));
   };
   const hideEmailId = () => {
-    setEmailId(!showEmailId);
+    setEmailId((prev) => !prev);
+    setFormData((prev) => ({ ...prev, show_email: !prev.show_email }));
   };
   const handleColorChange = (color) => {
     setSelectedColor(color);
@@ -308,6 +322,11 @@ const StandardPlan = () => {
                 setAccentColor={setAccentColor}
                 formData={formData}
                 setFormData={setFormData}
+                showNfcIcon={showNfcIcon}
+                showEmailId={showEmailId}
+                showMobileNo={showMobileNo}
+                selectedColor={selectedColor}
+                setSelectedColor={setSelectedColor}
               />
             </div>
           </div>
@@ -346,7 +365,7 @@ const StandardPlan = () => {
                       selectedColor === "white" ? "white-bg" : "black-bg"
                     }`}
                   >
-                    {showNfcIcon && (
+                    {!showNfcIcon && (
                       <div className="nfc-icon">
                         <img
                           src={selectedColor === "white" ? blackNFC : nfc}

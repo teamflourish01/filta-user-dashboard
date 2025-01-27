@@ -28,43 +28,43 @@
 
 @font-face {
   font-family: JosefinSans-Bold;
-  src: url("http://192.168.1.18:8080/font/JosefinSans-Bold.ttf");
+  src: url("http://192.168.1.15:8080/font/JosefinSans-Bold.ttf");
 }
 @font-face {
   font-family: JosefinSans-Regular;
-  src: url("http://192.168.1.18:8080/font/JosefinSans-Regular.ttf");
+  src: url("http://192.168.1.15:8080/font/JosefinSans-Regular.ttf");
 }
 @font-face {
   font-family: JosefinSans-Regular;
-  src: url("http://192.168.1.18:8080/font/JosefinSans-Medium.ttf");
+  src: url("http://192.168.1.15:8080/font/JosefinSans-Medium.ttf");
 }
 @font-face {
   font-family: JosefinSans-SemiBold;
-  src: url("http://192.168.1.18:8080/font/JosefinSans-SemiBold.ttf");
+  src: url("http://192.168.1.15:8080/font/JosefinSans-SemiBold.ttf");
 }
 @font-face {
   font-family: Jost-Bold;
-  src: url("http://192.168.1.18:8080/font/Jost-Bold.ttf");
+  src: url("http://192.168.1.15:8080/font/Jost-Bold.ttf");
 }
 @font-face {
   font-family: Jost-Regular;
-  src: url("http://192.168.1.18:8080/font/Jost-Regular.ttf");
+  src: url("http://192.168.1.15:8080/font/Jost-Regular.ttf");
 }
 @font-face {
   font-family: Jost-Medium;
-  src: url("http://192.168.1.18:8080/font/Jost-Medium.ttf");
+  src: url("http://192.168.1.15:8080/font/Jost-Medium.ttf");
 }
 @font-face {
   font-family: Jost-SemiBold;
-  src: url("http://192.168.1.18:8080/font/Jost-SemiBold.ttf");
+  src: url("http://192.168.1.15:8080/font/Jost-SemiBold.ttf");
 }
 @font-face {
   font-family: Lato-Bold;
-  src: url("http://192.168.1.18:8080/font/Lato-Bold.ttf");
+  src: url("http://192.168.1.15:8080/font/Lato-Bold.ttf");
 }
 @font-face {
   font-family: Lato-Regular;
-  src: url("http://192.168.1.18:8080/font/Lato-Regular.ttf");
+  src: url("http://192.168.1.15:8080/font/Lato-Regular.ttf");
 }
 /* @font-face {
   font-family: Jost-Medium;
@@ -76,51 +76,51 @@
 } */
 @font-face {
   font-family: Montserrat-Bold;
-  src: url("http://192.168.1.18:8080/font/Montserrat-Bold.ttf");
+  src: url("http://192.168.1.15:8080/font/Montserrat-Bold.ttf");
 }
 @font-face {
   font-family: Montserrat-Regular;
-  src: url("http://192.168.1.18:8080/font/Montserrat-Regular.ttf");
+  src: url("http://192.168.1.15:8080/font/Montserrat-Regular.ttf");
 }
 @font-face {
   font-family: Montserrat-Medium;
-  src: url("http://192.168.1.18:8080/font/Montserrat-Medium.ttf");
+  src: url("http://192.168.1.15:8080/font/Montserrat-Medium.ttf");
 }
 @font-face {
   font-family: Montserrat-SemiBold;
-  src: url("http://192.168.1.18:8080/font/Montserrat-SemiBold.ttf");
+  src: url("http://192.168.1.15:8080/font/Montserrat-SemiBold.ttf");
 }
 @font-face {
   font-family: Playfair-Bold;
-  src: url("http://192.168.1.18:8080/font/Playfair-Bold.ttf");
+  src: url("http://192.168.1.15:8080/font/Playfair-Bold.ttf");
 }
 @font-face {
   font-family: Playfair-Regular;
-  src: url("http://192.168.1.18:8080/font/Playfair-Regular.ttf");
+  src: url("http://192.168.1.15:8080/font/Playfair-Regular.ttf");
 }
 @font-face {
   font-family: Playfair-Medium;
-  src: url("http://192.168.1.18:8080/font/Playfair-Medium.ttf");
+  src: url("http://192.168.1.15:8080/font/Playfair-Medium.ttf");
 }
 @font-face {
   font-family: Playfair-SemiBold;
-  src: url("http://192.168.1.18:8080/font/Playfair-SemiBold.ttf");
+  src: url("http://192.168.1.15:8080/font/Playfair-SemiBold.ttf");
 }
 @font-face {
   font-family: Raleway-Bold;
-  src: url("http://192.168.1.18:8080/font/Raleway-Bold.ttf");
+  src: url("http://192.168.1.15:8080/font/Raleway-Bold.ttf");
 }
 @font-face {
   font-family: Raleway-Regular;
-  src: url("http://192.168.1.18:8080/font/Raleway-Regular.ttf");
+  src: url("http://192.168.1.15:8080/font/Raleway-Regular.ttf");
 }
 @font-face {
   font-family: Raleway-Medium;
-  src: url("http://192.168.1.18:8080/font/Raleway-Medium.ttf");
+  src: url("http://192.168.1.15:8080/font/Raleway-Medium.ttf");
 }
 @font-face {
   font-family: Raleway-SemiBold;
-  src: url("http://192.168.1.18:8080/font/Raleway-SemiBold.ttf");
+  src: url("http://192.168.1.15:8080/font/Raleway-SemiBold.ttf");
 }
 
 

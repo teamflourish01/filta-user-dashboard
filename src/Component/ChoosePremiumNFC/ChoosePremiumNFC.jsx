@@ -24,11 +24,11 @@ const ChoosePremiumNFC = () => {
     navigate("/nfc-card/premium-plan");
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    getUserData()
+  //   getUserData()
     
-  },[]);
+  // },[]);
 
   return (
     <>

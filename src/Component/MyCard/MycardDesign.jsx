@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import clrpiker from "../../images/desigin_clrpiker.png";
 import uparrow from "../../images/design_uparrow.png";
 import { SlArrowDown } from "react-icons/sl";
+import { FaLock } from "react-icons/fa";
 import TwoButton from "./TwoButton";
 import userContext from "../../context/userDetails";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const DesignComponent = ({
   layout,
   setLayout,
@@ -38,12 +40,13 @@ const DesignComponent = ({
     themeColor: useRef(null),
   };
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedFont, setSelectedFont] = useState("Default");
+  const [selectedFont, setSelectedFont] = useState("Poppins");
   const [fonts, setFonts] = useState([]);
   const [selectedFontStyles, setSelectedFontStyles] = useState([]);
   const [fontFmly, setFontfmly] = useState(
     userData?.card?.design?.font_style?.font_family
   );
+  const navigate = useNavigate();
 
   const handleColorEdit = (name) => {
     if (refs[name]?.current) {
@@ -52,14 +55,17 @@ const DesignComponent = ({
   };
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
-  };
+  };  
   const handleFontSelect = (selectedFontFamily) => {
+    if (!userData.premium) {
+      alert("Please purchase the premium plan!");
+      navigate("/subscription");
+      return;
+    }
     setSelectedFont(selectedFontFamily);
     const selectedFontStyles = fonts
       .filter((font) => font.family === selectedFontFamily)
-      .map((font) => font.name);
-
-    console.log("Selected Font Styles:", selectedFontStyles);
+      .map((font) => font.name); 
 
     setSelectedFontStyles(selectedFontStyles);
     setIsOpen(false);
@@ -101,8 +107,7 @@ const DesignComponent = ({
           "Content-Type": "multipart/form-data",
           Authorization: AuthorizationToken,
         },
-      });
-      console.log(response, "sdfghjkjhvcvghjkj");
+      });      
       alert(response.data.msg || "Data updated successfully!");
       getUserData();
     } catch (error) {
@@ -461,10 +466,11 @@ const DesignComponent = ({
                     {uniqueFontFamilies.map((font) => (
                       <div
                       key={font}
-                        className="drp-option"
+                        className="drp-option drp-lock"
                         onClick={() => handleFontSelect(font)}
                       >
-                        {font}
+                        <span>{font}</span>
+                        {!userData.premium && <FaLock/>}
                       </div>
                     ))}
                   </div>
@@ -472,7 +478,7 @@ const DesignComponent = ({
               </div>
               <hr />
               <div className="di-txtclrbox">
-                <p style={{ fontFamily: fontFmly[2] }}>Choose Text Color</p>
+                <p>Choose Text Color</p>
                 <div className="di-choosebox">
                   <div className="thr-padding">
                     <div class="trd-color-container margin-botm">

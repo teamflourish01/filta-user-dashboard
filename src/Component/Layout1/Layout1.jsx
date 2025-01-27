@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Layout1.css";
 import logol1 from "../../images/flogo.png";
 import nfc from "../../images/lay1nfc.svg";
@@ -10,7 +10,7 @@ import theme3 from "../../images/NFC-Theme/theme3.svg";
 import theme4 from "../../images/NFC-Theme/theme4.svg";
 import theme5 from "../../images/NFC-Theme/theme5.svg";
 import userContext from "../../context/userDetails";
-
+import { QRCodeCanvas } from "qrcode.react";
 const Layout1 = ({
   cardColor,
   primaryTextColor,
@@ -18,6 +18,7 @@ const Layout1 = ({
   logoWidth,
   secondaryTextColor,
   accentColorPremium,
+  qrCodeColor,
   showEmailId,
   showMobileNo,
   showFiltaLogo,
@@ -33,15 +34,19 @@ const Layout1 = ({
   setLogoUrl,
 }) => {
   const { userData } = useContext(userContext);
-
+  const furi = process.env.REACT_APP_FRNT_URL;
   const uri = process.env.REACT_APP_DEV_URL;
+  const [qrData, setQrData] = useState(
+    `${furi}/${userData?.username}`
+  );
 
   const hasLogoOrUserDetails =
-    selectedFile || userData?.nfcPremium?.logo &&
-    ((formData.name ||
-      userData?.nfcPremium?.name) ||
-      (formData.additional ||
-      userData?.nfcPremium?.additional));
+    selectedFile ||
+    (userData?.nfcPremium?.logo &&
+      (formData.name ||
+        userData?.nfcPremium?.name ||
+        formData.additional ||
+        userData?.nfcPremium?.additional));
   const hideBackLine =
     ((formData.email || userData?.nfcPremium?.email) &&
       (formData.email || userData?.nfcPremium?.email) &&
@@ -49,12 +54,23 @@ const Layout1 = ({
     ((formData.mobile || userData?.nfcPremium?.mobile) &&
       (formData.mobile || userData?.nfcPremium?.mobile) &&
       showMobileNo);
-
-      useEffect(()=>{
-        console.log(+(logoWidth),"logoWidth layout 1");
-        console.log(+(logoHeight),"logoHeight layout 1");
-       
-      },[])
+  const fontFamily = userData?.nfcPremium?.font;
+  const boldFont = fontFamily
+    ? fontFamily.find((font) => font.includes("Bold"))
+    : null;
+  const mediumFont = fontFamily
+    ? fontFamily.find((font) => font.includes("Medium"))
+    : null;
+  const regularFont = fontFamily
+    ? fontFamily.find((font) => font.includes("Regular"))
+    : null;
+  const semiboldFont = fontFamily
+    ? fontFamily.find((font) => font.includes("SemiBold"))
+    : null;
+  useEffect(() => {
+    console.log(+logoWidth, "logoWidth layout 1");
+    console.log(+logoHeight, "logoHeight layout 1");
+  }, []);
   return (
     <div>
       <div className="front-premium-card">
@@ -77,21 +93,25 @@ const Layout1 = ({
             </div>
           )}
           <div className="layout-1-logo-c">
-           { (userData?.nfcPremium?.logo || logoUrl) && <img
-              src={
-                selectedFile
-                  ? logoUrl
-                  : `${uri}/nfcpremium/${userData?.nfcPremium?.logo}`
-                  
-                  
-              }
-              alt=""
-              className="layout-1-logo-size"
-              style={{
-                width: `${logoWidth }px` || `${+(userData?.nfcPremium?.logoMaxWidth)}`,
-                height: `${logoHeight}px` || `${+(userData?.nfcPremium?.logoMaxHeight)}`,
-              }}
-            />}
+            {(userData?.nfcPremium?.logo || logoUrl) && (
+              <img
+                src={
+                  selectedFile
+                    ? logoUrl
+                    : `${uri}/nfcpremium/${userData?.nfcPremium?.logo}`
+                }
+                alt=""
+                className="layout-1-logo-size"
+                style={{
+                  width:
+                    `${logoWidth}px` ||
+                    `${+userData?.nfcPremium?.logoMaxWidth}`,
+                  height:
+                    `${logoHeight}px` ||
+                    `${+userData?.nfcPremium?.logoMaxHeight}`,
+                }}
+              />
+            )}
           </div>
           {hasLogoOrUserDetails && (
             <div
@@ -119,32 +139,32 @@ const Layout1 = ({
           formData.additional ||
           userData?.nfcPremium?.additional ? (
             <div className="layout1-user-n-d">
-              {
-                ((formData.name ||userData?.nfcPremium?.name)  && (
-                  <p
-                    className="l1-user-name"
-                    style={{
-                      color:
-                        formData.primaryTextColor ||
-                        userData?.nfcPremium?.primaryTextColor,
-                    }}
-                  >
-                    {formData?.name || userData?.nfcPremium?.name}
-                  </p>
-                ))}
-              {
-                ((formData.additional ||userData?.nfcPremium?.additional) && (
-                  <p
-                    className="l1-user-designation lay1-mobile-user"
-                    style={{
-                      color:
-                        formData.secondaryTextColor ||
-                        userData?.nfcPremium?.secondaryTextColor,
-                    }}
-                  >
-                    {formData.additional || userData?.nfcPremium?.additional}
-                  </p>
-                ))}
+              {(formData.name || userData?.nfcPremium?.name) && (
+                <p
+                  className="l1-user-name"
+                  style={{
+                    color:
+                      formData.primaryTextColor ||
+                      userData?.nfcPremium?.primaryTextColor,
+                    fontFamily: boldFont,
+                  }}
+                >
+                  {formData?.name || userData?.nfcPremium?.name}
+                </p>
+              )}
+              {(formData.additional || userData?.nfcPremium?.additional) && (
+                <p
+                  className="l1-user-designation lay1-mobile-user"
+                  style={{
+                    color:
+                      formData.secondaryTextColor ||
+                      userData?.nfcPremium?.secondaryTextColor,
+                    fontFamily: semiboldFont,
+                  }}
+                >
+                  {formData.additional || userData?.nfcPremium?.additional}
+                </p>
+              )}
             </div>
           ) : null}
 
@@ -173,7 +193,14 @@ const Layout1 = ({
           )}
           <div className="scanner-container-premium">
             <div className="scanner-img-lay1">
-              <img src={scanner} alt="" className="scanner-lay1-size" />
+              <QRCodeCanvas
+                className="scanner-lay1-size"
+                value={qrData}
+                bgColor="#ffffff"
+                fgColor={qrCodeColor||"#000000"}
+                level="H"
+              />
+              {/* <img src={scanner} alt="" className="scanner-lay1-size" /> */}
             </div>
             {hideBackLine && (
               <div
@@ -191,6 +218,7 @@ const Layout1 = ({
                 color:
                   formData.secondaryTextColor ||
                   userData?.nfcPremium?.secondaryTextColor,
+                fontFamily: semiboldFont,
               }}
             >
               {showEmailId && (
@@ -203,6 +231,7 @@ const Layout1 = ({
                     color:
                       formData.secondaryTextColor ||
                       userData?.nfcPremium?.secondaryTextColor,
+                    fontFamily: semiboldFont,
                   }}
                 >
                   {formData.mobile || userData?.nfcPremium?.mobile}

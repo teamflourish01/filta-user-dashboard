@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PremiumPlanDetails from "../PremiumPlanDetails/PremiumPlanDetails";
 import Sprofile from "../../images/profile.svg";
 // import scanner from "../../images/scanner.svg";
@@ -39,17 +39,14 @@ const PremiumPlan = () => {
   const [secondaryTextColor, setSecondaryTextColor] = useState(
     userData?.nfcPremium?.secondaryTextColor
   );
+  const [qrCodeColor, setQrCodeColor] = useState("");
   const [accentColorPremium, setAccentColorPremium] = useState(
     userData?.nfcPremium?.accentColor
   );
-  const [showMobileNo, setShowMobileNo] = useState(true);
-  const [showEmailId, setEmailId] = useState(true);
-  const [showFiltaLogo, setShowFiltaLogo] = useState(
-    userData?.nfcPremium?.hideFilta 
-  );
-  const [showNfcIcon, setShowNfcIcon] = useState(
-    userData?.nfcPremium?.hideNfc || false
-  );
+  const [showMobileNo, setShowMobileNo] = useState(false);
+  const [showEmailId, setEmailId] = useState(false);
+  const [showNfcIcon, setShowNfcIcon] = useState(false);
+  const [showFiltaLogo, setShowFiltaLogo] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [useBackgroundColor, setUseBackgroundColor] = useState(false);
   const [logoWidth, setLogoWidth] = useState(
@@ -62,29 +59,61 @@ const PremiumPlan = () => {
   const [logoUrl, setLogoUrl] = useState("");
 
   const [formData, setFormData] = useState({
-    cardLayout: userData?.nfcPremium?.cardLayout || "layout1",
-    logo: userData?.nfcPremium?.logo || "",
-    logoMaxWidth: userData?.nfcPremium?.logoMaxWidth || logoWidth,
-    logoMaxHeight: userData?.nfcPremium?.logoMaxHeight || logoHeight,
-    name: userData?.nfcPremium?.name || "",
-    additional: userData?.nfcPremium?.additional || "",
-    email: userData?.nfcPremium?.email || "",
-    mobile: userData?.nfcPremium?.mobile || "",
-    card_url: userData?.nfcPremium?.card_url || "",
-    cardBackgroundColor: userData?.nfcPremium?.cardBackgroundColor || "",
-    accentColor: userData?.nfcPremium?.accentColor || "",
-    cardTheme:"",
-    font: userData?.nfcPremium?.font || "",
-    primaryTextColor: userData?.nfcPremium?.primaryTextColor || "",
-    secondaryTextColor: userData?.nfcPremium?.secondaryTextColor || "",
-    qrCodeColor: userData?.nfcPremium?.qrCodeColor || "",
-    hideNfc: userData?.nfcPremium?.hideNfc || false,
-    hideFilta: userData?.nfcPremium?.hideFilta,
+    cardLayout: "layout1",
+    logo: "",
+    logoMaxWidth: 20,
+    logoMaxHeight: 20,
+    name: "",
+    additional: "",
+    email: "",
+    mobile: "",
+    card_url: "",
+    cardBackgroundColor: "",
+    accentColor: "",
+    cardTheme: "",
+    primaryTextColor: "",
+    secondaryTextColor: "",
+    qrCodeColor: "",
+    hideNfc: false,
+    hideFilta: false,
+    hideEmail:false,
+    hideNumber:false,
   });
-
+  const initialized = useRef(false);
   useEffect(() => {
-    if (userData?.nfcPremium?.cardTheme){
-      setSelectedCard(userData?.nfcPremium?.cardTheme)
+    if (!initialized.current && userData?.nfcPremium) {
+      setFormData({
+        cardLayout: userData?.nfcPremium?.cardLayout || "layout1",
+        logo: userData?.nfcPremium?.logo || "",
+        logoMaxWidth: userData?.nfcPremium?.logoMaxWidth || 20,
+        logoMaxHeight: userData?.nfcPremium?.logoMaxHeight || 20,
+        name: userData?.nfcPremium?.name || "",
+        additional: userData?.nfcPremium?.additional || "",
+        email: userData?.nfcPremium?.email || "",
+        mobile: userData?.nfcPremium?.mobile || "",
+        card_url: userData?.nfcPremium?.card_url || "",
+        cardBackgroundColor: userData?.nfcPremium?.cardBackgroundColor || "",
+        accentColor: userData?.nfcPremium?.accentColor || "",
+        cardTheme: userData?.nfcPremium?.cardTheme || "",
+        primaryTextColor: userData?.nfcPremium?.primaryTextColor || "",
+        secondaryTextColor: userData?.nfcPremium?.secondaryTextColor || "",
+        qrCodeColor: userData?.nfcPremium?.qrCodeColor,
+        hideNfc: userData?.nfcPremium?.hideNfc || false,
+        hideFilta: userData?.nfcPremium?.hideFilta || false,
+        hideEmail: userData?.nfcPremium?.hideEmail || false,
+        hideNumber: userData?.nfcPremium?.hideNumber || false,
+      });
+      initialized.current = true;
+      setShowNfcIcon(userData?.nfcPremium?.hideNfc || false);
+      setShowFiltaLogo(userData?.nfcPremium?.hideFilta || false);
+      setEmailId(userData?.nfcPremium?.hideEmail || false)
+      setShowMobileNo(userData?.nfcPremium?.hideNumber || false)
+    }
+    if(userData?.nfcPremium?.qrCodeColor){
+      setQrCodeColor(userData.nfcPremium.qrCodeColor)
+    }
+    if (userData?.nfcPremium?.cardTheme) {
+      setSelectedCard(userData?.nfcPremium?.cardTheme);
     }
     if (userData?.nfcPremium) {
       setLogoWidth(+userData?.nfcPremium?.logoMaxWidth || 20);
@@ -101,21 +130,22 @@ const PremiumPlan = () => {
   const imageUrls = [theme1, theme2, theme3, theme4, theme5];
 
   const hideMobileNo = () => {
-    setShowMobileNo(!showMobileNo);
+    setFormData((prev) => ({ ...prev, hideNumber: !prev.hideNumber }));
+    setShowMobileNo((prev) => !prev);
   };
   const hideEmailId = () => {
-    setEmailId(!showEmailId);
+    setFormData((prev) => ({ ...prev, hideEmail: !prev.hideEmail }));
+    setEmailId((prev) => !prev);
   };
 
   const hideNfc = () => {
-    setFormData({ ...formData, hideNfc: !showNfcIcon });
-    setShowNfcIcon(!showNfcIcon);
+    setFormData((prev) => ({ ...prev, hideNfc: !prev.hideNfc }));
+    setShowNfcIcon((prev) => !prev);
   };
 
   const logoHide = () => {
-
-    setFormData({ ...formData, hideFilta: !showFiltaLogo });
-    setShowFiltaLogo(prev=>!prev);
+    setFormData((prev) => ({ ...prev, hideFilta: !prev.hideFilta }));
+    setShowFiltaLogo((prev) => !prev);
   };
 
   //Preview button Animation Function Start
@@ -320,6 +350,8 @@ const PremiumPlan = () => {
                 setPrimaryTextColor={setPrimaryTextColor}
                 secondaryTextColor={secondaryTextColor}
                 setSecondaryTextColor={setSecondaryTextColor}
+                qrCodeColor={qrCodeColor}
+                setQrCodeColor={setQrCodeColor}
                 accentColorPremium={accentColorPremium}
                 setAccentColorPremium={setAccentColorPremium}
                 logoWidth={logoWidth}
@@ -371,6 +403,8 @@ const PremiumPlan = () => {
                       logoHeight={logoHeight}
                       primaryTextColor={primaryTextColor}
                       secondaryTextColor={secondaryTextColor}
+                      qrCodeColor={qrCodeColor}
+                      setQrCodeColor={setQrCodeColor}
                       accentColorPremium={accentColorPremium}
                       showEmailId={showEmailId}
                       showMobileNo={showMobileNo}
@@ -393,6 +427,7 @@ const PremiumPlan = () => {
                       logoHeight={logoHeight}
                       primaryTextColor={primaryTextColor}
                       secondaryTextColor={secondaryTextColor}
+                      qrCodeColor={qrCodeColor}
                       accentColorPremium={accentColorPremium}
                       showEmailId={showEmailId}
                       showMobileNo={showMobileNo}
@@ -414,6 +449,7 @@ const PremiumPlan = () => {
                       logoHeight={logoHeight}
                       primaryTextColor={primaryTextColor}
                       secondaryTextColor={secondaryTextColor}
+                      qrCodeColor={qrCodeColor}
                       accentColorPremium={accentColorPremium}
                       showEmailId={showEmailId}
                       showMobileNo={showMobileNo}

@@ -88,8 +88,6 @@ const LeftAlign = ({
     ? fontFamily.find((font) => font.includes("SemiBold"))
     : null;
 
-  // console.log(mediumFont);
-
   const uri = process.env.REACT_APP_DEV_URL;
   const [loading, setLoading] = useState(false);
   const {
@@ -102,13 +100,35 @@ const LeftAlign = ({
   const audioRef = useRef(null);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [dragItems, setDragItems] = useState([]);
+  const defaultDragItems = [
+    { id: "drag-drop-first", component: "Clickable links" },
+    { id: "drag-drop-secound", component: "Multimedia" },
+    { id: "drag-drop-third", component: "Contact Form" },
+    { id: "drag-drop-four", component: "Voice message" },
+    { id: "drag-drop-five", component: "CTA Button" },
+    { id: "drag-drop-six", component: "About (introduction of company)" },
+    { id: "drag-drop-seven", component: "Documents" },
+    { id: "drag-drop-eight", component: "Team member details" },
+    { id: "drag-drop-thirtys", component: "Address" },
+    { id: "drag-drop-nine", component: "Time sensitive offer/ slider form" },
+    { id: "drag-drop-ten", component: "Automated" },
+    { id: "drag-drop-eleven", component: "Social Proof" },
+    { id: "drag-drop-twelv", component: "Photos" },
+    { id: "drag-drop-thirty", component: "Product Gallery" },
+  ];
+  const [dragItems, setDragItems] = useState(defaultDragItems);
 
   // const [userDetails, setUserDetails] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setDragItems(userData?.shuffle?.shuffle);
+    const shuffleData = userData?.shuffle?.shuffle;
+    if (shuffleData && Array.isArray(shuffleData) && shuffleData.length > 0) {
+      setDragItems(shuffleData);
+    } else {
+      console.log("No shuffle data found. Using default drag items.");
+      setDragItems(defaultDragItems); 
+    }
   }, [userData]);
 
   useEffect(() => {
