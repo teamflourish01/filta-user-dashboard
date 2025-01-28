@@ -40,9 +40,11 @@ const Ctabutton = () => {
       });
       data = await data.json();
       console.log(data);
-      getUserData();
+      alert(data.msg|| "Data add")
+      getUserData();      
     } catch (error) {
       console.log(error);
+      alert(error.data.msg|| "Not Added")
     }
   };
   useEffect(() => {

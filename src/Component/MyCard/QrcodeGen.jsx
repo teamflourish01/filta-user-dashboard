@@ -3,15 +3,17 @@ import { QRCodeCanvas } from "qrcode.react";
 import qrLogoImg from "../../images/qrlogoImg.png";
 import userContext from "../../context/userDetails";
 import html2canvas from "html2canvas";
+import axios from "axios";
 
 const QrcodeGen = ({ selectedColor, logo }) => {
-  const { userData } = useContext(userContext);
+  const { userData,getUserData,AuthorizationToken } = useContext(userContext);
+  const furi = process.env.REACT_APP_FRNT_URL;
   const [qrData, setQrData] = useState(
-    `https://192.168.1.15:3000/card/${userData?.username}`
+    `${furi}/card/${userData?.username}`
   );
   const [logoUrl, setLogoUrl] = useState(null);
-  const uri = process.env.REACT_APP_DEV_URL;
-  console.log("qrData URL", qrData);
+  const [qrPng, setQrPng] = useState(null);
+  const uri = process.env.REACT_APP_DEV_URL;  
 
   const handleDownload = async () => {
     const element = document.querySelector(".qr-imgdiv");
@@ -35,6 +37,41 @@ const QrcodeGen = ({ selectedColor, logo }) => {
       setLogoUrl(null);
     }
   }, [userData]);
+  const generateQrPng = async () => {
+    const element = document.querySelector(".qr-imgdiv");
+    if (element) {
+      const canvas = await html2canvas(element, { useCORS: true });
+      const dataURL = canvas.toDataURL("image/png");
+      setQrPng(dataURL);
+      return dataURL;
+    }
+    return null;
+  };
+  useEffect(() => {
+    const autoSave = async () => {
+      const dataURL = await generateQrPng();
+      const formData = new FormData();
+      const blob = await (await fetch(dataURL)).blob();
+      formData.append("qrpng", blob, "qrcode.png");
+      try {
+        const response = await axios.post(`${uri}/qr/addauto`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: AuthorizationToken,
+          },
+        });
+        // alert(`API automatically called: ${response?.data?.message}`);
+        getUserData();
+      } catch (error) {
+        console.error("Error saving QR code:", error);
+        alert(error.response?.data.message || "Auto QR Not Store");
+      }
+    };
+    if (!userData?.qrcode?.qrpng) {
+      autoSave();
+    }
+  }, []);
+
   const logoSrc = logo
     ? logo
     : userData?.qrcode?.qrimage

@@ -73,6 +73,7 @@ const ContactForm = ({
       alert(`${response?.data?.message}`);
     } catch (error) {
       console.error("Error toggling checkbox state:", error);
+      alert(error.response?.data.message ||"Subscribe Plan");
     }
   };
 
@@ -92,6 +93,7 @@ const ContactForm = ({
       alert(`${response?.data?.message}`);
     } catch (error) {
       console.error("Error saving About Data:", error);
+      alert(error.response?.data.message ||"Subscribe Plan");
     }
   };
 

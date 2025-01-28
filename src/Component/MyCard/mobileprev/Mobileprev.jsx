@@ -82,7 +82,7 @@ const Mobileprev = ({
     { id: "drag-drop-first", component: "Clickable links" },
     { id: "drag-drop-secound", component: "Multimedia" },
     { id: "drag-drop-third", component: "Contact Form" },
-    { id: "drag-drop-four", component: "Voice message" },
+    { id: "drag-drop-four", component: "voice message" },
     { id: "drag-drop-five", component: "CTA Button" },
     { id: "drag-drop-six", component: "About (introduction of company)" },
     { id: "drag-drop-seven", component: "Documents" },
@@ -135,8 +135,7 @@ const Mobileprev = ({
     const shuffleData = userData?.shuffle?.shuffle;
     if (shuffleData && Array.isArray(shuffleData) && shuffleData.length > 0) {
       setDragItems(shuffleData);
-    } else {
-      console.log("No shuffle data found. Using default drag items.");
+    } else {      
       setDragItems(defaultDragItems); 
     }
 
@@ -274,7 +273,7 @@ const Mobileprev = ({
       reset();
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("Failed to send email. Please try again.");
+      alert(error.response?.data.message ||"Failed to send email. Please try again.");      
     } finally {
       setLoading(false);
     }

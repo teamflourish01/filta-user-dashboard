@@ -7,7 +7,7 @@ import deltImg from "../../images/delete.png";
 import sampleImg from "../../images/photos-uplodimg.png";
 const TimeSensitive = () => {
   const { userData, AuthorizationToken, getUserData } = useContext(userContext);
-  const uri = process.env.REACT_APP_DEV_URL;  
+  const uri = process.env.REACT_APP_DEV_URL;
   const [docFiles, setDocFiles] = useState([]);
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files);
@@ -49,7 +49,9 @@ const TimeSensitive = () => {
       getUserData();
     } catch (error) {
       console.error("Upload Error:", error.response?.data || error.message);
-      alert("Failed to Img Upload.");
+      alert(
+        error.response?.data.msg || "Subscribe Plan | Failed to Img Upload."
+      );
     }
   };
   const handleRemoveFile = (index) => {

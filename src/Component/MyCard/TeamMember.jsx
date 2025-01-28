@@ -52,9 +52,11 @@ const TeamMember = () => {
       });
       res = await res.json();
       console.log(res);
-      getUserData();
+      alert(res.msg||"Data not add")
+      getUserData();      
     } catch (error) {
       console.log(error);
+      alert(error.res?.msg || "Data not add")
     }
   };
 

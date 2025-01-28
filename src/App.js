@@ -28,6 +28,8 @@ import SignupFlow from "./Component/Auth/SignupFlow";
 import LeftAlign from "./ViewCard/LeftAlign/LeftAlign";
 import CenterAlign from "./ViewCard/CenterAlign/CenterAlign";
 import Portrait from "./ViewCard/Portrait/Portrait";
+import ProtectedRoute from "./Component/Protected/ProtectedRoute";
+import PageNotFound from "./Component/PageNotFound.jsx/PageNotFound";
 // import ParentComponent from "./Component/MyCard/parent/ParentComponent";
 
 // Layout for Authentication Pages
@@ -75,59 +77,61 @@ function App() {
 
         {/* View Card Routes*/}
         <Route path="/card/:username" element={<LeftAlign />} />
-        <Route path="/center-align" element={<CenterAlign />} />
-        <Route path="/portrait" element={<Portrait />} />
+        {/* <Route path="/center-align" element={<CenterAlign />} />
+        <Route path="/portrait" element={<Portrait />} /> */}
 
         {/* Main Application Layout */}
         <Route
-          path="*"
+          path="/*"
           element={
-            <div className="App">
-              <div className="navbar-container">
-                <Navbar />
-              </div>
-              <div className="sidebar-container">
-                <Sidebar />
-                <div className="main-content">
-                  <Routes>
-                    {/* <Route path="/parent" element={<ParentComponent/>}/> */}
-                    <Route path="/my-card" element={<MyCardmain />} />
-                    <Route path="my-card/edit" element={<MyCard />} />
-                    <Route path="/nfc-card" element={<NFCCard />} />
-                    <Route path="/subscription" element={<Subscription />} />
-                    <Route path="/support" element={<Support />} />
-                    <Route path="/rate-us" element={<Rateus />} />
-                    {/* <Route
+            <ProtectedRoute>
+              <div className="App">
+                <div className="navbar-container">
+                  <Navbar />
+                </div>
+                <div className="sidebar-container">
+                  <Sidebar />
+                  <div className="main-content">
+                    <Routes>
+                      {/* <Route path="/parent" element={<ParentComponent/>}/> */}
+                      <Route path="/my-card" element={<MyCardmain />} />
+                      <Route path="my-card/edit" element={<MyCard />} />
+                      <Route path="/nfc-card" element={<NFCCard />} />
+                      <Route path="/subscription" element={<Subscription />} />
+                      <Route path="/support" element={<Support />} />
+                      <Route path="/rate-us" element={<Rateus />} />
+                      {/* <Route
                       path="/digital-review-card"
                       element={<DigitalReviewCard />}
                     /> */}
-                    <Route
-                      path="/email-signature"
-                      element={<EmailSignature />}
-                    />
-                    <Route
-                      path="/virtual-background"
-                      element={<VirtualBackground />}
-                    />
-                    <Route path="/contacts" element={<Contacts />} />
-                    <Route path="/my-leads" element={<MyLeads />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route
-                      path="/nfc-card/standardplan"
-                      element={<StandardPlan />}
-                    />
-                    <Route
-                      path="/request-feature"
-                      element={<Requestfeature />}
-                    />
-                    <Route
-                      path="/nfc-card/premium-plan"
-                      element={<PremiumPlan />}
-                    />
-                  </Routes>
+                      <Route
+                        path="/email-signature"
+                        element={<EmailSignature />}
+                      />
+                      <Route
+                        path="/virtual-background"
+                        element={<VirtualBackground />}
+                      />
+                      <Route path="/contacts" element={<Contacts />} />
+                      <Route path="/my-leads" element={<MyLeads />} />
+                      <Route path="/settings" element={<Settings />} />
+                      <Route
+                        path="/nfc-card/standardplan"
+                        element={<StandardPlan />}
+                      />
+                      <Route
+                        path="/request-feature"
+                        element={<Requestfeature />}
+                      />
+                      <Route
+                        path="/nfc-card/premium-plan"
+                        element={<PremiumPlan />}
+                      />
+                    </Routes>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ProtectedRoute>
           }
         />
       </Routes>

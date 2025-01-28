@@ -47,9 +47,11 @@ const SocialProof = () => {
       });
       res = await res.json();
       console.log(res);
+      alert(res.msg || "Data Add")
       getUserData();
     } catch (error) {
       console.log(error);
+      alert(error.res.msg|| "Data Not Add")
     }
   };
 

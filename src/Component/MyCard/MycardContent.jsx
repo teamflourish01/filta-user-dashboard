@@ -85,8 +85,6 @@ const ContentComponent = ({
         if (initialData && Array.isArray(initialData)) {
           console.log("Loaded drag items from userdata:", initialData);
           setDragItems(initialData); // Use data from userdata
-        } else {
-          console.log("No shuffle data found in userdata.");
         }
       } catch (error) {
         console.error("Error fetching drag items:", error);

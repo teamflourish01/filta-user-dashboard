@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import clrpiker from "../../images/desigin_clrpiker.png";
 import qrplus from "../../images/qr_plus.png";
 import axios from "axios";
@@ -40,10 +40,6 @@ const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
     formData.append("qrimage", logo);
     const blob = await (await fetch(dataURL)).blob();
     formData.append("qrpng", blob, "qrcode.png");
-
-    console.log("FormData contains:", formData.get("qrcode"));
-    console.log("qrPng", qrPng);
-
     try {
       const response = await axios.post(`${uri}/qr/add`, formData, {
         headers: {
@@ -55,7 +51,7 @@ const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
       getUserData();
     } catch (error) {
       console.error("Error saving QR code:", error);
-      alert("An error occurred while saving QR code.");
+      alert(error.response?.data.message||"Subscribe Premimum Plan.");
     } finally {
       setLoading(false);
     }
@@ -113,7 +109,7 @@ const QrcodeComponent = ({ selectedColor, onColorChange, onLogoChange }) => {
                 </div>
               </div>
               <div className="di-buttons delpadding">
-                <button type="button" className="di-cancel">
+                <button type="reset" className="di-cancel">
                   Cancel
                 </button>
                 <button
