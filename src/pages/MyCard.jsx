@@ -83,8 +83,7 @@ const MyCard = () => {
     if (userData && userData.qrcode && userData.qrcode.qrcolor) {
       setSelectedColor(userData.qrcode.qrcolor);
     }
-    setBorderStyle(userData?.card?.style);
-    console.log(borderStyle, "borderStyle");
+    setBorderStyle(userData?.card?.style);    
   }, [userData]);
 
   const [checkboxStates, setCheckboxStates] = useState({

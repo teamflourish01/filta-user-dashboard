@@ -16,6 +16,7 @@ export const User = ({ children }) => {
   };
 
   const getUserData = async () => {
+    if (!token) return;
     try {
       const response = await fetch(`${url}/user/userdetails`, {
         method: "GET",
@@ -27,9 +28,7 @@ export const User = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         console.log("context response", data);
-
-        setUserData(data.user);
-        console.log("context data", userData);
+        setUserData(data.user);        
       } else {
         console.error("Error fetching user data");
       }
@@ -38,8 +37,8 @@ export const User = ({ children }) => {
     }
   };
 
-
-  const getLoginEmail = async () =>{
+  const getLoginEmail = async () => {
+    if (!token) return;
     try {
       const response = await fetch(`${url}/email/gatemailmsg`, {
         method: "GET",
@@ -53,16 +52,18 @@ export const User = ({ children }) => {
       }
 
       const data = await response.json();
-      setUserDetails(data);
-      console.log(data, "dataaaaGet");
+      setUserDetails(data);      
     } catch (err) {
       console.log(err.message);
     }
   };
 
   useEffect(() => {
-    getLoginEmail();
-    getUserData();
+    if (token) {
+      getLoginEmail();
+      getUserData();
+    }
+
     setTimeout(() => {
       localStorage.removeItem("user");
       window.location.reload();
@@ -70,7 +71,15 @@ export const User = ({ children }) => {
   }, [token]);
   return (
     <userContext.Provider
-      value={{ userData, storeTokenLS, token, getUserData, AuthorizationToken,userDetails ,getLoginEmail}}
+      value={{
+        userData,
+        storeTokenLS,
+        token,
+        getUserData,
+        AuthorizationToken,
+        userDetails,
+        getLoginEmail,
+      }}
     >
       {children}
     </userContext.Provider>

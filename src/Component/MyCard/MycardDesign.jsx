@@ -118,8 +118,7 @@ const DesignComponent = ({
   useEffect(() => {
     const fetchFonts = async () => {
       const response = await fetch(`${uri}/font/getall`);
-      const data = await response.json();
-      console.log("fonts", data);
+      const data = await response.json();      
       setFonts(data);
     };
     fetchFonts();

@@ -92,7 +92,7 @@ const Documents = () => {
       setShowFileInput(false);
     } catch (error) {
       console.error("Upload Error:", error.response?.data || error.message);
-      alert("Failed to upload Doc files.");
+      alert(error.response?.data.message ||"Subscribe Plan");
     }
   };
   const handleCancel = () => {

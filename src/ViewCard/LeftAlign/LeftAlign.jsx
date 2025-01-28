@@ -104,7 +104,7 @@ const LeftAlign = ({
     { id: "drag-drop-first", component: "Clickable links" },
     { id: "drag-drop-secound", component: "Multimedia" },
     { id: "drag-drop-third", component: "Contact Form" },
-    { id: "drag-drop-four", component: "Voice message" },
+    { id: "drag-drop-four", component: "voice message" },
     { id: "drag-drop-five", component: "CTA Button" },
     { id: "drag-drop-six", component: "About (introduction of company)" },
     { id: "drag-drop-seven", component: "Documents" },
@@ -126,8 +126,7 @@ const LeftAlign = ({
     if (shuffleData && Array.isArray(shuffleData) && shuffleData.length > 0) {
       setDragItems(shuffleData);
     } else {
-      console.log("No shuffle data found. Using default drag items.");
-      setDragItems(defaultDragItems); 
+      setDragItems(defaultDragItems);
     }
   }, [userData]);
 
@@ -137,7 +136,6 @@ const LeftAlign = ({
         const response = await axios.get(`${uri}/user/${username}`);
         setUserData(response.data.user);
         console.log("response left-align", response);
-        console.log("userData left-align", userData);
       } catch (error) {
         console.log(error);
       }
@@ -2068,7 +2066,13 @@ const LeftAlign = ({
           </div>
         </div>
       </div>
-      {isShareModalOpen && <ShareModalLeft onClose={handleCloseModal} isShareModalOpen={isShareModalOpen} userData={userData}/>}
+      {isShareModalOpen && (
+        <ShareModalLeft
+          onClose={handleCloseModal}
+          isShareModalOpen={isShareModalOpen}
+          userData={userData}
+        />
+      )}
     </>
   );
 };

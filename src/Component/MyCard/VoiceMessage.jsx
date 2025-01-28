@@ -92,7 +92,7 @@ const VoiceMessage = ({ onPassToMobile }) => {
       setAudioRecords([]);
     } catch (error) {
       console.error("Upload Error:", error.response?.data || error.message);
-      alert("Failed to upload voice files.");
+      alert(error.response?.data.message ||"Subscribe Plan");
     }
   };
 
