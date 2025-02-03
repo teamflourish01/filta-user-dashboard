@@ -59,7 +59,7 @@ const VoiceMessage = () => {
     const newProgresses = [...progresses];
 
     // Update duration
-    if (audio.duration) {
+    if (audio.duration && audio.duration !== Infinity) {
       const minutes = Math.floor(audio.duration / 60);
       const seconds = Math.floor(audio.duration % 60);
       newDurations[index] = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
@@ -116,97 +116,98 @@ const VoiceMessage = () => {
 
   return (
     <div className="voice-message">
-  {userData?.voiceMessage?.length > 0 ? (
-    userData.voiceMessage.map((voiceMessage, index) => (
-      <div key={index} className="voice-div">
-        <audio
-          ref={(el) => (audioRefs.current[index] = el)}
-          src={`${uri}/voices/${voiceMessage.voice}`}
-          preload="auto"
-          onTimeUpdate={() => updateAudioState(index)}
-          onLoadedMetadata={() => updateAudioState(index)}
-          onEnded={() => handleAudioEnd(index)}
-        />
-        <div className="play-pause-button">
-          <button
-            onClick={() => togglePlayPause(index)}
-            style={{
-              border: "none",
-              background: "transparent",
-              cursor: "pointer",
-            }}
-          >
-            {isPlaying[index] ? (
-              <MdOutlinePause style={{ color: "white" }} />
-            ) : (
-              <IoPlaySharp style={{ color: "white" }} />
-            )}
-          </button>
-        </div>
-        <div className="duration">
-          {currentTimes[index]} / {durations[index]}
-        </div>
-        <div
-          className="progress-bar-container"
-          onClick={(e) => handleProgressClick(e, index)}
-        >
-          <div
-            className="progress-bar"
-            style={{
-              width: `${progresses[index]}%`,
-            }}
-          ></div>
-          <div
-            className="progress-dot"
-            style={{
-              
-              left: `${progresses[index]}%`,
-              
-            }}
-          ></div>
-        </div>
-        {/* Frequency Container */}
-        <div className="frequency-container">
-          {isPlaying[index]
-            ? // Animated bars when audio is playing
-              [...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className="frequency-bar"
-                  style={{
-                    animationDelay: `${i * 0.2}s`,
-                  }}
-                ></div>
-              ))
-            : // Static dots when audio is not playing
-              [...Array(5)].map((_, i) => (
-                <div key={i} className="frequency-dot"></div>
-              ))}
-        </div>
-        <button
-          className="volume-btn"
-          onClick={() => toggleMute(index)}
-          style={{
-            border: "none",
-            background: "transparent",
-            display: "flex",
-            cursor: "pointer",
-          }}
-        >
-          {isMuted[index] ? (
-            <BiSolidVolumeMute style={{ color: "white", width: "22px", height: "22px" }} />
-          ) : (
-            <IoMdVolumeHigh style={{ color: "white", width: "22px", height: "22px" }} />
-          )}
-        </button>
-        
-      </div>
-    ))
-  ) : (
-    <p>No voice messages available.</p>
-  )}
-</div>
-
+      {userData?.voiceMessage?.length > 0 ? (
+        userData.voiceMessage.map((voiceMessage, index) => (
+          <div key={index} className="voice-div">
+            <audio
+              ref={(el) => (audioRefs.current[index] = el)}
+              src={`${uri}/voices/${voiceMessage.voice}`}
+              preload="auto"
+              onTimeUpdate={() => updateAudioState(index)}
+              onLoadedMetadata={() => updateAudioState(index)}
+              onEnded={() => handleAudioEnd(index)}
+              onCanPlayThrough={() => updateAudioState(index)}
+            />
+            <div className="play-pause-button">
+              <button
+                onClick={() => togglePlayPause(index)}
+                style={{
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                }}
+              >
+                {isPlaying[index] ? (
+                  <MdOutlinePause style={{ color: "white" }} />
+                ) : (
+                  <IoPlaySharp style={{ color: "white" }} />
+                )}
+              </button>
+            </div>
+            <div className="duration">
+              {currentTimes[index]} / {durations[index]}
+            </div>
+            <div
+              className="progress-bar-container"
+              onClick={(e) => handleProgressClick(e, index)}
+            >
+              <div
+                className="progress-bar"
+                style={{
+                  width: `${progresses[index]}%`,
+                }}
+              ></div>
+              <div
+                className="progress-dot"
+                style={{
+                  left: `${progresses[index]}%`,
+                }}
+              ></div>
+            </div>
+            {/* Frequency Container */}
+            <div className="frequency-container">
+              {isPlaying[index]
+                ? // Animated bars when audio is playing
+                  [...Array(5)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="frequency-bar"
+                      style={{
+                        animationDelay: `${i * 0.2}s`,
+                      }}
+                    ></div>
+                  ))
+                : // Static dots when audio is not playing
+                  [...Array(5)].map((_, i) => (
+                    <div key={i} className="frequency-dot"></div>
+                  ))}
+            </div>
+            <button
+              className="volume-btn"
+              onClick={() => toggleMute(index)}
+              style={{
+                border: "none",
+                background: "transparent",
+                display: "flex",
+                cursor: "pointer",
+              }}
+            >
+              {isMuted[index] ? (
+                <BiSolidVolumeMute
+                  style={{ color: "white", width: "22px", height: "22px" }}
+                />
+              ) : (
+                <IoMdVolumeHigh
+                  style={{ color: "white", width: "22px", height: "22px" }}
+                />
+              )}
+            </button>
+          </div>
+        ))
+      ) : (
+        <p>No voice messages available.</p>
+      )}
+    </div>
   );
 };
 

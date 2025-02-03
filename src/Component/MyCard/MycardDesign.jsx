@@ -55,7 +55,7 @@ const DesignComponent = ({
   };
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
-  };  
+  };
   const handleFontSelect = (selectedFontFamily) => {
     if (!userData.premium) {
       alert("Please purchase the premium plan!");
@@ -65,7 +65,7 @@ const DesignComponent = ({
     setSelectedFont(selectedFontFamily);
     const selectedFontStyles = fonts
       .filter((font) => font.family === selectedFontFamily)
-      .map((font) => font.name); 
+      .map((font) => font.name);
 
     setSelectedFontStyles(selectedFontStyles);
     setIsOpen(false);
@@ -73,6 +73,11 @@ const DesignComponent = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!userData.premium) {
+      alert("Please purchase the premium plan!");
+      // navigate("/subscription");
+      return;
+    }
     try {
       const formData = new FormData();
       formData.append("design.card_background.flat_color", colors.flatColor);
@@ -107,7 +112,7 @@ const DesignComponent = ({
           "Content-Type": "multipart/form-data",
           Authorization: AuthorizationToken,
         },
-      });      
+      });
       alert(response.data.msg || "Data updated successfully!");
       getUserData();
     } catch (error) {
@@ -118,7 +123,7 @@ const DesignComponent = ({
   useEffect(() => {
     const fetchFonts = async () => {
       const response = await fetch(`${uri}/font/getall`);
-      const data = await response.json();      
+      const data = await response.json();
       setFonts(data);
     };
     fetchFonts();
@@ -464,12 +469,12 @@ const DesignComponent = ({
                   >
                     {uniqueFontFamilies.map((font) => (
                       <div
-                      key={font}
+                        key={font}
                         className="drp-option drp-lock"
                         onClick={() => handleFontSelect(font)}
                       >
                         <span>{font}</span>
-                        {!userData.premium && <FaLock/>}
+                        {!userData.premium && <FaLock />}
                       </div>
                     ))}
                   </div>

@@ -164,5 +164,8 @@
 .vm-record{
   display: flex;
   justify-content: space-between;
+  background-color: #eff1f3;
+  margin-bottom: 5px;
+  align-items: center;
 }
   

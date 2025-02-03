@@ -41,6 +41,10 @@ import defaultlogo from "./../../images/filta.png";
 import ShareCardModal from "../../Component/ShareCardModal/ShareCardModal";
 import { useParams } from "react-router-dom";
 import ShareModalLeft from "../../Component/ShareModalLeft/ShareModalLeft";
+import { MdOutlinePause } from "react-icons/md";
+import { IoPlaySharp } from "react-icons/io5";
+import { BiSolidVolumeMute } from "react-icons/bi";
+import { IoMdVolumeHigh } from "react-icons/io";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
@@ -114,10 +118,16 @@ const LeftAlign = ({
     formState: { errors },
     reset,
   } = useForm();
-
+  // Voice Message logic
   const audioRef = useRef(null);
+  const audioRefs = useRef([]);
+  const [isPlaying, setIsPlaying] = useState([]);
+  const [isMuted, setIsMuted] = useState([]);
+  const [durations, setDurations] = useState([]);
+  const [currentTimes, setCurrentTimes] = useState([]);
+  const [progresses, setProgresses] = useState([]);
 
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlayingm, setIsPlayingm] = useState(false);
   const defaultDragItems = [
     { id: "drag-drop-first", component: "Clickable links" },
     { id: "drag-drop-secound", component: "Multimedia" },
@@ -146,6 +156,13 @@ const LeftAlign = ({
     } else {
       setDragItems(defaultDragItems);
     }
+    if (userData?.voiceMessage?.length) {
+      setIsPlaying(new Array(userData.voiceMessage.length).fill(false));
+      setIsMuted(new Array(userData.voiceMessage.length).fill(false));
+      setDurations(new Array(userData.voiceMessage.length).fill("0:00"));
+      setCurrentTimes(new Array(userData.voiceMessage.length).fill("0:00"));
+      setProgresses(new Array(userData.voiceMessage.length).fill(0));
+    }
   }, [userData]);
 
   useEffect(() => {
@@ -172,19 +189,104 @@ const LeftAlign = ({
     return <div>Error: {error}</div>;
   }
 
-  
 
   const togglePlayback = () => {
     const audio = audioRef.current;
     if (audio) {
       if (audio.paused) {
         audio.play();
-        setIsPlaying(true);
+        setIsPlayingm(true);
       } else {
         audio.pause();
-        setIsPlaying(false);
+        setIsPlayingm(false);
       }
     }
+  };
+  // Play/Pause functionality
+  const togglePlayPause = (index) => {
+    const audio = audioRefs.current[index];
+    const newIsPlaying = [...isPlaying];
+
+    if (newIsPlaying[index]) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+
+    newIsPlaying[index] = !newIsPlaying[index];
+    setIsPlaying(newIsPlaying);
+  };
+
+  // Mute/Unmute functionality
+  const toggleMute = (index) => {
+    const audio = audioRefs.current[index];
+    const newIsMuted = [...isMuted];
+    audio.muted = !newIsMuted[index];
+    newIsMuted[index] = !newIsMuted[index];
+    setIsMuted(newIsMuted);
+  };
+
+  // Update duration and current time
+  const updateAudioState = (index) => {
+    const audio = audioRefs.current[index];
+    const newDurations = [...durations];
+    const newCurrentTimes = [...currentTimes];
+    const newProgresses = [...progresses];
+
+    // Update duration
+    if (audio.duration) {
+      const minutes = Math.floor(audio.duration / 60);
+      const seconds = Math.floor(audio.duration % 60);
+      newDurations[index] = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }
+
+    // Update current time
+    const minutes = Math.floor(audio.currentTime / 60);
+    const seconds = Math.floor(audio.currentTime % 60);
+    newCurrentTimes[index] = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    newProgresses[index] = (audio.currentTime / audio.duration) * 100;
+
+    setDurations(newDurations);
+    setCurrentTimes(newCurrentTimes);
+    setProgresses(newProgresses);
+  };
+
+  const handleAudioEnd = (index) => {
+    const newIsPlaying = [...isPlaying];
+    const newCurrentTimes = [...currentTimes];
+    const newProgresses = [...progresses];
+
+    newIsPlaying[index] = false;
+    newCurrentTimes[index] = "0:00";
+    newProgresses[index] = 0;
+
+    setIsPlaying(newIsPlaying);
+    setCurrentTimes(newCurrentTimes);
+    setProgresses(newProgresses);
+  };
+
+  const handleProgressClick = (e, index) => {
+    const progressBar = e.target.closest(".progress-bar-container");
+    const progressBarWidth = progressBar.offsetWidth;
+    const offsetX = e.clientX - progressBar.getBoundingClientRect().left;
+
+    const newProgress = (offsetX / progressBarWidth) * 100;
+    const audio = audioRefs.current[index];
+    const newTime = (audio.duration * newProgress) / 100;
+
+    audio.currentTime = newTime;
+
+    const minutes = Math.floor(newTime / 60);
+    const seconds = Math.floor(newTime % 60);
+
+    const newCurrentTimes = [...currentTimes];
+    newCurrentTimes[index] = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    setCurrentTimes(newCurrentTimes);
+    setProgresses((prev) => {
+      const updatedProgresses = [...prev];
+      updatedProgresses[index] = newProgress;
+      return updatedProgresses;
+    });
   };
 
   const sliderSettings = {
@@ -212,7 +314,7 @@ const LeftAlign = ({
   const galleryImages = [gallerypic, gallerypic];
   const handlePlay = (videoElement) => {
     videoElement.play();
-    setIsPlaying(true);
+    setIsPlayingm(true);
   };
 
   // Map platform names to local icon paths
@@ -285,18 +387,20 @@ const LeftAlign = ({
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${uri}/email/send-email`, data, {
+      const payload = {
+        ...data,        
+        userId:userData?.contactformemail?.userId
+      };
+      const response = await axios.post(`${uri}/email/send-shareemail`, payload, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: AuthorizationToken,
+          "Content-Type": "application/json",          
         },
       });
-      alert(`${response?.data?.message}`);
-      getUserData();
+      alert(`${response?.data?.message}`);      
       reset();
     } catch (error) {
       console.error("Error sending email:", error);
-      alert("Failed to send email. Please try again.");
+      alert(error.response?.data.message||"Not Send Email!!");
     } finally {
       setLoading(false);
     }
@@ -454,7 +558,7 @@ const LeftAlign = ({
               //   borderStyle ? "square" : "circle"
               // }`}
               className={`profile-pic-c-l-a ${
-                borderStyle ? "square" : "circle"
+                userData.card.style ? "square" : "circle"
               }`}
             >
               {userData?.card?.profileimg ? (
@@ -903,11 +1007,11 @@ const LeftAlign = ({
                             <div className="video-slide">
                               <video
                                 src={`${uri}/multimedia/${video}`}
-                                controls={isPlaying}
+                                controls={isPlayingm}
                                 onClick={(e) => handlePlay(e.target)}
                               ></video>
 
-                              {!isPlaying && (
+                              {!isPlayingm && (
                                 <div
                                   className="play-button-overlay"
                                   onClick={(e) =>
@@ -997,7 +1101,8 @@ const LeftAlign = ({
         return (
           <div>
             {/* fourth section contact form start */}
-            {(userDetails?.data[0]?.loginemail || formDatac?.loginemail) && (
+            {(userData?.contactformemail?.loginemail ||
+              formDatac?.loginemail) && (
               <div
                 className="grey-box-bg-left-align"
                 style={{
@@ -1026,7 +1131,7 @@ const LeftAlign = ({
                       Contact Form
                     </div>
                     <div className="input-container-c-f">
-                      {checkboxStates?.name && (
+                      {userData?.contactformemail?.name && (
                         <div className="input-field-contact-form-leftalign">
                           <input
                             type="text"
@@ -1077,7 +1182,7 @@ const LeftAlign = ({
                         />
                       </div>
 
-                      {checkboxStates?.number && (
+                      {userData?.contactformemail?.number && (
                         <div className="input-field-contact-form-leftalign">
                           <input
                             type="text"
@@ -1086,7 +1191,7 @@ const LeftAlign = ({
                             {...register("number")}
                             style={{
                               color:
-                                colors.secTxtColor ||
+                                // colors.secTxtColor ||
                                 userData?.card?.design?.font_style
                                   ?.secondary_text_color,
                               "--placeholder-color":
@@ -1102,7 +1207,7 @@ const LeftAlign = ({
                           />
                         </div>
                       )}
-                      {checkboxStates?.message && (
+                      {userData?.contactformemail?.message && (
                         <div className="input-field-contact-form-leftalign">
                           <textarea
                             type="text"
@@ -1187,7 +1292,109 @@ const LeftAlign = ({
                     Voice Message
                   </div>
                   <div className="audio-container" onClick={togglePlayback}>
-                    <VoiceMessage />
+                    <div className="voice-message">
+                      {userData?.voiceMessage?.length > 0 ? (
+                        userData.voiceMessage.map((voiceMessage, index) => (
+                          <div key={index} className="voice-div">
+                            <audio
+                              ref={(el) => (audioRefs.current[index] = el)}
+                              src={`${uri}/voices/${voiceMessage.voice}`}
+                              preload="auto"
+                              onTimeUpdate={() => updateAudioState(index)}
+                              onLoadedMetadata={() => updateAudioState(index)}
+                              onEnded={() => handleAudioEnd(index)}
+                            />
+                            <div className="play-pause-button">
+                              <button
+                                onClick={() => togglePlayPause(index)}
+                                style={{
+                                  border: "none",
+                                  background: "transparent",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                {isPlaying[index] ? (
+                                  <MdOutlinePause style={{ color: "white" }} />
+                                ) : (
+                                  <IoPlaySharp style={{ color: "white" }} />
+                                )}
+                              </button>
+                            </div>
+                            <div className="duration">
+                              {currentTimes[index]} / {durations[index]}
+                            </div>
+                            <div
+                              className="progress-bar-container"
+                              onClick={(e) => handleProgressClick(e, index)}
+                            >
+                              <div
+                                className="progress-bar"
+                                style={{
+                                  width: `${progresses[index]}%`,
+                                }}
+                              ></div>
+                              <div
+                                className="progress-dot"
+                                style={{
+                                  left: `${progresses[index]}%`,
+                                }}
+                              ></div>
+                            </div>
+                            {/* Frequency Container */}
+                            <div className="frequency-container">
+                              {isPlaying[index]
+                                ? // Animated bars when audio is playing
+                                  [...Array(5)].map((_, i) => (
+                                    <div
+                                      key={i}
+                                      className="frequency-bar"
+                                      style={{
+                                        animationDelay: `${i * 0.2}s`,
+                                      }}
+                                    ></div>
+                                  ))
+                                : // Static dots when audio is not playing
+                                  [...Array(5)].map((_, i) => (
+                                    <div
+                                      key={i}
+                                      className="frequency-dot"
+                                    ></div>
+                                  ))}
+                            </div>
+                            <button
+                              className="volume-btn"
+                              onClick={() => toggleMute(index)}
+                              style={{
+                                border: "none",
+                                background: "transparent",
+                                display: "flex",
+                                cursor: "pointer",
+                              }}
+                            >
+                              {isMuted[index] ? (
+                                <BiSolidVolumeMute
+                                  style={{
+                                    color: "white",
+                                    width: "22px",
+                                    height: "22px",
+                                  }}
+                                />
+                              ) : (
+                                <IoMdVolumeHigh
+                                  style={{
+                                    color: "white",
+                                    width: "22px",
+                                    height: "22px",
+                                  }}
+                                />
+                              )}
+                            </button>
+                          </div>
+                        ))
+                      ) : (
+                        <p>No voice messages available.</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
