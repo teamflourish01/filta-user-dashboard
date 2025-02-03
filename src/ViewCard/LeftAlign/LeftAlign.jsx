@@ -71,6 +71,24 @@ const LeftAlign = ({
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [layout, setLayout] = useState(null);
   const { username } = useParams();
+  const [showAutomatedMessage, setShowAutomatedMessage] = useState(false);
+
+  useEffect(() => {
+    if (userData?.automated?.text) {
+      setShowAutomatedMessage(true);
+
+      const timer = setTimeout(() => {
+        setShowAutomatedMessage(false);
+      }, 10000); // Show for 10 seconds
+
+      // Clean up the timeout if the component is unmounted
+      return () => clearTimeout(timer);
+    }
+  }, [userData]);
+
+  const handleCloseMessage = () => {
+    setShowAutomatedMessage(false); // Close the message manually
+  };
 
   // Extract bold font from fontFamily array
   const fontFamily = userData?.card?.design?.font_style?.font_family;
@@ -154,9 +172,7 @@ const LeftAlign = ({
     return <div>Error: {error}</div>;
   }
 
-  // if (!userDetails) {
-  //   return <div>Loading...</div>;
-  // }
+  
 
   const togglePlayback = () => {
     const audio = audioRef.current;
@@ -1948,9 +1964,22 @@ const LeftAlign = ({
         return null;
     }
   };
+  
   return (
     <>
       <div className="left-align-main-div">
+        {/* Automated Message Pop-Up */}
+      {showAutomatedMessage && userData?.automated?.text && (
+        <>
+          <div className="le-overlay"></div>
+          <div className="le-automated-message-popup">
+            <div className="le-popup-content">
+              <p>{userData.automated.text}</p>
+              <button className="le-close-btn" onClick={handleCloseMessage}>X</button>
+            </div>
+          </div>
+        </>
+      )}
         {/* Show live card preview */}
         <div
           className="padding-whole-10-l-a"

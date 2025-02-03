@@ -1,3 +1,60 @@
+/* Overlay background */
+.le-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark background with some opacity */
+  z-index: 999;
+}
+
+/* Centered Pop-Up */
+.le-automated-message-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+/* Pop-Up Content */
+.le-automated-message-popup .le-popup-content p {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Close Button */
+.le-close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.le-close-btn:hover {
+  color: red;
+}
+
+
 .main-left-container {
   /* overflow-y: scroll;
   height: 100vh;
