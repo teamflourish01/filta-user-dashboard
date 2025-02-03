@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import "./VoiceMessage.css";
 import voiceImg from "../../images/voice_image.png";
 import uplodImg from "../../images/uploadimg.png";
@@ -14,9 +14,10 @@ import { GoMute } from "react-icons/go";
 import axios from "axios";
 
 const VoiceMessage = ({ onPassToMobile }) => {
-  const { AuthorizationToken, getUserData } = useContext(userContext);
+  const { userData, AuthorizationToken, getUserData } = useContext(userContext);
   const [voiceFiles, setVoiceFiles] = useState([]); // For uploaded files
   const [audioRecords, setAudioRecords] = useState([]); // For recorded audio
+  const [audioDurations, setAudioDurations] = useState({});
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
   const [muted, setMuted] = useState(false);
@@ -50,7 +51,9 @@ const VoiceMessage = ({ onPassToMobile }) => {
         const audioFile = new File([audioBlob], "recording.wav", {
           type: "audio/wav",
         });
-        setAudioRecords((prevRecords) => [...prevRecords, audioFile]);
+        const audioUrl = URL.createObjectURL(audioBlob);
+        setAudioRecords((prevRecords) => [...prevRecords, { file: audioFile, url: audioUrl }]);
+        fetchAudioDuration(audioUrl, audioFile.name);
         audioChunksRef.current = [];
       };
 
@@ -76,7 +79,7 @@ const VoiceMessage = ({ onPassToMobile }) => {
     }
 
     const formData = new FormData();
-    const fileToUpload = voiceFiles[0] || audioRecords[0];
+    const fileToUpload = voiceFiles[0] || audioRecords[0]?.file;
     formData.append("voice", fileToUpload);
 
     try {
@@ -92,7 +95,7 @@ const VoiceMessage = ({ onPassToMobile }) => {
       setAudioRecords([]);
     } catch (error) {
       console.error("Upload Error:", error.response?.data || error.message);
-      alert(error.response?.data.message ||"Subscribe Plan");
+      alert(error.response?.data.message || "Subscribe Plan");
     }
   };
 
@@ -103,7 +106,26 @@ const VoiceMessage = ({ onPassToMobile }) => {
   };
 
   const handleDeleteAudio = (audioFile) => {
-    setAudioRecords(audioRecords.filter((audio) => audio !== audioFile));
+    setAudioRecords((prevAudioRecords) =>
+      prevAudioRecords.filter((audio) => audio.file !== audioFile)
+    );
+  };
+  const handleDeleteAudioDB = async (id) => {
+    try {
+      const response = await fetch(`${uri}/voice/deletevoice/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: AuthorizationToken,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert(`${data?.message}`);
+        getUserData();
+      }
+    } catch (error) {
+      console.error("Error Voice Deliting", error);
+    }
   };
 
   const handlePlayPause = (audioFile) => {
@@ -127,7 +149,47 @@ const VoiceMessage = ({ onPassToMobile }) => {
       setMuted(!muted); // Toggle mute state
     }
   };
+  const fetchAudioDuration = (url, id) => {
+    const audioElement = new Audio(url);
+  audioElement.preload = "metadata"; 
+  audioElement.onloadedmetadata = () => {
+    if (audioElement.duration === Infinity) {
+      
+      audioElement.currentTime = 1e101;
+      audioElement.ontimeupdate = () => {
+        audioElement.ontimeupdate = null;
+        const duration = audioElement.duration;
+        if (!isNaN(duration)) {
+          setAudioDurations((prev) => ({
+            ...prev,
+            [id]: formatDuration(duration),
+          }));
+        }
+        audioElement.currentTime = 0; 
+      };
+    } else {
+      const duration = audioElement.duration;
+      setAudioDurations((prev) => ({
+        ...prev,
+        [id]: formatDuration(duration),
+      }));
+    }
+  };
+  };
+  const formatDuration = (duration) => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    return `${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+  };
 
+  useEffect(() => {
+    if (userData?.voiceMessage?.length > 0) {
+      userData.voiceMessage.forEach((voiceMessage) => {
+        const url = `${uri}/voices/${voiceMessage.voice}`;
+        fetchAudioDuration(url, voiceMessage._id);
+      });
+    }
+  }, [userData]);
   return (
     <div className="vm-margin">
       <span className="mlt-title">Info : </span>
@@ -160,12 +222,14 @@ const VoiceMessage = ({ onPassToMobile }) => {
             <img src={uplodImg} alt="Upload icon" />
           </div>
         </div>
-
         {audioRecords.length > 0 && (
           <div className="vm-msgbox">
-            {audioRecords.map((audioFile, index) => (
+            {audioRecords.map((audioRecord, index) => (
               <div key={index} className="vm-record">
-                <div className="vm-plyimgbox" onClick={() => handlePlayPause(audioFile)}>
+                <div
+                  className="vm-plyimgbox"
+                  onClick={() => handlePlayPause(audioRecord.file)}
+                >
                   {play ? (
                     <IoMdPause style={{ color: "white" }} />
                   ) : (
@@ -176,7 +240,7 @@ const VoiceMessage = ({ onPassToMobile }) => {
                   <img src={waveImg} alt="wave-img" />
                 </div>
                 <div className="audio-time">
-                  <p>0:05</p>
+                <p>{audioDurations[audioRecord.file.name] || "0:05"}</p>
                 </div>
                 <div className="mute-unmute-audio">
                   <button onClick={handleMuteUnmute}>
@@ -184,7 +248,66 @@ const VoiceMessage = ({ onPassToMobile }) => {
                   </button>
                 </div>
                 <div className="delete-audio">
-                  <button onClick={() => handleDeleteAudio(audioFile)}>
+                  <button onClick={() => handleDeleteAudio(audioRecord.file)}>
+                    <img src={dltImg} alt="" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {userData?.voiceMessage?.length > 0 && (
+          <div className="vm-msgbox">
+            {userData.voiceMessage.map((voiceMessage, index) => (
+              <div key={index} className="vm-record">
+                <div
+                  className="vm-plyimgbox"
+                  onClick={() => {
+                    const audioUrl = `${uri}/voices/${voiceMessage.voice}`;
+                    if (audio && audio.src === audioUrl) {
+                      if (play) {
+                        audio.pause();
+                        setPlay(false);
+                      } else {
+                        audio.play();
+                        setPlay(true);
+                      }
+                    } else {
+                      if (audio) {
+                        audio.pause();
+                      }
+
+                      const newAudio = new Audio(audioUrl);
+                      setAudio(newAudio);
+                      newAudio.play();
+                      newAudio.onended = () => {
+                        setPlay(false);
+                      };
+                      setPlay(true);
+                    }
+                  }}
+                >
+                  {audio &&
+                  audio.src === `${uri}/voices/${voiceMessage.voice}` &&
+                  play ? (
+                    <IoMdPause style={{ color: "white" }} />
+                  ) : (
+                    <FaPlay style={{ color: "white" }} />
+                  )}
+                </div>
+                <div className="wave-audio-file">
+                  <img src={waveImg} alt="wave-img" />
+                </div>
+                <div className="audio-time">
+                  <p>{audioDurations[voiceMessage._id] || "0:05"}</p>
+                </div>
+                <div className="mute-unmute-audio">
+                  <button onClick={handleMuteUnmute}>
+                    {muted ? <GoMute /> : <GoUnmute />}
+                  </button>
+                </div>
+                <div className="delete-audio">
+                  <button onClick={() => handleDeleteAudioDB(voiceMessage._id)}>
                     <img src={dltImg} alt="" />
                   </button>
                 </div>
