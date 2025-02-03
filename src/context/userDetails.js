@@ -37,8 +37,7 @@ export const User = ({ children }) => {
     }
   };
 
-  const getLoginEmail = async () => {
-    if (!token) return;
+  const getLoginEmail = async () => {    
     try {
       const response = await fetch(`${url}/email/gatemailmsg`, {
         method: "GET",
