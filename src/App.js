@@ -30,6 +30,7 @@ import CenterAlign from "./ViewCard/CenterAlign/CenterAlign";
 import Portrait from "./ViewCard/Portrait/Portrait";
 import ProtectedRoute from "./Component/Protected/ProtectedRoute";
 import PageNotFound from "./Component/PageNotFound.jsx/PageNotFound";
+import ChatBot from "./Component/Chatbot/ChatBot";
 // import ParentComponent from "./Component/MyCard/parent/ParentComponent";
 
 // Layout for Authentication Pages
@@ -40,6 +41,7 @@ const AuthLayout = ({ children }) => {
 function App() {
   return (
     <Router>
+      <ChatBot/>
       <Routes>
         {/* Authentication Routes */}
         <Route
